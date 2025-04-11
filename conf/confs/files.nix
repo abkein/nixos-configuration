@@ -21,6 +21,9 @@ in
     text = ''
       #!/usr/bin/env bash
 
+      hostfile=$1
+      port=$2
+
       until ssh-add -l &> /dev/null
       do
         echo "Waiting for agent. Please unlock the database."
@@ -29,7 +32,25 @@ in
         sleep 1
       done
 
-      nc "$1" "$2"
+      host=$(cat "$hostfile" | tr -d '\n')
+
+      nc "$host" "$port"
     '';
+    # ''
+    #   #!/usr/bin/env bash
+
+    #   host=$1
+    #   port=$2
+
+    #   until ssh-add -l &> /dev/null
+    #   do
+    #     echo "Waiting for agent. Please unlock the database."
+    #     hyprctl notify 2 3000 0 "fontsize:35 Waiting for KeePassXC database unlock"
+    #     keepassxc &> /dev/null
+    #     sleep 1
+    #   done
+
+    #   nc "$host" "$port"
+    # ''
   };
 }

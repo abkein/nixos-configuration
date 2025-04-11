@@ -38,7 +38,6 @@
       modules = [
         ./configuration.nix
         agenix.nixosModules.default
-
         {
           imports = [ home-manager.nixosModules.home-manager ];
           home-manager = {
@@ -48,7 +47,6 @@
             users.kein = import ./home-manager.nix;
             extraSpecialArgs = {
               inherit inputs;
-              age = import ./age.nix { inherit lib; };
             };
           };
         }

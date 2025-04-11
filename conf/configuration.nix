@@ -2,14 +2,60 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, nix-vscode-extensions, nix4vscode, agenix, ... }:
+{ config, lib, pkgs, inputs, ... }@args:
 
-{
+rec {
   imports = [
     # Include the results of the hardware scan.
+    # home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
     # ./home-manager.nix
   ];
+
+  age = let mksec = name: {
+    ${name} = {
+      file = ./secrets/${name}.age;
+      # path = "/etc/secrets/plaintext/${name}";
+    };
+  };
+  in {
+    identityPaths = [ "/root/keys/system_key" ];
+    secrets = lib.mkMerge [
+      { }
+      (mksec "xray_generic_address")
+      (mksec "xray_generic_ID")
+      (mksec "xray_generic_ServerName")
+      (mksec "xray_yun_address")
+      (mksec "xray_yun_ID")
+      (mksec "xray_yun_ShortID")
+      # (mksec "ssh_fisher_hostname")
+      # (mksec "ssh_weasel_hostname")
+      # (mksec "ssh_yun_hostname")
+    ];
+  };
+
+  # home-manager = {
+  #   useGlobalPkgs = true;
+  #   useUserPackages = true;
+  #   backupFileExtension = "backup";
+  #   users.kein = {
+  #     imports = [ ./home-manager.nix ];
+  #   };
+  #   extraSpecialArgs = {
+  #     inherit inputs;
+  #     inherit age;
+  #   };
+  # };
+  # home-manager = {
+  #   useGlobalPkgs = true;
+  #   useUserPackages = true;
+  #   backupFileExtension = "backup";
+  #   users.kein = import ./home-manager.nix;
+  #   extraSpecialArgs = {
+  #     inherit inputs;
+  #     # age = import ./age.nix { lib = nixpkgs.lib; };
+  #   };
+  # };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -38,8 +84,6 @@
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
-
-  age = import ./age.nix { inherit lib; };
 
   services = {
     libinput = { enable = true; };
@@ -165,7 +209,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    inputs.agenix.packages.${pkgs.system}.default
+    agenix.packages.${pkgs.system}.default
 
     # system
     polkit_gnome
