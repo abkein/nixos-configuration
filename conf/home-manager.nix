@@ -19,6 +19,8 @@ let
         }";
     };
   };
+  age = config.specialArgs.age;
+  readSecret = name: builtins.readFile age.secrets.${name}.secret.path;
 in {
   imports = [
 
@@ -137,19 +139,19 @@ in {
       enable = true;
       matchBlocks = {
         "fisher" = {
-          hostname = builtins.readFile age.secrets.ssh_fisher_hostname.secret.path;
+          hostname = readSecret "ssh_fisher_hostname";
           user = "perevoshchikyy";
           port = 22;
           proxyCommand = "$HOME/execs/keepassxc_ssh_prompt %h %p";
         };
         "weasel" = {
-          hostname = builtins.readFile age.secrets.ssh_weasel_hostname.secret.path;
+          hostname = readSecret "ssh_weasel_hostname";
           user = "kein";
           port = 22;
           proxyCommand = "$HOME/execs/keepassxc_ssh_prompt %h %p";
         };
         "yun" = {
-          hostname = builtins.readFile age.secrets.ssh_yun_hostname.secret.path;
+          hostname = readSecret "ssh_yun_hostname";
           user = "kein";
           port = 22;
           proxyCommand = "$HOME/execs/keepassxc_ssh_prompt %h %p";

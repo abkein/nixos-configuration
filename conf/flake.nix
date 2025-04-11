@@ -46,7 +46,10 @@
             useUserPackages = true;
             backupFileExtension = "backup";
             users.kein = import ./home-manager.nix;
-            extraSpecialArgs = { inherit inputs; };
+            extraSpecialArgs = {
+              inherit inputs;
+              age = import ./age.nix { inherit lib; };
+            };
           };
         }
       ];
