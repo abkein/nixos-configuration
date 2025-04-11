@@ -39,7 +39,10 @@
         ./configuration.nix
         agenix.nixosModules.default
         {
-          imports = [ home-manager.nixosModules.home-manager ];
+          imports = [
+            home-manager.nixosModules.home-manager
+            agenix.nixosModules.default
+          ];
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
