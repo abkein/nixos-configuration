@@ -66,7 +66,7 @@ in {
     }
     (declare_workspace {
       name = "configuration";
-      folder = "${config.home.homeDirectory}/nixos-configuration/conf";
+      folder = "${config.home.homeDirectory}/nixos-configuration";
       settings = { "nixEnvSelector.suggestion" = false; };
     })
     (declare_workspace {
