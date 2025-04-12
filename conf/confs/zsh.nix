@@ -4,7 +4,7 @@ config: {
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    shellAliases = let flakeDir = "~/conf"; in {
+    shellAliases = let flakeDir = "~/nixos-configuration/conf"; in {
       rb = "sudo nixos-rebuild switch --flake ${flakeDir}";
       upd = "nix flake update --flake ${flakeDir}";
       upg = "sudo nixos-rebuild switch --upgrade --flake ${flakeDir}";

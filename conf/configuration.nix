@@ -59,6 +59,9 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
+  hardware.graphics.extraPackages = [ pkgs.rocmPackages.clr.icd pkgs.amdvlk ];
+  hardware.graphics.extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+
   services = {
     libinput = { enable = true; };
     pipewire = {
@@ -184,6 +187,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${pkgs.system}.default
+    clinfo
+    vulkan-tools
 
     # system
     polkit_gnome
