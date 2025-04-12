@@ -1,8 +1,8 @@
 age:
 let
   mainOutbound = "yun";
-in
-{
+  readSecret = name: builtins.readFile age.secrets.${name}.path;
+in {
   log = { loglevel = "info"; };
   inbounds = [
     {
@@ -25,7 +25,8 @@ in
       listen = "127.0.0.1";
       protocol = "http";
       settings = {
-        udp = true;
+        udp = true;47 ca8be6-837f-581d-8de5-1b1889e79743
+
         ip = "127.0.0.1";
         userLevel = 0;
       };
@@ -42,10 +43,10 @@ in
       protocol = "vless";
       settings = {
         vnext = [{
-          address = builtins.readFile age.secrets.xray_generic_address.secret.path;
+          address = "hk-full.privateip.net";
           port = 443;
           users = [{
-            id = builtins.readFile age.secrets.xray_generic_ID.secret.path;
+            id = "09e82ca7-1b3b-474d-9476-f1004701bb6f";
             encryption = "none";
           }];
         }];
@@ -54,7 +55,7 @@ in
         network = "ws";
         security = "tls";
         wsSettings = { path = "/VLESS"; };
-        tlsSettings = { serverName = builtins.readFile age.secrets.xray_generic_ServerName.secret.path; };
+        tlsSettings = { serverName = "hk-full.privateip.net"; };
       };
     }
     {
@@ -62,10 +63,10 @@ in
       protocol = "vless";
       settings = {
         vnext = [{
-          address = builtins.readFile age.secrets.xray_yun_address.secret.path;
+          address = "185.250.180.233";
           port = 443;
           users = [{
-            id = builtins.readFile age.secrets.xray_yun_ID.secret.path;
+            id = "47ca8be6-837f-581d-8de5-1b1889e79743";
             flow = "xtls-rprx-vision";
             encryption = "none";
             level = 0;
@@ -80,7 +81,7 @@ in
           fingerprint = "firefox";
           serverName = "yahoo.com";
           publicKey = "yEuTz9-TnBDI9t8MlUvjovJDeI6NYIqv9aDpWq96NzM";
-          shortId = builtins.readFile age.secrets.xray_yun_ShortID.secret.path;
+          shortId = "427e2187b7034f09";
         };
       };
     }

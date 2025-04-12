@@ -183,7 +183,7 @@ rec {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    agenix.packages.${pkgs.system}.default
+    inputs.agenix.packages.${pkgs.system}.default
 
     # system
     polkit_gnome
