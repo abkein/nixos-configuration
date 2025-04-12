@@ -2,7 +2,8 @@ age:
 let
   mainOutbound = "yun";
   readSecret = name: builtins.readFile age.secrets.${name}.path;
-in {
+in
+{
   log = { loglevel = "info"; };
   inbounds = [
     {
@@ -25,8 +26,7 @@ in {
       listen = "127.0.0.1";
       protocol = "http";
       settings = {
-        udp = true;47 ca8be6-837f-581d-8de5-1b1889e79743
-
+        udp = true;
         ip = "127.0.0.1";
         userLevel = 0;
       };
