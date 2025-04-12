@@ -41,7 +41,6 @@
         {
           imports = [
             home-manager.nixosModules.home-manager
-            agenix.nixosModules.default
           ];
           home-manager = {
             useGlobalPkgs = true;

@@ -7,15 +7,12 @@
 rec {
   imports = [
     # Include the results of the hardware scan.
-    # home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
-    # ./home-manager.nix
   ];
 
   age = let mksec = name: {
     ${name} = {
       file = ./secrets/${name}.age;
-      # path = "/etc/secrets/plaintext/${name}";
     };
   };
   in {
@@ -34,34 +31,11 @@ rec {
     ];
   };
 
-  # home-manager = {
-  #   useGlobalPkgs = true;
-  #   useUserPackages = true;
-  #   backupFileExtension = "backup";
-  #   users.kein = {
-  #     imports = [ ./home-manager.nix ];
-  #   };
-  #   extraSpecialArgs = {
-  #     inherit inputs;
-  #     inherit age;
-  #   };
-  # };
-  # home-manager = {
-  #   useGlobalPkgs = true;
-  #   useUserPackages = true;
-  #   backupFileExtension = "backup";
-  #   users.kein = import ./home-manager.nix;
-  #   extraSpecialArgs = {
-  #     inherit inputs;
-  #     # age = import ./age.nix { lib = nixpkgs.lib; };
-  #   };
-  # };
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "jeta"; # Define your hostname.
+  networking.hostName = "jeta";
   networking.networkmanager = {
     enable = true;
     wifi = {

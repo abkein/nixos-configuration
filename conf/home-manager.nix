@@ -19,24 +19,12 @@ let
         }";
     };
   };
-  # readSecret = name: builtins.readFile age.secrets.${name}.path;
 in {
   imports = [
 
   ];
 
   wayland.windowManager.hyprland = import ./confs/hyprland.nix;
-
-  age = let mksec = name: { ${name} = { file = ./secrets/${name}.age; }; };
-  in {
-    identityPaths = [ "/root/keys/user_key" ];
-    secrets = lib.mkMerge [
-      { }
-      (mksec "ssh_fisher_hostname")
-      (mksec "ssh_weasel_hostname")
-      (mksec "ssh_yun_hostname")
-    ];
-  };
 
   xdg = lib.mkMerge [
     {
@@ -149,29 +137,29 @@ in {
     ssh = {
       enable = true;
       # $HOME/execs/keepassxc_ssh_prompt %h %p
-      matchBlocks = {
-        "fisher" = {
-          hostname = "ssh_fisher_hostname";
-          user = "perevoshchikyy";
-          port = 22;
-          proxyCommand =
-            "$HOME/execs/keepassxc_ssh_prompt %${config.age.secrets.ssh_fisher_hostname.path} %p";
-        };
-        "weasel" = {
-          hostname = "ssh_weasel_hostname";
-          user = "kein";
-          port = 22;
-          proxyCommand =
-            "$HOME/execs/keepassxc_ssh_prompt %${config.age.secrets.ssh_weasel_hostname.path} %p";
-        };
-        "yun" = {
-          hostname = "ssh_yun_hostname";
-          user = "kein";
-          port = 22;
-          proxyCommand =
-            "$HOME/execs/keepassxc_ssh_prompt %${config.age.secrets.ssh_yun_hostname.path} %p";
-        };
-      };
+      # matchBlocks = {
+      #   "fisher" = {
+      #     hostname = "ssh_fisher_hostname";
+      #     user = "perevoshchikyy";
+      #     port = 22;
+      #     proxyCommand =
+      #       "$HOME/execs/keepassxc_ssh_prompt %${config.age.secrets.ssh_fisher_hostname.path} %p";
+      #   };
+      #   "weasel" = {
+      #     hostname = "ssh_weasel_hostname";
+      #     user = "kein";
+      #     port = 22;
+      #     proxyCommand =
+      #       "$HOME/execs/keepassxc_ssh_prompt %${config.age.secrets.ssh_weasel_hostname.path} %p";
+      #   };
+      #   "yun" = {
+      #     hostname = "ssh_yun_hostname";
+      #     user = "kein";
+      #     port = 22;
+      #     proxyCommand =
+      #       "$HOME/execs/keepassxc_ssh_prompt %${config.age.secrets.ssh_yun_hostname.path} %p";
+      #   };
+      # };
     };
     gpg.enable = true;
     git = {
