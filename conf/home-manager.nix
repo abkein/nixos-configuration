@@ -137,29 +137,26 @@ in {
     ssh = {
       enable = true;
       # $HOME/execs/keepassxc_ssh_prompt %h %p
-      # matchBlocks = {
-      #   "fisher" = {
-      #     hostname = "ssh_fisher_hostname";
-      #     user = "perevoshchikyy";
-      #     port = 22;
-      #     proxyCommand =
-      #       "$HOME/execs/keepassxc_ssh_prompt %${config.age.secrets.ssh_fisher_hostname.path} %p";
-      #   };
-      #   "weasel" = {
-      #     hostname = "ssh_weasel_hostname";
-      #     user = "kein";
-      #     port = 22;
-      #     proxyCommand =
-      #       "$HOME/execs/keepassxc_ssh_prompt %${config.age.secrets.ssh_weasel_hostname.path} %p";
-      #   };
-      #   "yun" = {
-      #     hostname = "ssh_yun_hostname";
-      #     user = "kein";
-      #     port = 22;
-      #     proxyCommand =
-      #       "$HOME/execs/keepassxc_ssh_prompt %${config.age.secrets.ssh_yun_hostname.path} %p";
-      #   };
-      # };
+      matchBlocks = {
+        "fisher" = {
+          hostname = "fisher.jiht.ru";
+          user = "perevoshchikyy";
+          port = 22;
+          proxyCommand = "$HOME/execs/keepassxc_ssh_prompt %h %p";
+        };
+        "weasel" = {
+          hostname = "89.169.15.114";
+          user = "kein";
+          port = 22;
+          proxyCommand = "$HOME/execs/keepassxc_ssh_prompt %h %p";
+        };
+        "yun" = {
+          hostname = "185.250.180.233";
+          user = "kein";
+          port = 22;
+          proxyCommand = "$HOME/execs/keepassxc_ssh_prompt %h %p";
+        };
+      };
     };
     gpg.enable = true;
     git = {
