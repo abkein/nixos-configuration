@@ -189,6 +189,7 @@
     inputs.agenix.packages.${pkgs.system}.default
     clinfo
     vulkan-tools
+    quickemu
 
     # system
     polkit_gnome
@@ -295,6 +296,13 @@
     # inputs.nix-vscode-extensions.overlays.default
     inputs.nix4vscode.overlays.forVscode
   ];
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    persistent = true;
+    randomizedDelaySec = "1m";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
