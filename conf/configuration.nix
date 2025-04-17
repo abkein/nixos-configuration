@@ -190,6 +190,7 @@
     clinfo
     vulkan-tools
     quickemu
+    p7zip
 
     # system
     polkit_gnome
