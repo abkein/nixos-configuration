@@ -190,7 +190,8 @@
     clinfo
     vulkan-tools
     quickemu
-    p7zip
+    p7zip # 7z
+    cdrtools # mkisofs
 
     # system
     polkit_gnome
