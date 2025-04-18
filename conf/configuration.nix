@@ -192,6 +192,8 @@
     quickemu
     p7zip # 7z
     cdrtools # mkisofs
+    adwaita-qt
+    adwaita-qt6
 
     # system
     polkit_gnome
