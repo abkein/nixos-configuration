@@ -185,84 +185,87 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    inputs.agenix.packages.${pkgs.system}.default
-    clinfo
-    vulkan-tools
-    quickemu
-    p7zip # 7z
-    cdrtools # mkisofs
-    adwaita-qt
-    adwaita-qt6
-    libsForQt5.qt5ct
-    kdePackages.qt6ct
+  environment = {
+    variables.QT_QPA_PLATFORMTHEME = "qt5ct";
+    systemPackages = with pkgs; [
+      inputs.agenix.packages.${pkgs.system}.default
+      clinfo
+      vulkan-tools
+      quickemu
+      p7zip # 7z
+      cdrtools # mkisofs
+      adwaita-qt
+      adwaita-qt6
+      libsForQt5.qt5ct
+      kdePackages.qt6ct
 
 
-    # system
-    polkit_gnome
-    wlr-randr
-    ydotool
-    wl-clipboard
-    hyprland-protocols
-    xdg-desktop-portal
-    xdg-desktop-portal-hyprland
-    xdg-desktop-portal-gtk
-    xdg-utils
-    hyprland-workspaces
-    hyprland-activewindow
+      # system
+      polkit_gnome
+      wlr-randr
+      ydotool
+      wl-clipboard
+      hyprland-protocols
+      xdg-desktop-portal
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+      xdg-utils
+      hyprland-workspaces
+      hyprland-activewindow
 
-    # utilities
-    nix-tree
-    dunst
-    cliphist
-    wev
-    slurp
-    grim
-    grimblast
-    waybar
-    killall
-    wget
-    kitty
-    file
-    pinentry-all
-    networkmanager_dmenu
-    networkmanagerapplet
-    qpwgraph
-    zotero
-    speedtest-cli
-    iperf
-    tor-browser
-    direnv
-    libnotify
+      # utilities
+      nix-tree
+      dunst
+      cliphist
+      wev
+      slurp
+      grim
+      grimblast
+      waybar
+      killall
+      wget
+      kitty
+      file
+      pinentry-all
+      networkmanager_dmenu
+      networkmanagerapplet
+      qpwgraph
+      zotero
+      speedtest-cli
+      iperf
+      tor-browser
+      direnv
+      libnotify
 
-    # code
-    vim
-    git
-    # nixfmt-rfc-style
-    nixfmt-classic
+      # code
+      vim
+      git
+      # nixfmt-rfc-style
+      nixfmt-classic
 
-    # text
-    libreoffice-fresh
-    xed-editor
-    obsidian
-    aider-chat
+      # text
+      libreoffice-fresh
+      xed-editor
+      obsidian
+      aider-chat
 
-    # security
-    keepassxc
-    onlykey
-    yubikey-manager
-    yubioath-flutter
-    yubikey-personalization
-    yubikey-personalization-gui
-    opensc
+      # security
+      keepassxc
+      onlykey
+      yubikey-manager
+      yubioath-flutter
+      yubikey-personalization
+      yubikey-personalization-gui
+      opensc
 
-    # image/audio/video
-    vlc
-    gimp
-    inkscape
-    swayimg
+      # image/audio/video
+      vlc
+      gimp
+      inkscape
+      swayimg
 
-  ];
+    ];
+  };
 
   fonts = {
     enableDefaultPackages = true;
