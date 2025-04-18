@@ -194,6 +194,9 @@
     cdrtools # mkisofs
     adwaita-qt
     adwaita-qt6
+    libsForQt5.qt5ct
+    kdePackages.qt6ct
+
 
     # system
     polkit_gnome
