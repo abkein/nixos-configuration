@@ -199,6 +199,7 @@
       libsForQt5.qt5ct
       kdePackages.qt6ct
       file-roller
+      nix-prefetch-github
 
 
       # system
@@ -306,6 +307,7 @@
   nixpkgs.overlays = [
     # inputs.nix-vscode-extensions.overlays.default
     inputs.nix4vscode.overlays.forVscode
+    (import ./spacefm-fork.nix)
   ];
 
   nix.gc = {
