@@ -200,6 +200,7 @@
       kdePackages.qt6ct
       file-roller
       nix-prefetch-github
+      spacefm
 
 
       # system
