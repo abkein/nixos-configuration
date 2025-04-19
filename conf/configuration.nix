@@ -185,7 +185,11 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment = {
+  environment =
+  let
+    spacefm-thermitegod = pkgs.callPackage ./spacefm-package.nix { };
+  in
+  {
     variables.QT_QPA_PLATFORMTHEME = "qt5ct";
     systemPackages = with pkgs; [
       inputs.agenix.packages.${pkgs.system}.default
@@ -200,8 +204,7 @@
       kdePackages.qt6ct
       file-roller
       nix-prefetch-github
-      spacefm
-
+      spacefm-thermitegod
 
       # system
       polkit_gnome
@@ -308,7 +311,7 @@
   nixpkgs.overlays = [
     # inputs.nix-vscode-extensions.overlays.default
     inputs.nix4vscode.overlays.forVscode
-    (import ./spacefm-fork.nix)
+    # (import ./spacefm-fork.nix)
   ];
 
   nix.gc = {
