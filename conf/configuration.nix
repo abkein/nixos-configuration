@@ -8,6 +8,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    inputs.nur.modules.nixos.default
   ];
 
   # age = let mksec = name: {
@@ -186,9 +187,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment =
-  let
-    spacefm-thermitegod = pkgs.callPackage ./spacefm-package.nix { };
-  in
+  # let
+  #   spacefm-thermitegod = pkgs.callPackage ./spacefm-package.nix { };
+  # in
   {
     variables.QT_QPA_PLATFORMTHEME = "qt5ct";
     systemPackages = with pkgs; [
@@ -204,7 +205,7 @@
       kdePackages.qt6ct
       file-roller
       nix-prefetch-github
-      spacefm-thermitegod
+      # spacefm-thermitegod
 
       # system
       polkit_gnome
