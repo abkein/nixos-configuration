@@ -205,6 +205,8 @@
       kdePackages.qt6ct
       file-roller
       nix-prefetch-github
+      xdot
+      graphviz
       # spacefm-thermitegod
 
       # system
