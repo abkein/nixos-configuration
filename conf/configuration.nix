@@ -207,6 +207,7 @@
       nix-prefetch-github
       xdot
       graphviz
+      swappy
       # spacefm-thermitegod
 
       # system
