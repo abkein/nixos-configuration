@@ -6,22 +6,13 @@
   , ninja
   , pkg-config
   , cmake
-  # , gtk2
-  # , xxHash
-  # , libbsd
   , udev
-  # , ffmpegthumbnailer
   , botan3
   , libsigcxx30
   , pugixml
   , gtkmm3
   , gtkmm4
-# , desktop-file-utils
-# , shared-mime-info
-# , wrapGAppsHook3
-# , jmtpfs
-# , lsof
-# , udisks2
+  , xfce
 }:
 
 stdenv.mkDerivation rec {
@@ -33,7 +24,7 @@ stdenv.mkDerivation rec {
     repo = "spacefm";
     rev = "40a7cc54e5429bd911a0dd134682962f6b03f2a6";
     sha256 = "sha256-pB+ox15dI9mcQWM/9WFmlYMOnSD9g3x9rCcXgw+aOls=";
-    fetchSubmodules = true; # Required for git submodules
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = [
@@ -44,23 +35,14 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    # gtk2
-    # xxHash
-    # libbsd
     udev
-    # ffmpegthumbnailer
     botan3
     libsigcxx30
     pugixml
     gtkmm3
     gtkmm4
-
-    # desktop-file-utils
-    # shared-mime-info
-    # wrapGAppsHook3
-    # jmtpfs
-    # lsof
-    # udisks2
+    xfce.exo
+    xfce.libxfce4util
   ];
 
   patchPhase = ''
@@ -74,31 +56,13 @@ stdenv.mkDerivation rec {
       --replace "find_library('libm'" "find_library('m'"
   '';
 
-  # env = {
-  #   LIBBSD_CFLAGS = "-I${libbsd.dev}/include";
-  #   LIBBSD_LIBS = "-L${libbsd}/lib -lbsd";
-  # };
-  # shellHook = ''
-  #   export LIBRARY_PATH=${libbsd}/lib:$LIBRARY_PATH
-  #   export LD_LIBRARY_PATH=${libbsd}/lib:$LD_LIBRARY_PATH
-  # '';
   NIX_CFLAGS_COMPILE = "-Wno-incompatible-pointer-types -Wno-int-conversion";
-
-  postInstall = ''
-    rm -f $out/etc/spacefm/spacefm.conf
-    ln -s /etc/spacefm/spacefm.conf $out/etc/spacefm/spacefm.conf
-  '';
-
 
   mesonFlags = [
     "--buildtype=release"
     "--prefix=${placeholder "out"}"
     "--sysconfdir=${placeholder "out"}/etc"
   ];
-
-  # installPhase = ''
-  #   ninja -C _build install
-  # '';
 
   meta = with lib; {
     description = "SpaceFM file manager";

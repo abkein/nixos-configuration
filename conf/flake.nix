@@ -43,6 +43,7 @@
       modules = [
         ./configuration.nix
         agenix.nixosModules.default
+        nur.modules.nixos.default
         {
           imports = [
             home-manager.nixosModules.home-manager

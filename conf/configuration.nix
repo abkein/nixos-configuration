@@ -8,7 +8,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    inputs.nur.modules.nixos.default
+    # inputs.nur.modules.nixos.default
   ];
 
   # age = let mksec = name: {
@@ -312,6 +312,7 @@
   nixpkgs.overlays = [
     # inputs.nix-vscode-extensions.overlays.default
     inputs.nix4vscode.overlays.forVscode
+    inputs.nur.overlay
     # (import ./spacefm-fork.nix)
   ];
 
