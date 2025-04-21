@@ -242,7 +242,7 @@
       # Actions
       "Super, Period, exec, pkill fuzzel || ~/.local/bin/fuzzel-emoji"
       "Super, Q, killactive,"
-      "Super+Alt, Space, togglefloating,"
+      # "Super+Alt, Space, togglefloating,"
       "Shift+Super+Alt, Q, exec, hyprctl kill"
       "Control+Shift+Alt, Delete, exec, pkill wlogout || wlogout -p layer-shell"
       "Control+Shift+Alt+Super, Delete, exec, systemctl poweroff || loginctl poweroff"
