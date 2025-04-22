@@ -172,6 +172,6 @@ in {
         key = "1CFA 42F3 97BC 8A6E 2222  BC2E 40AE 43A9 E44D 11FD";
       };
     };
-    git-credential-oauth = { enable = true; };
+    git-credential-oauth = { enable = false; };
   };
 }
