@@ -274,6 +274,7 @@
       inkscape
       swayimg
 
+      texliveFull
     ];
   };
 
@@ -281,6 +282,7 @@
     enableDefaultPackages = true;
     packages = with pkgs;
       [
+        lmodern
         jetbrains-mono
         noto-fonts
         noto-fonts-color-emoji
