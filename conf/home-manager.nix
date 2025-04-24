@@ -174,4 +174,26 @@ in {
     };
     git-credential-oauth = { enable = false; };
   };
+
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+    theme = {
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
+    };
+  };
+
+  qt = {
+    enable = true;
+    style = {
+      name = "adwaita-dark";
+    };
+    platformTheme = {
+      name = "gtk3";
+    };
+  };
 }
