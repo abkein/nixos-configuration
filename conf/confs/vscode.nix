@@ -342,6 +342,7 @@ in
           "jsdelivr.com"
           "unpkg.com"
       ];
+      "jupyter.logging.level" = "trace";
 
       "insertDateString.format"= "DD-MM-YYYY hh=mm=ss";
       "insertDateString.formatDate"= "DD-MM-YYYY";
