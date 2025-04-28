@@ -226,7 +226,6 @@
       "Super, P, togglefloating,"
       # ################################### Applications ###################################
       # Apps: just normal apps
-      # "Super, C, exec, code --password-store=gnome-libsecret --enable-features=UseOzonePlatform --ozone-platform=wayland"
       "Super, C, exec, ~/execs/open_vscode_workspaces"
       "Super, T, exec, kitty"
       # "Super, E, exec, hyprctl dispatch exit"
@@ -240,7 +239,7 @@
       "Control+Super+Shift, V, exec, easyeffects"
       "Control+Shift, Escape, exec, gnome-system-monitor"
       # Actions
-      "Super, Period, exec, pkill fuzzel || ~/.local/bin/fuzzel-emoji"
+      # "Super, Period, exec, pkill fuzzel || ~/.local/bin/fuzzel-emoji"
       "Super, Q, killactive,"
       # "Super+Alt, Space, togglefloating,"
       "Shift+Super+Alt, Q, exec, hyprctl kill"
@@ -248,13 +247,15 @@
       "Control+Shift+Alt+Super, Delete, exec, systemctl poweroff || loginctl poweroff"
       # Screenshot, Record, OCR, Color picker, Clipboard history
       #screenshot
+      ",Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
+      "Super, S, exec, grimblast --freeze --notify --openfile copysave area"
       "Super+Shift, S, exec, grim -g \"$(slurp)\" - | swappy -f -"
       "Super+Shift+Ctrl, S, exec, ~/.config/ags/scripts/grimblast.sh --freeze copy screen"
       "Super+Alt, R, exec, ~/.config/ags/scripts/record-script.sh"
       "Control+Alt, R, exec, ~/.config/ags/scripts/record-script.sh --fullscreen"
       "Super+Shift+Alt, R, exec, ~/.config/ags/scripts/record-script.sh --fullscreen-sound"
       "Super+Shift, C, exec, hyprpicker -a"
-      "Super, V, exec, pkill fuzzel || cliphist list | fuzzel --no-fuzzy --dmenu | cliphist decode | wl-copy"
+      # "Super, V, exec, pkill fuzzel || cliphist list | fuzzel --no-fuzzy --dmenu | cliphist decode | wl-copy"
       # Text-to-image
       # Normal
       "Control+Super+Shift,S,exec,grim -g \"$(slurp $SLURP_ARGS)\" \"tmp.png\" && tesseract \"tmp.png\" - | wl-copy && rm \"tmp.png\""
@@ -273,7 +274,6 @@
       # ##################################### AGS keybinds #####################################
       "Control+Super, T, exec, ~/.config/ags/scripts/color_generation/switchwall.sh"
       "Control+Alt, Slash, exec, ags run-js 'cycleMode();'"
-      # ##################################### AGS keybinds #####################################
       "Super, Tab, exec, ags -t 'overview'"
       "Super, Slash, exec, for ((i=0; i<$(xrandr --listmonitors | grep -c 'Monitor'); i++)); do ags -t \"cheatsheet\"\"$i\"; done"
       "Super, B, exec, ags -t 'sideleft'"
@@ -379,7 +379,7 @@
       "Super+Shift,M, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%"
       # Screenshot, Record, OCR, Color picker, Clipboard history
       #screenshot
-      ",Print,exec,grim - | wl-copy"
+      "Super,Print,exec,grim - | wl-copy"
       # Media
       "Super+Shift, N, exec, playerctl next || playerctl position `bc <<< \"100 * $(playerctl metadata mpris:length) / 1000000 / 100\"`"
       ",XF86AudioNext, exec, playerctl next || playerctl position `bc <<< \"100 * $(playerctl metadata mpris:length) / 1000000 / 100\"`"
