@@ -21,15 +21,15 @@
 
     env = [
       "QT_QPA_PLATFORM, wayland"
-      "QT_IM_MODULE, fcitx"
-      "XMODIFIERS, @im=fcitx"
-      "SDL_IM_MODULE, fcitx"
+      # "QT_IM_MODULE, fcitx"
+      # "XMODIFIERS, @im=fcitx"
+      # "SDL_IM_MODULE, fcitx"
+      # "INPUT_METHOD, fcitx"
       "GLFW_IM_MODULE, ibus"
-      "INPUT_METHOD, fcitx"
       "XDG_CURRENT_DESKTOP,Hyprland"
       "XDG_SESSION_TYPE,wayland"
       "XDG_SESSION_DESKTOP,Hyprland"
-      "XDG_SCREENSHOTS_DIR,~/screens"
+      # "XDG_SCREENSHOTS_DIR,~/screens"
     ];
 
     debug = {
@@ -439,6 +439,7 @@
     windowrulev2 = [
       "bordercolor rgba(ffabf1AA) rgba(ffabf177),pinned:1"
       # ######## Window rules ########
+      "float, class:com.ayugram"
       "float, title:Password Required - Betterbird"
       "float, title:Progress"
       "float, title:Plugins Manager"
