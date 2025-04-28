@@ -249,11 +249,12 @@
       #screenshot
       ",Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
       "Super, S, exec, grimblast --freeze --notify --openfile copysave area"
-      "Super+Shift, S, exec, grim -g \"$(slurp)\" - | swappy -f -"
-      "Super+Shift+Ctrl, S, exec, ~/.config/ags/scripts/grimblast.sh --freeze copy screen"
-      "Super+Alt, R, exec, ~/.config/ags/scripts/record-script.sh"
-      "Control+Alt, R, exec, ~/.config/ags/scripts/record-script.sh --fullscreen"
-      "Super+Shift+Alt, R, exec, ~/.config/ags/scripts/record-script.sh --fullscreen-sound"
+      "Super+Shift, S, exec, grimblast --freeze --notify --openfile copysave output"
+      # "Super+Shift+Ctrl, S, exec, ~/.config/ags/scripts/grimblast.sh --freeze copy screen"
+      "Super, R, exec, ~/execs/record-script.sh"
+      "Super+Shift, R, exec, ~/execs/record-script.sh --sound"
+      "Super+Shift+Ctrl, R, exec, ~/execs/record-script.sh --fullscreen"
+      "Super+Shift+Alt, R, exec, ~/execs/record-script.sh --fullscreen-sound"
       "Super+Shift, C, exec, hyprpicker -a"
       # "Super, V, exec, pkill fuzzel || cliphist list | fuzzel --no-fuzzy --dmenu | cliphist decode | wl-copy"
       # Text-to-image
