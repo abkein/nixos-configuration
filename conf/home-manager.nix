@@ -24,7 +24,7 @@ in {
 
   ];
 
-  wayland.windowManager.hyprland = import ./confs/hyprland.nix;
+  wayland.windowManager.hyprland = import ./home-modules/hyprland.nix;
 
   xdg = lib.mkMerge [
     {
@@ -103,7 +103,7 @@ in {
       imagemagickBig
       poppler_utils
     ];
-    file = import ./confs/files.nix;
+    file = import ./home-modules/files.nix;
     sessionVariables = {
       XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
     };
@@ -111,6 +111,7 @@ in {
 
   systemd.user.tmpfiles.rules = [
     "d ${config.home.homeDirectory}/.gnupg 0700 ${config.home.username} users - -"
+    "d ${config.home.homeDirectory}/.ssh 0700 ${config.home.username} users - -"
   ];
 
   services = {
@@ -126,19 +127,19 @@ in {
     dunst = {
       enable = true;
       configFile = "${config.xdg.configHome}/dunst/dunstrc";
-      settings = import ./confs/dunst.nix;
+      settings = import ./home-modules/dunst.nix;
     };
   };
 
   programs = {
     bash.enable = true;
-    vscode = import ./confs/vscode.nix {
+    vscode = import ./home-modules/vscode.nix {
       pkgs = pkgs;
       lib = lib;
     };
-    zsh = import ./confs/zsh.nix { inherit config; };
-    waybar = import ./confs/waybar.nix;
-    wofi = import ./confs/wofi.nix;
+    zsh = import ./home-modules/zsh.nix { inherit config; };
+    waybar = import ./home-modules/waybar.nix;
+    wofi = import ./home-modules/wofi.nix;
     firefox = { enable = true; };
     java.enable = true;
     ssh = {

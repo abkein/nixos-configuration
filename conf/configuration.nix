@@ -91,7 +91,7 @@
     gvfs.enable = true;
     xray = {
       enable = true;
-      settings = import ./confs/xray.nix config.age;
+      settings = import ./system-modules/xray.nix config.age;
     };
     locate = {
       enable = true;
@@ -109,7 +109,7 @@
     };
     zsh.enable = true;
     ssh = { startAgent = true; };
-    proxychains = import ./confs/proxychains.nix pkgs;
+    proxychains = import ./system-modules/proxychains.nix pkgs;
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [
@@ -119,7 +119,7 @@
       ];
     };
     evince.enable = true;
-    firefox = import confs/firefox.nix {
+    firefox = import ./system-modules/firefox.nix {
       pkgs = pkgs;
       lib = lib;
     };
