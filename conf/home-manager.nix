@@ -104,6 +104,9 @@ in {
       poppler_utils
     ];
     file = import ./confs/files.nix;
+    sessionVariables = {
+      XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
+    };
   };
 
   systemd.user.tmpfiles.rules = [
