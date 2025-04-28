@@ -53,7 +53,7 @@ in
     #   nc "$host" "$port"
     # ''
   };
-  record-script = {
+  record-script = generic // {
     target = "./execs/record-script.sh";
     text = ''
       #!/usr/bin/env bash
