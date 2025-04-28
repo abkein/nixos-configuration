@@ -208,6 +208,8 @@
       xdot
       graphviz
       swappy
+      wf-recorder
+      pulseaudio
       # spacefm-thermitegod
 
       # system
@@ -220,6 +222,10 @@
       xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
       xdg-utils
+      xdg-user-dirs
+      xdg-ninja
+      xdg-launch
+      xdg-terminal-exec
       hyprland-workspaces
       hyprland-activewindow
 
