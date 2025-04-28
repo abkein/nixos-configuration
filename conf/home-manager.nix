@@ -40,7 +40,7 @@ in {
         createDirectories = true;
       };
 
-      configFile = import ./home-modules/configFiles;
+      configFile = import ./home-modules/configFiles.nix;
 
       desktopEntries."CodeWSpaceSelector" = {
         name = "Space Selector";
