@@ -270,29 +270,30 @@
       # Lock screen
       "Super, L, exec, loginctl lock-session && hyprlock"
       "Super+Shift, L, exec, loginctl lock-session && hyprlock"
+
       # App launcher
       "Control+Super, Slash, exec, pkill anyrun || anyrun"
       # ##################################### AGS keybinds #####################################
-      "Control+Super, T, exec, ~/.config/ags/scripts/color_generation/switchwall.sh"
-      "Control+Alt, Slash, exec, ags run-js 'cycleMode();'"
-      "Super, Tab, exec, ags -t 'overview'"
-      "Super, Slash, exec, for ((i=0; i<$(xrandr --listmonitors | grep -c 'Monitor'); i++)); do ags -t \"cheatsheet\"\"$i\"; done"
-      "Super, B, exec, ags -t 'sideleft'"
-      "Super, A, exec, ags -t 'sideleft'"
-      "Super, O, exec, ags -t 'sideleft'"
-      "Super, N, exec, ags -t 'sideright'"
-      "Super, M, exec, ags run-js 'openMusicControls.value = (!mpris.getPlayer() ? false : !openMusicControls.value);'"
-      "Super, Comma, exec, ags run-js 'openColorScheme.value = true; Utils.timeout(2000, () => openColorScheme.value = false);'"
-      "Super, K, exec, for ((i=0; i<$(xrandr --listmonitors | grep -c 'Monitor'); i++)); do ags -t \"osk\"\"$i\"; done"
-      "Control+Alt, Delete, exec, ags -t 'session'"
+      # "Control+Super, T, exec, ~/.config/ags/scripts/color_generation/switchwall.sh"
+      # "Control+Alt, Slash, exec, ags run-js 'cycleMode();'"
+      # "Super, Tab, exec, ags -t 'overview'"
+      # "Super, Slash, exec, for ((i=0; i<$(xrandr --listmonitors | grep -c 'Monitor'); i++)); do ags -t \"cheatsheet\"\"$i\"; done"
+      # "Super, B, exec, ags -t 'sideleft'"
+      # "Super, A, exec, ags -t 'sideleft'"
+      # "Super, O, exec, ags -t 'sideleft'"
+      # "Super, N, exec, ags -t 'sideright'"
+      # "Super, M, exec, ags run-js 'openMusicControls.value = (!mpris.getPlayer() ? false : !openMusicControls.value);'"
+      # "Super, Comma, exec, ags run-js 'openColorScheme.value = true; Utils.timeout(2000, () => openColorScheme.value = false);'"
+      # "Super, K, exec, for ((i=0; i<$(xrandr --listmonitors | grep -c 'Monitor'); i++)); do ags -t \"osk\"\"$i\"; done"
+      # "Control+Alt, Delete, exec, ags -t 'session'"
       # ##################################### Plugins #########################################
-      "Control+Super, P, exec, hyprctl plugin load \"~/.config/hypr/plugins/droidbars.so\""
-      "Control+Super, O, exec, hyprctl plugin unload \"~/.config/hypr/plugins/droidbars.so\""
+      # "Control+Super, P, exec, hyprctl plugin load \"~/.config/hypr/plugins/droidbars.so\""
+      # "Control+Super, O, exec, hyprctl plugin unload \"~/.config/hypr/plugins/droidbars.so\""
       # Testing
       # "SuperAlt, f12, exec, notify-send "Hyprland version: $(hyprctl version | head -2 | tail -1 | cut -f2 -d ' ')" "owo" -a 'Hyprland keybind'"
       # "Super+Alt, f12, exec, notify-send "Millis since epoch" "$(date +%s%N | cut -b1-13)" -a 'Hyprland keybind'"
-      "Super+Alt, f12, exec, notify-send 'Test notification' \"Here's a really long message to test truncation and wrapping\\nYou can middle click or flick this notification to dismiss it!\" -a 'Shell' -A \"Test1=I got it!\" -A \"Test2=Another action\" -t 5000"
-      "Super+Alt, Equal, exec, notify-send \"Urgent notification\" \"Ah hell no\" -u critical -a 'Hyprland keybind'"
+      # "Super+Alt, f12, exec, notify-send 'Test notification' \"Here's a really long message to test truncation and wrapping\\nYou can middle click or flick this notification to dismiss it!\" -a 'Shell' -A \"Test1=I got it!\" -A \"Test2=Another action\" -t 5000"
+      # "Super+Alt, Equal, exec, notify-send \"Urgent notification\" \"Ah hell no\" -u critical -a 'Hyprland keybind'"
       # ########################### Keybinds for Hyprland ############################
       # Swap windows
       "Super+Shift, left, movewindow, l"
@@ -387,11 +388,11 @@
       "Super+Shift, B, exec, playerctl previous"
       "Super+Shift, P, exec, playerctl play-pause"
       ",XF86AudioPlay, exec, playerctl play-pause"
-      # Lock screen
+      # Lockscreen
       "Super+Shift, L, exec, sleep 0.1 && systemctl suspend || loginctl suspend"
       # ##################################### AGS keybinds #####################################
-      ", XF86AudioMute, exec, ags run-js 'indicator.popup(1);'"
-      "Super+Shift,M,   exec, ags run-js 'indicator.popup(1);'"
+      # ", XF86AudioMute, exec, ags run-js 'indicator.popup(1);'"
+      # "Super+Shift,M,   exec, ags run-js 'indicator.popup(1);'"
     ];
 
     bindle = [
