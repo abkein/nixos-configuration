@@ -35,9 +35,14 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    anyrun = {
+      url = "github:anyrun-org/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ayugram-desktop, nix-vscode-extensions, nix4vscode, agenix, nur, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ayugram-desktop, nix-vscode-extensions, nix4vscode, agenix, nur, anyrun, ... }@inputs: {
     nixosConfigurations.jeta = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [

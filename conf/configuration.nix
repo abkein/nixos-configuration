@@ -318,20 +318,34 @@
     };
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [
-    # inputs.nix-vscode-extensions.overlays.default
-    inputs.nix4vscode.overlays.forVscode
-    inputs.nur.overlays.default
-    # (import ./spacefm-fork.nix)
-  ];
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      # inputs.nix-vscode-extensions.overlays.default
+      inputs.nix4vscode.overlays.forVscode
+      inputs.nur.overlays.default
+      # (import ./spacefm-fork.nix)
+    ];
+  };
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    persistent = true;
-    randomizedDelaySec = "1m";
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      persistent = true;
+      randomizedDelaySec = "1m";
+    };
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      builders-use-substitutes = true;
+      extra-substituters = [
+          "https://anyrun.cachix.org"
+      ];
+
+      extra-trusted-public-keys = [
+          "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+      ];
+    };
   };
 
   # Some programs need SUID wrappers, can be configured further or are

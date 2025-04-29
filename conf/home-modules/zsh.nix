@@ -6,7 +6,7 @@ config: {
 
     shellAliases = let flakeDir = "~/nixos-configuration/conf"; in {
       rb = "sudo nixos-rebuild switch --flake ${flakeDir}";
-      upd = "nix flake update --flake ${flakeDir}";
+      upd = "sudo nix flake update --flake ${flakeDir}";
       upg = "sudo nixos-rebuild switch --upgrade --flake ${flakeDir}";
 
       dg = "sudo nix-env --delete-generations +3 --profile /nix/var/nix/profiles/system";
