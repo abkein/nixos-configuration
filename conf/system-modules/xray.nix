@@ -125,9 +125,9 @@ in
         type = "field";
         domain = [
           "domain:ru"
+          "domain:su"
           "geosite:google"
           "geosite:telegram"
-          "domain:izhavia.su"
         ];
         inboundTag = [ "inbound_main" "httpproxy" ];
         outboundTag = "direct";
