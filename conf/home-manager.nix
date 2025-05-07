@@ -75,6 +75,14 @@ in {
         "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
       };
     })
+    (declare_workspace {
+      name = "LAMMPS";
+      folder = "${config.home.homeDirectory}/repos/mylammps";
+      settings = {
+        "nixEnvSelector.suggestion" = false;
+        "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+      };
+    })
   ];
 
   home = {

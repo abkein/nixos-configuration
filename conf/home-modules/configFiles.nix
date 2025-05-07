@@ -13,4 +13,8 @@ in {
     source = ../confs/swappy.conf;
     target = "swappy/config";
   };
+  defshell = generic // {
+    source = ../confs/defshell.nix;
+    target = "defshell.nix";
+  };
 }

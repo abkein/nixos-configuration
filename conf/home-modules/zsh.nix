@@ -13,6 +13,7 @@ config: {
       cg = "sudo nix-collect-garbage -d";
       os = "sudo nix-store --optimise";
       destroy = "dg && cg && os";
+      ish = "cat 'use nix' > .envrc && cp $XDG_CONFIG_HOME/defshell.nix shell.nix";
     };
 
     history.size = 10000;
