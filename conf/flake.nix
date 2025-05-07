@@ -40,9 +40,14 @@
       url = "github:anyrun-org/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    yandex-browser = {
+      url = "github:Teu5us/nix-yandex-browser";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ayugram-desktop, nix-vscode-extensions, nix4vscode, agenix, nur, anyrun, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ayugram-desktop, nix-vscode-extensions, nix4vscode, agenix, nur, anyrun, yandex-browser, ... }@inputs: {
     nixosConfigurations.jeta = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
