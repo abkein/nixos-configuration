@@ -87,7 +87,7 @@ in {
       thunderbird-latest
       imagemagickBig
       poppler_utils
-      inputs.yandex-browser.packages.x86_64-linux.yandex-browser-stable
+      # inputs.yandex-browser.packages.x86_64-linux.yandex-browser-beta
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
