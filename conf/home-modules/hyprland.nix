@@ -442,6 +442,8 @@
       "bordercolor rgba(ffabf1AA) rgba(ffabf177),pinned:1"
       # ######## Window rules ########
       "float, class:com.ayugram"
+      "float, title:SVG Input"
+      "float, title:Extensions"
       "float, title:Password Required - Betterbird"
       "float, title:Progress"
       "float, title:Plugins Manager"
