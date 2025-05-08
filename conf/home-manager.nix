@@ -95,6 +95,7 @@ in {
       thunderbird-latest
       imagemagickBig
       poppler_utils
+      texliveFull
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
@@ -198,6 +199,11 @@ in {
         ];
       };
     };
+    # texlive = {
+    #   enable = true;
+    #   package = pkgs.texlive.combine pkgs.texlive.combined.scheme-full;
+    #   packageSet = pkgs.texlive.combined;
+    # };
   };
 
   gtk = {

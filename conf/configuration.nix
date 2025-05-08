@@ -281,8 +281,6 @@
       gimp
       inkscape
       swayimg
-
-      texliveFull
     ];
   };
 
