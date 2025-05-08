@@ -204,6 +204,8 @@
       libsForQt5.qt5ct
       kdePackages.qt6ct
       file-roller
+      nix-prefetch
+      nix-prefetch-git
       nix-prefetch-github
       xdot
       graphviz
