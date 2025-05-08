@@ -13,6 +13,9 @@ config: {
       cg = "sudo nix-collect-garbage -d";
       os = "sudo nix-store --optimise";
       destroy = "dg && cg && os";
+
+      refresh = "upd && upg && destroy";
+
       ish = "echo 'use nix' > .envrc && cp $XDG_CONFIG_HOME/defshell.nix shell.nix && chmod 644 shell.nix";
     };
 
