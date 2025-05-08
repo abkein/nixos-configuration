@@ -115,7 +115,11 @@ in {
       enableZshIntegration = true;
       enableSshSupport = true;
       grabKeyboardAndMouse = true;
-      pinentryPackage = pkgs.pinentry-all;
+      pinentry = {
+        # package = pkgs.pinentry-all;
+        package = pkgs.wayprompt;
+        program = "pinentry-wayprompt";
+      };
     };
     dunst = {
       enable = true;
