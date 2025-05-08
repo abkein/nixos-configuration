@@ -127,6 +127,20 @@ in {
       configFile = "${config.xdg.configHome}/dunst/dunstrc";
       settings = import ./home-modules/dunst.nix;
     };
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+      devices = {
+        "phone-A63" = { id = "GIABTJN-E7JIDLE-XP7HU37-HDNAVYG-FI4XKTN-ARMJG3J-32WHYTM-ZFP2MQJ"; };
+      };
+      folders = {
+        "Documents" = {
+          path = "${config.home.homeDirectory}/Documents";
+          devices = [ "phone-A63" ];
+        };
+      };
+      environment.STNODEFAULTFOLDER = "true";
+    };
   };
 
   programs = {
