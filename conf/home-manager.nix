@@ -112,7 +112,7 @@ in {
     age.keyFile = "/root/keys/sops-nix.txt";
     # It's also possible to use a ssh key, but only when it has no password:
     #age.sshKeyPaths = [ "/home/user/path-to-ssh-key" ];
-    defaultSopsFile = ./secrets/sops-nix/secrets.yaml;
+    defaultSopsFile = ./secrets/sops-nix/secrets.yaml.enc;
     # secrets.test = {
     #   # sopsFile = ./secrets.yml.enc; # optionally define per-secret files
 
@@ -121,6 +121,11 @@ in {
     #   # DARWIN_USER_TEMP_DIR) on darwin.
     #   path = "%r/test.txt";
     # };
+    exmaple-secret = {
+      mode = "0400";
+      owner = "kein";
+      group = "users";
+    };
   };
 
   services = {
@@ -142,20 +147,20 @@ in {
       configFile = "${config.xdg.configHome}/dunst/dunstrc";
       settings = import ./home-modules/dunst.nix;
     };
-    syncthing = {
-      enable = true;
-      openDefaultPorts = true;
-      devices = {
-        "phone-A63" = { id = "GIABTJN-E7JIDLE-XP7HU37-HDNAVYG-FI4XKTN-ARMJG3J-32WHYTM-ZFP2MQJ"; };
-      };
-      folders = {
-        "Documents" = {
-          path = "${config.home.homeDirectory}/Documents";
-          devices = [ "phone-A63" ];
-        };
-      };
-      environment.STNODEFAULTFOLDER = "true";
-    };
+    # syncthing = {
+    #   enable = true;
+    #   openDefaultPorts = true;
+    #   devices = {
+    #     "phone-A63" = { id = "GIABTJN-E7JIDLE-XP7HU37-HDNAVYG-FI4XKTN-ARMJG3J-32WHYTM-ZFP2MQJ"; };
+    #   };
+    #   folders = {
+    #     "Documents" = {
+    #       path = "${config.home.homeDirectory}/Documents";
+    #       devices = [ "phone-A63" ];
+    #     };
+    #   };
+    #   environment.STNODEFAULTFOLDER = "true";
+    # };
   };
 
   programs = {
