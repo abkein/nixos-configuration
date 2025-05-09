@@ -121,10 +121,12 @@ in {
     #   # DARWIN_USER_TEMP_DIR) on darwin.
     #   path = "%r/test.txt";
     # };
-    exmaple-secret = {
-      mode = "0400";
-      owner = "kein";
-      group = "users";
+    secrets = {
+      exmaple-secret = {
+        mode = "0400";
+        owner = "kein";
+        group = "users";
+      };
     };
   };
 
