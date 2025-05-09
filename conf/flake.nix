@@ -40,15 +40,21 @@
       url = "github:anyrun-org/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ayugram-desktop, nix-vscode-extensions, nix4vscode, agenix, nur, anyrun, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ayugram-desktop, nix-vscode-extensions, nix4vscode, agenix, nur, anyrun, sops-nix, ... }@inputs: {
     nixosConfigurations.jeta = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
         agenix.nixosModules.default
         nur.modules.nixos.default
+        sops-nix.nixosModules.sops
         {
           imports = [
             home-manager.nixosModules.home-manager
@@ -57,6 +63,9 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             backupFileExtension = "backup";
+            sharedModules = [
+              sops-nix.homeManagerModules.sops
+            ];
             users.kein = import ./home-manager.nix;
             extraSpecialArgs = {
               inherit inputs;
