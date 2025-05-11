@@ -21,7 +21,7 @@ in
     text = ''
       #!/usr/bin/env bash
 
-      hostfile=$1
+      host=$1
       port=$2
 
       until ssh-add -l &> /dev/null
@@ -32,7 +32,7 @@ in
         sleep 1
       done
 
-      host=$(cat "$hostfile" | tr -d '\n')
+      # host=$(cat "$hostfile" | tr -d '\n')
 
       nc "$host" "$port"
     '';
