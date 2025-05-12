@@ -96,6 +96,7 @@ in {
       imagemagickBig
       poppler_utils
       texliveFull
+      veusz
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
@@ -109,7 +110,7 @@ in {
   ];
 
   sops = {
-    age.keyFile = "/root/keys/sops-nix.txt";
+    age.keyFile = "${config.home.homeDirectory}/.keys/sops-nix.txt";
     # It's also possible to use a ssh key, but only when it has no password:
     #age.sshKeyPaths = [ "/home/user/path-to-ssh-key" ];
     defaultSopsFile = ./secrets/sops-nix/secrets.yaml.enc;
@@ -122,11 +123,7 @@ in {
     #   path = "%r/test.txt";
     # };
     secrets = {
-      exmaple-secret = {
-        mode = "0400";
-        owner = "kein";
-        group = "users";
-      };
+      example-secret = { };
     };
   };
 
