@@ -96,7 +96,7 @@ in {
       imagemagickBig
       poppler_utils
       texliveFull
-      veusz
+      python312Packages.plotext
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
