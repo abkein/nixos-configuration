@@ -182,18 +182,21 @@ in {
           user = "perevoshchikyy";
           port = 22;
           proxyCommand = "$HOME/execs/keepassxc_ssh_prompt %h %p";
+          serverAliveInterval = 1;
         };
         "weasel" = {
           hostname = "89.169.15.114";
           user = "kein";
           port = 22;
           proxyCommand = "$HOME/execs/keepassxc_ssh_prompt %h %p";
+          serverAliveInterval = 1;
         };
         "yun" = {
           hostname = "185.250.180.233";
           user = "kein";
           port = 22;
           proxyCommand = "$HOME/execs/keepassxc_ssh_prompt %h %p";
+          serverAliveInterval = 1;
         };
       };
     };
