@@ -230,6 +230,7 @@
       xdg-terminal-exec
       hyprland-workspaces
       hyprland-activewindow
+      openvpn
 
       # utilities
       nix-tree
