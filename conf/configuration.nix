@@ -231,6 +231,10 @@
       hyprland-workspaces
       hyprland-activewindow
       openvpn
+      xrdp
+      freerdp3
+      remmina
+
 
       # utilities
       nix-tree
