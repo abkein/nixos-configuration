@@ -97,7 +97,8 @@ in {
       poppler_utils
       texliveFull
       python312Packages.plotext
-      backintime
+      backintime-common
+      backintime-qt
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
