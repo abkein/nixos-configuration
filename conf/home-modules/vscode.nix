@@ -261,6 +261,7 @@ in
       "latex-workshop.latex.clean.subfolder.enabled"= true;
       "latex-workshop.latex.autoBuild.run"= "never";
       "latex-workshop.latex.autoClean.run"= "onSucceeded";
+      "latex-workshop.formatting.latex" = "tex-fmt";
 
       "remote.SSH.configFile"= "/home/kein/.ssh/config";
       "remote.SSH.enableRemoteCommand"= true;
