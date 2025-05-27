@@ -96,6 +96,7 @@ in {
       imagemagickBig
       poppler_utils
       texliveFull
+      tex-fmt
       python312Packages.plotext
       backintime-common
       backintime-qt
