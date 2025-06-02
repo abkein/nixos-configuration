@@ -25,4 +25,8 @@ in {
     source = ../confs/python/defreqs.txt;
     target = "python/defreqs.txt";
   };
+  simple-notebook = generic // {
+    source = ../confs/python/simple.ipynb;
+    target = "python/simple.ipynb";
+  };
 }

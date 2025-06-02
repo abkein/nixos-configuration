@@ -1,3 +1,5 @@
+#TODO: change shebangs with direct path to a system's bash executable
+
 let
   generic = {
     enable = true;
@@ -14,6 +16,22 @@ in
       for file in $XDG_CONFIG_HOME/vscode_workspaces/*; do
         code --password-store=gnome-libsecret --ozone-platform=wayland $file
       done
+    '';
+  };
+  quicknotebook = generic // {
+    target = "./execs/quicknotebook.sh";
+    text = ''
+      #!/usr/bin/env bash
+
+      mkdir $XDG_DATA_HOME/quicknotebook
+      cd $XDG_DATA_HOME/quicknotebook
+      rm -rf *
+      echo 'use nix' > .envrc
+      cp $XDG_CONFIG_HOME/python/pyshell.nix shell.nix
+      chmod 644 shell.nix
+      cp $XDG_CONFIG_HOME/python/defreqs.txt requirements.txt
+      cp $XDG_CONFIG_HOME/python/simple.ipynb quick.ipynb
+      nix-shell ./shell.nix
     '';
   };
   keepassxc_ssh_prompt = generic // {

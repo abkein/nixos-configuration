@@ -1,6 +1,6 @@
 { config, pkgs, lib, inputs, ... }@args:
 let
-  declare_workspace = { name, folder, settings, }: rec {
+  declare_workspace = { name, folder, settings, prerun ? "" }: rec {
     configFile.${name} = {
       enable = true;
       executable = false;
@@ -11,12 +11,14 @@ let
         settings = settings;
       };
     };
-    desktopEntries."CodeWSpaceSelector".actions.${name} = {
+    desktopEntries."CodeWSpaceSelector".actions.${name} =
+    let
+      prefix = if (prerun == "") then "" else "${prerun} && ";
+    in
+    {
       name = "${name}";
       exec =
-        "${pkgs.vscode-fhs}/bin/code --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${
-          configFile.${name}.target
-        }";
+        "${prefix}${pkgs.vscode-fhs}/bin/code --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
     };
   };
 in {
@@ -65,6 +67,15 @@ in {
         "nixEnvSelector.suggestion" = false;
         "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
       };
+    })
+    (declare_workspace {
+      name = "Quick notebook";
+      folder = "${config.xdg.dataHome}/quicknotebook";
+      settings = {
+        "nixEnvSelector.suggestion" = false;
+        "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+      };
+      prerun = "${config.home.file.quicknotebook.target}";
     })
     (declare_workspace {
       name = "lmp";
