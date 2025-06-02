@@ -226,7 +226,7 @@
       "Super, P, togglefloating,"
       # ################################### Applications ###################################
       # Apps: just normal apps
-      "Super, C, exec, ~/execs/open_vscode_workspaces"
+      "Super, C, exec, code --password-store=gnome-libsecret --ozone-platform=wayland"
       "Super, T, exec, kitty"
       # "Super, E, exec, hyprctl dispatch exit"
       "Super, E, exec, thunar"
