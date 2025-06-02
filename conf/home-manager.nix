@@ -69,7 +69,7 @@ in {
       };
     })
     (declare_workspace {
-      name = "Quick notebook";
+      name = "Quicknotebook";
       folder = "${config.xdg.dataHome}/quicknotebook";
       settings = {
         "nixEnvSelector.suggestion" = false;
