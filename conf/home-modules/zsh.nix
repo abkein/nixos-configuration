@@ -17,6 +17,7 @@ config: {
       refresh = "upd && upg && destroy";
 
       ish = "echo 'use nix' > .envrc && cp $XDG_CONFIG_HOME/defshell.nix shell.nix && chmod 644 shell.nix";
+      init_python = "echo 'use nix' > .envrc && cp $XDG_CONFIG_HOME/python/pyshell.nix shell.nix && chmod 644 shell.nix && cp $XDG_CONFIG_HOME/python/defreqs.txt requirements.txt";
     };
 
     history.size = 10000;
