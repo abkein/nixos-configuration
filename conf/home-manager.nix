@@ -75,7 +75,7 @@ in {
         "nixEnvSelector.suggestion" = false;
         "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
       };
-      prerun = "${config.home.file.quicknotebook.target}";
+      prerun = "${config.home.homeDirectory}/execs/quicknotebook.sh";
     })
     (declare_workspace {
       name = "lmp";
