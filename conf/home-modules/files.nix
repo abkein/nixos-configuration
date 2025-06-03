@@ -8,30 +8,29 @@ let
   };
 in
 {
-  open_vscode_workspaces = generic // {
-    target = "./execs/open_vscode_workspaces";
-    text = ''
-      #!/usr/bin/env bash
-
-      for file in $XDG_CONFIG_HOME/vscode_workspaces/*; do
-        code --password-store=gnome-libsecret --ozone-platform=wayland $file
-      done
-    '';
-  };
   quicknotebook = generic // {
     target = "./execs/quicknotebook.sh";
     text = ''
       #!/usr/bin/env bash
 
-      mkdir $XDG_DATA_HOME/quicknotebook
+      echo "Setting up environment..."
+      if [[ ! -e $XDG_DATA_HOME/quicknotebook ]]; then
+        mkdir $XDG_DATA_HOME/quicknotebook
+      fi
       cd $XDG_DATA_HOME/quicknotebook
+      echo "    Cleaning..."
       rm -rf *
+      echo "    Writing..."
       echo 'use nix' > .envrc
       cp $XDG_CONFIG_HOME/python/pyshell.nix shell.nix
-      chmod 644 shell.nix
       cp $XDG_CONFIG_HOME/python/defreqs.txt requirements.txt
       cp $XDG_CONFIG_HOME/python/simple.ipynb quick.ipynb
-      nix-shell ./shell.nix
+      chmod 644 shell.nix
+      chmod 644 requirements.txt
+      chmod 644 quick.ipynb
+
+      echo "Setting up nix-shell..."
+      nix-shell ./shell.nix --command "exit"
     '';
   };
   keepassxc_ssh_prompt = generic // {

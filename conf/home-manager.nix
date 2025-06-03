@@ -14,11 +14,11 @@ let
     desktopEntries."CodeWSpaceSelector".actions.${name} =
     let
       prefix = if (prerun == "") then "" else "${prerun} && ";
+      cmd = "${prefix}${pkgs.vscode-fhs}/bin/code --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
     in
     {
       name = "${name}";
-      exec =
-        "${prefix}${pkgs.vscode-fhs}/bin/code --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
+      exec = "bash -c \"${cmd}\"";
     };
   };
 in {
@@ -75,7 +75,8 @@ in {
         "nixEnvSelector.suggestion" = false;
         "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
       };
-      prerun = "${config.home.homeDirectory}/execs/quicknotebook.sh";
+      # prerun = "${config.home.homeDirectory}/execs/quicknotebook_wrapper.sh";
+      prerun = "kitty --app-id=\"kitty_info\" ${config.home.homeDirectory}/execs/quicknotebook.sh";
     })
     (declare_workspace {
       name = "lmp";
