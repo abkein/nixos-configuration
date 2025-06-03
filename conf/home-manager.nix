@@ -121,6 +121,7 @@ in {
       python312Packages.plotext
       backintime-common
       backintime-qt
+      tesseract
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {

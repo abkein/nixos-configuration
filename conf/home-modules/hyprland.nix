@@ -250,6 +250,8 @@
       ",Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
       "Super, S, exec, grimblast --freeze --notify --openfile copysave area"
       "Super+Shift, S, exec, grimblast --freeze --notify --openfile copysave output"
+      "Control+Alt, O, exec, grim -g \"$(slurp)\" - | tesseract - - | wl-copy"
+      "Control+Alt, R, exec, grim -g \"$(slurp)\" - | tesseract -l rus - - | wl-copy"
       # "Super+Shift+Ctrl, S, exec, ~/.config/ags/scripts/grimblast.sh --freeze copy screen"
       "Super, R, exec, ~/execs/record-script.sh"
       "Super+Shift, R, exec, ~/execs/record-script.sh --sound"
