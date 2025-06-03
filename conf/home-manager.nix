@@ -1,6 +1,6 @@
 { config, pkgs, lib, inputs, ... }@args:
 let
-  declare_workspace = { name, folder, settings, prerun ? "" }: rec {
+  declare_workspace = { name, folder, settings, prerun ? "", postrun ? "" }: rec {
     configFile.${name} = {
       enable = true;
       executable = false;
@@ -14,7 +14,9 @@ let
     desktopEntries."CodeWSpaceSelector".actions.${name} =
     let
       prefix = if (prerun == "") then "" else "${prerun} && ";
-      cmd = "${prefix}${pkgs.vscode-fhs}/bin/code --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
+      postfix = if (postrun == "") then "" else " && ${postrun}";
+      codecmd = "${pkgs.vscode-fhs}/bin/code --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
+      cmd = "${prefix}${codecmd}${postfix}";
     in
     {
       name = "${name}";
@@ -85,6 +87,13 @@ in {
         "licenser.license" = "MIT";
         "nixEnvSelector.suggestion" = false;
         "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+      };
+    })
+    (declare_workspace {
+      name = "magdiss";
+      folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/";
+      settings = {
+        "nixEnvSelector.suggestion" = false;
       };
     })
     (declare_workspace {
