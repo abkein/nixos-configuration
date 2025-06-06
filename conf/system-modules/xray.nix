@@ -117,6 +117,8 @@ in
           "domain:ident.me"
           "domain:2ip.ru"
           "domain:youtube.com"
+          "domain:googlevideo.com"
+          "domain:ytimg.com"
         ];
         inboundTag = [ "inbound_main" "httpproxy" ];
         outboundTag = "${mainOutbound}";
