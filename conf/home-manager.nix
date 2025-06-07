@@ -123,6 +123,7 @@ in {
       backintime-common
       backintime-qt
       tesseract
+      chatbox
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
