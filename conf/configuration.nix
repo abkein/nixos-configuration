@@ -345,10 +345,15 @@
     settings = {
       experimental-features = [ "nix-command" "flakes" ];
       builders-use-substitutes = true;
+      substituters = [
+        "https://cache.garnix.io"
+      ];
+      trusted-public-keys = [
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      ];
       extra-substituters = [
           "https://anyrun.cachix.org"
       ];
-
       extra-trusted-public-keys = [
           "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       ];
