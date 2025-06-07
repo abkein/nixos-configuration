@@ -94,6 +94,7 @@ in {
       folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/";
       settings = {
         "nixEnvSelector.suggestion" = false;
+        "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
       };
     })
     (declare_workspace {

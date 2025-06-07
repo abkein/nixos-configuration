@@ -304,6 +304,8 @@
         font-awesome
         powerline-fonts
         powerline-symbols
+        corefonts
+        vistafonts
       ] ++ builtins.filter lib.attrsets.isDerivation
       (builtins.attrValues pkgs.nerd-fonts);
 
