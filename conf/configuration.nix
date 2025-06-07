@@ -82,10 +82,10 @@
         variant = "";
         layout = "us";
       };
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
-      };
+    };
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
     };
     dbus.enable = true;
     gvfs.enable = true;
