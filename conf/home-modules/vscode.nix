@@ -469,7 +469,7 @@ in
           body = [
             "fig = plt.figure()"
             "ax1 = fig.add_subplot(1,1,1)"
-            "line11, = ax1.plot($1)"
+            "(line11,) = ax1.plot($1)"
             ""
             "# fig.savefig(\"\", bbox_inches=\"tight\", transparent=True)"
             "plt.show()"
