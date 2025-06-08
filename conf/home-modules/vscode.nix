@@ -471,7 +471,7 @@ in
             "ax1 = fig.add_subplot(1,1,1)"
             "line11, = ax1.plot($1)"
             ""
-            "#  fig.savefig(\"\", bbox_inches=\"tight\", transparent=True)"
+            "# fig.savefig(\"\", bbox_inches=\"tight\", transparent=True)"
             "plt.show()"
           ];
           description = "Matplotlib extended plot";
@@ -483,7 +483,7 @@ in
             "ax1 = fig.add_subplot(1,1,1)"
             "line11 = ax1.scatter($1)"
             ""
-            "#  fig.savefig(\"\", bbox_inches=\"tight\", transparent=True)"
+            "# fig.savefig(\"\", bbox_inches=\"tight\", transparent=True)"
             "plt.show()"
           ];
           description = "Matplotlib extended plot, scatter";
