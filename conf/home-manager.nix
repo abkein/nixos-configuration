@@ -124,6 +124,7 @@ in {
       backintime-qt
       tesseract
       chatbox
+      chromium
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
