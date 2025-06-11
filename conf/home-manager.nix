@@ -102,7 +102,7 @@ in {
       };
     })
     (declare_workspace {
-      name = "magdiss_pres";
+      name = "magdiss-pres";
       folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/presentation/";
       settings = {
         "nixEnvSelector.suggestion" = false;
