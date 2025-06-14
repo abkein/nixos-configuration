@@ -1,4 +1,5 @@
-{ stdenv, lib, fetchFromGitHub, nautilus-python, python3Packages, pkg-config }:
+{ stdenv, lib, fetchFromGitHub, nautilus-python, python3Packages, pkg-config
+, glib }:
 
 python3Packages.buildPythonApplication rec {
   pname = "nautilus-terminal";
@@ -8,20 +9,32 @@ python3Packages.buildPythonApplication rec {
     owner = "flozz";
     repo = "nautilus-terminal";
     rev = "v${version}";
-    # Use 'nix-prefetch-github flozz nautilus-terminal v4.1.0' to fill this sha256
     sha256 = "sha256-sOt43RPES+5gEC7XGVzeQyyolrsJnJfjMydhKRZ5qtM=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [ pkg-config glib ];
 
-  propagatedBuildInputs = [
-    python3Packages.psutil
-    nautilus-python
-    python3Packages.dbus-python
-  ];
+  propagatedBuildInputs =
+    [ python3Packages.psutil python3Packages.dbus-python nautilus-python ];
 
-  # No tests provided upstream
+  # upstream has no tests
   doCheck = false;
+
+  # After the normal python install, we:
+  # 1) compile the GSettings schema into $out/share/glib-2.0/schemas
+  # 2) copy the "bootstrap" .py extension for nautilus-python
+  postInstall = ''
+    # compile and install schema
+    mkdir -p $out/share/glib-2.0/schemas
+    cp -r nautilus_terminal/schemas/* $out/share/glib-2.0/schemas/
+    glib-compile-schemas $out/share/glib-2.0/schemas
+
+    # install the nautilus-python extension loader
+    # the bootstrap script lives at the top‑level in the source tree:
+    mkdir -p $out/lib/nautilus-python/extensions
+    cp nautilus_terminal_extension.py \
+      $out/lib/nautilus-python/extensions/
+  '';
 
   meta = with lib; {
     description = "Embed a terminal in each Nautilus tab/window";
