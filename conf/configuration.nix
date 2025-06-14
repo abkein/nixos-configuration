@@ -189,7 +189,7 @@
   environment =
   let
   #   spacefm-thermitegod = pkgs.callPackage ./spacefm-package.nix { };
-    nautilus-terminal = pkgs.callPackage ./packages/nautilus-terminal.nix {};
+    nautilus-terminal = pkgs.callPackage ./pkgs/nautilus-terminal.nix {};
   in
   {
     variables.QT_QPA_PLATFORMTHEME = "qt5ct";

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, python3Packages, pkg-config }:
+{ stdenv, lib, fetchFromGitHub, nautilus-python, python3Packages, pkg-config }:
 
 python3Packages.buildPythonApplication rec {
   pname = "nautilus-terminal";
@@ -14,16 +14,16 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  propagatedBuildInputs = with python3Packages; [
-    psutil
+  propagatedBuildInputs = [
+    python3Packages.psutil
     nautilus-python
-    dbus-python
+    python3Packages.dbus-python
   ];
 
   # No tests provided upstream
   doCheck = false;
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Embed a terminal in each Nautilus tab/window";
     homepage = "https://github.com/flozz/nautilus-terminal";
     license = licenses.gpl3;
