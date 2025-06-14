@@ -20,20 +20,17 @@ python3Packages.buildPythonApplication rec {
   # upstream has no tests
   doCheck = false;
 
-  # After the normal python install, we:
-  # 1) compile the GSettings schema into $out/share/glib-2.0/schemas
-  # 2) copy the "bootstrap" .py extension for nautilus-python
+  # After installation, compile schemas and expose the Nautilus extension
   postInstall = ''
-    # compile and install schema
+    # Compile GSettings schemas
     mkdir -p $out/share/glib-2.0/schemas
     cp -r nautilus_terminal/schemas/* $out/share/glib-2.0/schemas/
     glib-compile-schemas $out/share/glib-2.0/schemas
 
-    # install the nautilus-python extension loader
-    # the bootstrap script lives at the top‑level in the source tree:
+    # Install the Nautilus-Python extension loader
     mkdir -p $out/lib/nautilus-python/extensions
-    cp nautilus_terminal_extension.py \
-      $out/lib/nautilus-python/extensions/
+    cp $src/nautilus_terminal/nautilus_terminal_extension.py \
+      $out/lib/nautilus-python/extensions/nautilus_terminal_extension.py
   '';
 
   meta = with lib; {
