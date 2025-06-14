@@ -234,6 +234,7 @@
       xrdp
       freerdp3
       remmina
+      nautilus
 
 
       # utilities
@@ -306,6 +307,7 @@
         powerline-symbols
         corefonts
         vistafonts
+        cm_unicode
       ] ++ builtins.filter lib.attrsets.isDerivation
       (builtins.attrValues pkgs.nerd-fonts);
 
