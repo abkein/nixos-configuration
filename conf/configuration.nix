@@ -187,11 +187,11 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment =
-  # let
+  let
     # spacefm-thermitegod = pkgs.callPackage ./spacefm-package.nix { };
     # nautilus-terminal = pkgs.callPackage ./pkgs/nautilus-terminal.nix {};
-    
-  # in
+    nemo-terminal = pkgs.callPackage ./pkgs/nemo-terminal.nix {};
+  in
   {
     variables.QT_QPA_PLATFORMTHEME = "qt5ct";
     systemPackages = with pkgs; [
@@ -240,6 +240,7 @@
       nemo-with-extensions
       nemo-python
       nemo-preview
+      nemo-terminal
 
       # utilities
       nix-tree
