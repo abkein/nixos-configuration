@@ -237,6 +237,9 @@
       xrdp
       freerdp3
       remmina
+      libsForQt5.dolphin
+      libsForQt5.dolphin-plugins
+      # syncthingtray
 
       # utilities
       nix-tree
