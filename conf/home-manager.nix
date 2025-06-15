@@ -296,12 +296,12 @@ in {
 
   qt = {
     enable = true;
-    # style = {
-    #   name = "adwaita-dark";
-    # };
+    style = {
+      name = "adwaita-dark";
+    };
     platformTheme = {
-      # name = "gtk3";
-      name = "qt5ct";
+      name = "gtk3";
+      # name = "qt5ct";
     };
   };
 }
