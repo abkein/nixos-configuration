@@ -237,10 +237,6 @@
       xrdp
       freerdp3
       remmina
-      nemo-with-extensions
-      nemo-python
-      nemo-preview
-      nemo-terminal
 
       # utilities
       nix-tree

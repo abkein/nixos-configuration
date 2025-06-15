@@ -1,47 +1,34 @@
-{ stdenv, lib, fetchFromGitHub, meson, ninja, pkg-config, gettext
-, gobject-introspection, glib, gtk3, vte, dconf, libxml2, libnotify }:
+{ lib, python3Packages, fetchFromGitHub, vte, gtk3, nemo-python, dconf
+, pkg-config, gettext, gobject-introspection }:
 
-stdenv.mkDerivation rec {
+python3Packages.buildPythonPackage rec {
   pname = "nemo-terminal";
   version = "master.mint20";
 
+  # Fetch the whole nemo-extensions repo, then we'll only unpack the nemo-terminal subdir
   src = fetchFromGitHub {
     owner = "linuxmint";
     repo = "nemo-extensions";
     rev = version;
+    # replace this with the real sha256 from `nix-prefetch-git`:
     sha256 = "0xg4w8cxdrgcglkbhqv4nr82f0140dd37srhddvd0kxj8z1ylmf4";
   };
 
-  nativeBuildInputs = [ meson ninja pkg-config gettext gobject-introspection ];
-
-  buildInputs = [ glib gtk3 vte dconf libxml2 libnotify ];
-
-  # Only run the phases we define below.
-  # Skip Nix’s built-in configurePhase / buildPhase / installPhase.
-  phases = [
-    "unpackPhase"
-    "patchPhase"
-    "updateAutotoolsGnuConfigScriptsPhase"
-    "buildPhase"
-    "installPhase"
-  ];
-
-  buildPhase = ''
-    # create an out‑of‑source build directory
-    mkdir build
-    meson setup \
-      build \
-      ${src}/nemo-terminal \
-      --prefix=$out \
-      --libdir=lib/nemo/extensions-4 \
-      --buildtype=plain \
-      -Dauto_features=enabled \
-      -Dwrap_mode=nodownload
-    ninja -C build
+  # Only unpack the nemo-terminal subdirectory
+  unpackPhase = ''
+    mkdir -p $name
+    cp -r ${src}/nemo-terminal/* $name
   '';
 
-  installPhase = ''
-    ninja -C build install
+  # buildPythonPackage will pick up setup.py automatically
+  propagatedBuildInputs = [ vte gtk3 nemo-python dconf gettext ];
+
+  nativeBuildInputs = [ pkg-config gobject-introspection ];
+
+  # After the normal Python install, we need to compile the GSettings schema
+  postInstall = ''
+    # install() has already put the .gschema.xml into $out/share/glib-2.0/schemas
+    glib-compile-schemas $out/share/glib-2.0/schemas
   '';
 
   meta = with lib; {
@@ -50,5 +37,6 @@ stdenv.mkDerivation rec {
       "https://github.com/linuxmint/nemo-extensions/tree/master/nemo-terminal";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
+    maintainers = with maintainers; [ ];
   };
 }
