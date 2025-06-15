@@ -25,6 +25,10 @@ let
       exec = "bash -c \"${cmd}\"";
     };
   };
+  nixai = pkgs.callPackage (builtins.fetchGit {
+    url = "https://github.com/olafkfreund/nix-ai-help.git";
+    ref = "main";
+  } + "/package.nix") {};
 in {
   imports = [
 
@@ -137,6 +141,7 @@ in {
       tesseract
       chatbox
       chromium
+      nixai
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
