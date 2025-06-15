@@ -237,8 +237,10 @@
       xrdp
       freerdp3
       remmina
-      libsForQt5.dolphin
-      libsForQt5.dolphin-plugins
+      kdePackages.dolphin
+      kdePackages.dolphin-plugins
+      kdePackages.konsole
+      lxqt.pcmanfm-qt
       # syncthingtray
 
       # utilities
