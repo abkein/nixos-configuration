@@ -131,6 +131,7 @@ in {
       poppler_utils
       texliveFull
       tex-fmt
+      ghostscript
       python312Packages.plotext
       backintime-common
       backintime-qt
