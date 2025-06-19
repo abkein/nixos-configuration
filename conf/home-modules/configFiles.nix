@@ -9,7 +9,7 @@ in {
     enable = true;
     executable = true;
     force = true;
-    source = ../confs/pythonrc.py;
+    source = ../confs/python/pythonrc.py;
     target = "python/pythonrc";
   };
   networkmanager_dmenu = generic // {
