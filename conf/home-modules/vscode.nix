@@ -58,7 +58,6 @@ in
       arrterian.nix-env-selector
       christian-kohler.npm-intellisense
       ms-python.mypy-type-checker
-      ms-vscode.remote-explorer
     ] ++ [
     #   plugins.christian-kohler.npm-intellisense
     # ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
@@ -71,6 +70,7 @@ in
     ] ++  pkgs.nix4vscode.forVscode  [
       # "ms-python.vscode-python-envs"
       "github.remotehub"
+      "ms-vscode.remote-explorer"
       # "google.geminicodeassist"
       # "googlecloudtools.cloudcode"
       "jbenden.c-cpp-flylint"
