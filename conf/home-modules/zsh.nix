@@ -20,8 +20,13 @@ config: {
       init_python = "echo 'use nix' > .envrc && cp $XDG_CONFIG_HOME/python/pyshell.nix shell.nix && chmod 644 shell.nix && cp $XDG_CONFIG_HOME/python/defreqs.txt requirements.txt";
     };
 
-    history.size = 10000;
-    # history.path = "${config.xdg.dataHome}/zsh/history";
+    history = {
+      size = 999999;
+      path = "${config.xdg.stateHome}/zsh/history";
+      expireDuplicatesFirst = true;
+      ignoreAllDups = true;
+    };
+    dotDir = ".config/zsh";
 
     oh-my-zsh = {
       enable = true;

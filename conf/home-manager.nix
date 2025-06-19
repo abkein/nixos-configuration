@@ -141,12 +141,13 @@ in {
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
+      SONARLINT_USER_HOME = "${config.xdg.dataHome}/sonarlint";
       XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
     };
   };
 
   systemd.user.tmpfiles.rules = [
-    "d ${config.home.homeDirectory}/.gnupg 0700 ${config.home.username} users - -"
+    "d ${config.programs.gpg.homedir} 0700 ${config.home.username} users - -"
     "d ${config.home.homeDirectory}/.ssh 0700 ${config.home.username} users - -"
   ];
 
@@ -204,12 +205,18 @@ in {
   };
 
   programs = {
-    bash.enable = true;
+    bash = {
+      enable = true;
+      enableCompletion = true;
+      enableVteIntegration = true;
+      historyFile = "${config.xdg.stateHome}/bash/history";
+      historySize = 999999;
+    };
     vscode = import ./home-modules/vscode.nix {
       pkgs = pkgs;
       lib = lib;
     };
-    zsh = import ./home-modules/zsh.nix { inherit config; };
+    zsh = import ./home-modules/zsh.nix config;
     waybar = import ./home-modules/waybar.nix;
     wofi = import ./home-modules/wofi.nix;
     firefox = { enable = true; };
@@ -241,7 +248,10 @@ in {
         };
       };
     };
-    gpg.enable = true;
+    gpg = {
+      enable = true;
+      homedir = "${config.xdg.dataHome}/gnupg";
+    };
     git = {
       enable = true;
       userName = "abkein";
