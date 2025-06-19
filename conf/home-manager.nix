@@ -1,10 +1,12 @@
 { config, pkgs, lib, inputs, ... }@args:
 {
-  imports = [ ];
+  imports = [
+    ./home-modules/vscode/declared_workspaces.nix
+  ];
 
   wayland.windowManager.hyprland = import ./home-modules/hyprland.nix;
 
-  xdg = lib.mkMerge ([
+  xdg =
     {
       enable = true;
       # defaults:
@@ -30,8 +32,7 @@
         categories = [ "Development" "IDE" "TextTools" ];
         actions = { };
       };
-    }
-  ] ++ (import ./home-modules/vscode/declared_workspaces.nix {config=config; pkgs=pkgs;}));
+    };
 
   home = {
     username = "kein";

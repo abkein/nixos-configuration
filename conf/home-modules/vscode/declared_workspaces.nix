@@ -26,70 +26,65 @@ let
     };
   };
 in
-[
-  mkMerge (builtins.attrValues (lib.foldl' (acc: spec: acc // mkConfFile spec)
-  {}
+{ xdg = lib.foldl' (acc: spec: lib.mkMerge [acc (declare_workspace spec)]) {}
   [
-    { name = "proj1"; folder = "/path/to/p1"; settings = { /*…*/ }; }
-    { name = "proj2"; folder = "/path/to/p2"; settings = { /*…*/ }; }
-    { name = "proj3"; folder = "/path/to/p3"; settings = { /*…*/ }; }
-  ]))
-  (declare_workspace {
-    name = "configuration";
-    folder = "${config.home.homeDirectory}/nixos-configuration";
-    settings = { "nixEnvSelector.suggestion" = false; };
-    preinit = false;
-  })
-  (declare_workspace {
-    name = "lmptest";
-    folder = "${config.home.homeDirectory}/Documents/nucleation/lmptest";
-    settings = {
-      "nixEnvSelector.suggestion" = false;
-      "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
-    };
-  })
-  (declare_workspace {
-    name = "Quicknotebook";
-    folder = "${config.xdg.dataHome}/quicknotebook";
-    settings = {
-      "nixEnvSelector.suggestion" = false;
-      "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
-    };
-    # prerun = "${config.home.homeDirectory}/execs/quicknotebook_wrapper.sh";
-    prerun = "kitty --app-id=\"kitty_info\" ${config.home.homeDirectory}/execs/quicknotebook.sh";
-    preinit = false;
-  })
-  (declare_workspace {
-    name = "lmp";
-    folder = "${config.home.homeDirectory}/Documents/nucleation/lmp";
-    settings = {
-      "licenser.license" = "MIT";
-      "nixEnvSelector.suggestion" = false;
-      "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
-    };
-  })
-  (declare_workspace {
-    name = "magdiss";
-    folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/";
-    settings = {
-      "nixEnvSelector.suggestion" = false;
-      "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
-    };
-  })
-  (declare_workspace {
-    name = "magdiss-pres";
-    folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/presentation/";
-    settings = {
-      "nixEnvSelector.suggestion" = false;
-      "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
-    };
-  })
-  (declare_workspace {
-    name = "LAMMPS";
-    folder = "${config.home.homeDirectory}/repos/mylammps";
-    settings = {
-      "nixEnvSelector.suggestion" = false;
-      "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
-    };
-  })
-]
+    {
+      name = "configuration";
+      folder = "${config.home.homeDirectory}/nixos-configuration";
+      settings = { "nixEnvSelector.suggestion" = false; };
+      preinit = false;
+    }
+    {
+      name = "lmptest";
+      folder = "${config.home.homeDirectory}/Documents/nucleation/lmptest";
+      settings = {
+        "nixEnvSelector.suggestion" = false;
+        "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+      };
+    }
+    {
+      name = "Quicknotebook";
+      folder = "${config.xdg.dataHome}/quicknotebook";
+      settings = {
+        "nixEnvSelector.suggestion" = false;
+        "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+      };
+      # prerun = "${config.home.homeDirectory}/execs/quicknotebook_wrapper.sh";
+      prerun = "kitty --app-id=\"kitty_info\" ${config.home.homeDirectory}/execs/quicknotebook.sh";
+      preinit = false;
+    }
+    {
+      name = "lmp";
+      folder = "${config.home.homeDirectory}/Documents/nucleation/lmp";
+      settings = {
+        "licenser.license" = "MIT";
+        "nixEnvSelector.suggestion" = false;
+        "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+      };
+    }
+    {
+      name = "magdiss";
+      folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/";
+      settings = {
+        "nixEnvSelector.suggestion" = false;
+        "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+      };
+    }
+    {
+      name = "magdiss-pres";
+      folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/presentation/";
+      settings = {
+        "nixEnvSelector.suggestion" = false;
+        "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+      };
+    }
+    {
+      name = "LAMMPS";
+      folder = "${config.home.homeDirectory}/repos/mylammps";
+      settings = {
+        "nixEnvSelector.suggestion" = false;
+        "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+      };
+    }
+  ];
+}
