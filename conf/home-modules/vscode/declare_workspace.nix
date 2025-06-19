@@ -1,4 +1,5 @@
-{ config, name, folder, settings, prerun ? "", postrun ? "", preinit ? true }: rec {
+{config, pkgs}:
+{ name, folder, settings, prerun ? "", postrun ? "", preinit ? true }: rec {
   configFile.${name} = {
     enable = true;
     executable = false;

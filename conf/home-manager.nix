@@ -4,7 +4,7 @@
 
   wayland.windowManager.hyprland = import ./home-modules/hyprland.nix;
 
-  xdg = lib.mkMerge [
+  xdg = lib.mkMerge ([
     {
       enable = true;
       # defaults:
@@ -31,7 +31,7 @@
         actions = { };
       };
     }
-  ] ++ (import ./home-modules/vscode/declared_workspaces.nix);
+  ] ++ (import ./home-modules/vscode/declared_workspaces.nix {config=config; pkgs=pkgs;}));
 
   home = {
     username = "kein";

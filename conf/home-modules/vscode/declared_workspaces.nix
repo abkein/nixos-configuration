@@ -1,6 +1,6 @@
-config:
+{config, pkgs}:
 let
-  declare_workspace = import ./declate_workspace.nix;
+  declare_workspace = import ./declare_workspace.nix {config=config; pkgs=pkgs;};
 in
 [
   (declare_workspace {
