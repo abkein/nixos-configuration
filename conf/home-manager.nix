@@ -217,7 +217,7 @@ in {
       historyFile = "${config.xdg.stateHome}/bash/history";
       historySize = 999999;
     };
-    vscode = import ./home-modules/vscode.nix {
+    vscode = import ./home-modules/vscode/vscode.nix {
       pkgs = pkgs;
       lib = lib;
     };
