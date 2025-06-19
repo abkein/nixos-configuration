@@ -142,6 +142,11 @@ in {
     file = import ./home-modules/files.nix;
     sessionVariables = {
       SONARLINT_USER_HOME = "${config.xdg.dataHome}/sonarlint";
+      JUPYTER_CONFIG_DIR = "${config.xdg.configHome}/jupyter";
+      IPYTHONDIR = "${config.xdg.configHome}/ipython";
+      DOTNET_CLI_HOME = "${config.xdg.dataHome}/dotnet";
+      CARGO_HOME = "${config.xdg.dataHome}/cargo";
+      PYTHONSTARTUP = "${config.xdg.configHome}/python/pythonrc";
       XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
     };
   };
@@ -291,6 +296,7 @@ in {
     #   package = pkgs.texlive.combine pkgs.texlive.combined.scheme-full;
     #   packageSet = pkgs.texlive.combined;
     # };
+    gradle.home = ".local/share/gradle";
   };
 
   gtk = {
@@ -303,6 +309,7 @@ in {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;
     };
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };
 
   qt = {

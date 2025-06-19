@@ -5,6 +5,13 @@ let
     force = true;
   };
 in {
+  pythonrc = {
+    enable = true;
+    executable = true;
+    force = true;
+    source = ../confs/pythonrc.py;
+    target = "python/pythonrc";
+  };
   networkmanager_dmenu = generic // {
     source = ../confs/networkmanager_dmenu.ini;
     target = "networkmanager-dmenu/config.ini";
