@@ -9,7 +9,7 @@ in
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
     extensions = with pkgs.vscode-extensions;[
-    #   mkhl.direnv
+      # mkhl.direnv
       jnoortheen.nix-ide
       alefragnani.bookmarks
       alexisvt.flutter-snippets
@@ -56,42 +56,11 @@ in
       vscjava.vscode-gradle
       yzhang.markdown-all-in-one
       arrterian.nix-env-selector
+      christian-kohler.npm-intellisense
+      ms-python.mypy-type-checker
+      ms-vscode.remote-explorer
     ] ++ [
     #   plugins.christian-kohler.npm-intellisense
-    # #   plugins.ms-python.vscode-python-envs
-    #   plugins.github.remotehub
-    #   plugins.google.geminicodeassist
-    # #   plugins.googlecloudtools.cloudcode
-    #   plugins.jbenden.c-cpp-flylint
-    #   plugins.jeff-hykin.better-cpp-syntax
-    #   plugins.jsynowiec.vscode-insertdatestring
-    #   plugins.kevinrose.vsc-python-indent
-    #   plugins.lpubsppop01.vscode-auto-timestamp
-    #   plugins.mammothb.gnuplot
-    #   plugins.ms-python.autopep8
-    #   plugins.ms-python.mypy-type-checker
-    #   plugins.ms-toolsai.vscode-jupyter-powertoys
-    #   plugins.ms-vscode.atom-keybindings
-    #   plugins.ms-vscode.azure-repos
-    #   plugins.ms-vscode.cpptools-themes
-    #   plugins.ms-vscode.js-debug
-    #   plugins.ms-vscode.js-debug-companion
-    #   plugins.ms-vscode.remote-explorer
-    #   plugins.ms-vscode.remote-repositories
-    #   plugins.ms-vscode.remote-server
-    #   plugins.ms-vscode.vscode-js-profile-table
-    #   plugins.ms-vscode.vscode-typescript-next
-    #   plugins.ombratteng.nftables
-    #   plugins.seunlanlege.action-buttons
-    #   plugins.thfriedrich.lammps
-    #   plugins.thmsrynr.vscode-namegen
-    #   plugins.trond-snekvik.simple-rst
-    # #  plugins.trunk.io
-    #   plugins.turaiiao.vscode-author-header
-    #   plugins.william-voyek.vscode-nginx
-    #   plugins.ymotongpoo.licenser
-    #   plugins.zhikui.vscode-openfoam
-    # ];
     # ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
     #   {
     #     name = "atom-keybindings";
@@ -100,11 +69,10 @@ in
     #     sha256 = "vzOb/DUV44JMzcuQJgtDB6fOpTKzq298WSSxVKlYE4o=";
     #   }
     ] ++  pkgs.nix4vscode.forVscode  [
-      "christian-kohler.npm-intellisense"
-    #   "ms-python.vscode-python-envs"
+      # "ms-python.vscode-python-envs"
       "github.remotehub"
-    #   "google.geminicodeassist"
-    #   "googlecloudtools.cloudcode"
+      # "google.geminicodeassist"
+      # "googlecloudtools.cloudcode"
       "jbenden.c-cpp-flylint"
       "jeff-hykin.better-cpp-syntax"
       "jsynowiec.vscode-insertdatestring"
@@ -112,14 +80,12 @@ in
       "lpubsppop01.vscode-auto-timestamp"
       "mammothb.gnuplot"
       "ms-python.autopep8"
-      "ms-python.mypy-type-checker"
       "ms-toolsai.vscode-jupyter-powertoys"
       "ms-vscode.atom-keybindings"
       "ms-vscode.azure-repos"
       "ms-vscode.cpptools-themes"
       "ms-vscode.js-debug"
       "ms-vscode.js-debug-companion"
-      "ms-vscode.remote-explorer"
       "ms-vscode.remote-repositories"
       "ms-vscode.remote-server"
       "ms-vscode.vscode-js-profile-table"
@@ -129,7 +95,7 @@ in
       "thfriedrich.lammps"
       "thmsrynr.vscode-namegen"
       "trond-snekvik.simple-rst"
-    #   "trunk.io"
+      # "trunk.io"
       "turaiiao.vscode-author-header"
       "william-voyek.vscode-nginx"
       "ymotongpoo.licenser"
@@ -143,7 +109,7 @@ in
       "editor.fontLigatures"= true;
       "editor.unicodeHighlight.ambiguousCharacters"= false;
       "editor.renderWhitespace"= "all";
-    #   "editor.defaultFormatter"= "trunk.io";
+      # "editor.defaultFormatter"= "trunk.io";
 
       "window.titleBarStyle"= "custom";
 
