@@ -285,7 +285,7 @@
       yubikey-manager
       yubioath-flutter
       yubikey-personalization
-      yubikey-personalization-gui
+      # yubikey-personalization-gui
       opensc
 
       # image/audio/video
