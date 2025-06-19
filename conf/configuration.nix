@@ -269,7 +269,6 @@
       libnotify
 
       # code
-      vim
       git
       # nixfmt-rfc-style
       nixfmt-classic
