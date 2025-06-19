@@ -1,10 +1,25 @@
 {pkgs, lib} :
 let
+  parse_extension = extension:
+    let parts = builtins.split "\\." extension; in
+    if (builtins.length parts) == 3 then {
+      publisher = builtins.elemAt parts 0;
+      name = builtins.elemAt parts 2;
+    } else throw "Invalid extension format: ${extension}";
+  unparse_extension = {publisher, name}: "${publisher}.${name}";
+
+  has_extension = {publisher, name}: (builtins.hasAttr publisher pkgs.vscode-extensions) && (builtins.hasAttr name (builtins.getAttr publisher pkgs.vscode-extensions));
+  get_extension = {publisher, name}: builtins.getAttr name (builtins.getAttr publisher pkgs.vscode-extensions);
+
   plugins = (import ./vscode_exts.nix) { inherit pkgs lib; };
   needed_extensions = import ./needed_exts.nix;
-  presentExtensions = builtins.filter (attr: builtins.hasAttr attr pkgs.vscode-extensions) needed_extensions;
-  not_presentExtensions = builtins.filter (attr: !(builtins.hasAttr attr pkgs.vscode-extensions)) needed_extensions;
-  market_extensions = map (attr: builtins.getAttr attr pkgs.vscode-extensions) presentExtensions;
+
+  parsed_extensions = builtins.map parse_extension needed_extensions;
+  presentExtensions = builtins.filter has_extension parsed_extensions;
+  market_extensions = builtins.map get_extension presentExtensions;
+
+  not_presentExtensions = builtins.filter (ext: !has_extension ext) parsed_extensions;
+  nix4vscode_extensions = builtins.map unparse_extension not_presentExtensions;
 in
 {
   enable = true;
@@ -12,100 +27,16 @@ in
   profiles.default = {
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
-    extensions = market_extensions ++ pkgs.nix4vscode.forVscode not_presentExtensions;
-    # extensions = with pkgs.vscode-extensions;[
-    #   # mkhl.direnv
-    #   jnoortheen.nix-ide
-    #   alefragnani.bookmarks
-    #   alexisvt.flutter-snippets
-    #   coolbear.systemd-unit-file
-    #   dart-code.dart-code
-    #   dart-code.flutter
-    #   funkyremi.vscode-google-translate
-    #   github.vscode-pull-request-github
-    #   gruntfuggly.todo-tree
-    #   hars.cppsnippets
-    #   james-yu.latex-workshop
-    #   mads-hartmann.bash-ide-vscode
-    #   mechatroner.rainbow-csv
-    #   ms-ceintl.vscode-language-pack-ru
-    #   ms-python.black-formatter
-    #   ms-python.debugpy
-    #   ms-python.flake8
-    #   ms-python.isort
-    #   ms-python.python
-    #   ms-python.vscode-pylance
-    #   ms-toolsai.jupyter
-    #   ms-toolsai.jupyter-keymap
-    #   ms-toolsai.jupyter-renderers
-    #   ms-toolsai.vscode-jupyter-cell-tags
-    #   ms-toolsai.vscode-jupyter-slideshow
-    #   ms-vscode-remote.remote-containers
-    #   ms-vscode-remote.remote-ssh
-    #   ms-vscode-remote.remote-ssh-edit
-    #   ms-vscode-remote.vscode-remote-extensionpack
-    #   ms-vscode.cmake-tools
-    #   ms-vscode.cpptools
-    #   ms-vscode.cpptools-extension-pack
-    #   ms-vscode.hexeditor
-    #   ms-vscode.makefile-tools
-    #   njpwerner.autodocstring
-    #   redhat.java
-    #   redhat.vscode-xml
-    #   sonarsource.sonarlint-vscode  # requires jre
-    #   tamasfe.even-better-toml
-    #   twxs.cmake
-    #   valentjn.vscode-ltex
-    #   visualstudioexptteam.intellicode-api-usage-examples
-    #   visualstudioexptteam.vscodeintellicode
-    #   vscjava.vscode-gradle
-    #   yzhang.markdown-all-in-one
-    #   arrterian.nix-env-selector
-    #   christian-kohler.npm-intellisense
-    #   ms-python.mypy-type-checker
-    # ] ++ [
-    # #   plugins.christian-kohler.npm-intellisense
-    # # ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-    # #   {
-    # #     name = "atom-keybindings";
-    # #     publisher = "ms-vscode";
-    # #     version = "3.3.0";
-    # #     sha256 = "vzOb/DUV44JMzcuQJgtDB6fOpTKzq298WSSxVKlYE4o=";
-    # #   }
-    # ] ++  pkgs.nix4vscode.forVscode  [
-    #   # "ms-python.vscode-python-envs"
-    #   "github.remotehub"
-    #   "ms-vscode.remote-explorer"
-    #   # "google.geminicodeassist"
-    #   # "googlecloudtools.cloudcode"
-    #   "jbenden.c-cpp-flylint"
-    #   "jeff-hykin.better-cpp-syntax"
-    #   "jsynowiec.vscode-insertdatestring"
-    #   "kevinrose.vsc-python-indent"
-    #   "lpubsppop01.vscode-auto-timestamp"
-    #   "mammothb.gnuplot"
-    #   "ms-python.autopep8"
-    #   "ms-toolsai.vscode-jupyter-powertoys"
-    #   "ms-vscode.atom-keybindings"
-    #   "ms-vscode.azure-repos"
-    #   "ms-vscode.cpptools-themes"
-    #   "ms-vscode.js-debug"
-    #   "ms-vscode.js-debug-companion"
-    #   "ms-vscode.remote-repositories"
-    #   "ms-vscode.remote-server"
-    #   "ms-vscode.vscode-js-profile-table"
-    #   "ms-vscode.vscode-typescript-next"
-    #   "ombratteng.nftables"
-    #   "seunlanlege.action-buttons"
-    #   "thfriedrich.lammps"
-    #   "thmsrynr.vscode-namegen"
-    #   "trond-snekvik.simple-rst"
-    #   # "trunk.io"
-    #   "turaiiao.vscode-author-header"
-    #   "william-voyek.vscode-nginx"
-    #   "ymotongpoo.licenser"
-    #   "zhikui.vscode-openfoam"
-    # ];
+    extensions = market_extensions ++ pkgs.nix4vscode.forVscode nix4vscode_extensions;
+    # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+    #   {
+    #     name = "atom-keybindings";
+    #     publisher = "ms-vscode";
+    #     version = "3.3.0";
+    #     sha256 = "vzOb/DUV44JMzcuQJgtDB6fOpTKzq298WSSxVKlYE4o=";
+    #   }
+    # ]
+
     userSettings = {
       "editor.formatOnSave"= true;
       "editor.multiCursorModifier"= "ctrlCmd";
