@@ -1,7 +1,9 @@
 { config, pkgs, lib, inputs, ... }@args:
 {
   imports = [
-    ./home-modules/vscode/declared_workspaces.nix
+    # ./home-modules/vscode/declared_workspaces.nix
+    ./home-modules/vscode/workspace.nix
+    ./home-modules/vscode/workspaces.nix
   ];
 
   wayland.windowManager.hyprland = import ./home-modules/hyprland.nix;
