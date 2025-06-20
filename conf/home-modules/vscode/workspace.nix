@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.myModule;
+  cfg = config.code-workspace;
 
   # Helper to declare a single workspace given its name and spec
   declare_workspace = name: spec: rec {
@@ -35,13 +35,13 @@ let
 in
 {
   options = {
-    myModule.enable = mkOption {
+    code-workspace.enable = mkOption {
       type        = types.bool;
       default     = false;
       description = "Enable the automated VSCode workspace declarations.";
     };
 
-    myModule.configuration = mkOption {
+    code-workspace.workspaces = mkOption {
       type = types.attrsOf (types.submodule {
         options = {
           folder = mkOption {
@@ -83,7 +83,7 @@ in
   config = mkIf cfg.enable {
     # Build and merge all declared workspaces
     xdg = let
-      workspaces = mapAttrs (_name: spec: declare_workspace _name spec) cfg.configuration;
+      workspaces = mapAttrs (_name: spec: declare_workspace _name spec) cfg.workspaces;
     in {
       # VSCode workspace files
       configFile = mkMerge (map (w: w.configFile) (attrValues workspaces));

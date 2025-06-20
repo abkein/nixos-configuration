@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }: {
-  myModule = {
+  code-workspace = {
     enable = true;
-    configuration = {
+    workspaces = {
       configuration = {
         folder = "${config.home.homeDirectory}/nixos-configuration";
         settings = { "nixEnvSelector.suggestion" = false; };
