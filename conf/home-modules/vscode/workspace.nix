@@ -8,12 +8,12 @@ let
   # Helper to declare a single workspace given its name and spec
   declare_workspace = name: spec: rec {
     configFile."${name}" =
-    let
-      allow = if spec.extension_management_policy == "whitelist" then true else false;
-      allowed_exts = foldl' (acc: ext: acc // {"${ext}" = true;}) {} cfg.always_allowed_extensions;
-      exts = allowed_exts // (foldl' (acc: ext: acc // {"${ext}" = allow;}) {} spec.extensions) // {"*" = !allow;};
-      settings = if spec.extension_management_policy == "none" then spec.settings else (spec.settings // {"extensions.allowed" = exts;});
-    in
+    # let
+    #   allow = if spec.extension_management_policy == "whitelist" then true else false;
+    #   allowed_exts = foldl' (acc: ext: acc // {"${ext}" = true;}) {} cfg.always_allowed_extensions;
+    #   exts = allowed_exts // (foldl' (acc: ext: acc // {"${ext}" = allow;}) {} spec.extensions) // {"*" = !allow;};
+    #   settings = if spec.extension_management_policy == "none" then spec.settings else (spec.settings // {"extensions.allowed" = exts;});
+    # in
     {
       enable     = true;
       executable = false;
@@ -48,12 +48,12 @@ in
       description = "Enable the automated VSCode workspace declarations.";
     };
 
-    code-workspace.always_allowed_extensions = mkOption {
-      type        = types.listOf types.str;
-      description = "List of extensions always allowed regardless of code-workspace.workspaces.<name>.extension_management_policy option.";
-      default     = [];
-      example     = [ "jnoortheen.nix-ide" "ms-vscode.atom-keybindings" ];
-    };
+    # code-workspace.always_allowed_extensions = mkOption {
+    #   type        = types.listOf types.str;
+    #   description = "List of extensions always allowed regardless of code-workspace.workspaces.<name>.extension_management_policy option.";
+    #   default     = [];
+    #   example     = [ "jnoortheen.nix-ide" "ms-vscode.atom-keybindings" ];
+    # };
 
     code-workspace.workspaces = mkOption {
       type = types.attrsOf (types.submodule {
@@ -92,19 +92,19 @@ in
             default     = true;
           };
 
-          extension_management_policy = mkOption {
-            type        = types.enum [ "none" "blacklist" "whitelist" ];
-            description = "Whether to include specified extensions in option code-workspace.workspaces.<name>.extensions as only allowed into \"extensions.allowed\" or as blacklisted. Or do nothing if \"none\" specified.";
-            default     = "none";
-            example     = "whitelist";
-          };
+          # extension_management_policy = mkOption {
+          #   type        = types.enum [ "none" "blacklist" "whitelist" ];
+          #   description = "Whether to include specified extensions in option code-workspace.workspaces.<name>.extensions as only allowed into \"extensions.allowed\" or as blacklisted. Or do nothing if \"none\" specified.";
+          #   default     = "none";
+          #   example     = "whitelist";
+          # };
 
-          extensions = mkOption {
-            type        = types.listOf types.str;
-            description = "List of extensions to include into \"extensions.allowed\". See also code-workspace.workspaces.<name>.extension_management_policy option.";
-            default     = [];
-            example     = [ "mechatroner.rainbow-csv" "ms-python.python" ];
-          };
+          # extensions = mkOption {
+          #   type        = types.listOf types.str;
+          #   description = "List of extensions to include into \"extensions.allowed\". See also code-workspace.workspaces.<name>.extension_management_policy option.";
+          #   default     = [];
+          #   example     = [ "mechatroner.rainbow-csv" "ms-python.python" ];
+          # };
         };
       });
       default     = {};

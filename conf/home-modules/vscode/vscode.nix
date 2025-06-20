@@ -1,444 +1,55 @@
-{pkgs, lib} :
+{ lib, config, pkgs, ... }:
 let
-  parse_extension = extension:
-    let parts = builtins.split "\\." extension; in
-    if (builtins.length parts) == 3 then {
-      publisher = builtins.elemAt parts 0;
-      name = builtins.elemAt parts 2;
-    } else throw "Invalid extension format: ${extension}";
-  unparse_extension = {publisher, name}: "${publisher}.${name}";
-
-  has_extension = {publisher, name}: (builtins.hasAttr publisher pkgs.vscode-extensions) && (builtins.hasAttr name (builtins.getAttr publisher pkgs.vscode-extensions));
-  get_extension = {publisher, name}: builtins.getAttr name (builtins.getAttr publisher pkgs.vscode-extensions);
-
-  plugins = (import ./vscode_exts.nix) { inherit pkgs lib; };
+  mkExtList = import ./mkExtList {pkgs=pkgs; lib=lib;};
   needed_extensions = import ./needed_exts.nix;
-
-  parsed_extensions = builtins.map parse_extension needed_extensions;
-  presentExtensions = builtins.filter has_extension parsed_extensions;
-  market_extensions = builtins.map get_extension presentExtensions;
-
-  not_presentExtensions = builtins.filter (ext: !has_extension ext) parsed_extensions;
-  nix4vscode_extensions = builtins.map unparse_extension not_presentExtensions;
-in
-{
-  enable = true;
-  package = pkgs.vscode-fhs;
-  profiles.default = {
+  generic = {
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
-    extensions = market_extensions ++ pkgs.nix4vscode.forVscode nix4vscode_extensions;
-    # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-    #   {
-    #     name = "atom-keybindings";
-    #     publisher = "ms-vscode";
-    #     version = "3.3.0";
-    #     sha256 = "vzOb/DUV44JMzcuQJgtDB6fOpTKzq298WSSxVKlYE4o=";
-    #   }
-    # ]
-
-    userSettings = {
-      "editor.formatOnSave"= true;
-      "editor.multiCursorModifier"= "ctrlCmd";
-      "editor.formatOnPaste"= true;
-      "editor.formatOnType"= true;
-      "editor.fontLigatures"= true;
-      "editor.unicodeHighlight.ambiguousCharacters"= false;
-      "editor.renderWhitespace"= "all";
-      # "editor.defaultFormatter"= "trunk.io";
-
-      "window.titleBarStyle"= "custom";
-
-      "explorer.confirmDragAndDrop"= false;
-      "explorer.confirmDelete"= false;
-      "explorer.confirmPasteNative"= false;
-
-      "files.hotExit" = "onExitAndWindowClose";
-      "files.autoSave"= "afterDelay";
-      "files.trimTrailingWhitespace" = true;
-      "files.associations"= {
-          "*.gpi"= "gnuplot";
-          "*.in"= "lmps";
-      };
-      "files.exclude"= {
-          "**/.trunk/*actions/"= true;
-          "**/.trunk/*logs/"= true;
-          "**/.trunk/*notifications/"= true;
-          "**/.trunk/*out/"= true;
-          "**/.trunk/*plugins/"= true;
-      };
-      "files.watcherExclude"= {
-          "**/.trunk/*actions/"= true;
-          "**/.trunk/*logs/"= true;
-          "**/.trunk/*notifications/"= true;
-          "**/.trunk/*out/"= true;
-          "**/.trunk/*plugins/"= true;
-      };
-
-      "diffEditor.codeLens"= true;
-      "diffEditor.wordWrap"= "on";
-
-      "notebook.lineNumbers"= "on";
-
-      "security.workspace.trust.untrustedFiles"= "open";
-
-      "git.autofetch"= true;
-      "git.confirmSync"= false;
-      "git.enableCommitSigning"= true;
-      "git.ignoreRebaseWarning"= true;
-
-      "workbench.layoutControl.enabled"= false;
-      "workbench.editorAssociations"= {
-          "*.pdf"= "latex-workshop-pdf-hook";
-          "*.gz"= "default";
-      };
-
-      "terminal.integrated.sendKeybindingsToShell"= true;
-      "terminal.integrated.enableMultiLinePasteWarning"= false;
-
-      "debug.onTaskErrors"= "abort";
-
-      "atomKeymap.promptV3Features"= true;
-      "redhat.telemetry.enabled"= true;
-      "githubPullRequests.createOnPublishBranch"= "never";
-      "vscodeGoogleTranslate.preferredLanguage"= "Russian";
-      "dart.previewFlutterUiGuides"= true;
-
-      "licenser.author"= "Perevoshchikov Egor";
-      "licenser.license"= "GPLv3";
-      "licenser.disableAutoHeaderInsertion"= true;
-      "licenser.disableAutoSave"= true;
-
-      "scm.alwaysShowActions"= true;
-      "scm.alwaysShowRepositories"= true;
-      "scm.defaultViewMode"= "tree";
-
-      "randomNameGen.DefaultCasing"= "PascalCase";
-      "randomNameGen.WordCount"= 1;
-
-      "lammps.AutoComplete.Setting"= "Extensive";
-      "lammps.Hover.Detail"= "Complete";
-      "lammps.tasks.binary"= "/home/kein/.local/bin/lmp";
-
-      "author-header"= {
-          "author"= "Egor Perevoshchikov";
-          "contents"= [
-              "Open type style"
-          ];
-          "auto-comment-type"= "#";
-          "auto-space"= true;
-          "auto-title"= true;
-          "auto-date-type"= 3;
-      };
-
-      "latex-workshop.latex.tools"= [
-          {
-              "name"= "latexmk";
-              "command"= "latexmk";
-              "args"= [
-                  "-shell-escape"
-                  "-synctex=1"
-                  "-interaction=nonstopmode"
-                  "-file-line-error"
-                  "-pdf"
-                  "-outdir=%OUTDIR%"
-                  "%DOC%"
-              ];
-              "env"= {};
-          }
-          {
-              "name"= "pdflatex";
-              "command"= "pdflatex";
-              "args"= [
-                  "--shell-escape" # if you want to have the shell-escape flag
-                  "-synctex=1"
-                  "-interaction=nonstopmode"
-                  "-file-line-error"
-                  "%DOC%.tex"
-              ];
-          }
-      ];
-      "latex-workshop.latex.outDir"= "";
-      "latex-workshop.latex.clean.fileTypes"= [];
-      "latex-workshop.latex.clean.subfolder.enabled"= true;
-      "latex-workshop.latex.autoBuild.run"= "never";
-      "latex-workshop.latex.autoClean.run"= "onSucceeded";
-      "latex-workshop.formatting.latex" = "tex-fmt";
-
-      "remote.SSH.configFile"= "/home/kein/.ssh/config";
-      "remote.SSH.enableRemoteCommand"= true;
-
-      "actionButtons"= {
-          "defaultColor"= "#ff0034"; # Can also use string color names.
-          "loadNpmCommands"= false; # Disables automatic generation of actions for npm commands.
-          "reloadButton"= "♻️"; # Custom reload button text or icon (default ↻). null value enables automatic reload on configuration change
-          "commands"= [
-              {
-                  "cwd"= "\${workspaceFolder}";
-                  "name"= "SyncRepo";
-                  "color"= "white";
-                  "singleInstance"= true;
-                  "command"= "rsync -azP --exclude-from=\${workspaceFolder}/rsync.ex \${workspaceFolder} fisher=/scratch/perevoshchikyy/repos/\${workspaceFolderBasename}/../"; # This is executed in the terminal.
-              }
-              {
-                  "cwd"= "\${cwd}";
-                  "name"= "Plot gpi";
-                  "color"= "white";
-                  "singleInstance"= true;
-                  "command"= "/home/kein/execs/plt.py --file=\"\${file}\""; # This is executed in the terminal.
-              }
-              # {
-              #     "name"= "Build Cargo";
-              #     "color"= "green";
-              #     "command"= "cargo build ${file}";
-              # }
-              # {
-              #     "name"= "🪟 Split editor";
-              #     "color"= "orange";
-              #     "useVsCodeApi"= true;
-              #     "command"= "workbench.action.splitEditor"
-              # }
-          ];
-      };
-
-      # "python.analysis.diagnosticSeverityOverrides"= {
-      #     "reportUnboundVariable"= "none";
-      #     "reportGeneralTypeIssues"= "none"
-      # };
-      "python.editor.formatOnType"= true;
-      "python.editor.defaultFormatter"= "ms-python.black-formatter";
-      "python.analysis.inlayHints.functionReturnTypes"= true;
-      "python.analysis.inlayHints.pytestParameters"= true;
-      "python.analysis.inlayHints.variableTypes"= true;
-      "python.analysis.completeFunctionParens"= true;
-      "python.analysis.typeCheckingMode"= "basic";
-      "python.analysis.autoFormatStrings"= true;
-      "python.analysis.diagnosticMode"= "workspace";
-      "python.analysis.autoImportCompletions"= true;
-      "python.analysis.downloadStubs"= true;
-      "python.analysis.inlayHints.callArgumentNames"= true;
-      "python.formatting.provider"= "none";
-      "python.formatting.autopep8Args"= [
-          "--max-line-length 999999"
-      ];
-
-      "[python]" = {
-        "editor.defaultFormatter" = "ms-python.black-formatter";
-      };
-
-      "flake8.args" = [
-        "--disable=E701"
-        "--max-line-length=120"
-      ];
-
-      "black-formatter.args"= [
-          "--line-length=120"
-      ];
-
-      "mypy-type-checker.args"= [
-          "--disable-error-code=import-untyped"
-      ];
-
-      "jupyter.askForKernelRestart" = false;
-      "jupyter.disableJupyterAutoStart" = true;
-      "jupyter.widgetScriptSources"= [
-          "jsdelivr.com"
-          "unpkg.com"
-      ];
-      "jupyter.logging.level" = "trace";
-
-      "insertDateString.format"= "DD-MM-YYYY hh=mm=ss";
-      "insertDateString.formatDate"= "DD-MM-YYYY";
-
-      "lpubsppop01.autoTimeStamp.lineLimit"= 10;
-      "lpubsppop01.autoTimeStamp.momentFormat"= "DD-MM-YYYY HH=mm=ss";
-      "lpubsppop01.autoTimeStamp.birthTimeStart"= "# Created= ]";
-
-      "ltex.additionalRules.languageModel"= "ru";
-      "ltex.additionalRules.motherTongue"= "ru-RU";
-      "ltex.language"= "ru-RU";
-
-      "todo-tree.general.tags"= [
-          "BUG"
-          "HACK"
-          "FIXME"
-          "TODO"
-          "XXX"
-          "[ ]"
-          "[x]"
-          "type= ignore"
-      ];
-
-      "cmake.configureOnOpen"= true;
-      "cmake.configureOnEdit"= false;
-      "cmake.configureSettings"= {};
-      "cmake.generator"= "Unix Makefiles";
-      "cmake.showOptionsMovedNotification"= false;
-      "cmake.options.statusBarVisibility"= "compact";
-      "cmake.pinnedCommands"= [
-          "workbench.action.tasks.configureTaskRunner"
-          "workbench.action.tasks.runTask"
-      ];
-
-      "C_Cpp.formatting"= "disabled";
-      "C_Cpp.intelliSenseUpdateDelay"= 3000;
-      "C_Cpp.experimentalFeatures"= "enabled";
-      "C_Cpp.workspaceParsingPriority"= "high";
-      "C_Cpp.autocompleteAddParentheses"= true;
-      "C_Cpp.default.mergeConfigurations"= true;
-      "C_Cpp.inlayHints.parameterNames.enabled"= true;
-      "C_Cpp.inlayHints.referenceOperator.enabled"= true;
-      "C_Cpp.inlayHints.autoDeclarationTypes.enabled"= true;
-      "C_Cpp.inlayHints.autoDeclarationTypes.showOnLeft"= true;
-      "C_Cpp.inlayHints.parameterNames.suppressWhenArgumentContainsName"= false;
-      "C_Cpp.default.includePath"= [
-          "/usr/local/include/"
-          "\${default}"
-          "/usr/include/"
-      ];
-
-      "[cpp]"= {
-          "editor.defaultFormatter" = "ms-vscode.cpptools";
-      };
-
-      "c-cpp-flylint.debug"= true;
-      "c-cpp-flylint.flexelint.enable"= false;
-      "c-cpp-flylint.cppcheck.extraArgs"= [
-          "--check-level=exhaustive"
-          "--force"
-      ];
-
-      "deepl.formality"= "default";
-      "deepl.tagHandling"= "off";
-      "deepl.splitSentences"= "1";
-      "deepl.translationMode"= "Replace";
-
-      "sonarlint.rules"= {
-          "cpp=S134"= {
-              "level"= "off";
-          };
-          "cpp=S125"= {
-              "level"= "off";
-          };
-          "python:S3776"= {
-              "level"= "off";
-          };
-          "python:S116"= {
-              "level"= "off";
-          };
-          "python:S108"= {
-              "level"= "off";
-          };
-          "python:S1192"= {
-              "level"= "off";
-          };
-          "python:S117"= {    # Local variable and function parameter names should comply with a naming convention
-              "level"= "off";
-          };
-          "python:S5843"= {    # Regular expressions should not be too complicated
-              "level"= "off";
-          };
-      };
-      "sonarlint.connectedMode.connections.sonarcloud" =  [
-        {
-        "organizationKey" = "abkein";
-        "connectionId" = "abkein";
-        "region" = "EU";
-        }
-      ];
-
-      "geminicodeassist.inlineSuggestions.enableAuto" = false;
-      "geminicodeassist.project" =  "someimportantproject";
-
-      "nixEnvSelector.suggestion" = true;
-
-    };
-    globalSnippets = {
-      Shebang = {
-        scope = "bash, python";
-        prefix = "#!";
-        body = [
-          "#!/usr/bin/env $1"
-          "\${2:# -*- coding: utf-8 -*-}"
-        ];
-        description = "Paste shebang";
-      };
-    };
-    languageSnippets = {
-      python = {
-        plot = {
-          prefix = [ "plt.plot" ];
-          body = [
-            "fig = plt.figure()"
-            "ax1 = fig.add_subplot(1,1,1)"
-            "(line11,) = ax1.plot($1)"
-            ""
-            "# fig.savefig(\"\", bbox_inches=\"tight\", transparent=True)"
-            "plt.show()"
-          ];
-          description = "Matplotlib extended plot";
-        };
-        scatter = {
-          prefix = [ "plt.scatter" ];
-          body = [
-            "fig = plt.figure()"
-            "ax1 = fig.add_subplot(1,1,1)"
-            "line11 = ax1.scatter($1)"
-            ""
-            "# fig.savefig(\"\", bbox_inches=\"tight\", transparent=True)"
-            "plt.show()"
-          ];
-          description = "Matplotlib extended plot, scatter";
-        };
-	      ignore_type = {
-	      	prefix = "# t";
-	      	body = [
-	      		"# type: ignore"
-	      	];
-	      	description = "Inserts type ignore instruction";
-	      };
-        passifmain = {
-          prefix = "if __";
-          body = [
-            "if __name__ == \"__main__\":"
-            "    pass"
-            ""
-          ];
-          description = "Pass if main";
-        };
-      };
-      cpp = {
-        print = {
-          prefix = "std::c";
-          body = [
-            "std::cout << $1 << std::endl;"
-          ];
-          description = "Output to console";
-        };
-      };
-      latex = {
-        text = {
-          prefix = "\\t";
-          body = [
-            "\\text{$1}"
-          ];
-          description = "\\text{}";
-        };
-        limit = {
-          prefix = "\\lim";
-          body = [
-            "\\lim\\limits_{\\substack{\${1:a} \\to -\${2:\\infty} \${3:b} \\to \${4:\\infty}}}"
-          ];
-          description = "Double limits";
-        };
-        therm_deriv = {
-          prefix = "\\lfp";
-          body = [
-            "\\left(\\frac{\\partial $1}{\\partial $2}\\right)_{$3}"
-          ];
-          description = "Thermodynamic derivative";
-        };
-      };
-    };
+    userSettings = import ./generalUserSettings.nix;
+    globalSnippets = import ./generalGlobalSnippets.nix;
+    languageSnippets = import ./generalLangSnippets;
   };
+  mkProfile = {name, extensions}:
+  let
+    tmp = generic // { extensions = mkExtList extensions; };
+  in
+  { ${name} = tmp; };
+in
+{
+  programs.vscode =
+  {
+    enable = true;
+    package = pkgs.vscode-fhs;
+    profiles = lib.foldl' (acc: prof: acc // (mkProfile prof)) {}
+    [
+      {
+        name = "default";
+        extensions = needed_extensions;
+      }
+      {
+        name = "LaTeX";
+        extensions = [
+          "jnoortheen.nix-ide"
+          "funkyremi.vscode-google-translate"
+          "james-yu.latex-workshop"
+          "mechatroner.rainbow-csv"
+          "ms-ceintl.vscode-language-pack-ru"
+          "valentjn.vscode-ltex"
+          "yzhang.markdown-all-in-one"
+          "arrterian.nix-env-selector"
+          "mammothb.gnuplot"
+          "ms-vscode.atom-keybindings"
+          "trond-snekvik.simple-rst"
+        ];
+      }
+    ]
+  };
+  # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+  #   {
+  #     name = "atom-keybindings";
+  #     publisher = "ms-vscode";
+  #     version = "3.3.0";
+  #     sha256 = "vzOb/DUV44JMzcuQJgtDB6fOpTKzq298WSSxVKlYE4o=";
+  #   }
+  # ]
 }

@@ -1,6 +1,7 @@
 { config, pkgs, lib, inputs, ... }@args:
 {
   imports = [
+    ./home-modules/vscode/vscode.nix
     ./home-modules/vscode/workspace.nix
     ./home-modules/vscode/workspaces.nix
   ];
@@ -8,21 +9,21 @@
   wayland.windowManager.hyprland = import ./home-modules/hyprland.nix;
 
   xdg =
-    {
+  {
+    enable = true;
+    # defaults:
+    # cacheHome = "~/.cache";  # $XDG_CACHE_HOME
+    # configHome = "~/.config";  # $XDG_CONFIG_HOME
+    # dataHome = "~/.local/share";  # $XDG_DATA_HOME
+    # stateHome = "~/.local/state";  # $XDG_STATE_HOME
+
+    userDirs = {
       enable = true;
-      # defaults:
-      # cacheHome = "~/.cache";  # $XDG_CACHE_HOME
-      # configHome = "~/.config";  # $XDG_CONFIG_HOME
-      # dataHome = "~/.local/share";  # $XDG_DATA_HOME
-      # stateHome = "~/.local/state";  # $XDG_STATE_HOME
-
-      userDirs = {
-        enable = true;
-        createDirectories = true;
-      };
-
-      configFile = import ./home-modules/configFiles.nix;
+      createDirectories = true;
     };
+
+    configFile = import ./home-modules/configFiles.nix;
+  };
 
   home = {
     username = "kein";
@@ -122,10 +123,10 @@
       historyFile = "${config.xdg.stateHome}/bash/history";
       historySize = 999999;
     };
-    vscode = import ./home-modules/vscode/vscode.nix {
-      pkgs = pkgs;
-      lib = lib;
-    };
+    # vscode = import ./home-modules/vscode/vscode.nix {
+    #   pkgs = pkgs;
+    #   lib = lib;
+    # };
     zsh = import ./home-modules/zsh.nix config;
     waybar = import ./home-modules/waybar.nix;
     wofi = import ./home-modules/wofi.nix;
