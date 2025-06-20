@@ -1,11 +1,14 @@
 { lib, config, pkgs, ... }: {
   code-workspace = {
     enable = true;
+    always_allowed_extensions = [ "jnoortheen.nix-ide" "ms-vscode.atom-keybindings" ];
     workspaces = {
       configuration = {
         folder = "${config.home.homeDirectory}/nixos-configuration";
         settings = { "nixEnvSelector.suggestion" = false; };
         preinit = false;
+        extension_management_policy = "blacklist";
+        extensions = ["sonarsource.sonarlint-vscode"];
       };
       lmptest = {
         folder = "${config.home.homeDirectory}/Documents/nucleation/lmptest";

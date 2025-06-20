@@ -7,30 +7,37 @@ let
 
   # Helper to declare a single workspace given its name and spec
   declare_workspace = name: spec: rec {
-    configFile."${name}" = {
+    configFile."${name}" =
+    let
+      allow = if spec.extension_management_policy == "whitelist" then true else false;
+      allowed_exts = foldl' (acc: ext: acc // {"${ext}" = true;}) {} cfg.always_allowed_extensions;
+      exts = allowed_exts // (foldl' (acc: ext: acc // {"${ext}" = allow;}) {} spec.extensions) // {"*" = !allow;};
+      settings = if spec.extension_management_policy == "none" then spec.settings else (spec.settings // {"extensions.allowed" = exts;});
+    in
+    {
       enable     = true;
       executable = false;
       force      = true;
       target     = "vscode_workspaces/${name}.code-workspace";
       text       = builtins.toJSON {
         folders  = [{ path = spec.folder; }];
-        settings = spec.settings;
+        settings = settings;
       };
     };
 
     desktopEntries."CodeWorkspaceSelector".actions."${name}" =
-      let
-        initCmd     = "nix-shell ${spec.folder}/shell.nix --command \"exit\"";
-        initWrap    = "kitty --app-id=kitty_info ${initCmd}";
-        prefix      = if spec.prerun != "" then "${spec.prerun} && "
-                      else if spec.preinit then "${initWrap} && " else "";
-        postfix     = if spec.postrun != "" then " && ${spec.postrun}" else "";
-        codeCmd     = "${pkgs.vscode-fhs}/bin/code --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
-        fullCommand = "${prefix}${codeCmd}${postfix}";
-      in {
-        name = name;
-        exec = "bash -c \"${fullCommand}\"";
-      };
+    let
+      initCmd     = "nix-shell ${spec.folder}/shell.nix --command \"exit\"";
+      initWrap    = "kitty --app-id=kitty_info ${initCmd}";
+      prefix      = if spec.prerun != "" then "${spec.prerun} && "
+                    else if spec.preinit then "${initWrap} && " else "";
+      postfix     = if spec.postrun != "" then " && ${spec.postrun}" else "";
+      codeCmd     = "${pkgs.vscode-fhs}/bin/code --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
+      fullCommand = "${prefix}${codeCmd}${postfix}";
+    in {
+      name = name;
+      exec = "bash -c \"${fullCommand}\"";
+    };
   };
 in
 {
@@ -39,6 +46,13 @@ in
       type        = types.bool;
       default     = false;
       description = "Enable the automated VSCode workspace declarations.";
+    };
+
+    code-workspace.always_allowed_extensions = mkOption {
+      type        = types.listOf types.str;
+      description = "List of extensions always allowed regardless of code-workspace.workspaces.<name>.extension_management_policy option.";
+      default     = [];
+      example     = [ "jnoortheen.nix-ide" "ms-vscode.atom-keybindings" ];
     };
 
     code-workspace.workspaces = mkOption {
@@ -54,6 +68,10 @@ in
             type        = types.attrs;
             description = "VSCode settings to embed in the workspace file.";
             default     = {};
+            example     = {
+                            "nixEnvSelector.suggestion" = false;
+                            "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+                          };
           };
 
           prerun = mkOption {
@@ -72,6 +90,20 @@ in
             type        = types.bool;
             description = "Whether to run nix-shell before opening VSCode if prerun is empty.";
             default     = true;
+          };
+
+          extension_management_policy = mkOption {
+            type        = types.enum [ "none" "blacklist" "whitelist" ];
+            description = "Whether to include specified extensions in option code-workspace.workspaces.<name>.extensions as only allowed into \"extensions.allowed\" or as blacklisted. Or do nothing if \"none\" specified.";
+            default     = "none";
+            example     = "whitelist";
+          };
+
+          extensions = mkOption {
+            type        = types.listOf types.str;
+            description = "List of extensions to include into \"extensions.allowed\". See also code-workspace.workspaces.<name>.extension_management_policy option.";
+            default     = [];
+            example     = [ "mechatroner.rainbow-csv" "ms-python.python" ];
           };
         };
       });
