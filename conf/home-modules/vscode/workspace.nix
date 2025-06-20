@@ -21,7 +21,7 @@ let
       target     = "vscode_workspaces/${name}.code-workspace";
       text       = builtins.toJSON {
         folders  = [{ path = spec.folder; }];
-        settings = settings;
+        settings = spec.settings;
       };
     };
 

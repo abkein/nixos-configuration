@@ -1,17 +1,15 @@
 { lib, config, pkgs, ... }:
 let
-  mkExtList = import ./mkExtList {pkgs=pkgs; lib=lib;};
+  mkExtList = import ./mkExtList.nix {pkgs=pkgs; lib=lib;};
   needed_extensions = import ./needed_exts.nix;
   generic = {
-    enableUpdateCheck = false;
-    enableExtensionUpdateCheck = false;
     userSettings = import ./generalUserSettings.nix;
     globalSnippets = import ./generalGlobalSnippets.nix;
-    languageSnippets = import ./generalLangSnippets;
+    languageSnippets = import ./generalLangSnippets.nix;
   };
-  mkProfile = {name, extensions}:
+  mkProfile = {name, extensions, add ? {}}:
   let
-    tmp = generic // { extensions = mkExtList extensions; };
+    tmp = generic // { extensions = mkExtList extensions; } // add;
   in
   { ${name} = tmp; };
 in
@@ -25,6 +23,10 @@ in
       {
         name = "default";
         extensions = needed_extensions;
+        add = {
+          enableUpdateCheck = false;
+          enableExtensionUpdateCheck = false;
+        };
       }
       {
         name = "LaTeX";
@@ -42,7 +44,7 @@ in
           "trond-snekvik.simple-rst"
         ];
       }
-    ]
+    ];
   };
   # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
   #   {
