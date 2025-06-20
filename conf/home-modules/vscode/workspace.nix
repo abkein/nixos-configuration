@@ -79,13 +79,13 @@ in
         };
       });
       default = {};
-      description = "Configuration entries for myModule.";
+      description = "Declare VSCode workspaces.";
     };
   };
 
   config = mkIf cfg.enable {
     # Iterate over each configured entry and apply settings
     xdg = lib.foldl' (acc: spec: lib.mkMerge [acc (declare_workspace spec)]) {}
-    lib.map (entryName: config.myModule.configuration.${entryName}) (builtins.attrNames cfg.configuration);
+    (lib.map (entryName: config.myModule.configuration.${entryName}) (builtins.attrNames cfg.configuration));
   };
 }
