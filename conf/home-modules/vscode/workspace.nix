@@ -81,12 +81,29 @@ in
   };
 
   config = mkIf cfg.enable {
-    # Build and merge together all declared workspaces
+    # Build and merge all declared workspaces
     xdg = let
       workspaces = mapAttrs (_name: spec: declare_workspace _name spec) cfg.configuration;
     in {
-      configFile   = mkMerge (map (w: w.configFile) (attrValues workspaces));
-      desktopEntries = mkMerge (map (w: w.desktopEntries) (attrValues workspaces));
+      # VSCode workspace files
+      configFile = mkMerge (map (w: w.configFile) (attrValues workspaces));
+
+      # Desktop entry for selector and per-workspace actions
+      desktopEntries = mkMerge (
+        [ {
+            CodeWorkspaceSelector = {
+              name        = "Space Selector";
+              genericName = "Visual Studio Workspace Selector";
+              exec        = ''
+                hyprctl notify 2 3000 0 "fontsize:35 CodeWorkspaceSelector does nothing itself, select an action"'';
+              icon        = "vscode";
+              type        = "Application";
+              categories  = [ "Development" "IDE" "TextTools" ];
+              actions     = {};
+            };
+          }
+        ] ++ map (w: w.desktopEntries) (attrValues workspaces)
+      );
     };
   };
 }
