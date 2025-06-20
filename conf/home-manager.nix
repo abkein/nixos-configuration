@@ -24,16 +24,16 @@
 
       configFile = import ./home-modules/configFiles.nix;
 
-      desktopEntries."CodeWorkspaceSelector" = {
-        name = "Space Selector";
-        genericName = "Visual Studio Workspace Selector";
-        exec = ''
-          hyprctl notify 2 3000 0 "fontsize:35 CodeWorkspaceSelector does nothing itself, select an action"'';
-        icon = "vscode";
-        type = "Application";
-        categories = [ "Development" "IDE" "TextTools" ];
-        actions = { };
-      };
+      # desktopEntries."CodeWorkspaceSelector" = {
+      #   name = "Space Selector";
+      #   genericName = "Visual Studio Workspace Selector";
+      #   exec = ''
+      #     hyprctl notify 2 3000 0 "fontsize:35 CodeWorkspaceSelector does nothing itself, select an action"'';
+      #   icon = "vscode";
+      #   type = "Application";
+      #   categories = [ "Development" "IDE" "TextTools" ];
+      #   actions = { };
+      # };
     };
 
   home = {
