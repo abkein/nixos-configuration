@@ -1,83 +1,115 @@
-[
+{
+  general = [
+    "arrterian.nix-env-selector"
+    "jnoortheen.nix-ide"
+    "mechatroner.rainbow-csv"
+    "ms-vscode.atom-keybindings"
+    "thmsrynr.vscode-namegen" # possibly delete
+  ];
+
+  LaTeX = [
+    "funkyremi.vscode-google-translate"
+    "james-yu.latex-workshop"
+    "ms-ceintl.vscode-language-pack-ru"
+    "valentjn.vscode-ltex"
+    "yzhang.markdown-all-in-one"
+    "mammothb.gnuplot"
+    "trond-snekvik.simple-rst"
+  ];
+
+  python = [
+    "ms-python.black-formatter"
+    "ms-python.debugpy"
+    "ms-python.flake8"
+    "ms-python.isort"
+    "ms-python.python"
+    "ms-python.vscode-pylance"
+    "ms-python.autopep8"
+    "ms-toolsai.jupyter"
+    "ms-toolsai.jupyter-keymap"
+    "ms-toolsai.jupyter-renderers"
+    "ms-toolsai.vscode-jupyter-cell-tags"
+    "ms-toolsai.vscode-jupyter-slideshow"
+    "ms-toolsai.vscode-jupyter-powertoys"
+    "kevinrose.vsc-python-indent"
+    "njpwerner.autodocstring"
+    "ms-python.mypy-type-checker"
+  ];
+
+  py-dev = [
+    "jsynowiec.vscode-insertdatestring"
+    "lpubsppop01.vscode-auto-timestamp"
+    "turaiiao.vscode-author-header"
+    "visualstudioexptteam.intellicode-api-usage-examples"
+    "visualstudioexptteam.vscodeintellicode"
+  ];
+
+  flutter = [
+    "alexisvt.flutter-snippets"
+    "dart-code.dart-code"
+    "dart-code.flutter"
+  ];
+
+  cpp = [
+    "ms-vscode.makefile-tools"
+    "ms-vscode.cmake-tools"
+    "ms-vscode.cpptools"
+    "ms-vscode.cpptools-extension-pack"
+    "hars.cppsnippets"
+    "twxs.cmake"
+    "jbenden.c-cpp-flylint"
+    "jeff-hykin.better-cpp-syntax"
+    "ms-vscode.cpptools-themes"
+  ];
+
+  dev = [
+    "alefragnani.bookmarks"
+    "ms-vscode.hexeditor"
+    "github.vscode-pull-request-github"
+    "github.remotehub"
+    "ymotongpoo.licenser"
+    "mads-hartmann.bash-ide-vscode"
+    "redhat.vscode-xml"
+    "tamasfe.even-better-toml"
+    "thfriedrich.lammps"
+  ];
+
+  misc = [
+    "coolbear.systemd-unit-file"
+    "ombratteng.nftables"
+    "william-voyek.vscode-nginx"
+  ];
+
+  remote = [
+    "ms-vscode-remote.remote-containers"
+    "ms-vscode-remote.remote-ssh"
+    "ms-vscode-remote.remote-ssh-edit"
+    "ms-vscode-remote.vscode-remote-extensionpack"
+    "ms-vscode.remote-explorer"
+    "ms-vscode.remote-repositories"
+    "ms-vscode.remote-server"
+  ];
+
+  sonar = [
+    "sonarsource.sonarlint-vscode" # requires jre
+  ];
+
   # "mkhl.direnv"
-  "jnoortheen.nix-ide"
-  "alefragnani.bookmarks"
-  "alexisvt.flutter-snippets"
-  "coolbear.systemd-unit-file"
-  "dart-code.dart-code"
-  "dart-code.flutter"
-  "funkyremi.vscode-google-translate"
-  "github.vscode-pull-request-github"
-  "gruntfuggly.todo-tree"
-  "hars.cppsnippets"
-  "james-yu.latex-workshop"
-  "mads-hartmann.bash-ide-vscode"
-  "mechatroner.rainbow-csv"
-  "ms-ceintl.vscode-language-pack-ru"
-  "ms-python.black-formatter"
-  "ms-python.debugpy"
-  "ms-python.flake8"
-  "ms-python.isort"
-  "ms-python.python"
-  "ms-python.vscode-pylance"
-  "ms-toolsai.jupyter"
-  "ms-toolsai.jupyter-keymap"
-  "ms-toolsai.jupyter-renderers"
-  "ms-toolsai.vscode-jupyter-cell-tags"
-  "ms-toolsai.vscode-jupyter-slideshow"
-  "ms-vscode-remote.remote-containers"
-  "ms-vscode-remote.remote-ssh"
-  "ms-vscode-remote.remote-ssh-edit"
-  "ms-vscode-remote.vscode-remote-extensionpack"
-  "ms-vscode.cmake-tools"
-  "ms-vscode.cpptools"
-  "ms-vscode.cpptools-extension-pack"
-  "ms-vscode.hexeditor"
-  "ms-vscode.makefile-tools"
-  "njpwerner.autodocstring"
-  "redhat.java"
-  "redhat.vscode-xml"
-  "sonarsource.sonarlint-vscode" # requires jre
-  "tamasfe.even-better-toml"
-  "twxs.cmake"
-  "valentjn.vscode-ltex"
-  "visualstudioexptteam.intellicode-api-usage-examples"
-  "visualstudioexptteam.vscodeintellicode"
-  "vscjava.vscode-gradle"
-  "yzhang.markdown-all-in-one"
-  "arrterian.nix-env-selector"
-  "christian-kohler.npm-intellisense"
-  "ms-python.mypy-type-checker"
-  # "ms-python.vscode-python-envs"
-  "github.remotehub"
-  "ms-vscode.remote-explorer"
+  # "seunlanlege.action-buttons"
+  # "trunk.io"
   # "google.geminicodeassist"
   # "googlecloudtools.cloudcode"
-  "jbenden.c-cpp-flylint"
-  "jeff-hykin.better-cpp-syntax"
-  "jsynowiec.vscode-insertdatestring"
-  "kevinrose.vsc-python-indent"
-  "lpubsppop01.vscode-auto-timestamp"
-  "mammothb.gnuplot"
-  "ms-python.autopep8"
-  "ms-toolsai.vscode-jupyter-powertoys"
-  "ms-vscode.atom-keybindings"
-  "ms-vscode.azure-repos"
-  "ms-vscode.cpptools-themes"
-  "ms-vscode.js-debug"
-  "ms-vscode.js-debug-companion"
-  "ms-vscode.remote-repositories"
-  "ms-vscode.remote-server"
-  "ms-vscode.vscode-js-profile-table"
-  "ms-vscode.vscode-typescript-next"
-  "ombratteng.nftables"
-  "seunlanlege.action-buttons"
-  "thfriedrich.lammps"
-  "thmsrynr.vscode-namegen"
-  "trond-snekvik.simple-rst"
-  # "trunk.io"
-  "turaiiao.vscode-author-header"
-  "william-voyek.vscode-nginx"
-  "ymotongpoo.licenser"
-  "zhikui.vscode-openfoam"
-]
+
+  # "gruntfuggly.todo-tree"
+  # "ms-python.vscode-python-envs"
+
+  # "redhat.java"
+  # "vscjava.vscode-gradle"
+
+  # "ms-vscode.js-debug"
+  # "ms-vscode.js-debug-companion"
+  # "ms-vscode.vscode-js-profile-table"
+  # "ms-vscode.vscode-typescript-next"
+
+  # "zhikui.vscode-openfoam"
+}

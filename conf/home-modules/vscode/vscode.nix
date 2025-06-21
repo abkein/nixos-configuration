@@ -12,7 +12,7 @@ let
     "arrterian.nix-env-selector"
     "mechatroner.rainbow-csv"
   ];
-  mkProfile = name: {extensions, add ? {}}: generic // { extensions = mkExtList (extensions ++ persistent_extensions); } // add;
+  mkProfile = name: {extensions ? [], add ? {}}: generic // { extensions = mkExtList (needed_extensions.general ++ extensions); } // add;
   mkProfiles = profs: builtins.mapAttrs mkProfile profs;
 in
 {
@@ -23,28 +23,16 @@ in
     profiles = mkProfiles
     {
       default = {
-        extensions = needed_extensions;
+        extensions = builtins.concatLists (builtins.attrValues needed_extensions);
         add = {
           enableUpdateCheck = false;
           enableExtensionUpdateCheck = false;
         };
       };
-      nix = {
-        extensions = [
-          "jnoortheen.nix-ide"
-        ];
-      };
-      LaTeX = {
-        extensions = [
-          "funkyremi.vscode-google-translate"
-          "james-yu.latex-workshop"
-          "ms-ceintl.vscode-language-pack-ru"
-          "valentjn.vscode-ltex"
-          "yzhang.markdown-all-in-one"
-          "mammothb.gnuplot"
-          "trond-snekvik.simple-rst"
-        ];
-      };
+      nix = { };
+      LaTeX = with needed_extensions; { extensions = LaTeX ++ python; };
+      python = with needed_extensions; { extensions = python ++ py-dev ++ dev ++ sonar; };
+      cpp = with needed_extensions; { extensions = cpp ++ dev ++ sonar; };
     };
   };
   # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
