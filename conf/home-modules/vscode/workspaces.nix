@@ -3,9 +3,10 @@
     enable = true;
     workspaces = {
       configuration = {
-        folder = "${config.home.homeDirectory}/nixos-configuration";
+        folder   = "${config.home.homeDirectory}/nixos-configuration";
         settings = { "nixEnvSelector.suggestion" = false; };
         hasShell = false;
+        profile  = "nix";
       };
       lmptest = {
         folder = "${config.home.homeDirectory}/Documents/nucleation/lmptest";
@@ -19,7 +20,8 @@
         settings = { "licenser.license" = "MIT"; };
       };
       magdiss = {
-        folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/";
+        folder  = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/";
+        profile = "LaTeX";
       };
       magdiss-pres = {
         folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/presentation/";

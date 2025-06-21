@@ -37,7 +37,7 @@
   "njpwerner.autodocstring"
   "redhat.java"
   "redhat.vscode-xml"
-  "sonarsource.sonarlint-vscode"  # requires jre
+  "sonarsource.sonarlint-vscode" # requires jre
   "tamasfe.even-better-toml"
   "twxs.cmake"
   "valentjn.vscode-ltex"

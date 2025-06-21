@@ -23,13 +23,6 @@ in
       example     = pkgs.vscodium;
     };
 
-    # better-code.always_allowed_extensions = mkOption {
-    #   type        = types.listOf types.str;
-    #   description = "List of extensions always allowed regardless of better-code.workspaces.<name>.extension_management_policy option.";
-    #   default     = [];
-    #   example     = [ "jnoortheen.nix-ide" "ms-vscode.atom-keybindings" ];
-    # };
-
     better-code.workspaces = mkOption {
       default     = {};
       description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
@@ -81,20 +74,6 @@ in
             description = "Wether workspace has shell.nix or not.";
             default     = true;
           };
-
-          # extension_management_policy = mkOption {
-          #   type        = types.enum [ "none" "blacklist" "whitelist" ];
-          #   description = "Whether to include specified extensions in option better-code.workspaces.<name>.extensions as only allowed into \"extensions.allowed\" or as blacklisted. Or do nothing if \"none\" specified.";
-          #   default     = "none";
-          #   example     = "whitelist";
-          # };
-
-          # extensions = mkOption {
-          #   type        = types.listOf types.str;
-          #   description = "List of extensions to include into \"extensions.allowed\". See also better-code.workspaces.<name>.extension_management_policy option.";
-          #   default     = [];
-          #   example     = [ "mechatroner.rainbow-csv" "ms-python.python" ];
-          # };
         };
       });
     };

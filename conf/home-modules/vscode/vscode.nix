@@ -7,7 +7,12 @@ let
     globalSnippets = import ./generalGlobalSnippets.nix;
     languageSnippets = import ./generalLangSnippets.nix;
   };
-  mkProfile = name: {extensions, add ? {}}: generic // { extensions = mkExtList extensions; } // add;
+  persistent_extensions = [
+    "ms-vscode.atom-keybindings"
+    "arrterian.nix-env-selector"
+    "mechatroner.rainbow-csv"
+  ];
+  mkProfile = name: {extensions, add ? {}}: generic // { extensions = mkExtList (extensions ++ persistent_extensions); } // add;
   mkProfiles = profs: builtins.mapAttrs mkProfile profs;
 in
 {
@@ -24,18 +29,19 @@ in
           enableExtensionUpdateCheck = false;
         };
       };
-      LaTeX = {
+      nix = {
         extensions = [
           "jnoortheen.nix-ide"
+        ];
+      };
+      LaTeX = {
+        extensions = [
           "funkyremi.vscode-google-translate"
           "james-yu.latex-workshop"
-          "mechatroner.rainbow-csv"
           "ms-ceintl.vscode-language-pack-ru"
           "valentjn.vscode-ltex"
           "yzhang.markdown-all-in-one"
-          "arrterian.nix-env-selector"
           "mammothb.gnuplot"
-          "ms-vscode.atom-keybindings"
           "trond-snekvik.simple-rst"
         ];
       };
