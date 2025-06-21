@@ -16,8 +16,8 @@ in
 {
   programs.vscode =
   {
-    enable = true;
-    package = pkgs.vscode-fhs;
+    # enable = true;
+    # package = pkgs.vscode-fhs;
     profiles = lib.foldl' (acc: prof: acc // (mkProfile prof)) {}
     [
       {
