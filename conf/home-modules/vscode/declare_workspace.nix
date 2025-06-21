@@ -26,8 +26,8 @@ config: name: spec: rec {
     prefix      = if spec.prerun != "" then "${spec.prerun} && "
                   else if (spec.preinit && spec.hasShell) then "${initWrap} && " else "";
     postfix     = if spec.postrun != "" then " && ${spec.postrun}" else "";
-    profileCmd  = if spec.profile == "" then "" else "--profile ${spec.profile}";
-    codeCmd     = "${config.better-code.code-package}/bin/code --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
+    profile     = if spec.profile == "" then "default" else spec.profile;
+    codeCmd     = "${config.better-code.code-package}/bin/code --profile ${profile} --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
     fullCommand = "${prefix}${codeCmd}${postfix}";
   in {
     name = name;
