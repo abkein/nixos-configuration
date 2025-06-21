@@ -312,4 +312,5 @@
   "geminicodeassist.project" =  "someimportantproject";
 
   "nixEnvSelector.suggestion" = true;
+  "[nix]"."editor.tabSize" = 2;
 }

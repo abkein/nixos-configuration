@@ -101,10 +101,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.vscode = {
-      enable = true;
-      package = cfg.code-package;
-    };
+    programs.vscode.package = cfg.code-package;
 
     # Build and merge all declared workspaces
     xdg = let

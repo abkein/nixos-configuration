@@ -7,29 +7,24 @@ let
     globalSnippets = import ./generalGlobalSnippets.nix;
     languageSnippets = import ./generalLangSnippets.nix;
   };
-  mkProfile = {name, extensions, add ? {}}:
-  let
-    tmp = generic // { extensions = mkExtList extensions; } // add;
-  in
-  { ${name} = tmp; };
+  mkProfile = name: {extensions, add ? {}}: generic // { extensions = mkExtList extensions; } // add;
+  mkProfiles = profs: builtins.mapAttrs mkProfile profs;
 in
 {
   programs.vscode =
   {
-    # enable = true;
+    enable = true;
     # package = pkgs.vscode-fhs;
-    profiles = lib.foldl' (acc: prof: acc // (mkProfile prof)) {}
-    [
-      {
-        name = "default";
+    profiles = mkProfiles
+    {
+      default = {
         extensions = needed_extensions;
         add = {
           enableUpdateCheck = false;
           enableExtensionUpdateCheck = false;
         };
-      }
-      {
-        name = "LaTeX";
+      };
+      LaTeX = {
         extensions = [
           "jnoortheen.nix-ide"
           "funkyremi.vscode-google-translate"
@@ -43,8 +38,8 @@ in
           "ms-vscode.atom-keybindings"
           "trond-snekvik.simple-rst"
         ];
-      }
-    ];
+      };
+    };
   };
   # ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
   #   {
