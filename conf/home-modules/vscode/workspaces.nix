@@ -9,25 +9,26 @@
         profile  = "nix";
       };
       lmptest = {
-        folder = "${config.home.homeDirectory}/Documents/nucleation/lmptest";
+        folder  = "${config.home.homeDirectory}/Documents/nucleation/lmptest";
+        profile = "python";
       };
       Quicknotebook = {
-        folder = "${config.xdg.dataHome}/quicknotebook";
-        prerun = "kitty --app-id=\"kitty_info\" ${config.home.homeDirectory}/execs/quicknotebook.sh";
+        folder  = "${config.xdg.dataHome}/quicknotebook";
+        prerun  = "kitty --app-id=\"kitty_info\" ${config.home.homeDirectory}/execs/quicknotebook.sh";
+        profile = "python";
       };
       lmp = {
-        folder = "${config.home.homeDirectory}/Documents/nucleation/lmp";
+        folder   = "${config.home.homeDirectory}/Documents/nucleation/lmp";
         settings = { "licenser.license" = "MIT"; };
+        profile  = "python";
       };
       magdiss = {
         folder  = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/";
         profile = "LaTeX";
       };
-      magdiss-pres = {
-        folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/presentation/";
-      };
       LAMMPS = {
-        folder = "${config.home.homeDirectory}/repos/mylammps";
+        folder  = "${config.home.homeDirectory}/repos/mylammps";
+        profile = "cpp";
       };
     };
   };
