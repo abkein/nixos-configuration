@@ -5,7 +5,7 @@ let
 in
 {
   userSettings = mkOption {
-    type = jsonFormat.type;
+    type = jsontype;
     default = { };
     example = literalExpression ''
       {
