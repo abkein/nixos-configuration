@@ -1,12 +1,14 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, ... }@args:
 
-with lib;
+# with lib;
 
 let
+  inherit (lib) mkOption types literalExpression mapAttrs mkMerge attrValues;
   cfg = config.better-code;
-
+  jsontype = (pkgs.formats.json { }).type;
   # Helper to declare a single workspace given its name and spec
   declare_workspace = import ./declare_workspace.nix config;
+  wtypes = import ./wtypes.nix args;
 in
 {
   options = {
@@ -21,6 +23,28 @@ in
       default     = pkgs.vscode-fhs;
       description = "The VSCode package to use.";
       example     = pkgs.vscodium;
+    };
+
+    better-code.generalUserSettings = wtypes.userSettings;
+    better-code.generalUserTasks = wtypes.userTasks;
+    better-code.generalKeybindings = wtypes.keybindings;
+    better-code.generalExtensions = wtypes.extensions;
+    better-code.generalLanguageSnippets = wtypes.languageSnippets;
+    better-code.generalGlobalSnippets = wtypes.globalSnippets;
+
+    better-code.profiles = mkOption {
+      default     = {};
+      description = "A list of VSCode profiles. Mutually exclusive to programs.vscode.mutableExtensionsDir";
+      type = types.attrsOf (types.submodule {
+        options = {
+          userSettings = wtypes.userSettings;
+          userTasks = wtypes.userTasks;
+          keybindings = wtypes.keybindings;
+          extensions = wtypes.extensions;
+          languageSnippets = wtypes.languageSnippets;
+          globalSnippets = wtypes.globalSnippets;
+        };
+      });
     };
 
     better-code.workspaces = mkOption {
@@ -79,7 +103,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     programs.vscode.package = cfg.code-package;
 
     # Build and merge all declared workspaces
