@@ -8,6 +8,14 @@ let
   jsontype = (pkgs.formats.json { }).type;
   # Helper to declare a single workspace given its name and spec
   declare_workspace = import ./declare_workspace.nix config;
+  mkExtList = import ./mkExtList.nix { pkgs=pkgs; lib=lib; };
+  rebuildExtensions = spec: spec // { extensions = mkExtList spec.extensions; };
+  mkProfile = name: spec: rebuildExtensions (lib.mkMerge [
+    cfg.general
+    (if spec.profile == "" then {} else cfg.profiles.${spec.profile})
+    spec
+  ]);
+  genProfileName = name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
   wtypes = import ./wtypes.nix args;
 in
 {
@@ -15,7 +23,7 @@ in
     better-code.enable = mkOption {
       type        = types.bool;
       default     = false;
-      description = "Enable the automated VSCode configuration (enables VSCode as well).";
+      description = "Enable the automated VSCode configuration.";
     };
 
     better-code.code-package = mkOption {
@@ -25,16 +33,24 @@ in
       example     = pkgs.vscodium;
     };
 
-    better-code.generalUserSettings = wtypes.userSettings;
-    better-code.generalUserTasks = wtypes.userTasks;
-    better-code.generalKeybindings = wtypes.keybindings;
-    better-code.generalExtensions = wtypes.extensions;
-    better-code.generalLanguageSnippets = wtypes.languageSnippets;
-    better-code.generalGlobalSnippets = wtypes.globalSnippets;
+    better-code.general = mkOption {
+      default     = {};
+      description = "A set of VSCode profiles.";
+      type = types.submodule {
+        options = {
+          userSettings = wtypes.userSettings;
+          userTasks = wtypes.userTasks;
+          keybindings = wtypes.keybindings;
+          extensions = wtypes.extensions;
+          languageSnippets = wtypes.languageSnippets;
+          globalSnippets = wtypes.globalSnippets;
+        };
+      };
+    };
 
     better-code.profiles = mkOption {
       default     = {};
-      description = "A list of VSCode profiles. Mutually exclusive to programs.vscode.mutableExtensionsDir";
+      description = "A set of VSCode profiles. Mutually exclusive to programs.vscode.mutableExtensionsDir";
       type = types.attrsOf (types.submodule {
         options = {
           userSettings = wtypes.userSettings;
@@ -43,6 +59,26 @@ in
           extensions = wtypes.extensions;
           languageSnippets = wtypes.languageSnippets;
           globalSnippets = wtypes.globalSnippets;
+
+          enableUpdateCheck = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to enable update checks/notifications.
+              Can only be set for the default profile, but
+              it applies to all profiles.
+            '';
+          };
+
+          enableExtensionUpdateCheck = mkOption {
+            type = types.nullOr types.bool;
+            default = null;
+            description = ''
+              Whether to enable update notifications for extensions.
+              Can only be set for the default profile, but
+              it applies to all profiles.
+            '';
+          };
         };
       });
     };
@@ -58,15 +94,8 @@ in
             example     = "/home/user/Projects/MyApp";
           };
 
-          settings = mkOption {
-            type        = types.attrs;
-            description = "VSCode settings to embed in the workspace file.";
-            default     = {};
-            example     = {
-              "nixEnvSelector.suggestion" = false;
-              "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
-            };
-          };
+          settings = wtypes.userSettings;
+          extensions = wtypes.extensions;
 
           prerun = mkOption {
             type        = types.str;
@@ -105,11 +134,19 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.vscode.package = cfg.code-package;
+    programs.vscode.profiles =
+      (builtins.mapAttrs mkProfile cfg.profiles) //
+      (lib.mkMerge (lib.mapAttrsToList (name: spec:
+      if builtins.length spec.extensions == 0 then {} else {
+        "${genProfileName name spec}" = mkProfile name { extensions = spec.extensions; };
+      }) cfg.workspaces));
 
     # Build and merge all declared workspaces
-    xdg = let
+    xdg =
+    let
       workspaces = mapAttrs (_name: spec: declare_workspace _name spec) cfg.workspaces;
-    in {
+    in
+    {
       # VSCode workspace files
       configFile = mkMerge (map (w: w.configFile) (attrValues workspaces));
 
