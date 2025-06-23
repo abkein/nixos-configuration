@@ -63,7 +63,7 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            backupFileExtension = "backup";
+            backupFileExtension = "hm-backup";
             sharedModules = [
               sops-nix.homeManagerModules.sops
             ];

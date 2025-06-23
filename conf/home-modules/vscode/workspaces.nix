@@ -5,7 +5,7 @@ in
 {
   better-code = {
     enable = true;
-    code-package = pkgs.vscodium-fhs;
+    code-package = pkgs.vscode-fhs;
 
     general = {
       userSettings = import ./generalUserSettings.nix;

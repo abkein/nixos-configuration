@@ -3,6 +3,7 @@
 # with lib;
 
 let
+  codeCMD = "code";
   inherit (lib) mkOption types literalExpression mapAttrs mkMerge attrValues attrNames;
   cfg = config.better-code;
   jsontype = (pkgs.formats.json { }).type;
@@ -38,7 +39,7 @@ let
                     else if (spec.preinit && spec.hasShell) then "${initWrap} && " else "";
       postfix     = if spec.postrun != "" then " && ${spec.postrun}" else "";
       profile     = if spec.profile == "" then "default" else (if builtins.length spec.extensions == 0 then spec.profile else (genProfileName name spec));
-      codeCmd     = "${cfg.code-package}/bin/codium --profile ${profile} --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
+      codeCmd     = "${cfg.code-package}/bin/${codeCMD} --profile ${profile} --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
       fullCommand = "${prefix}${codeCmd}${postfix}";
     in {
       name = name;
@@ -195,7 +196,7 @@ in
       workspaces = mapAttrs (_name: spec: declare_workspace _name spec) cfg.workspaces;
       declProfAction = profileName:
       let
-        fullCommand = "${cfg.code-package}/bin/codium --profile ${profileName} --password-store=gnome-libsecret --ozone-platform=wayland";
+        fullCommand = "${cfg.code-package}/bin/${codeCMD} --profile ${profileName} --password-store=gnome-libsecret --ozone-platform=wayland";
       in
       {
         CodeProfileSelector.actions."${profileName}" = {
