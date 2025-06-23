@@ -47,13 +47,15 @@
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
+      SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
+      XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
+      # For apps to prevent spamming home directory with .trash
       SONARLINT_USER_HOME = "${config.xdg.dataHome}/sonarlint";
       JUPYTER_CONFIG_DIR = "${config.xdg.configHome}/jupyter";
       IPYTHONDIR = "${config.xdg.configHome}/ipython";
       DOTNET_CLI_HOME = "${config.xdg.dataHome}/dotnet";
       CARGO_HOME = "${config.xdg.dataHome}/cargo";
       PYTHONSTARTUP = "${config.xdg.configHome}/python/pythonrc";
-      XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
     };
   };
 
@@ -123,18 +125,6 @@
       historyFile = "${config.xdg.stateHome}/bash/history";
       historySize = 999999;
     };
-    #vscode = {
-    #  enable = true;
-    #  profiles = {
-    #    default = {
-    #      extensions = pkgs.nix4vscode.forVscode [ "ms-vscode.atom-keybindings" ];
-    #    };
-    #  };
-    #};
-    # vscode = import ./home-modules/vscode/vscode.nix {
-    #   pkgs = pkgs;
-    #   lib = lib;
-    # };
     zsh = import ./home-modules/zsh.nix config;
     waybar = import ./home-modules/waybar.nix;
     wofi = import ./home-modules/wofi.nix;
