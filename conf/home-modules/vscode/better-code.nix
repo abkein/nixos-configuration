@@ -10,8 +10,9 @@ let
   declare_workspace = import ./declare_workspace.nix config;
   mkExtList = import ./mkExtList.nix { pkgs=pkgs; lib=lib; };
   rebuildExtensions = spec: spec // { extensions = mkExtList spec.extensions; };
-  mkProfile = name: spec: rebuildExtensions (lib.mkMerge [
-    cfg.general
+  #mkProfile = name: spec: rebuildExtensions (lib.mkMerge [ cfg.general spec ]);
+  mkProfile = name: spec: rebuildExtensions  spec;
+  mkProfileW = name: spec: mkProfile name (lib.mkMerge [
     (if spec.profile == "" then {} else cfg.profiles.${spec.profile})
     spec
   ]);
@@ -135,11 +136,12 @@ in
   config = lib.mkIf cfg.enable {
     programs.vscode.package = cfg.code-package;
     programs.vscode.profiles =
-      (builtins.mapAttrs mkProfile cfg.profiles) //
-      (lib.mkMerge (lib.mapAttrsToList (name: spec:
-      if builtins.length spec.extensions == 0 then {} else {
-        "${genProfileName name spec}" = mkProfile name { extensions = spec.extensions; };
-      }) cfg.workspaces));
+      (builtins.mapAttrs mkProfile cfg.profiles);
+      # //
+      #(lib.mkMerge (lib.mapAttrsToList (name: spec:
+      #if builtins.length spec.extensions == 0 then {} else {
+      #  "${genProfileName name spec}" = mkProfileW name { extensions = spec.extensions; };
+      #}) cfg.workspaces));
 
     # Build and merge all declared workspaces
     xdg =

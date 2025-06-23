@@ -336,8 +336,8 @@
   nixpkgs = {
     config.allowUnfree = true;
     overlays = [
-      # inputs.nix-vscode-extensions.overlays.default
-      inputs.nix4vscode.overlays.forVscode
+      #  inputs.nix-vscode-extensions.overlays.default
+      #inputs.nix4vscode.overlays.forVscode
       inputs.nur.overlays.default
       # (import ./spacefm-fork.nix)
     ];

@@ -20,4 +20,4 @@ let
 
   not_presentExtensions = builtins.filter (ext: !has_extension ext) parsed_extensions;
   nix4vscode_extensions = builtins.map unparse_extension not_presentExtensions;
-in market_extensions ++ pkgs.nix4vscode.forVscode nix4vscode_extensions
+in market_extensions ++ pkgs.nix4vscode.forVscodeVersion "1.96.0" nix4vscode_extensions
