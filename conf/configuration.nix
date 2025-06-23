@@ -76,15 +76,23 @@
       };
       jack.enable = true;
     };
-    xserver = {
+    # xserver = {
+    #   enable = true;
+    #   xkb = {
+    #     variant = "";
+    #     layout = "us";
+    #   };
+    #   displayManager.gdm = {
+    #     enable = true;
+    #     wayland = true;
+    #   };
+    # };
+
+    greetd = {
       enable = true;
-      xkb = {
-        variant = "";
-        layout = "us";
-      };
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
+      settings.default_session = {
+        command = "Hyprland --config /path/to/custom/hyprland/config";
+        user = "greeter";
       };
     };
 
@@ -101,6 +109,10 @@
   };
 
   programs = {
+    regreet = {
+      enable = true;
+      settings = import ./system-modules/regreet-settings.nix;
+    };
     # nix-ld = {
     #   enable = true;
     # };
