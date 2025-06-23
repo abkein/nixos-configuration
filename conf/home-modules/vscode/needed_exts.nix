@@ -1,12 +1,4 @@
 {
-  general = [
-    "arrterian.nix-env-selector"
-    "jnoortheen.nix-ide"
-    "mechatroner.rainbow-csv"
-    "ms-vscode.atom-keybindings"
-    "thmsrynr.vscode-namegen" # possibly delete
-  ];
-
   LaTeX = [
     "funkyremi.vscode-google-translate"
     "james-yu.latex-workshop"

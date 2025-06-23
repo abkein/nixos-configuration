@@ -6,12 +6,13 @@ let
   inherit (lib) mkOption types literalExpression mapAttrs mkMerge attrValues;
   cfg = config.better-code;
   jsontype = (pkgs.formats.json { }).type;
+  deepMerge = import ./deepMerge;
   # Helper to declare a single workspace given its name and spec
   declare_workspace = import ./declare_workspace.nix config;
   mkExtList = import ./mkExtList.nix { pkgs=pkgs; lib=lib; };
   rebuildExtensions = spec: spec // { extensions = mkExtList spec.extensions; };
-  #mkProfile = name: spec: rebuildExtensions (lib.mkMerge [ cfg.general spec ]);
-  mkProfile = name: spec: rebuildExtensions  spec;
+  #mkProfile = name: spec: rebuildExtensions (lib.recursiveUpdate cfg.general spec);
+  mkProfile = name: spec: rebuildExtensions (deepMerge cfg.general spec);
   mkProfileW = name: spec: mkProfile name (lib.mkMerge [
     (if spec.profile == "" then {} else cfg.profiles.${spec.profile})
     spec
@@ -34,19 +35,28 @@ in
       example     = pkgs.vscodium;
     };
 
-    better-code.general = mkOption {
-      default     = {};
-      description = "A set of VSCode profiles.";
-      type = types.submodule {
-        options = {
-          userSettings = wtypes.userSettings;
-          userTasks = wtypes.userTasks;
-          keybindings = wtypes.keybindings;
-          extensions = wtypes.extensions;
-          languageSnippets = wtypes.languageSnippets;
-          globalSnippets = wtypes.globalSnippets;
-        };
-      };
+    #better-code.general = mkOption {
+    #  default     = {};
+    #  description = "A set of VSCode profiles.";
+    #  type = types.submodule {
+    #    options = {
+    #      userSettings = wtypes.userSettings;
+    #      userTasks = wtypes.userTasks;
+    #      keybindings = wtypes.keybindings;
+    #      extensions = wtypes.extensions;
+    #      languageSnippets = wtypes.languageSnippets;
+    #      globalSnippets = wtypes.globalSnippets;
+    #    };
+    #  };
+    #};
+
+    better-code.general = {
+      userSettings = wtypes.userSettings;
+      userTasks = wtypes.userTasks;
+      keybindings = wtypes.keybindings;
+      extensions = wtypes.extensions;
+      languageSnippets = wtypes.languageSnippets;
+      globalSnippets = wtypes.globalSnippets;
     };
 
     better-code.profiles = mkOption {
@@ -134,6 +144,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    programs.vscode.enable = true;
     programs.vscode.package = cfg.code-package;
     programs.vscode.profiles =
       (builtins.mapAttrs mkProfile cfg.profiles);

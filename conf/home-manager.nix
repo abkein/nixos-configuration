@@ -2,8 +2,8 @@
 {
   imports = [
     #./home-modules/vscode/vscode.nix
-    #./home-modules/vscode/better-code.nix
-    #./home-modules/vscode/workspaces.nix
+    ./home-modules/vscode/better-code.nix
+    ./home-modules/vscode/workspaces.nix
   ];
 
   wayland.windowManager.hyprland = import ./home-modules/hyprland.nix;
@@ -123,6 +123,14 @@
       historyFile = "${config.xdg.stateHome}/bash/history";
       historySize = 999999;
     };
+    #vscode = {
+    #  enable = true;
+    #  profiles = {
+    #    default = {
+    #      extensions = pkgs.nix4vscode.forVscode [ "ms-vscode.atom-keybindings" ];
+    #    };
+    #  };
+    #};
     # vscode = import ./home-modules/vscode/vscode.nix {
     #   pkgs = pkgs;
     #   lib = lib;
