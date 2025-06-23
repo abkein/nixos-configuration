@@ -31,7 +31,6 @@
     stateVersion = "24.11";
     packages = with pkgs; [
       inputs.ayugram-desktop.packages.${pkgs.system}.ayugram-desktop
-      element-desktop
       thunderbird-latest
       imagemagickBig
       poppler_utils
@@ -44,6 +43,9 @@
       tesseract
       chatbox
       chromium
+      cinny-desktop
+      htop
+      pstree
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
