@@ -5,6 +5,7 @@ in
 {
   better-code = {
     enable = true;
+    code-package = pkgs.vscodium-fhs;
 
     general = {
       userSettings = import ./generalUserSettings.nix;
@@ -30,6 +31,7 @@ in
       python = with needed_extensions; { extensions = python ++ py-dev ++ dev ++ sonar; };
       cpp = with needed_extensions; { extensions = cpp ++ dev ++ sonar; };
       remote = with needed_extensions; { extensions = remote ++ dev; };
+      pypython = with needed_extensions; { extensions = python ++ py-dev ++ dev ++ sonar ++ remote; };
     };
 
     workspaces = {

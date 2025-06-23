@@ -8,17 +8,51 @@ let
   jsontype = (pkgs.formats.json { }).type;
   deepMerge = (import ./deepMerge.nix).deepMerge;
   mkDeepMerge = lst: lib.foldl' (acc: spec: deepMerge acc spec) {} lst;
+  genProfileName = name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
   # Helper to declare a single workspace given its name and spec
-  declare_workspace = import ./declare_workspace.nix config;
+  declare_workspace = name: spec: rec {
+    configFile."${name}" =
+    let
+      envSet = if spec.hasShell then {
+        "nixEnvSelector.suggestion" = false;
+        "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+      } else {};
+      settings = envSet // spec.settings;
+    in
+    {
+      enable     = true;
+      executable = false;
+      force      = true;
+      target     = "vscode_workspaces/${name}.code-workspace";
+      text       = builtins.toJSON {
+        folders = [{ path = spec.folder; }];
+        settings = settings;
+      };
+    };
+
+    desktopEntries.CodeWorkspaceSelector.actions."${name}" =
+    let
+      initCmd     = "nix-shell ${spec.folder}/shell.nix --command \"exit\"";
+      initWrap    = "kitty --app-id=kitty_info ${initCmd}";
+      prefix      = if spec.prerun != "" then "${spec.prerun} && "
+                    else if (spec.preinit && spec.hasShell) then "${initWrap} && " else "";
+      postfix     = if spec.postrun != "" then " && ${spec.postrun}" else "";
+      profile     = if spec.profile == "" then "default" else (if builtins.length spec.extensions == 0 then spec.profile else (genProfileName name spec));
+      codeCmd     = "${cfg.code-package}/bin/codium --profile ${profile} --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
+      fullCommand = "${prefix}${codeCmd}${postfix}";
+    in {
+      name = name;
+      exec = "bash -c \"${fullCommand}\"";
+    };
+  };
   mkExtList = import ./mkExtList.nix { pkgs=pkgs; lib=lib; };
   rebuildExtensions = spec: spec // { extensions = mkExtList spec.extensions; };
   #mkProfile = name: spec: rebuildExtensions (lib.recursiveUpdate cfg.general spec);
   mkProfile = name: spec: rebuildExtensions (deepMerge cfg.general spec);
-  mkProfileW = name: spec: mkProfile name (deepMerge
-    (if spec.profile == "" then {} else cfg.profiles.${spec.profile})
+  mkProfileW = profileName: name: spec: mkProfile name (deepMerge
+    (if profileName == "" then {} else cfg.profiles.${profileName})
     spec
   );
-  genProfileName = name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
   wtypes = import ./wtypes.nix args;
 in
 {
@@ -152,7 +186,7 @@ in
       //
       (mkDeepMerge (lib.mapAttrsToList (name: spec:
       if builtins.length spec.extensions == 0 then {} else {
-       "${genProfileName name spec}" = mkProfileW name { extensions = spec.extensions; };
+       "${genProfileName name spec}" = mkProfileW spec.profile name { extensions = spec.extensions; };
       }) cfg.workspaces));
 
     # Build and merge all declared workspaces
@@ -161,7 +195,7 @@ in
       workspaces = mapAttrs (_name: spec: declare_workspace _name spec) cfg.workspaces;
       declProfAction = profileName:
       let
-        fullCommand = "${cfg.code-package}/bin/code --profile ${profileName} --password-store=gnome-libsecret --ozone-platform=wayland";
+        fullCommand = "${cfg.code-package}/bin/codium --profile ${profileName} --password-store=gnome-libsecret --ozone-platform=wayland";
       in
       {
         CodeProfileSelector.actions."${profileName}" = {
@@ -181,7 +215,7 @@ in
               name        = "Workspace Selector";
               genericName = "VSCode Workspace Selector";
               exec        = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeWorkspaceSelector does nothing itself, select an action"'';
-              icon        = "vscode";
+              icon        = "codium";
               type        = "Application";
               categories  = [ "Development" "IDE" "TextTools" ];
               actions     = {};
@@ -190,7 +224,7 @@ in
               name        = "Profile Selector";
               genericName = "VSCode Profile Selector";
               exec        = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeProfileSelector does nothing itself, select an action"'';
-              icon        = "vscode";
+              icon        = "codium";
               type        = "Application";
               categories  = [ "Development" "IDE" "TextTools" ];
               actions     = {};

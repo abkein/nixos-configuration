@@ -76,7 +76,7 @@
     "ms-vscode-remote.remote-containers"
     "ms-vscode-remote.remote-ssh"
     "ms-vscode-remote.remote-ssh-edit"
-    "ms-vscode-remote.vscode-remote-extensionpack"
+    # "ms-vscode-remote.vscode-remote-extensionpack"
     "ms-vscode.remote-explorer"
     "ms-vscode.remote-repositories"
     "ms-vscode.remote-server"
