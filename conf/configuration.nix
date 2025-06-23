@@ -91,7 +91,7 @@
     greetd = {
       enable = true;
       settings.default_session = {
-        command = "Hyprland --config /path/to/custom/hyprland/config";
+        command = "Hyprland --config /home/kein/.config/hypr/hyprland-regreet.conf";
         user = "greeter";
       };
     };

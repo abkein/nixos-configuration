@@ -29,6 +29,7 @@
       "XDG_CURRENT_DESKTOP,Hyprland"
       "XDG_SESSION_TYPE,wayland"
       "XDG_SESSION_DESKTOP,Hyprland"
+      "SSH_AUTH_SOCK, $XDG_RUNTIME_DIR/ssh-agent"
       # "XDG_SCREENSHOTS_DIR,~/screens"
     ];
 
