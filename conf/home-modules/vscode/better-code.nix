@@ -4,6 +4,7 @@
 
 let
   codeCMD = "code";
+  codeIcon = "vscode";
   inherit (lib) mkOption types literalExpression mapAttrs mkMerge attrValues attrNames;
   cfg = config.better-code;
   jsontype = (pkgs.formats.json { }).type;
@@ -216,7 +217,7 @@ in
               name        = "Workspace Selector";
               genericName = "VSCode Workspace Selector";
               exec        = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeWorkspaceSelector does nothing itself, select an action"'';
-              icon        = "codium";
+              icon        = codeIcon;
               type        = "Application";
               categories  = [ "Development" "IDE" "TextTools" ];
               actions     = {};
@@ -225,7 +226,7 @@ in
               name        = "Profile Selector";
               genericName = "VSCode Profile Selector";
               exec        = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeProfileSelector does nothing itself, select an action"'';
-              icon        = "codium";
+              icon        = codeIcon;
               type        = "Application";
               categories  = [ "Development" "IDE" "TextTools" ];
               actions     = {};
