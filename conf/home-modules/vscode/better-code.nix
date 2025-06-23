@@ -6,7 +6,7 @@ let
   inherit (lib) mkOption types literalExpression mapAttrs mkMerge attrValues;
   cfg = config.better-code;
   jsontype = (pkgs.formats.json { }).type;
-  deepMerge = import ./deepMerge;
+  deepMerge = (import ./deepMerge.nix).deepMerge;
   # Helper to declare a single workspace given its name and spec
   declare_workspace = import ./declare_workspace.nix config;
   mkExtList = import ./mkExtList.nix { pkgs=pkgs; lib=lib; };
