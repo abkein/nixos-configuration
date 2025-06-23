@@ -3,20 +3,21 @@
 # with lib;
 
 let
-  inherit (lib) mkOption types literalExpression mapAttrs mkMerge attrValues;
+  inherit (lib) mkOption types literalExpression mapAttrs mkMerge attrValues attrNames;
   cfg = config.better-code;
   jsontype = (pkgs.formats.json { }).type;
   deepMerge = (import ./deepMerge.nix).deepMerge;
+  mkDeepMerge = lst: lib.foldl' (acc: spec: deepMerge acc spec) {} lst;
   # Helper to declare a single workspace given its name and spec
   declare_workspace = import ./declare_workspace.nix config;
   mkExtList = import ./mkExtList.nix { pkgs=pkgs; lib=lib; };
   rebuildExtensions = spec: spec // { extensions = mkExtList spec.extensions; };
   #mkProfile = name: spec: rebuildExtensions (lib.recursiveUpdate cfg.general spec);
   mkProfile = name: spec: rebuildExtensions (deepMerge cfg.general spec);
-  mkProfileW = name: spec: mkProfile name (lib.mkMerge [
+  mkProfileW = name: spec: mkProfile name (deepMerge
     (if spec.profile == "" then {} else cfg.profiles.${spec.profile})
     spec
-  ]);
+  );
   genProfileName = name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
   wtypes = import ./wtypes.nix args;
 in
@@ -147,17 +148,27 @@ in
     programs.vscode.enable = true;
     programs.vscode.package = cfg.code-package;
     programs.vscode.profiles =
-      (builtins.mapAttrs mkProfile cfg.profiles);
-      # //
-      #(lib.mkMerge (lib.mapAttrsToList (name: spec:
-      #if builtins.length spec.extensions == 0 then {} else {
-      #  "${genProfileName name spec}" = mkProfileW name { extensions = spec.extensions; };
-      #}) cfg.workspaces));
+      (builtins.mapAttrs mkProfile cfg.profiles)
+      //
+      (mkDeepMerge (lib.mapAttrsToList (name: spec:
+      if builtins.length spec.extensions == 0 then {} else {
+       "${genProfileName name spec}" = mkProfileW name { extensions = spec.extensions; };
+      }) cfg.workspaces));
 
     # Build and merge all declared workspaces
     xdg =
     let
       workspaces = mapAttrs (_name: spec: declare_workspace _name spec) cfg.workspaces;
+      declProfAction = profileName:
+      let
+        fullCommand = "${cfg.code-package}/bin/code --profile ${profileName} --password-store=gnome-libsecret --ozone-platform=wayland";
+      in
+      {
+        CodeProfileSelector.actions."${profileName}" = {
+          name = profileName;
+          exec = "bash -c \"${fullCommand}\"";
+        };
+      };
     in
     {
       # VSCode workspace files
@@ -167,17 +178,25 @@ in
       desktopEntries = mkMerge (
         [ {
             CodeWorkspaceSelector = {
-              name        = "Space Selector";
-              genericName = "Visual Studio Workspace Selector";
-              exec        = ''
-                hyprctl notify 2 3000 0 "fontsize:35 CodeWorkspaceSelector does nothing itself, select an action"'';
+              name        = "Workspace Selector";
+              genericName = "VSCode Workspace Selector";
+              exec        = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeWorkspaceSelector does nothing itself, select an action"'';
+              icon        = "vscode";
+              type        = "Application";
+              categories  = [ "Development" "IDE" "TextTools" ];
+              actions     = {};
+            };
+            CodeProfileSelector = {
+              name        = "Profile Selector";
+              genericName = "VSCode Profile Selector";
+              exec        = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeProfileSelector does nothing itself, select an action"'';
               icon        = "vscode";
               type        = "Application";
               categories  = [ "Development" "IDE" "TextTools" ];
               actions     = {};
             };
           }
-        ] ++ map (w: w.desktopEntries) (attrValues workspaces)
+        ] ++ map (w: w.desktopEntries) (attrValues workspaces) ++ map declProfAction (attrNames cfg.profiles)
       );
     };
   };

@@ -29,6 +29,7 @@ in
       LaTeX = with needed_extensions; { extensions = LaTeX ++ python; };
       python = with needed_extensions; { extensions = python ++ py-dev ++ dev ++ sonar; };
       cpp = with needed_extensions; { extensions = cpp ++ dev ++ sonar; };
+      remote = with needed_extensions; { extensions = remote ++ dev; };
     };
 
     workspaces = {

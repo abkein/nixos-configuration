@@ -19,7 +19,7 @@ config: name: spec: rec {
     };
   };
 
-  desktopEntries."CodeWorkspaceSelector".actions."${name}" =
+  desktopEntries.CodeWorkspaceSelector.actions."${name}" =
   let
     initCmd     = "nix-shell ${spec.folder}/shell.nix --command \"exit\"";
     initWrap    = "kitty --app-id=kitty_info ${initCmd}";
