@@ -44,9 +44,15 @@
       chatbox
       chromium
       cinny-desktop
+      fractal
+      vesktop
       htop
       pstree
       hyprpicker
+      hyprsunset
+      hyprsysteminfo
+      hyprland-qt-support
+      fastfetch
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
@@ -104,6 +110,7 @@
       configFile = "${config.xdg.configHome}/dunst/dunstrc";
       settings = import ./home-modules/dunst.nix;
     };
+    hyprpolkitagent.enable = true;
     hyprpaper = {
       enable = true;
       settings = {
