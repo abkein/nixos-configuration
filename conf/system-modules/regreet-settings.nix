@@ -1,7 +1,7 @@
 {
   background = {
     # Path to the background image
-    # path = "/usr/share/backgrounds/greeter.jpg";
+    path = "/home/kein/Pictures/Wallpapers/rocket.png";
 
     # How the background image covers the screen if the aspect ratio doesn't match
     # Available values: "Fill", "Contain", "Cover", "ScaleDown"
@@ -12,7 +12,7 @@
 
   # The entries defined in this section will be passed to the session as environment variables when it is started
   env = {
-    ENV_VARIABLE = "value";
+    # ENV_VARIABLE = "value";
   };
 
   GTK = {

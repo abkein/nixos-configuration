@@ -95,12 +95,6 @@
           command = "${lib.getExe config.programs.hyprland.package} --config /etc/greetd/hyprland.conf";
           user = "greeter";
         };
-
-        # initial_session = {
-        #   command = "${lib.getExe config.programs.hyprland.package}";
-        #   user = "kein";
-        # # command = "Hyprland --config /home/kein/.config/hypr/hyprland-regreet.conf";
-        # };
       };
     };
 
@@ -119,7 +113,7 @@
   programs = {
     regreet = {
       enable = true;
-      # settings = import ./system-modules/regreet-settings.nix;
+      settings = import ./system-modules/regreet-settings.nix;
     };
     # nix-ld = {
     #   enable = true;
@@ -225,8 +219,6 @@
             disable_splash_rendering = true
             disable_hyprland_qtutils_check = true
         }
-
-        debug:disable_logs = false
         '';
         target = "greetd/hyprland.conf";
       };
