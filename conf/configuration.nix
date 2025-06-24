@@ -205,24 +205,10 @@
   let
     # spacefm-thermitegod = pkgs.callPackage ./spacefm-package.nix { };
     # nautilus-terminal = pkgs.callPackage ./pkgs/nautilus-terminal.nix {};
-    nemo-terminal = pkgs.callPackage ./pkgs/nemo-terminal.nix {};
+    # nemo-terminal = pkgs.callPackage ./pkgs/nemo-terminal.nix {};
   in
   {
-    etc = {
-      hyprland-regreet = {
-        enable = true;
-        # source = ./confs/Hyprland-regreet.conf;
-        text = ''
-        exec-once = ${lib.getExe config.programs.regreet.package}; hyprctl dispatch exit
-        misc {
-            disable_hyprland_logo = true
-            disable_splash_rendering = true
-            disable_hyprland_qtutils_check = true
-        }
-        '';
-        target = "greetd/hyprland.conf";
-      };
-    };
+    etc = import ./system-modules/etc.nix { lib=lib; config=config; };
     variables.QT_QPA_PLATFORMTHEME = "qt5ct";
     systemPackages = with pkgs; [
 
