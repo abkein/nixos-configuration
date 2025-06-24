@@ -36,8 +36,8 @@ in {
     source = ../confs/python/simple.ipynb;
     target = "python/simple.ipynb";
   };
-  hyprland-regreet = generic // {
-    source = ../confs/Hyprland-regreet.conf;
-    target = "hypr/hyprland-regreet.conf";
-  };
+  # hyprland-regreet = generic // {
+  #   source = ../confs/Hyprland-regreet.conf;
+  #   target = "hypr/hyprland-regreet.conf";
+  # };
 }

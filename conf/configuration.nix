@@ -90,9 +90,17 @@
 
     greetd = {
       enable = true;
-      settings.default_session = {
-        command = "Hyprland --config /home/kein/.config/hypr/hyprland-regreet.conf";
-        user = "greeter";
+      settings = {
+        default_session = {
+          command = "${lib.getExe config.programs.hyprland.package} --config /etc/greetd/hyprland.conf";
+          user = "greeter";
+        };
+
+        # initial_session = {
+        #   command = "${lib.getExe config.programs.hyprland.package}";
+        #   user = "kein";
+        # # command = "Hyprland --config /home/kein/.config/hypr/hyprland-regreet.conf";
+        # };
       };
     };
 
@@ -111,7 +119,7 @@
   programs = {
     regreet = {
       enable = true;
-      settings = import ./system-modules/regreet-settings.nix;
+      # settings = import ./system-modules/regreet-settings.nix;
     };
     # nix-ld = {
     #   enable = true;
@@ -206,6 +214,23 @@
     nemo-terminal = pkgs.callPackage ./pkgs/nemo-terminal.nix {};
   in
   {
+    etc = {
+      hyprland-regreet = {
+        enable = true;
+        # source = ./confs/Hyprland-regreet.conf;
+        text = ''
+        exec-once = ${lib.getExe config.programs.regreet.package}; hyprctl dispatch exit
+        misc {
+            disable_hyprland_logo = true
+            disable_splash_rendering = true
+            disable_hyprland_qtutils_check = true
+        }
+
+        debug:disable_logs = false
+        '';
+        target = "greetd/hyprland.conf";
+      };
+    };
     variables.QT_QPA_PLATFORMTHEME = "qt5ct";
     systemPackages = with pkgs; [
 
@@ -424,3 +449,4 @@
   system.stateVersion = "24.11"; # Did you read the comment?
 
 }
+
