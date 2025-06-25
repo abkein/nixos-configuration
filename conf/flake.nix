@@ -53,7 +53,7 @@
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
-        agenix.nixosModules.default
+        # agenix.nixosModules.default
         nur.modules.nixos.default
         sops-nix.nixosModules.sops
         {
