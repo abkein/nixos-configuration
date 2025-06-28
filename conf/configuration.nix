@@ -65,7 +65,7 @@
 
   services = {
     pcscd = {
-      enable = true;a
+      enable = true;
     };
     libinput = { enable = true; };
     pipewire = {
