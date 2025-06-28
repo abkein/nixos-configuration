@@ -64,6 +64,9 @@
   hardware.graphics.extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
 
   services = {
+    pcscd = {
+      enable = true;a
+    };
     libinput = { enable = true; };
     pipewire = {
       enable = true;
@@ -279,6 +282,7 @@
       zotero
       direnv
       libnotify
+      pcscliteWithPolkit
 
       # code
       git
