@@ -6,7 +6,7 @@
     ./home-modules/vscode/workspaces.nix
   ];
 
-  wayland.windowManager.hyprland = import ./home-modules/hyprland.nix;
+  wayland.windowManager.hyprland = import ./home-modules/hypr/hyprland.nix;
 
   xdg =
   {
@@ -107,6 +107,7 @@
       enableSshSupport = true;
       grabKeyboardAndMouse = true;
       pinentry = {
+        # TODO: tweak programs.wayprompt
         # package = pkgs.pinentry-all;
         package = pkgs.wayprompt;
         program = "pinentry-wayprompt";
@@ -118,57 +119,8 @@
       settings = import ./home-modules/dunst.nix;
     };
     hyprpolkitagent.enable = true;
-    hyprpaper = {
-      enable = true;
-      settings = {
-        preload = [
-          "~/Pictures/Wallpapers/sr-71-red_copy.png"
-          "~/Pictures/Wallpapers/sr-71-black-side_copy.jpg"
-          "~/Pictures/Wallpapers/rocket_copy.png"
-        ];
-        wallpaper = [
-          "eDP-1, ~/Pictures/Wallpapers/rocket_copy.png"
-          "DP-6, ~/Pictures/Wallpapers/sr-71-black-side_copy.jpg"
-          "DP-9, ~/Pictures/Wallpapers/sr-71-red_copy.png"
-        ];
-      };
-    };
-    hypridle = {
-      enable = true;
-      settings =
-      let
-        lock_cmd = "pidof hyprlock || hyprlock && hyprctl switchxkblayout at-translated-set-2-keyboard 0 && sleep 1 && grim /home/kein/Pictures/sc.png";
-        suspend_cmd = "systemctl suspend || loginctl suspend";
-        lower_bright = "brightnessctl --device='amdgpu_bl1' -s set 1";
-        resume_bright = "brightnessctl --device='amdgpu_bl1' -r";
-      in
-      {
-        general = {
-            lock_cmd = lock_cmd;
-            before_sleep_cmd = lock_cmd;
-        };
-        listener = [
-          {
-            timeout = 30;
-            on-timeout = lower_bright;
-            on-resume =  resume_bright;
-          }
-          {
-            timeout = 120;
-            on-timeout = lock_cmd;
-          }
-          {
-            timeout = 180;
-            on-timeout = "hyprctl dispatch dpms off";
-            on-resume = "hyprctl dispatch dpms on";
-          }
-          {
-            timeout = 1800;
-            on-timeout = suspend_cmd;
-          }
-        ];
-      };
-    };
+    hyprpaper = import ./home-modules/hypr/hyprpaper.nix;
+    hypridle = import ./home-modules/hypr/hypridle.nix;
     # syncthing = {
     #   enable = true;
     #   openDefaultPorts = true;
@@ -186,146 +138,7 @@
   };
 
   programs = {
-    hyprlock =
-    {
-      enable = true;
-      settings =
-      let
-        text_color = "rgba(E2E2E2FF)";
-        entry_background_color = "rgba(13131311)";
-        entry_border_color = "rgba(91919155)";
-        entry_color = "rgba(C6C6C6FF)";
-        font_family = "Gabarito";
-        font_family_clock = "Gabarito";
-        # font_material_symbols = "Material Symbols Outlined";
-        font_material_symbols = "Material Symbols Rounded";
-        background_color = "rgba(13131377)";
-        main_mon = "eDP-1";
-      in
-      {
-        background = {
-          color = background_color;
-          # path = "{{ SWWW_WALL }}";
-          # path = "~/Pictures/Wallpapers/oxvp59.png";
-          path = "~/Pictures/Wallpapers/memorize.jpg";
-          blur_size = 1; #5
-          blur_passes = 1; #4
-          brightness = 0.7;
-          noise = 0.01;
-        };
-        input-field = {
-          monitor = main_mon;
-          size = "250, 50";
-          outline_thickness = 2;
-          dots_size = 0.1;
-          dots_spacing = 0.3;
-          outer_color = entry_border_color;
-          inner_color = entry_background_color;
-          font_color = entry_color;
-          # fade_on_empty = true;
-
-          position = "0, 20";
-          halign = "center";
-          valign = "center";
-        };
-
-        label = [
-          { # Clock
-            monitor = "";
-            text = "$TIME";
-            shadow_passes = 1;
-            shadow_boost = 0.5;
-            color = text_color;
-            font_size = 65;
-            font_family = font_family_clock;
-
-            position = "0, 300";
-            halign = "center";
-            valign = "center";
-          }
-          { # Info
-            monitor = "";
-            text = "cmd[update:1000] echo $(~/execs/hyprlock/label.sh \"$ATTEMPTS\" \"$FAIL\")";
-            shadow_passes = 1;
-            shadow_boost = 0.5;
-            color = text_color;
-            font_size = 14;
-            font_family = font_family;
-
-            position = "0, -40";
-            halign = "center";
-            valign = "center";
-          }
-          { # KB layout
-            monitor = "";
-            text = "$LAYOUT";
-            shadow_passes = 1;
-            shadow_boost = 0.5;
-            color = text_color;
-            font_size = 14;
-            font_family = font_family;
-
-            position = "0, 60";
-            halign = "center";
-            valign = "center";
-          }
-          { # Greeting
-            monitor = "";
-            text = "cmd[update:0:true] echo $(cat ~/.config/hyprlock/te.markup)";
-            shadow_passes = 1;
-            shadow_boost = 0.5;
-            color = text_color;
-            #font_size = 20;
-            #font_family = font_family;
-
-            position = "0, 200";
-            halign = "left";
-            valign = "bottom";
-          }
-          { # lock icon
-            monitor = "";
-            text = "lock";
-            shadow_passes = 1;
-            shadow_boost = 0.5;
-            color = text_color;
-            font_size = 42;
-            font_family = font_material_symbols;
-
-            position = "0, 65";
-            halign = "center";
-            valign = "bottom";
-          }
-          { # "locked" text
-            monitor = "";
-            text = "locked";
-            shadow_passes = 1;
-            shadow_boost = 0.5;
-            color = text_color;
-            #font_size = 42;
-            font_size = 14;
-            font_family = font_family;
-
-            position = "0, 0";
-            # position = 0, 50;
-            halign = "center";
-            valign = "bottom";
-          }
-          { # Status
-            monitor = "";
-            text = "cmd[update:5000] ~/execs/hyprlock/status.sh";
-            shadow_passes = 1;
-            shadow_boost = 0.5;
-            color = text_color;
-            font_size = 14;
-            font_family = font_family;
-
-            position = "30, -30";
-            halign = "left";
-            valign = "top";
-          }
-        ];
-      };
-    };
+    hyprlock = import ./home-modules/hypr/hyprlock.nix;
     bash = {
       enable = true;
       enableCompletion = true;
