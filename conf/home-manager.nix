@@ -53,6 +53,10 @@
       hyprsysteminfo
       hyprland-qt-support
       fastfetch
+      speedtest-cli
+      ooniprobe-cli
+      iperf
+      tor-browser
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {

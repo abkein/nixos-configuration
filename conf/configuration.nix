@@ -277,9 +277,6 @@
       networkmanagerapplet
       qpwgraph
       zotero
-      speedtest-cli
-      iperf
-      tor-browser
       direnv
       libnotify
 
