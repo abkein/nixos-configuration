@@ -1,6 +1,9 @@
 {
   enable = true;
-  settings = let
+  settings =
+  let
+    # BUG: no brightnessctl installed
+    # BUG: provide full path to binaries
     lock_cmd =
       "pidof hyprlock || hyprlock && hyprctl switchxkblayout at-translated-set-2-keyboard 0 && sleep 1 && grim /home/kein/Pictures/sc.png";
     suspend_cmd = "systemctl suspend || loginctl suspend";
