@@ -55,10 +55,14 @@ in
         settings = { "licenser.license" = "MIT"; };
         profile  = "python";
       };
-      magdiss = {
-        folder  = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/";
-        profile = "LaTeX";
+      ewald = {
+        folder   = "${config.home.homeDirectory}/Documents/nucleation/Ewald";
+        profile  = "python";
       };
+      # magdiss = {
+      #   folder  = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/";
+      #   profile = "LaTeX";
+      # };
       LAMMPS = {
         folder  = "${config.home.homeDirectory}/repos/mylammps";
         profile = "cpp";
