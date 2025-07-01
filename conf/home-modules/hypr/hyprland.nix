@@ -206,11 +206,11 @@
       # Bar, wallpaper
       #"ags"
       "waybar"
-      "hyprpaper"
+      # "hyprpaper"
       # Core components (authentication, lock screen, notification daemon)
       # "dunst -conf $XDG_CONFIG_HOME/dunst/dunstrc"
-      "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-      "hypridle"
+      # "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+      # "hypridle"
       # "dbus-update-activation-environment --all"
       # "sleep 1 && dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       "keepassxc"

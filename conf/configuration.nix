@@ -141,6 +141,16 @@
       pkgs = pkgs;
       lib = lib;
     };
+    gnupg = {
+      agent = {
+        enable = true;
+        pinentryPackage = pkgs.wayprompt;
+        enableSSHSupport = false;
+        # enableExtraSocket =
+        enableBrowserSocket = true;
+        # settings
+      };
+    };
   };
 
   # Enable the X11 windowing system.
