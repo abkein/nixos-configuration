@@ -29,9 +29,9 @@ in
       nix = { };
       LaTeX = with needed_extensions; { extensions = LaTeX ++ python; };
       python = with needed_extensions; { extensions = python ++ py-dev ++ dev ++ sonar; };
-      cpp = with needed_extensions; { extensions = cpp ++ dev ++ sonar; };
+      cpp = with needed_extensions; { extensions = cpp ++ dev; };
       remote = with needed_extensions; { extensions = remote ++ dev; };
-      pypython = with needed_extensions; { extensions = python ++ py-dev ++ dev ++ sonar ++ remote; };
+      pypython = with needed_extensions; { extensions = python ++ py-dev ++ dev ++ remote; };
     };
 
     workspaces = {
