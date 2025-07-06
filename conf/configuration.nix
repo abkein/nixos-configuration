@@ -222,7 +222,6 @@
   in
   {
     etc = import ./system-modules/etc.nix { lib=lib; config=config; };
-    variables.QT_QPA_PLATFORMTHEME = "qt5ct";
     systemPackages = with pkgs; [
 
       inputs.agenix.packages.${pkgs.system}.default
@@ -259,24 +258,16 @@
       # syncthingtray
 
       # utilities
-
       killall
       wget
       file
       pinentry-all
 
-
-      libnotify
       pcscliteWithPolkit
       opensc
 
       # code
       git
-
-      # text
-
-
-
     ];
   };
 

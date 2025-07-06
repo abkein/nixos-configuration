@@ -93,6 +93,7 @@ in
       zotero
       direnv
 
+      # text
       # nixfmt-rfc-style
       nixfmt-classic
       libreoffice-fresh
@@ -112,6 +113,8 @@ in
       gimp
       inkscape
       swayimg
+
+      libnotify
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
