@@ -61,6 +61,57 @@ in
       ooniprobe-cli
       iperf
       tor-browser
+      quickemu
+      adwaita-qt
+      adwaita-qt6
+      libsForQt5.qt5ct
+      kdePackages.qt6ct
+      file-roller
+      xdot
+      graphviz
+      swappy
+      wf-recorder
+
+      remmina
+      kdePackages.dolphin
+      kdePackages.dolphin-plugins
+      kdePackages.konsole
+
+      nix-tree
+      dunst
+      cliphist
+      wev
+      slurp
+      grim
+      grimblast
+      waybar
+
+      kitty
+      networkmanager_dmenu
+      networkmanagerapplet
+      qpwgraph
+      zotero
+      direnv
+
+      # nixfmt-rfc-style
+      nixfmt-classic
+      libreoffice-fresh
+      xed-editor
+      obsidian
+      aider-chat
+
+      # security
+      keepassxc
+      onlykey
+      yubikey-manager
+      yubioath-flutter
+      yubikey-personalization
+
+      # image/audio/video
+      vlc
+      gimp
+      inkscape
+      swayimg
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {

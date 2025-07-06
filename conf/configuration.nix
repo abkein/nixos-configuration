@@ -228,23 +228,15 @@
       inputs.agenix.packages.${pkgs.system}.default
       clinfo
       vulkan-tools
-      quickemu
+
       p7zip # 7z
       cdrtools # mkisofs
-      adwaita-qt
-      adwaita-qt6
-      libsForQt5.qt5ct
-      kdePackages.qt6ct
-      file-roller
+
       nix-prefetch
       nix-prefetch-git
       nix-prefetch-github
-      xdot
-      graphviz
-      swappy
-      wf-recorder
+
       pulseaudio
-      # spacefm-thermitegod
 
       # system
       polkit_gnome
@@ -263,62 +255,28 @@
       hyprland-workspaces
       hyprland-activewindow
       openvpn
-      xrdp
-      freerdp3
-      remmina
-      kdePackages.dolphin
-      kdePackages.dolphin-plugins
-      kdePackages.konsole
-      lxqt.pcmanfm-qt
+
       # syncthingtray
 
       # utilities
-      nix-tree
-      dunst
-      cliphist
-      wev
-      slurp
-      grim
-      grimblast
-      waybar
+
       killall
       wget
-      kitty
       file
       pinentry-all
-      networkmanager_dmenu
-      networkmanagerapplet
-      qpwgraph
-      zotero
-      direnv
+
+
       libnotify
       pcscliteWithPolkit
+      opensc
 
       # code
       git
-      # nixfmt-rfc-style
-      nixfmt-classic
 
       # text
-      libreoffice-fresh
-      xed-editor
-      obsidian
-      aider-chat
 
-      # security
-      keepassxc
-      onlykey
-      yubikey-manager
-      yubioath-flutter
-      yubikey-personalization
-      # yubikey-personalization-gui
-      opensc
 
-      # image/audio/video
-      vlc
-      gimp
-      inkscape
-      swayimg
+
     ];
   };
 
