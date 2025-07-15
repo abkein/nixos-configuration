@@ -151,6 +151,12 @@
         # settings
       };
     };
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 4d --keep 3";
+      flake = "/home/kein/nixos-confiduration";
+  };
   };
 
   # Enable the X11 windowing system.
@@ -320,7 +326,7 @@
 
   nix = {
     gc = {
-      automatic = true;
+      automatic = false;
       dates = "weekly";
       persistent = true;
       randomizedDelaySec = "1m";
