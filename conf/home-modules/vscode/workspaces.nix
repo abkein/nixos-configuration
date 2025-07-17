@@ -58,6 +58,10 @@ in
         folder   = "${config.home.homeDirectory}/Documents/nucleation/Ewald";
         profile  = "python";
       };
+      gpg-tests = {
+        folder   = "${config.home.homeDirectory}/nixos-configuration/testing/gpg-python-yubikey";
+        profile  = "python";
+      };
       # magdiss = {
       #   folder  = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/";
       #   profile = "LaTeX";
