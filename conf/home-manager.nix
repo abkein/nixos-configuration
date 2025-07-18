@@ -210,6 +210,7 @@ in
       settings = {
         font-size = 10;
         term = "xterm";
+        clipboard-trim-trailing-spaces = true;
       };
     };
     eza = {
