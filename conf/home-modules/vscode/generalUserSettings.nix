@@ -1,4 +1,5 @@
 {
+  "python.locator" = "js";
   "editor.formatOnSave"= true;
   "editor.multiCursorModifier"= "ctrlCmd";
   "editor.formatOnPaste"= true;

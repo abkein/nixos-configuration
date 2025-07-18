@@ -36,7 +36,7 @@ let
     desktopEntries.CodeWorkspaceSelector.actions."${name}" =
     let
       initCmd     = "nix-shell ${spec.folder}/shell.nix --command \"exit\"";
-      initWrap    = "${lib.getExe cfg.terminal-emulator} ${cfg.terminal-args} '${initCmd}'";
+      initWrap    = "${lib.getExe cfg.terminal-emulator} ${cfg.terminal-args} ${initCmd}";
       prefix      = if spec.prerun != "" then "${spec.prerun} && "
                     else if (spec.preinit && spec.hasShell) then "${initWrap} && " else "";
       postfix     = if spec.postrun != "" then " && ${spec.postrun}" else "";
