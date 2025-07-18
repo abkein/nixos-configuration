@@ -201,6 +201,20 @@ in
   };
 
   programs = {
+    bat.enable = true;
+    ghostty = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      installBatSyntax = true;
+    };
+    eza = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      git = true;
+      icons = "always";
+    };
     hyprlock = import ./home-modules/hypr/hyprlock.nix;
     bash = {
       enable = true;
