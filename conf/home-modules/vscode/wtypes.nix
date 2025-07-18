@@ -43,6 +43,12 @@ in
   };
 
   keybindings = mkOption {
+    default = [ ];
+    description = ''
+      Keybindings written to Visual Studio Code's
+      {file}`keybindings.json`.
+      This can be a JSON object or a path to a custom JSON file.
+    '';
     type = types.listOf (
       types.submodule {
         options = {
@@ -77,7 +83,6 @@ in
         };
       }
     );
-    default = [ ];
     example = literalExpression ''
       [
         {
@@ -86,11 +91,6 @@ in
           when = "textInputFocus";
         }
       ]
-    '';
-    description = ''
-      Keybindings written to Visual Studio Code's
-      {file}`keybindings.json`.
-      This can be a JSON object or a path to a custom JSON file.
     '';
   };
 
