@@ -11,6 +11,7 @@ let
   deepMerge = (import ./deepMerge.nix).deepMerge;
   mkDeepMerge = lst: lib.foldl' (acc: spec: deepMerge acc spec) {} lst;
   genProfileName = name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
+  basic_code_CMD = profile: "${lib.getExe cfg.code-package} --profile ${profile} ${cfg.args}";
   # Helper to declare a single workspace given its name and spec
   declare_workspace = name: spec: rec {
     configFile."${name}" =
@@ -35,12 +36,12 @@ let
     desktopEntries.CodeWorkspaceSelector.actions."${name}" =
     let
       initCmd     = "nix-shell ${spec.folder}/shell.nix --command \"exit\"";
-      initWrap    = "kitty --app-id=kitty_info ${initCmd}";
+      initWrap    = "${lib.getExe cfg.terminal-emulator} ${cfg.terminal-args} '${initCmd}'";
       prefix      = if spec.prerun != "" then "${spec.prerun} && "
                     else if (spec.preinit && spec.hasShell) then "${initWrap} && " else "";
       postfix     = if spec.postrun != "" then " && ${spec.postrun}" else "";
       profile     = if spec.profile == "" then "default" else (if builtins.length spec.extensions == 0 then spec.profile else (genProfileName name spec));
-      codeCmd     = "${cfg.code-package}/bin/${codeCMD} --profile ${profile} --password-store=gnome-libsecret --ozone-platform=wayland ${config.xdg.configHome}/${configFile.${name}.target}";
+      codeCmd     = "${basic_code_CMD profile} ${config.xdg.configHome}/${configFile.${name}.target}";
       fullCommand = "${prefix}${codeCmd}${postfix}";
     in {
       name = name;
@@ -59,124 +60,132 @@ let
 in
 {
   options = {
-    better-code.enable = mkOption {
-      type        = types.bool;
-      default     = false;
-      description = "Enable the automated VSCode configuration.";
-    };
+    better-code = {
+      enable = mkOption {
+        type        = types.bool;
+        default     = false;
+        description = "Enable the automated VSCode configuration.";
+      };
 
-    better-code.code-package = mkOption {
-      type        = types.package;
-      default     = pkgs.vscode-fhs;
-      description = "The VSCode package to use.";
-      example     = pkgs.vscodium;
-    };
+      code-package = mkOption {
+        type        = types.package;
+        default     = pkgs.vscode-fhs;
+        description = "The VSCode package to use.";
+        example     = pkgs.vscodium;
+      };
 
-    #better-code.general = mkOption {
-    #  default     = {};
-    #  description = "A set of VSCode profiles.";
-    #  type = types.submodule {
-    #    options = {
-    #      userSettings = wtypes.userSettings;
-    #      userTasks = wtypes.userTasks;
-    #      keybindings = wtypes.keybindings;
-    #      extensions = wtypes.extensions;
-    #      languageSnippets = wtypes.languageSnippets;
-    #      globalSnippets = wtypes.globalSnippets;
-    #    };
-    #  };
-    #};
+      terminal-emulator = mkOption {
+        type        = types.package;
+        default     = pkgs.xterm;
+        description = "Preferred terminal emulator app for `preinit` and `prerun`.";
+        example     = pkgs.kitty;
+      };
 
-    better-code.general = {
-      userSettings = wtypes.userSettings;
-      userTasks = wtypes.userTasks;
-      keybindings = wtypes.keybindings;
-      extensions = wtypes.extensions;
-      languageSnippets = wtypes.languageSnippets;
-      globalSnippets = wtypes.globalSnippets;
-    };
+      terminal-args = mkOption {
+        type        = types.str;
+        description = "Additional CLI arguments provided to teminal emulator instance";
+        default     = "";
+        example     = "--app-id=kitty_info";
+      };
 
-    better-code.profiles = mkOption {
-      default     = {};
-      description = "A set of VSCode profiles. Mutually exclusive to programs.vscode.mutableExtensionsDir";
-      type = types.attrsOf (types.submodule {
-        options = {
-          userSettings = wtypes.userSettings;
-          userTasks = wtypes.userTasks;
-          keybindings = wtypes.keybindings;
-          extensions = wtypes.extensions;
-          languageSnippets = wtypes.languageSnippets;
-          globalSnippets = wtypes.globalSnippets;
+      args = mkOption {
+        type        = types.str;
+        description = "Additional CLI arguments provided to every VSCode instance";
+        default     = "";
+        example     = "--password-store=gnome-libsecret --ozone-platform=wayland";
+      };
 
-          enableUpdateCheck = mkOption {
-            type = types.nullOr types.bool;
-            default = null;
-            description = ''
-              Whether to enable update checks/notifications.
-              Can only be set for the default profile, but
-              it applies to all profiles.
-            '';
+      general = {
+        userSettings = wtypes.userSettings;
+        userTasks = wtypes.userTasks;
+        keybindings = wtypes.keybindings;
+        extensions = wtypes.extensions;
+        languageSnippets = wtypes.languageSnippets;
+        globalSnippets = wtypes.globalSnippets;
+      };
+
+      profiles = mkOption {
+        default     = {};
+        description = "A set of VSCode profiles. Mutually exclusive to programs.vscode.mutableExtensionsDir";
+        type = types.attrsOf (types.submodule {
+          options = {
+            userSettings = wtypes.userSettings;
+            userTasks = wtypes.userTasks;
+            keybindings = wtypes.keybindings;
+            extensions = wtypes.extensions;
+            languageSnippets = wtypes.languageSnippets;
+            globalSnippets = wtypes.globalSnippets;
+
+            enableUpdateCheck = mkOption {
+              type = types.nullOr types.bool;
+              default = null;
+              description = ''
+                Whether to enable update checks/notifications.
+                Can only be set for the default profile, but
+                it applies to all profiles.
+              '';
+            };
+
+            enableExtensionUpdateCheck = mkOption {
+              type = types.nullOr types.bool;
+              default = null;
+              description = ''
+                Whether to enable update notifications for extensions.
+                Can only be set for the default profile, but
+                it applies to all profiles.
+              '';
+            };
           };
+        });
+      };
 
-          enableExtensionUpdateCheck = mkOption {
-            type = types.nullOr types.bool;
-            default = null;
-            description = ''
-              Whether to enable update notifications for extensions.
-              Can only be set for the default profile, but
-              it applies to all profiles.
-            '';
+      workspaces = mkOption {
+        default     = {};
+        description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
+        type = types.attrsOf (types.submodule {
+          options = {
+            folder = mkOption {
+              type        = types.str;
+              description = "Absolute path to the workspace folder.";
+              example     = "/home/user/Projects/MyApp";
+            };
+
+            settings = wtypes.userSettings;
+            extensions = wtypes.extensions;
+
+            prerun = mkOption {
+              type        = types.str;
+              description = "Command to run before opening VSCode.";
+              default     = "";
+            };
+
+            postrun = mkOption {
+              type        = types.str;
+              description = "Command to run after opening VSCode.";
+              default     = "";
+            };
+
+            preinit = mkOption {
+              type        = types.bool;
+              description = "Whether to run nix-shell before opening VSCode if prerun is empty.";
+              default     = true;
+            };
+
+            profile = mkOption {
+              type        = types.str;
+              description = "Profile used for this workspace. Written to workspace setting \"workbench.profile\". Nothing written if empty.";
+              default     = "";
+              example     = "default";
+            };
+
+            hasShell = mkOption {
+              type        = types.bool;
+              description = "Wether workspace has shell.nix or not.";
+              default     = true;
+            };
           };
-        };
-      });
-    };
-
-    better-code.workspaces = mkOption {
-      default     = {};
-      description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
-      type = types.attrsOf (types.submodule {
-        options = {
-          folder = mkOption {
-            type        = types.str;
-            description = "Absolute path to the workspace folder.";
-            example     = "/home/user/Projects/MyApp";
-          };
-
-          settings = wtypes.userSettings;
-          extensions = wtypes.extensions;
-
-          prerun = mkOption {
-            type        = types.str;
-            description = "Command to run before opening VSCode.";
-            default     = "";
-          };
-
-          postrun = mkOption {
-            type        = types.str;
-            description = "Command to run after opening VSCode.";
-            default     = "";
-          };
-
-          preinit = mkOption {
-            type        = types.bool;
-            description = "Whether to run nix-shell before opening VSCode if prerun is empty.";
-            default     = true;
-          };
-
-          profile = mkOption {
-            type        = types.str;
-            description = "Profile used for this workspace. Written to workspace setting \"workbench.profile\". Nothing written if empty.";
-            default     = "";
-            example     = "default";
-          };
-
-          hasShell = mkOption {
-            type        = types.bool;
-            description = "Wether workspace has shell.nix or not.";
-            default     = true;
-          };
-        };
-      });
+        });
+      };
     };
   };
 
@@ -197,7 +206,7 @@ in
       workspaces = mapAttrs (_name: spec: declare_workspace _name spec) cfg.workspaces;
       declProfAction = profileName:
       let
-        fullCommand = "${cfg.code-package}/bin/${codeCMD} --profile ${profileName} --password-store=gnome-libsecret --ozone-platform=wayland";
+        fullCommand = basic_code_CMD profileName;
       in
       {
         CodeProfileSelector.actions."${profileName}" = {

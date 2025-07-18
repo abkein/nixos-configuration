@@ -20,6 +20,10 @@ in
       ];
     };
 
+    terminal-emulator = pkgs.kitty;
+    terminal-args = "--app-id=kitty_info";
+    args = "--password-store=gnome-libsecret --ozone-platform=wayland";
+
     profiles = {
       default = {
         extensions = builtins.concatLists (builtins.attrValues needed_extensions);
