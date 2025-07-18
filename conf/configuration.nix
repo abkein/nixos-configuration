@@ -64,9 +64,8 @@
   hardware.graphics.extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
 
   services = {
-    pcscd = {
-      enable = true;
-    };
+    vnstat.enable = true;
+    pcscd.enable = true;
     libinput = { enable = true; };
     pipewire = {
       enable = true;

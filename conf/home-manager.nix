@@ -50,7 +50,6 @@ in
       cinny-desktop
       fractal
       vesktop
-      htop
       pstree
       hyprpicker
       hyprsunset
@@ -202,6 +201,7 @@ in
 
   programs = {
     bat.enable = true;
+    btop.enable = true;
     ghostty = {
       enable = true;
       enableBashIntegration = true;

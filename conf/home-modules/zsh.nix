@@ -5,7 +5,7 @@ config: {
     syntaxHighlighting.enable = true;
 
     shellAliases = let flakeDir = "~/nixos-configuration/conf"; in {
-      rb = "sudo nixos-rebuild switch --flake ${flakeDir}";
+      rb = "nh os switch /home/kein/nixos-configuration/conf";  # "sudo nixos-rebuild switch --flake ${flakeDir}";
       upd = "sudo nix flake update --flake ${flakeDir}";
       upg = "sudo nixos-rebuild switch --upgrade --flake ${flakeDir}";
 
@@ -13,6 +13,16 @@ config: {
       cg = "sudo nix-collect-garbage -d";
       os = "sudo nix-store --optimise";
       destroy = "dg && cg && os";
+
+      _cat = "$(which cat)";
+      cat = "bat";
+      _tree = "$(which tree)";
+      tree = "eza --tree";
+      rm = "rm -i";
+      cp = "cp -i";
+      mv = "mv -i";
+      _top = "$(which top)";
+      top = "btop";
 
       refresh = "upd && upg && destroy";
 
