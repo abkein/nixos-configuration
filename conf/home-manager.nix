@@ -207,6 +207,10 @@ in
       enableBashIntegration = true;
       enableZshIntegration = true;
       installBatSyntax = true;
+      settings = {
+        font-size = 10;
+        term = "xterm";
+      };
     };
     eza = {
       enable = true;

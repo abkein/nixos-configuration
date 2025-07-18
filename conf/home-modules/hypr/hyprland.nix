@@ -226,8 +226,8 @@
       "Super, P, togglefloating,"
       # ################################### Applications ###################################
       # Apps: just normal apps
-      "Super, C, exec, code --password-store=gnome-libsecret --ozone-platform=wayland"
-      "Super, T, exec, kitty"
+      # "Super, C, exec, code --password-store=gnome-libsecret --ozone-platform=wayland"
+      "Super, T, exec, ghostty"
       # "Super, E, exec, hyprctl dispatch exit"
       "Super, E, exec, thunar"
       "Super, X, exec, xed"
@@ -461,6 +461,7 @@
       "workspace 10, class:^org.keepassxc.KeePassXC$"
       "opacity 0.8 0.7, class:^(foot)$"
       "opacity 0.7 0.7, class:^(kitty)$"
+      "opacity 0.8 0.6, class:^(com.mitchellh.ghostty)$"
       "opacity 0.7 0.6, class:^([Dd]iscord)"
       "opacity 0.95 0.8, class:^([Cc]ode)"
       "opacity 0.9 0.8, class:^([Nn]emo)"
