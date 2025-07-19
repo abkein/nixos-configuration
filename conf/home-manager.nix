@@ -333,7 +333,6 @@ in
         #list-options show-unusable-subkeys
         # Verbose output
         #verbose
-
       };
     };
     git = {
