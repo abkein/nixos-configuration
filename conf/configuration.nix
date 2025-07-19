@@ -64,8 +64,12 @@
   hardware.graphics.extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
 
   services = {
+    udev.packages = [ pkgs.yubikey-personalization ];
     vnstat.enable = true;
-    pcscd.enable = true;
+    pcscd = {
+      enable = true;
+      plugins = [ pkgs.ccid ];
+    };
     libinput = { enable = true; };
     pipewire = {
       enable = true;
@@ -268,7 +272,7 @@
       file
       pinentry-all
 
-      pcscliteWithPolkit
+      pcsclite
       opensc
 
       # code
