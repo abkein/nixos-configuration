@@ -60,17 +60,36 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  hardware.graphics.extraPackages = [ pkgs.rocmPackages.clr.icd pkgs.amdvlk ];
-  hardware.graphics.extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+  hardware = {
+    graphics = {
+      extraPackages = [ pkgs.rocmPackages.clr.icd pkgs.amdvlk ];
+      extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+    };
+    onlykey.enable = true;
+  };
+
 
   services = {
-    udev.packages = [ pkgs.yubikey-personalization ];
+    upower.enable = true;
     vnstat.enable = true;
+    udev = {
+      enable = true;
+      packages = with pkgs; [
+        yubikey-personalization
+        onlykey-cli
+      ];
+      extraRules = ''
+        ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", ENV{ID_MM_DEVICE_IGNORE}="1"
+        ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", ENV{MTP_NO_PROBE}="1"
+        SUBSYSTEMS=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0666"
+        KERNEL=="ttyACM*", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0666"
+      '';
+    };
     pcscd = {
       enable = true;
       plugins = [ pkgs.ccid ];
     };
-    libinput = { enable = true; };
+    libinput.enable = true;
     pipewire = {
       enable = true;
       audio.enable = true;
@@ -104,7 +123,14 @@
       };
     };
 
-    dbus.enable = true;
+    dbus = {
+      enable = true;
+      packages = with pkgs; [
+        xdg-desktop-portal
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gtk
+      ];
+    };
     gvfs.enable = true;
     xray = {
       enable = true;
@@ -228,6 +254,7 @@
     # spacefm-thermitegod = pkgs.callPackage ./spacefm-package.nix { };
     # nautilus-terminal = pkgs.callPackage ./pkgs/nautilus-terminal.nix {};
     # nemo-terminal = pkgs.callPackage ./pkgs/nemo-terminal.nix {};
+    onlykey-wrapped = pkgs.callPackage ./pkgs/onlykey-wrapped.nix {};
   in
   {
     etc = import ./system-modules/etc.nix { lib=lib; config=config; };
@@ -277,6 +304,12 @@
 
       # code
       git
+
+      onlykey-wrapped
+      onlykey-cli
+      yubikey-manager
+      yubioath-flutter
+      # yubikey-personalization  # probably not needed, as `yubikey-personalization` is marked as deprecated and suggests using `yubioath-flutter`
     ];
   };
 

@@ -26,6 +26,16 @@ in
       createDirectories = true;
     };
 
+    portal = {
+      enable = true;
+      # xdgOpenUsePortal = true;  # breaks Github authentication in vscode
+      extraPortals = [
+        pkgs.xdg-desktop-portal
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-hyprland
+      ];
+    };
+
     configFile = import ./home-modules/configFiles.nix;
   };
 
@@ -102,10 +112,10 @@ in
 
       # security
       keepassxc
-      onlykey
-      yubikey-manager
-      yubioath-flutter
-      yubikey-personalization
+
+      xdg-desktop-portal
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
 
       # image/audio/video
       vlc
