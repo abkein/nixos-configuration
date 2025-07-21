@@ -1,17 +1,18 @@
-{ stdenv, lib, fetchFromGitHub, nodejs, callPackage, buildFHSEnv
+{ lib, fetchFromGitHub, buildNpmPackage, nodejs, buildFHSEnv
 , pkgs ? import <nixpkgs> { } }:
 
 let
+  pname = "onlykey-app";
+  version = "5.5.0";
+
   src = fetchFromGitHub {
-    owner = "trustcrypto";
+    owner = "abkein";
     repo = "OnlyKey-App";
-    rev = "5401c2966638d04c19035fff85e95bfd3bce5511";
-    hash = "sha256-8MSdr+ghCBPeGp63Yi1T+gyEwXOEUW3vqi9CrCmozrw=";
+    rev = "19ab6bb9c832139cb58638d1078c572025caa2af";
+    hash = "sha256-VoSFYQXrsgy0N/7Fh0Z22BZE1iKPyT+jvTxLtLTR6nk=";
   };
 
-  nodeEnv = callPackage ./default.nix { srcp=src; inherit pkgs; inherit nodejs; };
-
-  fhsEnv = pkgs.buildFHSEnv {
+  fhsEnv = buildFHSEnv {
     name = "nwjs-env";
     targetPkgs = pkgs:
       with pkgs; [
@@ -30,7 +31,7 @@ let
         vulkan-loader
         vulkan-headers
         libglvnd
-        nodejs_20
+        nodejs_22
         nwjs
         libGL
         mesa
@@ -48,32 +49,30 @@ let
         xorg.libXScrnSaver
         xorg.libXtst
       ];
-    runScript = "nw build/";
+    runScript = "nw $out/share/${pname}";
   };
 
-in stdenv.mkDerivation rec {
-  pname = "onlykey-app";
-  version = "5.5.0";
-  inherit src;
+in buildNpmPackage {
+  inherit pname version src;
 
-  nativeBuildInputs = [ nodeEnv.nodeDependencies nodejs ];
+  npmDepsHash = "sha256-UOj2Witdl1cZRobZVozXqaE9LTM6juD8q4ASO4vu+zc=";
 
-  buildPhase = ''
-    runHook preBuild
-    ln -s ${nodeEnv.nodeDependencies}/lib/node_modules ./node_modules
-    npm run build
-    runHook postBuild
-  '';
+  nativeBuildInputs = [ nodejs ];
 
   installPhase = ''
-    mkdir -p $out/share/onlykey
-    cp -r build/* $out/share/onlykey/
+    runHook preInstall
+
+    mkdir -p $out/share/${pname}
+    cp -r build/* $out/share/${pname}
+
     mkdir -p $out/bin
     cat > $out/bin/onlykey <<EOF
-    #!${stdenv.shell}
+    #!${pkgs.runtimeShell}
     exec ${fhsEnv}/bin/nwjs-env "\$@"
     EOF
     chmod +x $out/bin/onlykey
+
+    runHook postInstall
   '';
 
   meta = with lib; {
