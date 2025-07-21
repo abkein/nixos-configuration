@@ -254,7 +254,7 @@
     # spacefm-thermitegod = pkgs.callPackage ./spacefm-package.nix { };
     # nautilus-terminal = pkgs.callPackage ./pkgs/nautilus-terminal.nix {};
     # nemo-terminal = pkgs.callPackage ./pkgs/nemo-terminal.nix {};
-    onlykey-wrapped = pkgs.callPackage ./pkgs/onlykey-wrapped.nix {};
+    onlykey-rebuilt = pkgs.callPackage ./pkgs/onlykey/onlykey-wrapped.nix { };
   in
   {
     etc = import ./system-modules/etc.nix { lib=lib; config=config; };
@@ -305,7 +305,8 @@
       # code
       git
 
-      onlykey-wrapped
+      onlykey-rebuilt
+
       onlykey-cli
       yubikey-manager
       yubioath-flutter
