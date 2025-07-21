@@ -98,12 +98,13 @@ in buildNpmPackage {
 
   installPhase = ''
     mkdir -p $out/onlykey-app
+    mkdir -p $out/node_modules/.bin/nw
+    ln -s ${pkgs.nwjs}/bin/nw $out/node_modules/.bin/nw
     cp -r build/* $out/onlykey-app
 
     mkdir -p $out/bin
     cat > $out/bin/onlykey <<EOF
     #!${pkgs.runtimeShell}
-    ln -s ${fhsEnv}/bin/nw $out/node_modules/.bin/nw
     exec ${fhsEnv}/bin/nwjs-env "$out/onlykey-app"
     EOF
     chmod +x $out/bin/onlykey

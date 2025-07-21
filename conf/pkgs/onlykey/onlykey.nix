@@ -49,7 +49,8 @@ let
         xorg.libXScrnSaver
         xorg.libXtst
       ];
-    runScript = "nw $out/share/${pname}";
+    # runScript = "nw $out/share/${pname}";
+    runScript = ''nw "$@"'';
   };
 
 in buildNpmPackage {
@@ -58,6 +59,12 @@ in buildNpmPackage {
   npmDepsHash = "sha256-UOj2Witdl1cZRobZVozXqaE9LTM6juD8q4ASO4vu+zc=";
 
   nativeBuildInputs = [ nodejs ];
+
+  npmFlags = [ "--ignore-scripts" ];
+  # npmInstallFlags = [ "--ignore-scripts" ];
+  # npmBuildFlags = [ "--ignore-scripts" ];
+  # npmPackFlags = [ "--ignore-scripts" ];
+  # npmPruneFlags = [ "--ignore-scripts" ];
 
   installPhase = ''
     runHook preInstall
@@ -68,7 +75,8 @@ in buildNpmPackage {
     mkdir -p $out/bin
     cat > $out/bin/onlykey <<EOF
     #!${pkgs.runtimeShell}
-    exec ${fhsEnv}/bin/nwjs-env "\$@"
+    # exec ${fhsEnv}/bin/nwjs-env "\$@"
+    exec ${fhsEnv}/bin/nwjs-env "$out/share/onlykey-app"
     EOF
     chmod +x $out/bin/onlykey
 
