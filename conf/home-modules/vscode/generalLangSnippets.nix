@@ -24,6 +24,23 @@
       ];
       description = "Matplotlib extended plot, scatter";
     };
+    latex = {
+      prefix = [ "plt.latex" ];
+      body = [
+        "plt.rcParams.update("
+        "    {"
+        "        \"text.usetex\": True,"
+        "        \"font.family\": \"Computer Modern\","
+        "        \"text.latex.preamble\": r\"\"\""
+        "        \\usepackage[T2A]{fontenc}"
+        "        \\usepackage[utf8]{inputenc}"
+        "        \\usepackage[russian]{babel}"
+        "    \"\"\","
+        "    }"
+        ")"
+      ];
+      description = "For quickly enabling latex rendering";
+    };
     ignore_type = {
       prefix = "# t";
       body = [
