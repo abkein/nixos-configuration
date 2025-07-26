@@ -446,6 +446,8 @@
       "float, class:com.ayugram"
       "float, class:kitty_info"
       "float, title:SVG Input"
+      "float, class:org.inkscape.Inkscape"  # Float all inkscape windows
+      "tile, title:^(.*?\s+-\s+Inkscape)$"  # But keep main window tiled
       "float, title:Extensions"
       "float, title:Password Required - Betterbird"
       "float, title:Progress"
