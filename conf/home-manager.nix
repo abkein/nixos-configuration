@@ -120,8 +120,9 @@ in
       # image/audio/video
       vlc
       gimp
-      inkscape
       swayimg
+      inkscape-with-extensions
+      inkscape-extensions.textext
 
       libnotify
     ];
