@@ -8,6 +8,8 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./pstate.nix
+    ./zenpower.nix
     # inputs.nur.modules.nixos.default
   ];
 
@@ -66,12 +68,14 @@
       extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
     };
     onlykey.enable = true;
+    enableRedistributableFirmware = true;
   };
 
 
   services = {
     upower.enable = true;
     vnstat.enable = true;
+    thermald.enable = true;
     udev = {
       enable = true;
       packages = with pkgs; [
