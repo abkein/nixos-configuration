@@ -124,6 +124,8 @@ in
       inkscape-with-extensions
       inkscape-extensions.textext
 
+      zoom-us
+
       libnotify
     ];
     file = import ./home-modules/files.nix;
