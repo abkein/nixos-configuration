@@ -340,8 +340,8 @@
       "Super, 8, workspace, 8"
       "Super, 9, workspace, 9"
       "Super, 0, workspace, 10"
-      "Super, S, togglespecialworkspace,"
-      "Control+Super, S, togglespecialworkspace,"
+      # "Super, S, togglespecialworkspace,"
+      # "Control+Super, S, togglespecialworkspace,"
       "Alt, Tab, cyclenext"
       "Alt, Tab, bringactivetotop,"
       # Move window to workspace Super + Alt + [0-9]
@@ -445,6 +445,7 @@
       # ######## Window rules ########
       "float, class:com.ayugram"
       "float, class:kitty_info"
+      "float, class:thunderbird,initialTitle:Calendar Reminders"
       "float, title:SVG Input"
       "float, class:org.inkscape.Inkscape"  # Float all inkscape windows
       "tile, title:^(.*?\s+-\s+Inkscape)$"  # But keep main window tiled
