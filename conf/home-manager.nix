@@ -80,6 +80,7 @@ in
       graphviz
       swappy
       wf-recorder
+      jq
 
       remmina
       kdePackages.dolphin
