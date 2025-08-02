@@ -17,11 +17,15 @@ in
         "mechatroner.rainbow-csv"
         "ms-vscode.atom-keybindings"
         "thmsrynr.vscode-namegen" # possibly delete
+        "github.copilot"
+        "github.copilot-chat"
       ];
     };
 
     terminal-emulator = pkgs.kitty;
     terminal-args = "--app-id=kitty_info";
+    # http_proxy=socks5://127.0.0.1:1080 https_proxy=$http_proxy no_proxy=localhost,127.0.0.0/8
+    # --proxy-server=\"socks5=127.0.0.1:1080\"
     args = "--password-store=gnome-libsecret --ozone-platform=wayland";
 
     profiles = {
@@ -57,6 +61,12 @@ in
         folder   = "${config.home.homeDirectory}/Documents/nucleation/lmp";
         settings = { "licenser.license" = "MIT"; };
         profile  = "python";
+      };
+      indexlib = {
+        folder   = "${config.home.homeDirectory}/Documents/nucleation/lmp/indexlib";
+        settings = { "licenser.license" = "MIT"; };
+        profile  = "python";
+        extensions = needed_extensions.sonar;
       };
       ewald = {
         folder   = "${config.home.homeDirectory}/Documents/nucleation/Ewald";
