@@ -13,7 +13,7 @@ let
   genProfileName = name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
   basic_code_CMD = profile:
   let
-    envstr = if cfg.envstr != "" then "${cfg.envstr} " else "";
+    envstr = if cfg.envstr != "" then "${builtins.replaceStrings ["$"] ["\\$"] cfg.envstr} " else "";
   in
   "${envstr}${lib.getExe cfg.code-package} --profile ${profile} ${cfg.args}";
   # Helper to declare a single workspace given its name and spec
