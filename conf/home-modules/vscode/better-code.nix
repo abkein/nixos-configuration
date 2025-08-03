@@ -11,7 +11,11 @@ let
   deepMerge = (import ./deepMerge.nix).deepMerge;
   mkDeepMerge = lst: lib.foldl' (acc: spec: deepMerge acc spec) {} lst;
   genProfileName = name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
-  basic_code_CMD = profile: "${lib.getExe cfg.code-package} --profile ${profile} ${cfg.args}";
+  basic_code_CMD = profile:
+  let
+    envstr = if cfg.envstr != "" then "${cfg.envstr} " else "";
+  in
+  "${envstr}${lib.getExe cfg.code-package} --profile ${profile} ${cfg.args}";
   # Helper to declare a single workspace given its name and spec
   declare_workspace = name: spec: rec {
     configFile."${name}" =
@@ -93,6 +97,13 @@ in
         description = "Additional CLI arguments provided to every VSCode instance";
         default     = "";
         example     = "--password-store=gnome-libsecret --ozone-platform=wayland";
+      };
+
+      envstr = mkOption {
+        type        = types.str;
+        description = "Environment string to place before every VSCode instance.";
+        default     = "";
+        example     = "http_proxy=socks5://127.0.0.1:1080 https_proxy=$http_proxy no_proxy=localhost,127.0.0.0/8";
       };
 
       general = {

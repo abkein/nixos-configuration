@@ -18,15 +18,15 @@ in
         "ms-vscode.atom-keybindings"
         "thmsrynr.vscode-namegen" # possibly delete
         "github.copilot"
-        "github.copilot-chat"
+        # "github.copilot-chat"
       ];
     };
 
     terminal-emulator = pkgs.kitty;
     terminal-args = "--app-id=kitty_info";
-    # http_proxy=socks5://127.0.0.1:1080 https_proxy=$http_proxy no_proxy=localhost,127.0.0.0/8
     # --proxy-server=\"socks5=127.0.0.1:1080\"
     args = "--password-store=gnome-libsecret --ozone-platform=wayland";
+    envstr = "http_proxy=socks5://127.0.0.1:1080 https_proxy=$http_proxy no_proxy=localhost,127.0.0.0/8";
 
     profiles = {
       default = {
