@@ -19,22 +19,22 @@
   "files.autoSave"= "afterDelay";
   "files.trimTrailingWhitespace" = true;
   "files.associations"= {
-      "*.gpi"= "gnuplot";
-      "*.in"= "lmps";
+    "*.gpi"= "gnuplot";
+    "*.in"= "lmps";
   };
   "files.exclude"= {
-      "**/.trunk/*actions/"= true;
-      "**/.trunk/*logs/"= true;
-      "**/.trunk/*notifications/"= true;
-      "**/.trunk/*out/"= true;
-      "**/.trunk/*plugins/"= true;
+    "**/.trunk/*actions/"= true;
+    "**/.trunk/*logs/"= true;
+    "**/.trunk/*notifications/"= true;
+    "**/.trunk/*out/"= true;
+    "**/.trunk/*plugins/"= true;
   };
   "files.watcherExclude"= {
-      "**/.trunk/*actions/"= true;
-      "**/.trunk/*logs/"= true;
-      "**/.trunk/*notifications/"= true;
-      "**/.trunk/*out/"= true;
-      "**/.trunk/*plugins/"= true;
+    "**/.trunk/*actions/"= true;
+    "**/.trunk/*logs/"= true;
+    "**/.trunk/*notifications/"= true;
+    "**/.trunk/*out/"= true;
+    "**/.trunk/*plugins/"= true;
   };
 
   "diffEditor.codeLens"= true;
@@ -51,8 +51,8 @@
 
   "workbench.layoutControl.enabled"= false;
   "workbench.editorAssociations"= {
-      "*.pdf"= "latex-workshop-pdf-hook";
-      "*.gz"= "default";
+    "*.pdf"= "latex-workshop-pdf-hook";
+    "*.gz"= "default";
   };
 
   "terminal.integrated.sendKeybindingsToShell"= true;
@@ -83,42 +83,42 @@
   "lammps.tasks.binary"= "/home/kein/.local/bin/lmp";
 
   "author-header"= {
-      "author"= "Egor Perevoshchikov";
-      "contents"= [
-          "Open type style"
-      ];
-      "auto-comment-type"= "#";
-      "auto-space"= true;
-      "auto-title"= true;
-      "auto-date-type"= 3;
+    "author"= "Egor Perevoshchikov";
+    "contents"= [
+      "Open type style"
+    ];
+    "auto-comment-type"= "#";
+    "auto-space"= true;
+    "auto-title"= true;
+    "auto-date-type"= 3;
   };
 
   "latex-workshop.latex.tools"= [
-      {
-          "name"= "latexmk";
-          "command"= "latexmk";
-          "args"= [
-              "-shell-escape"
-              "-synctex=1"
-              "-interaction=nonstopmode"
-              "-file-line-error"
-              "-pdf"
-              "-outdir=%OUTDIR%"
-              "%DOC%"
-          ];
-          "env"= {};
-      }
-      {
-          "name"= "pdflatex";
-          "command"= "pdflatex";
-          "args"= [
-              "--shell-escape" # if you want to have the shell-escape flag
-              "-synctex=1"
-              "-interaction=nonstopmode"
-              "-file-line-error"
-              "%DOC%.tex"
-          ];
-      }
+    {
+      "name"= "latexmk";
+      "command"= "latexmk";
+      "args"= [
+          "-shell-escape"
+          "-synctex=1"
+          "-interaction=nonstopmode"
+          "-file-line-error"
+          "-pdf"
+          "-outdir=%OUTDIR%"
+          "%DOC%"
+      ];
+      "env"= {};
+    }
+    {
+      "name"= "pdflatex";
+      "command"= "pdflatex";
+      "args"= [
+        "--shell-escape" # if you want to have the shell-escape flag
+        "-synctex=1"
+        "-interaction=nonstopmode"
+        "-file-line-error"
+        "%DOC%.tex"
+      ];
+    }
   ];
   "latex-workshop.latex.outDir"= "";
   "latex-workshop.latex.clean.fileTypes"= [];
@@ -131,36 +131,36 @@
   "remote.SSH.enableRemoteCommand"= true;
 
   "actionButtons"= {
-      "defaultColor"= "#ff0034"; # Can also use string color names.
-      "loadNpmCommands"= false; # Disables automatic generation of actions for npm commands.
-      "reloadButton"= "♻️"; # Custom reload button text or icon (default ↻). null value enables automatic reload on configuration change
-      "commands"= [
-          {
-              "cwd"= "\${workspaceFolder}";
-              "name"= "SyncRepo";
-              "color"= "white";
-              "singleInstance"= true;
-              "command"= "rsync -azP --exclude-from=\${workspaceFolder}/rsync.ex \${workspaceFolder} fisher=/scratch/perevoshchikyy/repos/\${workspaceFolderBasename}/../"; # This is executed in the terminal.
-          }
-          {
-              "cwd"= "\${cwd}";
-              "name"= "Plot gpi";
-              "color"= "white";
-              "singleInstance"= true;
-              "command"= "/home/kein/execs/plt.py --file=\"\${file}\""; # This is executed in the terminal.
-          }
-          # {
-          #     "name"= "Build Cargo";
-          #     "color"= "green";
-          #     "command"= "cargo build ${file}";
-          # }
-          # {
-          #     "name"= "🪟 Split editor";
-          #     "color"= "orange";
-          #     "useVsCodeApi"= true;
-          #     "command"= "workbench.action.splitEditor"
-          # }
-      ];
+    "defaultColor"= "#ff0034"; # Can also use string color names.
+    "loadNpmCommands"= false; # Disables automatic generation of actions for npm commands.
+    "reloadButton"= "♻️"; # Custom reload button text or icon (default ↻). null value enables automatic reload on configuration change
+    "commands"= [
+      {
+        "cwd"= "\${workspaceFolder}";
+        "name"= "SyncRepo";
+        "color"= "white";
+        "singleInstance"= true;
+        "command"= "rsync -azP --exclude-from=\${workspaceFolder}/rsync.ex \${workspaceFolder} fisher=/scratch/perevoshchikyy/repos/\${workspaceFolderBasename}/../"; # This is executed in the terminal.
+      }
+      {
+        "cwd"= "\${cwd}";
+        "name"= "Plot gpi";
+        "color"= "white";
+        "singleInstance"= true;
+        "command"= "/home/kein/execs/plt.py --file=\"\${file}\""; # This is executed in the terminal.
+      }
+      # {
+      #     "name"= "Build Cargo";
+      #     "color"= "green";
+      #     "command"= "cargo build ${file}";
+      # }
+      # {
+      #     "name"= "🪟 Split editor";
+      #     "color"= "orange";
+      #     "useVsCodeApi"= true;
+      #     "command"= "workbench.action.splitEditor"
+      # }
+    ];
   };
 
   # "python.analysis.diagnosticSeverityOverrides"= {
@@ -181,7 +181,7 @@
   "python.analysis.inlayHints.callArgumentNames"= true;
   "python.formatting.provider"= "none";
   "python.formatting.autopep8Args"= [
-      "--max-line-length 999999"
+    "--max-line-length 999999"
   ];
 
   "[python]" = {
@@ -194,18 +194,18 @@
   ];
 
   "black-formatter.args"= [
-      "--line-length=120"
+    "--line-length=120"
   ];
 
   "mypy-type-checker.args"= [
-      "--disable-error-code=import-untyped"
+    "--disable-error-code=import-untyped"
   ];
 
   "jupyter.askForKernelRestart" = false;
   "jupyter.disableJupyterAutoStart" = true;
   "jupyter.widgetScriptSources"= [
-      "jsdelivr.com"
-      "unpkg.com"
+    "jsdelivr.com"
+    "unpkg.com"
   ];
   "jupyter.logging.level" = "trace";
 
@@ -221,14 +221,14 @@
   "ltex.language"= "ru-RU";
 
   "todo-tree.general.tags"= [
-      "BUG"
-      "HACK"
-      "FIXME"
-      "TODO"
-      "XXX"
-      "[ ]"
-      "[x]"
-      "type= ignore"
+    "BUG"
+    "HACK"
+    "FIXME"
+    "TODO"
+    "XXX"
+    "[ ]"
+    "[x]"
+    "type= ignore"
   ];
 
   "cmake.configureOnOpen"= true;
@@ -238,8 +238,8 @@
   "cmake.showOptionsMovedNotification"= false;
   "cmake.options.statusBarVisibility"= "compact";
   "cmake.pinnedCommands"= [
-      "workbench.action.tasks.configureTaskRunner"
-      "workbench.action.tasks.runTask"
+    "workbench.action.tasks.configureTaskRunner"
+    "workbench.action.tasks.runTask"
   ];
 
   "C_Cpp.formatting"= "disabled";
@@ -254,20 +254,20 @@
   "C_Cpp.inlayHints.autoDeclarationTypes.showOnLeft"= true;
   "C_Cpp.inlayHints.parameterNames.suppressWhenArgumentContainsName"= false;
   "C_Cpp.default.includePath"= [
-      "/usr/local/include/"
-      "\${default}"
-      "/usr/include/"
+    "/usr/local/include/"
+    "\${default}"
+    "/usr/include/"
   ];
 
   "[cpp]"= {
-      "editor.defaultFormatter" = "ms-vscode.cpptools";
+    "editor.defaultFormatter" = "ms-vscode.cpptools";
   };
 
   "c-cpp-flylint.debug"= true;
   "c-cpp-flylint.flexelint.enable"= false;
   "c-cpp-flylint.cppcheck.extraArgs"= [
-      "--check-level=exhaustive"
-      "--force"
+    "--check-level=exhaustive"
+    "--force"
   ];
 
   "deepl.formality"= "default";
@@ -276,36 +276,36 @@
   "deepl.translationMode"= "Replace";
 
   "sonarlint.rules"= {
-      "cpp=S134"= {
-          "level"= "off";
-      };
-      "cpp=S125"= {
-          "level"= "off";
-      };
-      "python:S3776"= {
-          "level"= "off";
-      };
-      "python:S116"= {
-          "level"= "off";
-      };
-      "python:S108"= {
-          "level"= "off";
-      };
-      "python:S1192"= {
-          "level"= "off";
-      };
-      "python:S117"= {    # Local variable and function parameter names should comply with a naming convention
-          "level"= "off";
-      };
-      "python:S5843"= {    # Regular expressions should not be too complicated
-          "level"= "off";
-      };
+    "cpp=S134"= {
+      "level"= "off";
+    };
+    "cpp=S125"= {
+      "level"= "off";
+    };
+    "python:S3776"= {
+      "level"= "off";
+    };
+    "python:S116"= {
+      "level"= "off";
+    };
+    "python:S108"= {
+      "level"= "off";
+    };
+    "python:S1192"= {
+      "level"= "off";
+    };
+    "python:S117"= {    # Local variable and function parameter names should comply with a naming convention
+      "level"= "off";
+    };
+    "python:S5843"= {    # Regular expressions should not be too complicated
+      "level"= "off";
+    };
   };
   "sonarlint.connectedMode.connections.sonarcloud" =  [
     {
-    "organizationKey" = "abkein";
-    "connectionId" = "abkein";
-    "region" = "EU";
+      "organizationKey" = "abkein";
+      "connectionId" = "abkein";
+      "region" = "EU";
     }
   ];
 
