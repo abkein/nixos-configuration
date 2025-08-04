@@ -5,15 +5,15 @@
 let
   codeCMD = "code";
   codeIcon = "vscode";
-  inherit (lib) mkOption types literalExpression mapAttrs mkMerge attrValues attrNames;
+  inherit (lib) mkOption types literalExpression mapAttrs mkMerge attrValues attrNames mapAttrsToList;
   cfg = config.better-code;
   jsontype = (pkgs.formats.json { }).type;
   deepMerge = (import ./deepMerge.nix).deepMerge;
   mkDeepMerge = lst: lib.foldl' (acc: spec: deepMerge acc spec) {} lst;
   genProfileName = name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
-  basic_code_CMD = profile:
+  basic_code_CMD = profile: disable_envstr:
   let
-    envstr = if cfg.envstr != "" then "${builtins.replaceStrings ["$"] ["\\$"] cfg.envstr} " else "";
+    envstr = if (cfg.envstr != "" && !disable_envstr) then "${builtins.replaceStrings ["$"] ["\\$"] cfg.envstr} " else "";
   in
   "${envstr}${lib.getExe cfg.code-package} --profile ${profile} ${cfg.args}";
   # Helper to declare a single workspace given its name and spec
@@ -45,7 +45,7 @@ let
                     else if (spec.preinit && spec.hasShell) then "${initWrap} && " else "";
       postfix     = if spec.postrun != "" then " && ${spec.postrun}" else "";
       profile     = if spec.profile == "" then "default" else (if builtins.length spec.extensions == 0 then spec.profile else (genProfileName name spec));
-      codeCmd     = "${basic_code_CMD profile} ${config.xdg.configHome}/${configFile.${name}.target}";
+      codeCmd     = "${basic_code_CMD profile spec.disable_envstr} ${config.xdg.configHome}/${configFile.${name}.target}";
       fullCommand = "${prefix}${codeCmd}${postfix}";
     in {
       name = name;
@@ -127,6 +127,12 @@ in
             languageSnippets = wtypes.languageSnippets;
             globalSnippets = wtypes.globalSnippets;
 
+            disable_envstr = mkOption {
+              type        = types.bool;
+              description = "Whether to disable `envstr` addition.";
+              default     = false;
+            };
+
             enableUpdateCheck = mkOption {
               type = types.nullOr types.bool;
               default = null;
@@ -176,6 +182,12 @@ in
               default     = "";
             };
 
+            disable_envstr = mkOption {
+              type        = types.bool;
+              description = "Whether to disable `envstr` addition.";
+              default     = false;
+            };
+
             preinit = mkOption {
               type        = types.bool;
               description = "Whether to run nix-shell before opening VSCode if prerun is empty.";
@@ -203,21 +215,21 @@ in
   config = lib.mkIf cfg.enable {
     programs.vscode.enable = true;
     programs.vscode.package = cfg.code-package;
-    programs.vscode.profiles =
-      (builtins.mapAttrs mkProfile cfg.profiles)
+    programs.vscode.profiles = lib.mapAttrs (name: spec: builtins.removeAttrs spec ["disable_envstr"])
+      ((builtins.mapAttrs mkProfile cfg.profiles)
       //
       (mkDeepMerge (lib.mapAttrsToList (name: spec:
       if builtins.length spec.extensions == 0 then {} else {
        "${genProfileName name spec}" = mkProfileW spec.profile name { extensions = spec.extensions; };
-      }) cfg.workspaces));
+      }) cfg.workspaces)));
 
     # Build and merge all declared workspaces
     xdg =
     let
       workspaces = mapAttrs (_name: spec: declare_workspace _name spec) cfg.workspaces;
-      declProfAction = profileName:
+      declProfAction = profileName: profileSpec:
       let
-        fullCommand = basic_code_CMD profileName;
+        fullCommand = basic_code_CMD profileName profileSpec.disable_envstr;
       in
       {
         CodeProfileSelector.actions."${profileName}" = {
@@ -252,7 +264,7 @@ in
               actions     = {};
             };
           }
-        ] ++ map (w: w.desktopEntries) (attrValues workspaces) ++ map declProfAction (attrNames cfg.profiles)
+        ] ++ map (w: w.desktopEntries) (attrValues workspaces) ++ mapAttrsToList declProfAction cfg.profiles
       );
     };
   };
