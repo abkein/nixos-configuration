@@ -48,7 +48,6 @@
     "ms-vscode.cpptools"
     "ms-vscode.cpptools-extension-pack"
     "hars.cppsnippets"
-    "twxs.cmake"
     "jbenden.c-cpp-flylint"
     "jeff-hykin.better-cpp-syntax"
     "ms-vscode.cpptools-themes"
