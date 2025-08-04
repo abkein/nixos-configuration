@@ -26,7 +26,7 @@ in
     terminal-args = "--app-id=kitty_info";
     # --proxy-server=\"socks5=127.0.0.1:1080\"
     args = "--password-store=gnome-libsecret --ozone-platform=wayland";
-    envstr = "http_proxy=socks5://127.0.0.1:1080 https_proxy=$http_proxy no_proxy=localhost,127.0.0.0/8";
+    envstr = "http_proxy=socks5://127.0.0.1:1080 https_proxy=socks5://127.0.0.1:1080 no_proxy=localhost,127.0.0.0/8";
 
     profiles = {
       default = {
@@ -64,9 +64,16 @@ in
       };
       indexlib = {
         folder   = "${config.home.homeDirectory}/Documents/nucleation/lmp/indexlib";
-        settings = { "licenser.license" = "MIT"; };
+        settings = {
+          "licenser.license" = "MIT";
+          "sonarlint.connectedMode.project" = {
+            "connectionId" = "abkein";
+            "projectKey" = "abkein_indexlib";
+          };
+        };
         profile  = "python";
         extensions = needed_extensions.sonar;
+        # disable_envstr = true;
       };
       ewald = {
         folder   = "${config.home.homeDirectory}/Documents/nucleation/Ewald";

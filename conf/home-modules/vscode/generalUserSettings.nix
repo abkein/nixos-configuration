@@ -291,7 +291,7 @@
     "python:S108"= {
       "level"= "off";
     };
-    "python:S1192"= {
+    "python:S1192"= {    # String literals should not be duplicated
       "level"= "off";
     };
     "python:S117"= {    # Local variable and function parameter names should comply with a naming convention
