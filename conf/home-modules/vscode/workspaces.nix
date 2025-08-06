@@ -73,7 +73,30 @@ in
         };
         profile  = "python";
         extensions = needed_extensions.sonar;
-        # disable_envstr = true;
+      };
+      pysbatch = {
+        folder   = "${config.home.homeDirectory}/Documents/nucleation/lmp/pysbatch-ng";
+        settings = {
+          "licenser.license" = "MIT";
+          "sonarlint.connectedMode.project" = {
+            "connectionId" = "abkein";
+            "projectKey" = "abkein_pysbatch";
+          };
+        };
+        profile  = "python";
+        extensions = needed_extensions.sonar;
+      };
+      LMPResume = {
+        folder   = "${config.home.homeDirectory}/Documents/nucleation/lmp/LMPResume";
+        settings = {
+          "licenser.license" = "MIT";
+          "sonarlint.connectedMode.project" = {
+            "connectionId" = "abkein";
+            "projectKey" = "abkein_LMPResume";
+          };
+        };
+        profile  = "python";
+        extensions = needed_extensions.sonar;
       };
       ewald = {
         folder   = "${config.home.homeDirectory}/Documents/nucleation/Ewald";

@@ -308,6 +308,7 @@
       "region" = "EU";
     }
   ];
+  # "sonarlint.pathToNodeExecutable" = "";
 
   "geminicodeassist.inlineSuggestions.enableAuto" = false;
   "geminicodeassist.project" =  "someimportantproject";
