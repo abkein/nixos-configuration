@@ -11,6 +11,7 @@
     ./zenpower.nix
     # ./system-modules/flatpak.nix
     ./shadow/xray.nix
+    ./system-modules/syncthing.nix
   ];
 
   age = {

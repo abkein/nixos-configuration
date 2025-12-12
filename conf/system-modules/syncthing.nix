@@ -2,8 +2,11 @@
 {
   services.syncthing = {
     enable = true;
-    # openDefaultPorts = true;
+    openDefaultPorts = true;
+    guiPasswordFile = config.age.secrets."syncthingPass".path;
     guiAddress = "127.0.0.1:8384";  # default
+    user = "kein";
+    dataDir = "/home/kein";
     settings = {
       devices = {
         "phone-A63" = {
@@ -13,6 +16,7 @@
       };
       folders = {
         "Documents" = {
+          enable = true;
           id = "TheDocs";
           label = "My documents";
           path = "${config.home.homeDirectory}/Documents";
@@ -31,13 +35,14 @@
       options = {
         limitBandwidthInLan = false;
         localAnnounceEnabled = true;
+        localAnnouncePort = 8494;
         relaysEnabled = true;
         urAccepted = 3;
       };
     };
-    tray = {
-      enable = true;
-    };
+    # tray = {
+    #   enable = true;
+    # };
     # environment.STNODEFAULTFOLDER = "true";
   };
 }

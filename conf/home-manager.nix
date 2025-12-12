@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 let
   ayugram-desktop = inputs.ayugram-desktop.packages.${pkgs.system}.ayugram-desktop;
   anyrun-pkgs = inputs.anyrun.packages.${pkgs.system};
@@ -9,9 +9,19 @@ in
     ./home-modules/vscode/better-code.nix
     ./home-modules/vscode/workspaces.nix
     ./home-modules/gnupg.nix
-    ./home-modules/syncthing.nix
+    # ./home-modules/syncthing.nix
     ./shadow/ssh.nix
   ];
+
+  # age = {
+  #   identityPaths = [ "/home/kein/nixos-configuration/conf/secrets/keys/yubikey-identity.pub" ];
+  #   secrets = {
+  #     "syncthingPass" = {
+  #       file = ./secrets/agenix/encrypted/syncthingPass.age;
+  #     };
+  #   };
+  #   # ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
+  # };
 
   wayland.windowManager.hyprland = import ./home-modules/hypr/hyprland.nix;
 
