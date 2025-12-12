@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -30,27 +30,6 @@
       };
     };
   };
-
-  # age = let mksec = name: {
-  #   ${name} = {
-  #     file = ./secrets/${name}.age;
-  #   };
-  # };
-  # in {
-  #   identityPaths = [ "/root/keys/system_key" ];
-  #   secrets = lib.mkMerge [
-  #     { }
-  #     (mksec "xray_generic_address")
-  #     (mksec "xray_generic_ID")
-  #     (mksec "xray_generic_ServerName")
-  #     (mksec "xray_yun_address")
-  #     (mksec "xray_yun_ID")
-  #     (mksec "xray_yun_ShortID")
-  #     # (mksec "ssh_fisher_hostname")
-  #     # (mksec "ssh_weasel_hostname")
-  #     # (mksec "ssh_yun_hostname")
-  #   ];
-  # };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -279,7 +258,6 @@
   environment = {
     etc = import ./system-modules/etc.nix { lib=lib; config=config; };
     systemPackages = with pkgs; [
-      # inputs.agenix.packages.${pkgs.system}.default
       clinfo
       vulkan-tools
 
