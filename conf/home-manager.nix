@@ -158,6 +158,8 @@ in
     ];
     file = import ./home-modules/files.nix;
     sessionVariables = {
+      # QT_QPA_PLATFORMTHEME = "qt6ct";
+      # QT_STYLE_OVERRIDE = "";
       # SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
       XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
       # For apps to prevent spamming home directory with .trash
@@ -312,12 +314,12 @@ in
 
   qt = {
     enable = true;
-    style = {
-      name = "adwaita-dark";
-    };
+    # style = {
+    #   name = "adwaita-dark";
+    # };
     platformTheme = {
-      name = "gtk3";
-      # name = "qt5ct";
+      # name = "gtk3";
+      name = "qt6ct";
     };
   };
 }
