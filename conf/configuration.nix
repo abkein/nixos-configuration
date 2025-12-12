@@ -28,6 +28,9 @@
       "nix-netrc" = {
         rekeyFile = ./secrets/agenix/encrypted/nix-netrc.age;
       };
+      "syncthingPass" = {
+        rekeyFile = ./secrets/agenix/encrypted/syncthingPass.age;
+      };
     };
   };
 

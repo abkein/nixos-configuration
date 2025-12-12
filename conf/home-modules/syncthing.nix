@@ -1,4 +1,39 @@
 { config, pkgs, lib, ... }:
 {
-  
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    guiAddress = "127.0.0.1:8384";  # default
+    settings = {
+      devices = {
+        "phone-A63" = {
+          id = "GIABTJN-E7JIDLE-XP7HU37-HDNAVYG-FI4XKTN-ARMJG3J-32WHYTM-ZFP2MQJ";
+          name = "Nothing Phone (1)";
+        };
+      };
+      folders = {
+        "Documents" = {
+          id = "TheDocs";
+          label = "My documents";
+          path = "${config.home.homeDirectory}/Documents";
+          devices = [ "phone-A63" ];
+          type = "sendreceive";  # default
+          versioning = {
+            type = "staggered";
+            fsPath = "${config.home.homeDirectory}/backup";
+            params = {
+              cleanInterval = "3600";
+              maxAge = "31536000";
+            };
+          };
+        };
+      };
+    };
+    options = {
+      limitBandwidthInLan = false;
+      localAnnounceEnabled = true;
+      relaysEnabled = true;
+    };
+    environment.STNODEFAULTFOLDER = "true";
+  };
 }

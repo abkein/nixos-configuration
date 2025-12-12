@@ -176,20 +176,6 @@ in
     hyprpolkitagent.enable = true;
     hyprpaper = import ./home-modules/hypr/hyprpaper.nix;
     hypridle = import ./home-modules/hypr/hypridle.nix;
-    # syncthing = {
-    #   enable = true;
-    #   openDefaultPorts = true;
-    #   devices = {
-    #     "phone-A63" = { id = "GIABTJN-E7JIDLE-XP7HU37-HDNAVYG-FI4XKTN-ARMJG3J-32WHYTM-ZFP2MQJ"; };
-    #   };
-    #   folders = {
-    #     "Documents" = {
-    #       path = "${config.home.homeDirectory}/Documents";
-    #       devices = [ "phone-A63" ];
-    #     };
-    #   };
-    #   environment.STNODEFAULTFOLDER = "true";
-    # };
   };
 
   programs = {
