@@ -9,6 +9,7 @@ in
     ./home-modules/vscode/better-code.nix
     ./home-modules/vscode/workspaces.nix
     ./home-modules/gnupg.nix
+    ./home-modules/syncthing.nix
     ./shadow/ssh.nix
   ];
 
