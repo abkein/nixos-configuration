@@ -1,0 +1,13 @@
+pip
+bash_kernel
+ipython
+ipykernel
+jupyter
+jupyterlab
+notebook
+pyzmq
+numpy
+pandas
+scipy
+matplotlib
+sympy

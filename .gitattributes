@@ -1,0 +1,2 @@
+conf/shadow/xray.nix filter=git-agecrypt diff=git-agecrypt
+conf/shadow/ssh.nix filter=git-agecrypt diff=git-agecrypt

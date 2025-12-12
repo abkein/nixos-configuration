@@ -1,0 +1,10 @@
+testing/
+conf/secrets/sops-nix/secrets
+conf/secrets/agenix/plain
+conf/secrets/keys/jeta
+conf/secrets/keys/github_yubikey
+conf/trash
+.aider*
+.env
+.vsc*
+.keys

@@ -1,0 +1,31 @@
+error: builder for '/nix/store/xpghmp116b137nr3vxqvmgaffkfcjf9b-onlykey-app-5.5.0.drv' failed with exit code 1;
+       last 25 log lines:
+       > node_modules/color-support/bin.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/atob/bin/atob.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/touch/node_modules/nopt/bin/nopt.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/touch/node_modules/nopt/examples/my-program.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/nw/scripts/install.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/nw/node_modules/rimraf/bin.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/nw/bin/autobump: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/nw/bin/nw: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/mocha/lib/cli/cli.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/mocha/bin/mocha.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/mocha/bin/_mocha: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/resolve/bin/resolve: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/nopt/bin/nopt.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/nopt/examples/my-program.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/js-yaml/bin/js-yaml.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/mkdirp/bin/cmd.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/eslint/bin/eslint.js: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > node_modules/acorn/bin/acorn: interpreter directive changed from "#!/usr/bin/env node" to "/nix/store/a1kxazxkgw7mjbjgisvah95p1r3n5ykl-nodejs-22.16.0/bin/node"
+       > npm error code 1
+       > npm error path /build/source/node_modules/nw
+       > npm error command failed
+       > npm error command sh -c node scripts/install.js
+       > npm error getaddrinfo EAI_AGAIN dl.nwjs.io
+       > npm error Log files were not written due to an error writing to the directory: /nix/store/y0xr747qx1dz7lvy3sblyg80cqz3k0p8-onlykey-app-5.5.0-npm-deps/_logs
+       > npm error You can rerun the command with `--loglevel=verbose` to see the logs in your terminal
+       For full logs, run:
+         nix log /nix/store/xpghmp116b137nr3vxqvmgaffkfcjf9b-onlykey-app-5.5.0.drv
+error: 1 dependencies of derivation '/nix/store/zfwr9krrns6vz7dbdkhid07dgbzllkw9-system-path.drv' failed to build
+error: 1 dependencies of derivation '/nix/store/3lvg58ziphw8syx0l8iwvb7i6cwnc6pv-nixos-system-jeta-25.05.20250703.7a732ed.drv' failed to build

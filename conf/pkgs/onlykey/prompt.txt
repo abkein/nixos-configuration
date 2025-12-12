@@ -1,0 +1,77 @@
+onlykey.nix problem:
+
+When I'm trying to build `onlykey.nix` (using `callPackage pkgs/onlykey/onlykey.nix {}`) I get the error (see file onlykey.out)
+The main error is:
+```
+npm error command sh -c node scripts/install.js
+npm error getaddrinfo EAI_AGAIN dl.nwjs.io
+```
+means that during the Nix build process, an npm script (scripts/install.js from the nw package) tried to access the internet to download something (from https://dl.nwjs.io), but:
+
+    1. Nix builds are sandboxed and offline by default.
+
+    2. node_modules/nw is not meant to be used inside Nix this way—it tries to download the NW.js binary unless it's patched.
+
+onlykey-patch-nwjs.nix problem:
+
+I've written the other package onlykey-patch-nwjs.nix, where I patch the package.json to replace `nwjs` with a dummy package since I'm already using the system NW.js (nwjs) inside the fhsEnv and I'm likely do not need the npm package nw at all.
+
+But. The package is being built successfuly, but the GUI part stucks. To investigate the problem I used the `shell.nix` then
+```
+$ cd /nix/store/b871vq8h1qn0vhq7gsv1mgckd12vj3kc-onlykey-app-5.5.0/onlykey-app
+$ nix-shell /home/kein/nixos-configuration/conf/pkgs/onlykey/shell.nix
+$ run-nw .
+Need to install the following packages:
+nw@0.101.2
+Ok to proceed? (y) y
+
+Error: spawn /home/kein/.npm/_npx/466d1f97f18701cc/node_modules/nw/nwjs-v0.101.2-linux-x64/nw ENOENT
+    at ChildProcess._handle.onexit (node:internal/child_process:285:19)
+    at onErrorNT (node:internal/child_process:483:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'spawn /home/kein/.npm/_npx/466d1f97f18701cc/node_modules/nw/nwjs-v0.101.2-linux-x64/nw',
+  path: '/home/kein/.npm/_npx/466d1f97f18701cc/node_modules/nw/nwjs-v0.101.2-linux-x64/nw',
+  spawnargs: [ 'build/', '.' ]
+}
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error: spawn /home/kein/.npm/_npx/466d1f97f18701cc/node_modules/nw/nwjs-v0.101.2-linux-x64/nw ENOENT
+    at ChildProcess._handle.onexit (node:internal/child_process:285:19)
+    at onErrorNT (node:internal/child_process:483:16)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'spawn /home/kein/.npm/_npx/466d1f97f18701cc/node_modules/nw/nwjs-v0.101.2-linux-x64/nw',
+  path: '/home/kein/.npm/_npx/466d1f97f18701cc/node_modules/nw/nwjs-v0.101.2-linux-x64/nw',
+  spawnargs: [ 'build/', '.' ]
+}
+
+Node.js v20.19.3
+```
+The root cause is this step in the derivation:
+
+patches = [
+  (pkgs.writeText "override-nw" ''
+    jq '.dependencies.nw = "0.0.0-dummy"' package.json > package.json.tmp
+    mv package.json.tmp package.json
+  '')
+];
+
+This overrides the real nw dependency with a dummy version so that buildNpmPackage doesn’t try to download NW.js during the build (which it can't do inside the sandbox). That patch is necessary to make the Nix build work cleanly — but has this side effect: at runtime, the app expects nw to be a real binary from the node_modules/.bin/nw symlink — but now it isn’t, because the dummy package doesn't install it.
+
+
+Important note:
+If I do
+```
+nix-shell /home/kein/nixos-configuration/conf/pkgs/onlykey/shell.nix
+git clone https://github.com/abkein/OnlyKey-App
+cd OnlyKey-App
+npm install
+gulp build
+run-nw
+```
+The app and its GUI part work flawlessly without any error
