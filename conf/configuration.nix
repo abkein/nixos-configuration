@@ -14,24 +14,25 @@
   ];
 
   age = {
-    rekey = {
-      hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzMEb6MSQOJnLdf3EdsrsPuiRYJ3Weg00/HbJ+3JeVv";
-      masterIdentities = [ ./secrets/keys/yubikey-identity.pub ];
-      storageMode = "local";
-      localStorageDir = ./. + "/secrets/rekeyed/${config.networking.hostName}";
-    };
-    identityPaths = [ "/home/kein/nixos-configuration/conf/secrets/keys/jeta" ];
+    # rekey = {
+    #   hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzMEb6MSQOJnLdf3EdsrsPuiRYJ3Weg00/HbJ+3JeVv";
+    #   masterIdentities = [ ./secrets/keys/yubikey-identity.pub ];
+    #   storageMode = "local";
+    #   localStorageDir = ./. + "/secrets/rekeyed/${config.networking.hostName}";
+    # };
+    identityPaths = [ "/home/kein/nixos-configuration/conf/secrets/keys/yubikey-identity.pub" ];
     secrets = {
       "nix-access-tokens.conf" = {
-        rekeyFile = ./secrets/agenix/encrypted/nix-access-tokens.conf.age;
+        file = ./secrets/agenix/encrypted/nix-access-tokens.conf.age;
       };
       "nix-netrc" = {
-        rekeyFile = ./secrets/agenix/encrypted/nix-netrc.age;
+        file = ./secrets/agenix/encrypted/nix-netrc.age;
       };
       "syncthingPass" = {
-        rekeyFile = ./secrets/agenix/encrypted/syncthingPass.age;
+        file = ./secrets/agenix/encrypted/syncthingPass.age;
       };
     };
+    ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -304,7 +305,7 @@
       # code
       git
 
-      agenix-rekey
+      age
       age-plugin-yubikey
       git-agecrypt
 

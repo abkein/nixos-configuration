@@ -2,7 +2,7 @@
 {
   services.syncthing = {
     enable = true;
-    openDefaultPorts = true;
+    # openDefaultPorts = true;
     guiAddress = "127.0.0.1:8384";  # default
     settings = {
       devices = {
@@ -28,12 +28,16 @@
           };
         };
       };
+      options = {
+        limitBandwidthInLan = false;
+        localAnnounceEnabled = true;
+        relaysEnabled = true;
+        urAccepted = 3;
+      };
     };
-    options = {
-      limitBandwidthInLan = false;
-      localAnnounceEnabled = true;
-      relaysEnabled = true;
+    tray = {
+      enable = true;
     };
-    environment.STNODEFAULTFOLDER = "true";
+    # environment.STNODEFAULTFOLDER = "true";
   };
 }

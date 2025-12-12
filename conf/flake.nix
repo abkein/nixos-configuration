@@ -33,10 +33,10 @@
       inputs.darwin.follows = "";
     };
 
-    agenix-rekey = {
-      url = "github:oddlama/agenix-rekey";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # agenix-rekey = {
+    #   url = "github:oddlama/agenix-rekey";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     nur = {
       url = "github:nix-community/NUR";
@@ -54,20 +54,22 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, ayugram-desktop, nix-vscode-extensions, nix4vscode, agenix, agenix-rekey, nur, anyrun, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, home-manager, ayugram-desktop, nix-vscode-extensions, nix4vscode, agenix, nur, anyrun, sops-nix, ... }@inputs:
   {
-    nixosConfigurations.jeta = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.jeta = nixpkgs.lib.nixosSystem rec{
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
-        # agenix.nixosModules.default
         nur.modules.nixos.default
         sops-nix.nixosModules.sops
         agenix.nixosModules.default
-        agenix-rekey.nixosModules.default
+        # agenix-rekey.nixosModules.default
+        home-manager.nixosModules.home-manager
         {
-          nixpkgs =
-          {
+          environment.systemPackages = [ agenix.packages.${system}.default ];
+        }
+        {
+          nixpkgs = {
             config = {
               allowUnfree = true;
               permittedInsecurePackages = [
@@ -77,21 +79,19 @@
             overlays = [
               nix4vscode.overlays.forVscode
               nur.overlays.default
-              agenix-rekey.overlays.default
+              # agenix-rekey.overlays.default
               (import ./overlays/pypackages.nix)
             ];
           };
-          imports = [
-            home-manager.nixosModules.home-manager
-          ];
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
             backupFileExtension = "hm-backup";
             sharedModules = [
               sops-nix.homeManagerModules.sops
+              agenix.homeManagerModules.default
             ];
-            users.kein = import ./home-manager.nix;
+            users.kein = ./home-manager.nix;
             extraSpecialArgs = {
               inherit inputs;
             };
@@ -100,10 +100,10 @@
       ];
       specialArgs = { inherit inputs; };
     };
-    agenix-rekey = agenix-rekey.configure {
-      userFlake = self;
-      nixosConfigurations = self.nixosConfigurations;
-    };
+    # agenix-rekey = agenix-rekey.configure {
+    #   userFlake = self;
+    #   nixosConfigurations = self.nixosConfigurations;
+    # };
   }
   //
   flake-utils.lib.eachDefaultSystem ( system:
