@@ -212,6 +212,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
     users.kein = {
+      uid = 1000;
       isNormalUser = true;
       description = "C2H5OH";
       createHome = true;

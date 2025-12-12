@@ -42,7 +42,7 @@
     };
     tray = {
       enable = true;
+      package = pkgs.syncthingtray;
     };
-    # environment.STNODEFAULTFOLDER = "true";
   };
 }

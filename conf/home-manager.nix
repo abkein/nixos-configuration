@@ -2,7 +2,6 @@
 let
   ayugram-desktop = inputs.ayugram-desktop.packages.${pkgs.system}.ayugram-desktop;
   anyrun-pkgs = inputs.anyrun.packages.${pkgs.system};
-  uid = config.users.users.kein.uid;
 in
 {
   imports = [
@@ -11,6 +10,7 @@ in
     ./home-modules/vscode/workspaces.nix
     ./home-modules/gnupg.nix
     ./home-modules/syncthing.nix
+    ./home-modules/dolphin.nix
     ./shadow/ssh.nix
   ];
 
@@ -22,7 +22,7 @@ in
       };
     };
     # ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
-    secretsDir = "/run/user/${toString uid}/agenix";
+    secretsDir = "/run/user/1000/agenix";
   };
 
   wayland.windowManager.hyprland = import ./home-modules/hypr/hyprland.nix;
@@ -101,9 +101,6 @@ in
       jq
 
       remmina
-      kdePackages.dolphin
-      kdePackages.dolphin-plugins
-      kdePackages.konsole
 
       nix-tree
       dunst
