@@ -132,7 +132,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${lib.getExe config.programs.hyprland.package} --config /etc/greetd/hyprland.conf";
+          command = "${lib.getExe config.programs.hyprland.package} --config /etc/${config.environment.etc.hyprland-regreet.target}";
           user = "greeter";
         };
       };
@@ -195,7 +195,8 @@
       enable = true;
       clean.enable = true;
       clean.extraArgs = "--keep-since 4d --keep 3";
-      flake = "/home/kein/nixos-confiduration";
+      # TODO: fix flake path
+      flake = "/home/kein/nixos-confiduration/conf";
     };
   };
 
