@@ -52,19 +52,26 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, ayugram-desktop, nix-vscode-extensions, nix4vscode, agenix, nur, anyrun, sops-nix, ... }@inputs:
+  outputs = { self, nixpkgs, flake-utils, home-manager, ayugram-desktop, nix-vscode-extensions, nix4vscode, agenix, nur, anyrun, sops-nix, disko, ... }@inputs:
   {
     nixosConfigurations.jeta = nixpkgs.lib.nixosSystem rec{
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
+        ./disko.nix
         nur.modules.nixos.default
         sops-nix.nixosModules.sops
         agenix.nixosModules.default
         # agenix-rekey.nixosModules.default
         home-manager.nixosModules.home-manager
+        disko.nixosModules.disko
         {
           environment.systemPackages = [ agenix.packages.${system}.default ];
         }

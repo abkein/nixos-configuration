@@ -195,20 +195,9 @@
       enable = true;
       clean.enable = true;
       clean.extraArgs = "--keep-since 4d --keep 3";
-      # TODO: fix flake path
       flake = "/home/kein/nixos-confiduration/conf";
     };
   };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
