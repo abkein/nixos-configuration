@@ -88,6 +88,27 @@
         "url": "https://github.com/ndfined-crp/ayugram-desktop/"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1746728054,
+        "narHash": "sha256-eDoSOhxGEm2PykZFa/x9QG5eTH0MJdiJ9aR00VAofXE=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "ff442f5d1425feb86344c028298548024f21256d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "ref": "latest",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -322,6 +343,7 @@
         "agenix": "agenix",
         "anyrun": "anyrun",
         "ayugram-desktop": "ayugram-desktop",
+        "disko": "disko",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",
         "nix-vscode-extensions": "nix-vscode-extensions",

@@ -27,9 +27,10 @@
                   # if you want to use the key for interactive login be sure there is no trailing newline
                   # for example use `echo -n "password" > /tmp/secret.key`
                   keyFile = "/root/ice/conf/secret.key";
-                  allowDiscards = true;
+                  fallbackToPassword = true;
+                  allowDiscards = false;
                 };
-                additionalKeyFiles = [ "/root/ice/conf/additionalSecret.key" ];
+                # additionalKeyFiles = [ "/root/ice/conf/additionalSecret.key" ];
                 content = {
                   type = "lvm_pv";
                   vg = "pool";
@@ -50,7 +51,10 @@
               type = "filesystem";
               format = "ext4";
               mountpoint = "/";
-              mountOptions = [ "defaults" "noatime" ];
+              mountOptions = [
+                "defaults"
+                "noatime"
+              ];
             };
           };
           plainswap = {
