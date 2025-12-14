@@ -12,6 +12,8 @@ in
     ./home-modules/syncthing.nix
     ./home-modules/dolphin.nix
     ./home-modules/firefox.nix
+    ./home-modules/dot-config-files.nix
+    ./home-modules/files.nix
     ./shadow/ssh.nix
   ];
 
@@ -52,11 +54,10 @@ in
       ];
     };
 
-    configFile = import ./home-modules/configFiles.nix;
+    # configFile = import ./home-modules/configFiles.nix;
   };
 
-  home =
-  {
+  home = {
     username = "kein";
     homeDirectory = "/home/kein";
     stateVersion = "24.11";
@@ -159,7 +160,7 @@ in
       # ugemini-cli
       # claude-code
     ];
-    file = import ./home-modules/files.nix;
+    # file = import ./home-modules/files.nix;
     sessionVariables = {
       # QT_QPA_PLATFORMTHEME = "qt6ct";
       # QT_STYLE_OVERRIDE = "";
