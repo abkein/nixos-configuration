@@ -51,9 +51,12 @@
     networkmanager = {
       enable = true;
       wifi = {
-        powersave = true;
+        powersave = false;
         backend = "iwd";
       };
+      plugins = with pkgs; [
+        networkmanager-openvpn
+      ];
     };
     # modemmanager.enable = true;
   };
