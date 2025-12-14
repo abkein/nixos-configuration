@@ -131,6 +131,7 @@ in
       # security
       keepassxc
       gpgme
+      gpgme.dev
 
       xdg-desktop-portal
       xdg-desktop-portal-hyprland
