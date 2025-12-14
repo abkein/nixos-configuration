@@ -6,6 +6,7 @@
     #   "security.sandbox.content.read_path_whitelist" = "/nix/store/";
     #   "gfx.font_rendering.fontconfig.max_generic_substitutions" = 127;
     # };
+    nativeMessagingHosts = [ pkgs.gpgme ];
     languagePacks = [ "en-US" "ru" "de" ];
     profiles.default = {
       id = 0;

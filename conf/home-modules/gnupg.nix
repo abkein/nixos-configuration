@@ -12,6 +12,7 @@
       package = pkgs.wayprompt;
       program = "pinentry-wayprompt";
     };
+    enableExtraSocket = true;
     # https://github.com/drduh/YubiKey-Guide/blob/master/config/gpg-agent.conf
     # https://www.gnupg.org/documentation/manuals/gnupg/Agent-Options.html
     # ttyname $GPG_TTY
