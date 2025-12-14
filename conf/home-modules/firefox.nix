@@ -1,4 +1,4 @@
-{ pkgs, lib }:
+{ pkgs, lib, ... }:
 {
   programs.firefox = {
     enable = true;
@@ -11,6 +11,54 @@
       id = 0;
       name = "default";
       path = "m8wjwc3u.default";
+      search = {
+        default = "google";
+        privateDefault = "duckduckgo";
+      };
+      containers = {
+        Personal = {
+          id = 1;
+          name = "Personal";
+          color = "blue";
+          icon = "fingerprint";
+        };
+        Work = {
+          id = 2;
+          name = "Work";
+          color = "orange";
+          icon = "briefcase";
+        };
+        Linux = {
+          id = 6;
+          name = "Linux";
+          color = "turquoise";
+          icon = "circle";
+        };
+        PAM = {
+          id = 7;
+          name = "PAM";
+          color = "yellow";
+          icon = "circle";
+        };
+        ann = {
+          id = 8;
+          name = "ann";
+          color = "blue";
+          icon = "vacation";
+        };
+        Study = {
+          id = 9;
+          name = "Study";
+          color = "green";
+          icon = "chill";
+        };
+        OpenWRT = {
+          id = 10;
+          name = "OpenWRT";
+          color = "purple";
+          icon = "circle";
+        };
+      };
     };
     # https://mozilla.github.io/policy-templates/
     policies = let
