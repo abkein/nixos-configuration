@@ -11,6 +11,7 @@ in
     ./home-modules/gnupg.nix
     ./home-modules/syncthing.nix
     ./home-modules/dolphin.nix
+    ./home-modules/firefox.nix
     ./shadow/ssh.nix
   ];
 

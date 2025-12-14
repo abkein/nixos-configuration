@@ -185,10 +185,10 @@
       ];
     };
     evince.enable = true;
-    firefox = import ./system-modules/firefox.nix {
-      pkgs = pkgs;
-      lib = lib;
-    };
+    # firefox = import ./system-modules/firefox.nix {
+    #   pkgs = pkgs;
+    #   lib = lib;
+    # };
     ssh = { startAgent = false; };
     gnupg = {
       agent = {
