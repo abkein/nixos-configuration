@@ -154,20 +154,20 @@ in
         fi
       '';
     };
-    gpgme-json = {
-      enable = true;
-      executable = false;
-      force = true;
-      target = "./.mozilla/native-messaging-hosts/gpgmejson.json";
-      text = ''
-      \{
-        "name": "gpgmejson",
-        "description": "JavaScript binding for GnuPG",
-        "path": "${gpgme-json}",
-        "type": "stdio",
-        "allowed_extensions": ["jid1-AQqSMBYb0a8ADg@jetpack"]
-      \}
-      '';
-    };
+    # gpgme-json = {
+    #   enable = true;
+    #   executable = false;
+    #   force = true;
+    #   target = "./.mozilla/native-messaging-hosts/gpgmejson.json";
+    #   text = ''
+    #   {
+    #     "name": "gpgmejson",
+    #     "description": "JavaScript binding for GnuPG",
+    #     "path": "${gpgme-json}",
+    #     "type": "stdio",
+    #     "allowed_extensions": ["jid1-AQqSMBYb0a8ADg@jetpack"]
+    #   }
+    #   '';
+    # };
   };
 }

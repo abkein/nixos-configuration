@@ -1,12 +1,17 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox;
     # preferences = {
     #   "security.sandbox.content.read_path_whitelist" = "/nix/store/";
     #   "gfx.font_rendering.fontconfig.max_generic_substitutions" = 127;
     # };
-    nativeMessagingHosts = [ pkgs.gpgme ];
+    nativeMessagingHosts = with pkgs; [
+      gpgme
+      # gpgme.dev
+      # gpgme.info
+    ];
     languagePacks = [ "en-US" "ru" "de" ];
     profiles.default = {
       id = 0;

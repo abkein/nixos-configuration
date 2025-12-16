@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 let
   ayugram-desktop = inputs.ayugram-desktop.packages.${pkgs.system}.ayugram-desktop;
   anyrun-pkgs = inputs.anyrun.packages.${pkgs.system};
@@ -12,6 +12,7 @@ in
     ./home-modules/syncthing.nix
     ./home-modules/dolphin.nix
     ./home-modules/firefox.nix
+    # ./home-modules/thunderbird.nix
     ./home-modules/dot-config-files.nix
     ./home-modules/files.nix
     ./shadow/ssh.nix
@@ -232,7 +233,6 @@ in
     zsh = import ./home-modules/zsh.nix config;
     waybar = import ./home-modules/waybar.nix;
     wofi = import ./home-modules/wofi.nix;
-    firefox = { enable = true; };
     java.enable = true;
 
     git = {
