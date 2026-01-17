@@ -15,8 +15,9 @@
 
     monitor = [
       "eDP-1,    3200x2000@120,   0x0, 1.6"
-      "DP-6, 1920x1080@74.97, 2000x0, 1"
-      "DP-9, 3440x1440@180.00, 0x-1440, 1"
+      "desc:Acer Technologies SA240Y 0x0480DAE1, 1920x1080@74.97, 2000x0, 1"
+      "desc:Xiaomi Corporation Mi monitor 5323110031874, 3440x1440@180.00, 0x-1440, 1"
+      ", preferred, auto, 1"
     ];
 
     env = [
@@ -359,8 +360,8 @@
       "Super+Alt, S, movetoworkspacesilent, special"
 
       "Super+Ctrl, 1, movecurrentworkspacetomonitor, eDP-1"
-      "Super+Ctrl, 2, movecurrentworkspacetomonitor, DP-9"
-      "Super+Ctrl, 3, movecurrentworkspacetomonitor, DP-6"
+      "Super+Ctrl, 2, movecurrentworkspacetomonitor, desc:Xiaomi Corporation Mi monitor 5323110031874"
+      "Super+Ctrl, 3, movecurrentworkspacetomonitor, desc:Acer Technologies SA240Y 0x0480DAE1"
 
       # Scroll through existing workspaces with (Control) + Super + scroll
       "Super, mouse_up, workspace, +1"
@@ -435,8 +436,8 @@
 
     workspace = [
       "1,monitor:eDP-1"
-      "2,monitor:DP-9"
-      "9,monitor:DP-6"
+      "2,monitor:desc:Xiaomi Corporation Mi monitor 5323110031874"
+      "9,monitor:desc:Acer Technologies SA240Y 0x0480DAE1"
       "10,monitor:eDP-1"
     ];
 
