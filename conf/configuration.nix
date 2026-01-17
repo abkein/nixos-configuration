@@ -11,6 +11,7 @@
     ./zenpower.nix
     # ./system-modules/flatpak.nix
     ./shadow/xray.nix
+    # ./system-modules/openssh.nix
     # ./system-modules/syncthing.nix
   ];
 
@@ -291,8 +292,11 @@
       xdg-terminal-exec
       hyprland-workspaces
       hyprland-activewindow
-      openvpn
 
+      inetutils
+      nmap
+      dig
+      openvpn
       # syncthingtray
 
       # utilities
@@ -380,12 +384,12 @@
       # trusted-public-keys = [
       #  "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       # ];
-      extra-substituters = [
-         "https://anyrun.cachix.org"
-      ];
-      extra-trusted-public-keys = [
-         "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
-      ];
+      # extra-substituters = [
+      #    "https://anyrun.cachix.org"
+      # ];
+      # extra-trusted-public-keys = [
+      #    "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+      # ];
     };
     extraOptions = ''
       !include ${config.age.secrets."nix-access-tokens.conf".path}
