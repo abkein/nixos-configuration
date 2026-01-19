@@ -20,9 +20,14 @@ let
   declare_workspace = name: spec: rec {
     configFile."${name}" =
     let
-      envSet = if spec.hasShell then {
+      envSet = if spec.nix == "shell" then
+      {
         "nixEnvSelector.suggestion" = false;
         "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+      } else if spec.nix == "flake" then
+      {
+        "nixEnvSelector.suggestion" = false;
+        "nixEnvSelector.nixFile" = "\${workspaceFolder}/flake.nix";
       } else {};
       settings = envSet // spec.settings;
     in
@@ -42,7 +47,7 @@ let
       initCmd     = "nix-shell ${spec.folder}/shell.nix --command \"exit\"";
       initWrap    = "${lib.getExe cfg.terminal-emulator} ${cfg.terminal-args} ${initCmd}";
       prefix      = if spec.prerun != "" then "${spec.prerun} && "
-                    else if (spec.preinit && spec.hasShell) then "${initWrap} && " else "";
+                    else if (spec.preinit && (spec.nix != null)) then "${initWrap} && " else "";
       postfix     = if spec.postrun != "" then " && ${spec.postrun}" else "";
       profile     = if spec.profile == "" then "default" else (if builtins.length spec.extensions == 0 then spec.profile else (genProfileName name spec));
       codeCmd     = "${basic_code_CMD profile spec.disable_envstr} ${config.xdg.configHome}/${configFile.${name}.target}";
@@ -201,10 +206,11 @@ in
               example     = "default";
             };
 
-            hasShell = mkOption {
-              type        = types.bool;
-              description = "Wether workspace has shell.nix or not.";
-              default     = true;
+            nix = mkOption {
+              type        = types.nullOr types.str;
+              description = "Whether to automatically point Nix Environment selector to shell.nix or flake.nix file.";
+              default     = null;
+              example     = "shell";
             };
           };
         });

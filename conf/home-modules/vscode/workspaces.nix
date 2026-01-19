@@ -60,7 +60,7 @@ in
       configuration = {
         folder   = "${config.home.homeDirectory}/nixos-configuration";
         settings = { "nixEnvSelector.suggestion" = false; };
-        hasShell = false;
+        nix = null;
         profile  = "nix";
       };
       lmptest = {
@@ -164,6 +164,7 @@ in
       LAMMPS = {
         folder  = "${config.home.homeDirectory}/repos/mylammps";
         profile = "cpp";
+        nix = "flake";
       };
     };
   };
