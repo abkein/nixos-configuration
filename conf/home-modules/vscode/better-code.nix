@@ -1,13 +1,10 @@
 { lib, config, pkgs, ... }@args:
 
-# with lib;
-
 let
-  codeCMD = "code";
   codeIcon = "vscode";
-  inherit (lib) mkOption types literalExpression mapAttrs mkMerge attrValues attrNames mapAttrsToList;
+  inherit (lib) mkOption types mapAttrs mkMerge attrValues mapAttrsToList;
   cfg = config.better-code;
-  jsontype = (pkgs.formats.json { }).type;
+  # jsontype = (pkgs.formats.json { }).type;
   deepMerge = (import ./deepMerge.nix).deepMerge;
   mkDeepMerge = lst: lib.foldl' (acc: spec: deepMerge acc spec) {} lst;
   genProfileName = name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
