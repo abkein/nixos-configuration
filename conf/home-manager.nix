@@ -157,6 +157,8 @@ in
 
       ffmpeg-full
 
+      electrum
+
       # unstable.gemini-cli
       # ugemini-cli
       # claude-code
