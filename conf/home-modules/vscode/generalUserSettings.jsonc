@@ -57,7 +57,7 @@
   },
 
   "terminal.integrated.sendKeybindingsToShell": true,
-  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
 
   "debug.onTaskErrors": "abort",
 
@@ -460,10 +460,15 @@
   },
 
   "c-cpp-flylint.debug": true,
+  "c-cpp-flylint.standard": ["c++20"],
   "c-cpp-flylint.flexelint.enable": false,
   "c-cpp-flylint.cppcheck.extraArgs": [
-    "--check-level=exhaustive",
-    "--force"
+    "--check-level=exhaustive"
+    // "--force"
+  ],
+  "c-cpp-flylint.cppcheck.force": true,
+  "c-cpp-flylint.clang.extraArgs": [
+    "-Qunused-arguments"
   ],
 
   "deepl.formality": "default",
