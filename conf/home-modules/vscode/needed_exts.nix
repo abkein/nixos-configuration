@@ -32,7 +32,7 @@
     "jsynowiec.vscode-insertdatestring"
     "lpubsppop01.vscode-auto-timestamp"
     "turaiiao.vscode-author-header"
-    "visualstudioexptteam.intellicode-api-usage-examples"
+    # "visualstudioexptteam.intellicode-api-usage-examples"  # deprecated, replaced by copilot
     # "visualstudioexptteam.vscodeintellicode"  # deprecated, replaced by copilot
   ];
 

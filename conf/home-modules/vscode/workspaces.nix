@@ -41,9 +41,18 @@ in
         enableExtensionUpdateCheck = false;
       };
       nix = { };
-      LaTeX = with needed_extensions; { extensions = LaTeX ++ python; };
-      python = with needed_extensions; { extensions = python ++ py-dev ++ dev ++ ["tomoki1207.pdf"]; };
-      cpp = with needed_extensions; { extensions = cpp ++ dev; };
+      LaTeX = with needed_extensions; {
+        extensions = LaTeX ++ python;
+        userSettings = import ./latexSettings.nix;
+      };
+      python = with needed_extensions; {
+        extensions = python ++ py-dev ++ dev ++ ["tomoki1207.pdf"];
+        userSettings = import ./pythonSettings.nix;
+      };
+      cpp = with needed_extensions; {
+        extensions = cpp ++ dev;
+        userSettings = import ./cppSettings.nix;
+      };
       remote = with needed_extensions; { extensions = remote ++ dev; };
     };
 
