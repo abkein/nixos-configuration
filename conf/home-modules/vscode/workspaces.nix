@@ -1,14 +1,6 @@
-{ lib, config, pkgs, ... }:
+{ config, pkgs, ... }:
 let
   needed_extensions = import ./needed_exts.nix;
-  fromJSONC = file: builtins.fromJSON (builtins.readFile (pkgs.runCommand "JSONC2JSON4${file}" {} ''
-    cp ${file} cfg.jsonc
-    ${lib.getExe pkgs.perl} -pe '
-      s{(".*?"|\x27.*?\x27)|(/\*.*?\*/|//[^\r\n]*)}{
-        defined $2 ? "" : $1
-      }gse
-    ' < cfg.jsonc | ${lib.getExe pkgs.jq} . > $out
-  ''));
 in
 {
   better-code = {
@@ -16,10 +8,9 @@ in
     code-package = pkgs.vscode-fhs;
 
     general = {
-      # userSettings = import ./generalUserSettings.nix;
-      userSettings = fromJSONC ./generalUserSettings.jsonc;
-      globalSnippets = fromJSONC ./generalGlobalSnippets.jsonc;
-      languageSnippets = fromJSONC ./generalLangSnippets.jsonc;
+      userSettings = import ./generalUserSettings.nix;
+      globalSnippets = import ./generalGlobalSnippets.nix;
+      languageSnippets = import ./generalLangSnippets.nix;
       extensions = [
         "arrterian.nix-env-selector"
         "jnoortheen.nix-ide"
