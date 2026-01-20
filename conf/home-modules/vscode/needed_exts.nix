@@ -48,10 +48,11 @@
     "ms-vscode.cpptools"
     "ms-vscode.cpptools-extension-pack"
     "hars.cppsnippets"
-    "jbenden.c-cpp-flylint"
     "jeff-hykin.better-cpp-syntax"
     "ms-vscode.cpptools-themes"
     "tomoki1207.pdf"
+    "jbenden.c-cpp-flylint"
+    "llvm-vs-code-extensions.vscode-clangd"
   ];
 
   dev = [
@@ -85,7 +86,6 @@
     "sonarsource.sonarlint-vscode" # requires jre
   ];
 
-  # "mkhl.direnv"
   # "seunlanlege.action-buttons"
   # "trunk.io"
   # "google.geminicodeassist"
