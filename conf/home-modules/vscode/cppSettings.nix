@@ -38,20 +38,21 @@
   };
 
   "c-cpp-flylint.debug" = true;
-  "c-cpp-flylint.run" = "onType";
+  "c-cpp-flylint.run" = "onBuild";
   "c-cpp-flylint.standard" = [
     "c++20"
   ];
   "c-cpp-flylint.flexelint.enable" = false;
   "c-cpp-flylint.cppcheck.enable" = true;
   "c-cpp-flylint.cppcheck.extraArgs" = [
-    "--check-level=normal"
+    "--check-level=exhaustive"
   ];
   "c-cpp-flylint.cppcheck.force" = true;
   "c-cpp-flylint.clang.enable" = false;
   "c-cpp-flylint.clang.extraArgs" = [
     "-Qunused-arguments"
   ];
+  "c-cpp-flylint.lizard.enable" = false;
 
   "clangd.fallbackFlags" = [
     "--compile-commands-dir=build"
