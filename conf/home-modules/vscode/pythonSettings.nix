@@ -3,6 +3,7 @@
   #     "reportUnboundVariable" = "none";
   #     "reportGeneralTypeIssues" = "none"
   # };
+  "python.locator" = "js";
   "python.editor.formatOnType" = true;
   "python.editor.defaultFormatter" = "ms-python.black-formatter";
   "python.analysis.inlayHints.functionReturnTypes" = true;

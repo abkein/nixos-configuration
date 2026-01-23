@@ -1,6 +1,5 @@
 {
   "keyboard.dispatch" = "keyCode";
-  "python.locator" = "js";
   "editor.formatOnSave" = true;
   "editor.multiCursorModifier" = "ctrlCmd";
   "editor.formatOnPaste" = true;
@@ -190,7 +189,6 @@
       "region" = "EU";
     }
   ];
-  # "sonarlint.pathToNodeExecutable" = "";
 
   "geminicodeassist.inlineSuggestions.enableAuto" = false;
   "geminicodeassist.project" = "someimportantproject";
