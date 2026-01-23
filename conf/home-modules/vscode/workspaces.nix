@@ -164,7 +164,6 @@ in
       LAMMPS = {
         folder  = "${config.home.homeDirectory}/repos/mylammps";
         profile = "cpp";
-        nix = "flake";
       };
     };
   };
