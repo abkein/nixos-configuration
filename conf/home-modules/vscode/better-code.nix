@@ -32,55 +32,52 @@ let
     "${envstr}${lib.getExe cfg.code-package} --profile ${profile} ${cfg.args}";
   # Helper to declare a single workspace given its name and spec
   declare_workspace = name: spec: rec {
-    configFile."${name}" =
-      let
-        envSet =
-          if spec.nix == "shell" then
-            {
-              "nixEnvSelector.suggestion" = false;
-              "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
-            }
-          else if spec.nix == "flake" then
-            {
-              "nixEnvSelector.suggestion" = false;
-              "nixEnvSelector.nixFile" = "\${workspaceFolder}/flake.nix";
-            }
-          else
-            { };
-        settings = envSet // spec.settings;
-      in
-      {
-        enable = true;
-        executable = false;
-        force = true;
-        target = "vscode_workspaces/${name}.code-workspace";
-        text = builtins.toJSON {
-          folders = [ { path = spec.folder; } ];
-          settings = settings;
-        };
+    configFile."${name}" = {
+      enable = spec.workspaceFile.enable;
+      executable = false;
+      force = true;
+      target = "vscode_workspaces/${name}.code-workspace";
+      text = builtins.toJSON {
+        folders = [ { path = spec.folder; } ];
+        settings =
+          (
+            if spec.workspaceFile.addNixEnvSelect then
+              (
+                if spec.nix.method == "shell" then
+                  {
+                    "nixEnvSelector.suggestion" = false;
+                    "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+                  }
+                else if spec.nix.method == "flake" then
+                  {
+                    "nixEnvSelector.suggestion" = false;
+                    "nixEnvSelector.nixFile" = "\${workspaceFolder}/flake.nix";
+                  }
+                else
+                  { }
+              )
+            else
+              { }
+          )
+          // spec.workspaceFile.settings;
       };
+    };
 
     desktopEntries.CodeWorkspaceSelector.actions."${name}" =
       let
         initCmd =
-          if spec.nix == "shell" then
+          if spec.nix.method == "shell" then
             "nix-shell ${spec.folder}/shell.nix --command \"exit\""
-          else if spec.nix == "flake" then
-            "nix develop ${spec.folder} --command exit"
+          else if spec.nix.method == "flake" then
+            "nix develop ${spec.folder}${if spec.nix.flakeOutput != null then spec.nix.flakeOutput else ""} --command exit"
           else
             "";
         initWrap = "${lib.getExe cfg.terminal-emulator} ${cfg.terminal-args} ${initCmd}";
         prefix = [
           ""
         ]
-        ++ (if spec.prerun != "" then [ "${spec.prerun} && " ] else [])
-        ++ (if (spec.preinit && (spec.nix != null)) then [ "${initWrap} && " ] else []);
-          # if spec.prerun != "" then
-          #   "${spec.prerun} && "
-          # else if (spec.preinit && (spec.nix != null)) then
-          #   "${initWrap} && "
-          # else
-          #   "";
+        ++ (if spec.prerun != "" then [ "${spec.prerun} && " ] else [ ])
+        ++ (if (spec.preinit && (spec.nix != null)) then [ "${initWrap} && " ] else [ ]);
         postfix = if spec.postrun != "" then " && ${spec.postrun}" else "";
         profile =
           if spec.profile == "" then
@@ -217,7 +214,7 @@ in
                 example = "/home/user/Projects/MyApp";
               };
 
-              settings = wtypes.userSettings;
+              # settings = wtypes.userSettings;
               extensions = wtypes.extensions;
 
               prerun = mkOption {
@@ -251,11 +248,95 @@ in
                 example = "default";
               };
 
-              nix = mkOption {
+              workspaceFile = mkOption {
+                default = {
+                  enable = false;
+                  settings = {};
+                  addNixEnvSelect = false;
+                };
+                description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
+                type = types.attrsOf (
+                  types.submodule {
+                    options = {
+                      enable = mkOption {
+                        type = types.bool;
+                        description = "Whether to create `.code-workspace` file.";
+                        default = false;
+                        example = true;
+                      };
+
+                      settings = wtypes.userSettings;
+
+                      addNixEnvSelect = mkOption {
+                        type = types.bool;
+                        description = "Whether to add settings for Nix Environment Selector extension.";
+                        default = false;
+                        example = true;
+                      };
+                    };
+                  }
+                );
+              };
+
+              envrc = mkOption {
                 type = types.nullOr types.str;
-                description = "Whether to automatically point Nix Environment selector to shell.nix or flake.nix file. Possible values are `shell`, `flake`, null";
+                description = "Contents of the `.envrc` file in workspace folder. `null` if shouldn't be managed.";
                 default = null;
-                example = "shell";
+                example = "use flake .";
+              };
+
+              # nix = mkOption {
+              #   type = types.nullOr types.str;
+              #   description = "Whether to automatically point Nix Environment selector to shell.nix or flake.nix file. Possible values are `shell`, `flake`, null";
+              #   default = null;
+              #   example = "shell";
+              # };
+
+              nix = mkOption {
+                default = {
+                  method = null;
+                  flakeOutput = null;
+                  launchInside = false;
+                  producesWorkspace = false;
+                };
+                description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
+                type = types.attrsOf (
+                  types.submodule {
+                    options = {
+                      method = mkOption {
+                        type = types.nullOr types.str;
+                        description = "Whether the environment is managed by shell, flake or unmanaged. Possible respective values are `shell`, `flake`, `null` (default).";
+                        default = null;
+                        example = "shell";
+                      };
+
+                      flakeOutput = mkOption {
+                        type = types.nullOr types.str;
+                        description = "Name of the flake output (that goes after # in `nix develop /path/to/flake#OutputName`) or `null` (default, uses default output).";
+                        default = null;
+                        example = "compilers";
+                      };
+
+                      launchInside = mkOption {
+                        type = types.bool;
+                        description = "Whether to launch vscode from the inside of the environment.";
+                        default = false;
+                        example = true;
+                      };
+
+                      producesWorkspace = mkOption {
+                        type = types.bool;
+                        description = ''
+                          Whether the environment is producing a `*.code-workspace` file.
+                          If so, the environment variable `$BETTER_CODE_VSCODE_WORKSPACE_FILE` must be present, pointing to this file.
+                          Makes sense only if `launchInside` option is true.
+                        '';
+                        default = false;
+                        example = true;
+                      };
+                    };
+                  }
+                );
               };
             };
           }
