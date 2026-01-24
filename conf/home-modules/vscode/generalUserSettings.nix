@@ -194,7 +194,8 @@
   "geminicodeassist.project" = "someimportantproject";
 
   "[nix].editor.tabSize" = 2;
-  "nixEnvSelector.suggestion" = true;
+  # "nixEnvSelector.suggestion" = false;
+  # "nixEnvSelector.useFlakes" = true;
   "nix.enableLanguageServer" = true;
   "nix.serverPath" = "nil"; # or "nixd"
   # LSP config can be passed via the ``nix.serverSettings.{lsp}`` as shown below.

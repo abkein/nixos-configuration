@@ -73,8 +73,8 @@ let
         prefix = [
           ""
         ]
-        ++ lib.optional spec.prerun != "" "${spec.prerun} && "
-        ++ lib.optional (spec.preinit && (spec.nix != null)) "${initWrap} && ";
+        ++ (if spec.prerun != "" then [ "${spec.prerun} && " ] else [])
+        ++ (if (spec.preinit && (spec.nix != null)) then [ "${initWrap} && " ] else []);
           # if spec.prerun != "" then
           #   "${spec.prerun} && "
           # else if (spec.preinit && (spec.nix != null)) then

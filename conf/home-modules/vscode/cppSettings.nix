@@ -30,6 +30,7 @@
   #   "/usr/include/"
   # ];
   "C_Cpp.errorSquiggles" = "enabled";
+  "C_Cpp.loggingLevel" = "Debug";
   "C_Cpp.codeAnalysis.clangTidy.enabled" = true;
   "C_Cpp.codeAnalysis.runAutomatically" = true;
 
@@ -43,7 +44,7 @@
     "c++20"
   ];
   "c-cpp-flylint.flexelint.enable" = false;
-  "c-cpp-flylint.cppcheck.enable" = true;
+  "c-cpp-flylint.cppcheck.enable" = false;
   "c-cpp-flylint.cppcheck.extraArgs" = [
     "--check-level=exhaustive"
   ];
@@ -58,10 +59,13 @@
     "--compile-commands-dir=build"
   ];
   "clangd.arguments" = [
-    "--query-driver=/nix/store/*/bin/clang++,/nix/store/*/bin/mpicxx"
+    # "--query-driver=/nix/store/*/bin/clang++,/nix/store/*/bin/mpicxx"
+    "--query-driver=/nix/store/*/bin/g++,/nix/store/*-gcc-wrapper-*/bin/g++,/nix/store/*/bin/c++,/nix/store/*/bin/clang++,/nix/store/*/bin/mpicxx"
   ];
 
   "clangd.enableCodeCompletion" = false;
   "clangd.enableHover" = false;
   "clangd.detectExtensionConflicts" = false;
+
+  
 }

@@ -53,6 +53,8 @@
     "tomoki1207.pdf"
     "jbenden.c-cpp-flylint"
     "llvm-vs-code-extensions.vscode-clangd"
+    "mine.cpplint"
+    "crugthew.c-cpp-linter"
   ];
 
   dev = [

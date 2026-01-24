@@ -12,7 +12,7 @@ in
       globalSnippets = import ./generalGlobalSnippets.nix;
       languageSnippets = import ./generalLangSnippets.nix;
       extensions = [
-        "arrterian.nix-env-selector"
+        # "arrterian.nix-env-selector"  # weird flakes support
         "jnoortheen.nix-ide"
         "mechatroner.rainbow-csv"
         "ms-vscode.atom-keybindings"
@@ -31,8 +31,9 @@ in
     terminal-emulator = pkgs.kitty;
     terminal-args = "--app-id=kitty_info";
     # --proxy-server=\"socks5=127.0.0.1:1080\"
-    args = "--password-store=gnome-libsecret --ozone-platform=wayland";
-    envstr = "http_proxy=socks5://127.0.0.1:1080 https_proxy=socks5://127.0.0.1:1080 no_proxy=localhost,127.0.0.0/8";
+    # args = "--password-store=gnome-libsecret --ozone-platform=wayland";
+    args = "";
+    envstr = "http_proxy=http://127.0.0.1:1081 https_proxy=http://127.0.0.1:1081 no_proxy=localhost,127.0.0.0/8";
 
     profiles = {
       default = {
