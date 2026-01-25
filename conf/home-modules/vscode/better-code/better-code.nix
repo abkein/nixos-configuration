@@ -437,17 +437,12 @@ in
     xdg =
       let
         workspaces = builtins.mapAttrs (_name: spec: declare_workspace _name spec) cfg.workspaces;
-        declProfAction =
-          profileName: profileSpec:
-          let
-            fullCommand = basic_code_CMD profileName profileSpec.disable_envstr;
-          in
-          {
-            CodeProfileSelector.actions."${profileName}" = {
-              name = profileName;
-              exec = "bash -c \"${fullCommand}\"";
-            };
+        declareProfileAction = profileName: profileSpec: {
+          CodeProfileSelector.actions."${profileName}" = {
+            name = profileName;
+            exec = "bash -c \"${basic_code_CMD profileName profileSpec.disable_envstr}\"";
           };
+        };
       in
       {
         # VSCode workspace files
@@ -486,7 +481,7 @@ in
             }
           ]
           ++ map (w: w.desktopEntries) (attrValues workspaces)
-          ++ mapAttrsToList declProfAction cfg.profiles
+          ++ mapAttrsToList declareProfileAction cfg.profiles
         );
       };
   };
