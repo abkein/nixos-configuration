@@ -47,115 +47,125 @@ in
         userSettings = import ./latexSettings.nix;
       };
       python = with needed_extensions; {
-        extensions = python ++ py-dev ++ dev ++ ["tomoki1207.pdf"];
+        extensions = python ++ py-dev ++ dev ++ [ "tomoki1207.pdf" ];
         userSettings = import ./pythonSettings.nix;
       };
       cpp = with needed_extensions; {
         extensions = cpp ++ dev;
         userSettings = import ./cppSettings.nix;
       };
-      remote = with needed_extensions; { extensions = remote ++ dev; };
+      remote = with needed_extensions; {
+        extensions = remote ++ dev;
+      };
     };
 
     workspaces = {
       configuration = {
-        folder   = "${config.home.homeDirectory}/nixos-configuration";
-        settings = { "nixEnvSelector.suggestion" = false; };
-        nix = null;
-        profile  = "nix";
+        folder = "${config.home.homeDirectory}/nixos-configuration";
+        profile = "nix";
       };
       lmptest = {
-        folder  = "${config.home.homeDirectory}/Documents/nucleation/lmptest";
+        folder = "${config.home.homeDirectory}/Documents/nucleation/lmptest";
         profile = "python";
       };
       Quicknotebook = {
-        folder  = "${config.xdg.dataHome}/quicknotebook";
-        prerun  = "kitty --app-id=\"kitty_info\" ${config.home.homeDirectory}/execs/quicknotebook.sh";
+        folder = "${config.xdg.dataHome}/quicknotebook";
+        prerun = [
+          "kitty --app-id=\"kitty_info\" ${config.home.homeDirectory}/execs/quicknotebook.sh"
+        ];
         profile = "python";
       };
       lmp = {
-        folder   = "${config.home.homeDirectory}/Documents/nucleation/lmp";
-        settings = { "licenser.license" = "MIT"; };
-        profile  = "python";
+        folder = "${config.home.homeDirectory}/Documents/nucleation/lmp";
+        profile = "python";
       };
       indexlib = {
-        folder   = "${config.home.homeDirectory}/Documents/nucleation/lmp/indexlib";
-        settings = {
-          "licenser.license" = "MIT";
-          "sonarlint.connectedMode.project" = {
-            "connectionId" = "abkein";
-            "projectKey" = "abkein_indexlib";
+        folder = "${config.home.homeDirectory}/Documents/nucleation/lmp/indexlib";
+        workspaceFile = {
+          enable = true;
+          settings = {
+            "licenser.license" = "MIT";
+            "sonarlint.connectedMode.project" = {
+              "connectionId" = "abkein";
+              "projectKey" = "abkein_indexlib";
+            };
           };
         };
-        profile  = "python";
+        profile = "python";
         extensions = needed_extensions.sonar;
       };
       pysbatch = {
-        folder   = "${config.home.homeDirectory}/Documents/nucleation/lmp/pysbatch-ng";
-        settings = {
-          "licenser.license" = "MIT";
-          "sonarlint.connectedMode.project" = {
-            "connectionId" = "abkein";
-            "projectKey" = "abkein_pysbatch";
+        folder = "${config.home.homeDirectory}/Documents/nucleation/lmp/pysbatch-ng";
+        workspaceFile = {
+          enable = true;
+          settings = {
+            "licenser.license" = "MIT";
+            "sonarlint.connectedMode.project" = {
+              "connectionId" = "abkein";
+              "projectKey" = "abkein_pysbatch";
+            };
           };
         };
-        profile  = "python";
+        profile = "python";
         extensions = needed_extensions.sonar;
       };
       LMPResume = {
-        folder   = "${config.home.homeDirectory}/Documents/nucleation/lmp/LMPResume";
-        settings = {
-          "licenser.license" = "MIT";
-          "sonarlint.connectedMode.project" = {
-            "connectionId" = "abkein";
-            "projectKey" = "abkein_LMPResume";
+        folder = "${config.home.homeDirectory}/Documents/nucleation/lmp/LMPResume";
+        workspaceFile = {
+          enable = true;
+          settings = {
+            "licenser.license" = "MIT";
+            "sonarlint.connectedMode.project" = {
+              "connectionId" = "abkein";
+              "projectKey" = "abkein_LMPResume";
+            };
           };
         };
-        profile  = "python";
+        profile = "python";
         extensions = needed_extensions.sonar;
       };
       ewald = {
-        folder   = "${config.home.homeDirectory}/Documents/nucleation/Ewald";
-        profile  = "python";
+        folder = "${config.home.homeDirectory}/Documents/nucleation/Ewald";
+        profile = "python";
       };
       yap = {
-        folder   = "${config.home.homeDirectory}/repos/yap";
-        profile  = "python";
+        folder = "${config.home.homeDirectory}/repos/yap";
+        profile = "python";
       };
       gpg-tests = {
-        folder   = "${config.home.homeDirectory}/repos/gpg-python-yubikey";
-        profile  = "python";
+        folder = "${config.home.homeDirectory}/repos/gpg-python-yubikey";
+        profile = "python";
       };
       onlykey-python = {
-        folder   = "${config.home.homeDirectory}/repos/onlykey-python";
-        profile  = "python";
+        folder = "${config.home.homeDirectory}/repos/onlykey-python";
+        profile = "python";
       };
       # onlykey-solo = {
       #   folder   = "${config.home.homeDirectory}/repos/onlykey-solo";
       #   profile  = "python";
       # };
       monography = {
-        folder   = "${config.home.homeDirectory}/Documents/aspa/monography";
-        profile  = "python";
+        folder = "${config.home.homeDirectory}/Documents/aspa/monography";
+        profile = "python";
       };
       solo-python = {
-        folder   = "${config.home.homeDirectory}/repos/solo-python";
-        profile  = "python";
+        folder = "${config.home.homeDirectory}/repos/solo-python";
+        profile = "python";
       };
       locp-article = {
-        folder  = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/LOCP";
+        folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/LOCP";
         profile = "LaTeX";
       };
       cf = {
-        folder  = "${config.home.homeDirectory}/Documents/nucleation/CF";
+        folder = "${config.home.homeDirectory}/Documents/nucleation/CF";
         profile = "LaTeX";
       };
       referat = {
-        folder  = "${config.home.homeDirectory}/Documents/aspa/Referat/";
+        folder = "${config.home.homeDirectory}/Documents/aspa/Referat/";
         profile = "LaTeX";
       };
       aspa-plan = {
-        folder  = "${config.home.homeDirectory}/Documents/aspa/plan";
+        folder = "${config.home.homeDirectory}/Documents/aspa/plan";
         profile = "LaTeX";
       };
       # magdiss = {
@@ -163,8 +173,14 @@ in
       #   profile = "LaTeX";
       # };
       LAMMPS = {
-        folder  = "${config.home.homeDirectory}/repos/mylammps";
+        folder = "${config.home.homeDirectory}/repos/mylammps";
         profile = "cpp";
+        prerun = ["echo ' '"];
+        nix = {
+          method = "flake";
+          launchInside = true;
+          producesWorkspace = true;
+        };
       };
     };
   };
