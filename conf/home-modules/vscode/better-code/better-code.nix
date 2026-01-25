@@ -10,9 +10,6 @@ let
   inherit (lib)
     mkOption
     types
-    mkMerge
-    attrValues
-    mapAttrsToList
     ;
   cfg = config.better-code;
   deepMerge = (import ./deepMerge.nix).deepMerge;
@@ -32,133 +29,112 @@ let
           "";
     in
     "${envstr}${lib.getExe cfg.code-package} --profile ${profile} ${cfg.args}";
-  # Helper to declare a single workspace given its name and specification
-  declare_workspace =
-    name: spec:
-    let
-      nixSpec =
-        if spec.nix == null then
-          {
-            method = null;
-            flakeOutput = null;
-            launchInside = false;
-            producesWorkspace = false;
-          }
-        else
-          spec.nix;
-    in
-    rec {
-      # Generate a .code-workspace file, but enable only if needed
-      configFile."${name}" = {
-        enable = spec.workspaceFile.enable;
-        executable = false;
-        force = true;
-        target = "vscode_workspaces/${name}.code-workspace";
-        text = builtins.toJSON {
-          folders = [ { path = spec.folder; } ];
-          settings =
+  mkWorkspaceConfigFile = name: spec: {
+    enable = spec.workspaceFile.enable;
+    executable = false;
+    force = true;
+    target = "vscode_workspaces/${name}.code-workspace";
+    text = builtins.toJSON {
+      folders = [ { path = spec.folder; } ];
+      settings =
+        (
+          if spec.workspaceFile.addNixEnvSelect then
             (
-              if spec.workspaceFile.addNixEnvSelect then
-                (
-                  if nixSpec.method == "shell" then
-                    {
-                      "nixEnvSelector.suggestion" = false;
-                      "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
-                    }
-                  else if nixSpec.method == "flake" then
-                    {
-                      "nixEnvSelector.suggestion" = false;
-                      "nixEnvSelector.nixFile" = "\${workspaceFolder}/flake.nix";
-                    }
-                  else
-                    { }
-                )
+              if spec.nix.method != null then
+                {
+                  "nixEnvSelector.suggestion" = false;
+                  "nixEnvSelector.nixFile" = "\${workspaceFolder}/${spec.nix.method}.nix";
+                }
               else
                 { }
             )
-            // spec.workspaceFile.settings;
-        };
+          else
+            { }
+        )
+        // spec.workspaceFile.settings;
+    };
+  };
+  mkWorkspaceEnvrcFile = name: spec: {
+    name = "${name}-envrc";
+    value = {
+      enable = spec.envrc != null;
+      executable = false;
+      force = true;
+      target = "${spec.folder}/.envrc";
+      text = spec.envrc;
+    };
+  };
+  mkProfileAction = profileName: profileSpec: {
+    name = profileName;
+    exec = "bash -c \"${basic_code_CMD profileName profileSpec.disable_envstr}\"";
+  };
+  mkWorkspaceAction = name: spec: {
+    name = name;
+    value =
+      let
+        nixSpec = spec.nix;
+        # Helper to run specified command inside the user-specified environment (inside nix-shell or nix develop).
+        # If the environment wasn't specified (nixSpec.method is null) then it isn't used
+        environmentLaunchCommand =
+          command:
+          if nixSpec.method == "shell" then
+            "nix-shell ${spec.folder}/shell.nix --command '${command}'"
+          else if nixSpec.method == "flake" then
+            "nix develop ${spec.folder}${
+              if nixSpec.flakeOutput != null then "#${nixSpec.flakeOutput}" else ""
+            } --command bash -c '${command}'"
+          else
+            "";
+        # Execute command 'exit' inside the environment launched inside the terminal emulator.
+        # I think it's useful so if the environment needs to be set-up, e.g. nix needs to download
+        # packages. If so in the terminal emulator the user will see the progress (and errors if the are)
+        # and at the end VSCode will be launched immediately. Otherwise the output from nixisn't visible
+        # which leads to a frustration (is it stuck or something?) and in the case of errors (e.g. nix
+        # couldn't download smth or the env file contains errors) there's no way to know it.
+        preinitWrap = "${lib.getExe cfg.terminal-emulator} ${cfg.terminal-args} ${environmentLaunchCommand "exit"}";
+        # Commands to be launched before launching VSCode
+        prefix = builtins.concatStringsSep " && " (
+          spec.prerun
+          ++ [ "echo ' '" ]
+          ++ (if (spec.preinit && (nixSpec.method != null)) then [ preinitWrap ] else [ ])
+        );
+        # Commands to be launched after VSCode is closed
+        postfix = builtins.concatStringsSep " && " (spec.postrun ++ [ "echo ' '" ]);
+        # Determine the profile name. If there are extensions specified for current workspace,
+        # a new profile will be generated using the base profile. Now we need just its name
+        # which is ensured to be similar to the name of the actually generated profile.
+        profile =
+          if spec.profile == "" then
+            "default"
+          else if (builtins.length spec.extensions == 0) then
+            spec.profile
+          else
+            (generateProfileName4Workspace name spec);
+        # Determine the workspace. If the user's environment generates its own workspace file and
+        # VSCode is intended to be launched inside this environment, then workspace file should be
+        # specified inside $BETTER_CODE_VSCODE_WORKSPACE_FILE environment variable. If the leading
+        # is false, but this module generates the workspace file, then use it. Otherwuise just
+        # the target folder.
+        workspace =
+          if (nixSpec.method != null && nixSpec.launchInside && nixSpec.producesWorkspace) then
+            "\\\\$BETTER_CODE_VSCODE_WORKSPACE_FILE"
+          else if spec.workspaceFile.enable then
+            "${config.xdg.configHome}/vscode_workspaces/${name}.code-workspace"
+          else
+            "${spec.folder}";
+        codeCmd = "${basic_code_CMD profile spec.disable_envstr} ${workspace}";
+        # If needed wrap the command to launch VSCode to be launched inside the environment
+        codeCmdWrapped =
+          if (nixSpec.method != null && nixSpec.launchInside) then
+            environmentLaunchCommand codeCmd
+          else
+            codeCmd;
+      in
+      {
+        name = name;
+        exec = "bash -c \"${prefix} && ${codeCmdWrapped} && ${postfix}\"";
       };
-
-      # Add action to open the workspace
-      desktopEntries.CodeWorkspaceSelector.actions."${name}" =
-        let
-          # Helper to run specified command inside the user-specified environment (inside nix-shell or nix develop).
-          # If the environment wasn't specified (nixSpec.method is null) then it isn't used
-          environmentLaunchCommand =
-            command:
-            if nixSpec.method == "shell" then
-              "nix-shell ${spec.folder}/shell.nix --command '${command}'"
-            else if nixSpec.method == "flake" then
-              "nix develop ${spec.folder}${
-                if nixSpec.flakeOutput != null then "#${nixSpec.flakeOutput}" else ""
-              } --command bash -c '${command}'"
-            else
-              "";
-          # Execute command 'exit' inside the environment launched inside the terminal emulator.
-          # I think it's useful so if the environment needs to be set-up, e.g. nix needs to download
-          # packages. If so in the terminal emulator the user will see the progress (and errors if the are)
-          # and at the end VSCode will be launched immediately. Otherwise the output from nixisn't visible
-          # which leads to a frustration (is it stuck or something?) and in the case of errors (e.g. nix
-          # couldn't download smth or the env file contains errors) there's no way to know it.
-          preinitWrap = "${lib.getExe cfg.terminal-emulator} ${cfg.terminal-args} ${environmentLaunchCommand "exit"}";
-          # Commands to be launched before launching VSCode
-          prefix = builtins.concatStringsSep " && " (
-            spec.prerun
-            ++ [ "echo ' '" ]
-            ++ (if (spec.preinit && (nixSpec.method != null)) then [ preinitWrap ] else [ ])
-          );
-          # Commands to be launched after VSCode is closed
-          postfix = builtins.concatStringsSep " && " (spec.postrun ++ [ "echo ' '" ]);
-          # Determine the profile name. If there are extensions specified for current workspace,
-          # a new profile will be generated using the base profile. Now we need just its name
-          # which is ensured to be similar to the name of the actually generated profile.
-          profile =
-            if spec.profile == "" then
-              "default"
-            else if (builtins.length spec.extensions == 0) then
-              spec.profile
-            else
-              (generateProfileName4Workspace name spec);
-          # Determine the workspace. If the user's environment generates its own workspace file and
-          # VSCode is intended to be launched inside this environment, then workspace file should be
-          # specified inside $BETTER_CODE_VSCODE_WORKSPACE_FILE environment variable. If the leading
-          # is false, but this module generates the workspace file, then use it. Otherwuise just
-          # the target folder.
-          workspace =
-            if (nixSpec.method != null && nixSpec.launchInside && nixSpec.producesWorkspace) then
-              "\\\\$BETTER_CODE_VSCODE_WORKSPACE_FILE"
-            else if spec.workspaceFile.enable then
-              "${config.xdg.configHome}/${configFile.${name}.target}"
-            else
-              "${spec.folder}";
-          codeCmd = "${basic_code_CMD profile spec.disable_envstr} ${workspace}";
-          # If needed wrap the command to launch VSCode to be launched inside the environment
-          codeCmdWrapped =
-            if (nixSpec.method != null && nixSpec.launchInside) then
-              environmentLaunchCommand codeCmd
-            else
-              codeCmd;
-        in
-        {
-          name = name;
-          exec = "bash -c \"${prefix} && ${codeCmdWrapped} && ${postfix}\"";
-        };
-    }
-    // (
-      if spec.envrc != null then
-        {
-          configFile."${name}-envrc" = {
-            enable = true;
-            executable = false;
-            force = true;
-            target = "${spec.folder}/.envrc";
-            text = spec.envrc;
-          };
-        }
-      else
-        { }
-    );
+  };
   # Performs automatic search for an extension in pkgs.vscode-extensions
   # and uses pkgs.nix4vscode.forVscode if not found and produces derivation list
   mkExtList = import ./mkExtList.nix {
@@ -434,55 +410,45 @@ in
       }) (lib.filterAttrs (_name: spec: (builtins.length spec.extensions != 0)) cfg.workspaces));
 
     # Build and merge all declared workspaces
-    xdg =
-      let
-        workspaces = builtins.mapAttrs (_name: spec: declare_workspace _name spec) cfg.workspaces;
-        declareProfileAction = profileName: profileSpec: {
-          CodeProfileSelector.actions."${profileName}" = {
-            name = profileName;
-            exec = "bash -c \"${basic_code_CMD profileName profileSpec.disable_envstr}\"";
-          };
-        };
-      in
-      {
-        # VSCode workspace files
-        configFile = mkMerge (map (w: w.configFile) (attrValues workspaces));
-
-        # Desktop entry for selector and per-workspace actions
-        desktopEntries = mkMerge (
-          [
-            {
-              CodeWorkspaceSelector = {
-                name = "Workspace Selector";
-                genericName = "VSCode Workspace Selector";
-                exec = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeWorkspaceSelector does nothing itself, select an action"'';
-                icon = codeIcon;
-                type = "Application";
-                categories = [
-                  "Development"
-                  "IDE"
-                  "TextTools"
-                ];
-                actions = { };
-              };
-              CodeProfileSelector = {
-                name = "Profile Selector";
-                genericName = "VSCode Profile Selector";
-                exec = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeProfileSelector does nothing itself, select an action"'';
-                icon = codeIcon;
-                type = "Application";
-                categories = [
-                  "Development"
-                  "IDE"
-                  "TextTools"
-                ];
-                actions = { };
-              };
-            }
-          ]
-          ++ map (w: w.desktopEntries) (attrValues workspaces)
-          ++ mapAttrsToList declareProfileAction cfg.profiles
+    xdg = {
+      # VSCode workspace and .envrc files
+      configFile =
+        lib.mapAttrs mkWorkspaceConfigFile (
+          lib.filterAttrs (_name: spec: spec.workspaceFile.enable) cfg.workspaces
+        )
+        // lib.mapAttrs' mkWorkspaceEnvrcFile (
+          lib.filterAttrs (_name: spec: spec.envrc != null) cfg.workspaces
         );
+
+      # Desktop entry for selector and per-workspace actions
+      desktopEntries = {
+        CodeWorkspaceSelector = {
+          name = "Workspace Selector";
+          genericName = "VSCode Workspace Selector";
+          exec = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeWorkspaceSelector does nothing itself, select an action"'';
+          icon = codeIcon;
+          type = "Application";
+          categories = [
+            "Development"
+            "IDE"
+            "TextTools"
+          ];
+          actions = lib.mapAttrs' mkWorkspaceAction cfg.workspaces;
+        };
+        CodeProfileSelector = {
+          name = "Profile Selector";
+          genericName = "VSCode Profile Selector";
+          exec = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeProfileSelector does nothing itself, select an action"'';
+          icon = codeIcon;
+          type = "Application";
+          categories = [
+            "Development"
+            "IDE"
+            "TextTools"
+          ];
+          actions = lib.mapAttrs mkProfileAction cfg.profiles;
+        };
       };
+    };
   };
 }
