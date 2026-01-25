@@ -38,16 +38,11 @@ let
       folders = [ { path = spec.folder; } ];
       settings =
         (
-          if spec.workspaceFile.addNixEnvSelect then
-            (
-              if spec.nix.method != null then
-                {
-                  "nixEnvSelector.suggestion" = false;
-                  "nixEnvSelector.nixFile" = "\${workspaceFolder}/${spec.nix.method}.nix";
-                }
-              else
-                { }
-            )
+          if spec.workspaceFile.addNixEnvSelect && (spec.nix.method != null) then
+            {
+              "nixEnvSelector.suggestion" = false;
+              "nixEnvSelector.nixFile" = "\${workspaceFolder}/${spec.nix.method}.nix";
+            }
           else
             { }
         )
@@ -92,14 +87,6 @@ let
         # which leads to a frustration (is it stuck or something?) and in the case of errors (e.g. nix
         # couldn't download smth or the env file contains errors) there's no way to know it.
         preinitWrap = "${lib.getExe cfg.terminal-emulator} ${cfg.terminal-args} ${environmentLaunchCommand "exit"}";
-        # Commands to be launched before launching VSCode
-        prefix = builtins.concatStringsSep " && " (
-          spec.prerun
-          ++ [ "echo ' '" ]
-          ++ (if (spec.preinit && (nixSpec.method != null)) then [ preinitWrap ] else [ ])
-        );
-        # Commands to be launched after VSCode is closed
-        postfix = builtins.concatStringsSep " && " (spec.postrun ++ [ "echo ' '" ]);
         # Determine the profile name. If there are extensions specified for current workspace,
         # a new profile will be generated using the base profile. Now we need just its name
         # which is ensured to be similar to the name of the actually generated profile.
@@ -116,23 +103,30 @@ let
         # is false, but this module generates the workspace file, then use it. Otherwuise just
         # the target folder.
         workspace =
-          if (nixSpec.method != null && nixSpec.launchInside && nixSpec.producesWorkspace) then
+          if ((nixSpec.method != null) && nixSpec.launchInside && nixSpec.producesWorkspace) then
             "\\\\$BETTER_CODE_VSCODE_WORKSPACE_FILE"
           else if spec.workspaceFile.enable then
             "${config.xdg.configHome}/vscode_workspaces/${name}.code-workspace"
           else
             "${spec.folder}";
         codeCmd = "${basic_code_CMD profile spec.disable_envstr} ${workspace}";
-        # If needed wrap the command to launch VSCode to be launched inside the environment
+        # If needed wrap the command to launch VSCode inside the environment
         codeCmdWrapped =
-          if (nixSpec.method != null && nixSpec.launchInside) then
+          if ((nixSpec.method != null) && nixSpec.launchInside) then
             environmentLaunchCommand codeCmd
           else
             codeCmd;
+        cmdChain =
+          # Commands to be launched before launching VSCode
+          spec.prerun
+          ++ (if ((nixSpec.method != null) && nixSpec.preinit) then [ preinitWrap ] else [ ])
+          ++ [ codeCmdWrapped ]
+          # Commands to be launched after VSCode is closed
+          ++ spec.postrun;
       in
       {
         name = name;
-        exec = "bash -c \"${prefix} && ${codeCmdWrapped} && ${postfix}\"";
+        exec = "bash -c \"${builtins.concatStringsSep " && " cmdChain}\"";
       };
   };
   # Performs automatic search for an extension in pkgs.vscode-extensions
@@ -272,7 +266,7 @@ in
               prerun = mkOption {
                 type = types.listOf types.str;
                 default = [ ];
-                description = "Command to run before opening VSCode.";
+                description = "Commands to run before opening VSCode.";
                 example = lib.literalExpression ''
                   [
                     "echo 'VSCode is going to be opened!'"
@@ -283,7 +277,7 @@ in
               postrun = mkOption {
                 type = types.listOf types.str;
                 default = [ ];
-                description = "Command to run after VSCode is closed.";
+                description = "Commands to run after VSCode is closed.";
                 example = lib.literalExpression ''
                   [
                     "echo 'VSCode is closed!'"
@@ -295,12 +289,6 @@ in
                 type = types.bool;
                 description = "Whether to disable `envstr` addition.";
                 default = false;
-              };
-
-              preinit = mkOption {
-                type = types.bool;
-                description = "Whether to run nix-shell before opening VSCode if prerun is empty.";
-                default = true;
               };
 
               profile = mkOption {
@@ -351,45 +339,51 @@ in
                   flakeOutput = null;
                   launchInside = false;
                   producesWorkspace = false;
+                  preinit = false;
                 };
                 description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
-                type = types.nullOr (
-                  types.submodule {
-                    options = {
-                      method = mkOption {
-                        type = types.nullOr types.str;
-                        description = "Whether the environment is managed by shell, flake or unmanaged. Possible respective values are `shell`, `flake`, `null` (default).";
-                        default = null;
-                        example = "shell";
-                      };
-
-                      flakeOutput = mkOption {
-                        type = types.nullOr types.str;
-                        description = "Name of the flake output (that goes after # in `nix develop /path/to/flake#OutputName`) or `null` (default, uses default output).";
-                        default = null;
-                        example = "compilers";
-                      };
-
-                      launchInside = mkOption {
-                        type = types.bool;
-                        description = "Whether to launch vscode from the inside of the environment.";
-                        default = false;
-                        example = true;
-                      };
-
-                      producesWorkspace = mkOption {
-                        type = types.bool;
-                        description = ''
-                          Whether the environment is producing a `*.code-workspace` file.
-                          If so, the environment variable `$BETTER_CODE_VSCODE_WORKSPACE_FILE` must be present, pointing to this file.
-                          Makes sense only if `launchInside` option is true.
-                        '';
-                        default = false;
-                        example = true;
-                      };
+                type = types.submodule {
+                  options = {
+                    method = mkOption {
+                      type = types.nullOr types.str;
+                      description = "Whether the environment is managed by shell, flake or unmanaged. Possible respective values are `shell`, `flake`, `null` (default).";
+                      default = null;
+                      example = "shell";
                     };
-                  }
-                );
+
+                    flakeOutput = mkOption {
+                      type = types.nullOr types.str;
+                      description = "Name of the flake output (that goes after # in `nix develop /path/to/flake#OutputName`) or `null` (default, uses default output).";
+                      default = null;
+                      example = "compilers";
+                    };
+
+                    launchInside = mkOption {
+                      type = types.bool;
+                      description = "Whether to launch vscode from the inside of the environment.";
+                      default = false;
+                      example = true;
+                    };
+
+                    producesWorkspace = mkOption {
+                      type = types.bool;
+                      description = ''
+                        Whether the environment is producing a `*.code-workspace` file.
+                        If so, the environment variable `$BETTER_CODE_VSCODE_WORKSPACE_FILE` must be present, pointing to this file.
+                        Makes sense only if `launchInside` option is true.
+                      '';
+                      default = false;
+                      example = true;
+                    };
+
+                    preinit = mkOption {
+                      type = types.bool;
+                      description = "Whether to initialize the environment before opening VSCode.";
+                      default = true;
+                      example = false;
+                    };
+                  };
+                };
               };
             };
           }
