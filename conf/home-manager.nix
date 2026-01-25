@@ -6,7 +6,7 @@ in
 {
   imports = [
     #./home-modules/vscode/vscode.nix
-    ./home-modules/vscode/better-code.nix
+    ./home-modules/vscode/better-code/better-code.nix
     ./home-modules/vscode/workspaces.nix
     ./home-modules/gnupg.nix
     ./home-modules/syncthing.nix

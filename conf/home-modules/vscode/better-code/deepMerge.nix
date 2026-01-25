@@ -1,3 +1,8 @@
+# Recursive merge that concatenates lists and merges attribute sets
+# If both values are attribute sets → recurse.
+# If both are lists → concatenate.
+# Otherwise → override with the second value.
+# uniqKeys ensures all keys from both sets are handled without duplicates.
 let
     deepMerge = a: b:
     let

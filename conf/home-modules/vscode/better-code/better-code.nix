@@ -10,16 +10,18 @@ let
   inherit (lib)
     mkOption
     types
-    mapAttrs
     mkMerge
     attrValues
     mapAttrsToList
     ;
   cfg = config.better-code;
-  # jsontype = (pkgs.formats.json { }).type;
   deepMerge = (import ./deepMerge.nix).deepMerge;
-  mkDeepMerge = lst: lib.foldl' (acc: spec: deepMerge acc spec) { } lst;
-  genProfileName = name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
+  # Ensures generated profile name is unique across workspaces and the generated profile name is the same
+  # for a workspace, based on its hash
+  generateProfileName4Workspace =
+    name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
+  # Generate command to launch VSCode prepending environment string (env variables like http_proxy=http://127.0.0.1:1080
+  # and others that go before executable), specifying profile and other user-specified arguments
   basic_code_CMD =
     profile: disable_envstr:
     let
@@ -30,80 +32,155 @@ let
           "";
     in
     "${envstr}${lib.getExe cfg.code-package} --profile ${profile} ${cfg.args}";
-  # Helper to declare a single workspace given its name and spec
-  declare_workspace = name: spec: rec {
-    configFile."${name}" = {
-      enable = spec.workspaceFile.enable;
-      executable = false;
-      force = true;
-      target = "vscode_workspaces/${name}.code-workspace";
-      text = builtins.toJSON {
-        folders = [ { path = spec.folder; } ];
-        settings =
-          (
-            if spec.workspaceFile.addNixEnvSelect then
-              (
-                if spec.nix.method == "shell" then
-                  {
-                    "nixEnvSelector.suggestion" = false;
-                    "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
-                  }
-                else if spec.nix.method == "flake" then
-                  {
-                    "nixEnvSelector.suggestion" = false;
-                    "nixEnvSelector.nixFile" = "\${workspaceFolder}/flake.nix";
-                  }
-                else
-                  { }
-              )
-            else
-              { }
-          )
-          // spec.workspaceFile.settings;
+  # Helper to declare a single workspace given its name and specification
+  declare_workspace =
+    name: spec:
+    let
+      nixSpec =
+        if spec.nix == null then
+          {
+            method = null;
+            flakeOutput = null;
+            launchInside = false;
+            producesWorkspace = false;
+          }
+        else
+          spec.nix;
+    in
+    rec {
+      # Generate a .code-workspace file, but enable only if needed
+      configFile."${name}" = {
+        enable = spec.workspaceFile.enable;
+        executable = false;
+        force = true;
+        target = "vscode_workspaces/${name}.code-workspace";
+        text = builtins.toJSON {
+          folders = [ { path = spec.folder; } ];
+          settings =
+            (
+              if spec.workspaceFile.addNixEnvSelect then
+                (
+                  if nixSpec.method == "shell" then
+                    {
+                      "nixEnvSelector.suggestion" = false;
+                      "nixEnvSelector.nixFile" = "\${workspaceFolder}/shell.nix";
+                    }
+                  else if nixSpec.method == "flake" then
+                    {
+                      "nixEnvSelector.suggestion" = false;
+                      "nixEnvSelector.nixFile" = "\${workspaceFolder}/flake.nix";
+                    }
+                  else
+                    { }
+                )
+              else
+                { }
+            )
+            // spec.workspaceFile.settings;
+        };
       };
-    };
 
-    desktopEntries.CodeWorkspaceSelector.actions."${name}" =
-      let
-        initCmd =
-          if spec.nix.method == "shell" then
-            "nix-shell ${spec.folder}/shell.nix --command \"exit\""
-          else if spec.nix.method == "flake" then
-            "nix develop ${spec.folder}${if spec.nix.flakeOutput != null then spec.nix.flakeOutput else ""} --command exit"
-          else
-            "";
-        initWrap = "${lib.getExe cfg.terminal-emulator} ${cfg.terminal-args} ${initCmd}";
-        prefix = [
-          ""
-        ]
-        ++ (if spec.prerun != "" then [ "${spec.prerun} && " ] else [ ])
-        ++ (if (spec.preinit && (spec.nix != null)) then [ "${initWrap} && " ] else [ ]);
-        postfix = if spec.postrun != "" then " && ${spec.postrun}" else "";
-        profile =
-          if spec.profile == "" then
-            "default"
-          else if (builtins.length spec.extensions == 0) then
-            spec.profile
-          else
-            (genProfileName name spec);
-        codeCmd = "${basic_code_CMD profile spec.disable_envstr} ${config.xdg.configHome}/${configFile.${name}.target}";
-        fullCommand = "${lib.concatStrings prefix}${codeCmd}${postfix}";
-      in
-      {
-        name = name;
-        exec = "bash -c \"${fullCommand}\"";
-      };
-  };
+      # Add action to open the workspace
+      desktopEntries.CodeWorkspaceSelector.actions."${name}" =
+        let
+          # Helper to run specified command inside the user-specified environment (inside nix-shell or nix develop).
+          # If the environment wasn't specified (nixSpec.method is null) then it isn't used
+          environmentLaunchCommand =
+            command:
+            if nixSpec.method == "shell" then
+              "nix-shell ${spec.folder}/shell.nix --command '${command}'"
+            else if nixSpec.method == "flake" then
+              "nix develop ${spec.folder}${
+                if nixSpec.flakeOutput != null then "#${nixSpec.flakeOutput}" else ""
+              } --command bash -c '${command}'"
+            else
+              "";
+          # Execute command 'exit' inside the environment launched inside the terminal emulator.
+          # I think it's useful so if the environment needs to be set-up, e.g. nix needs to download
+          # packages. If so in the terminal emulator the user will see the progress (and errors if the are)
+          # and at the end VSCode will be launched immediately. Otherwise the output from nixisn't visible
+          # which leads to a frustration (is it stuck or something?) and in the case of errors (e.g. nix
+          # couldn't download smth or the env file contains errors) there's no way to know it.
+          preinitWrap = "${lib.getExe cfg.terminal-emulator} ${cfg.terminal-args} ${environmentLaunchCommand "exit"}";
+          # Commands to be launched before launching VSCode
+          prefix = builtins.concatStringsSep " && " (
+            spec.prerun
+            ++ [ "echo ' '" ]
+            ++ (if (spec.preinit && (nixSpec.method != null)) then [ preinitWrap ] else [ ])
+          );
+          # Commands to be launched after VSCode is closed
+          postfix = builtins.concatStringsSep " && " (spec.postrun ++ [ "echo ' '" ]);
+          # Determine the profile name. If there are extensions specified for current workspace,
+          # a new profile will be generated using the base profile. Now we need just its name
+          # which is ensured to be similar to the name of the actually generated profile.
+          profile =
+            if spec.profile == "" then
+              "default"
+            else if (builtins.length spec.extensions == 0) then
+              spec.profile
+            else
+              (generateProfileName4Workspace name spec);
+          # Determine the workspace. If the user's environment generates its own workspace file and
+          # VSCode is intended to be launched inside this environment, then workspace file should be
+          # specified inside $BETTER_CODE_VSCODE_WORKSPACE_FILE environment variable. If the leading
+          # is false, but this module generates the workspace file, then use it. Otherwuise just
+          # the target folder.
+          workspace =
+            if (nixSpec.method != null && nixSpec.launchInside && nixSpec.producesWorkspace) then
+              "\\\\$BETTER_CODE_VSCODE_WORKSPACE_FILE"
+            else if spec.workspaceFile.enable then
+              "${config.xdg.configHome}/${configFile.${name}.target}"
+            else
+              "${spec.folder}";
+          codeCmd = "${basic_code_CMD profile spec.disable_envstr} ${workspace}";
+          # If needed wrap the command to launch VSCode to be launched inside the environment
+          codeCmdWrapped =
+            if (nixSpec.method != null && nixSpec.launchInside) then
+              environmentLaunchCommand codeCmd
+            else
+              codeCmd;
+        in
+        {
+          name = name;
+          exec = "bash -c \"${prefix} && ${codeCmdWrapped} && ${postfix}\"";
+        };
+    }
+    // (
+      if spec.envrc != null then
+        {
+          configFile."${name}-envrc" = {
+            enable = true;
+            executable = false;
+            force = true;
+            target = "${spec.folder}/.envrc";
+            text = spec.envrc;
+          };
+        }
+      else
+        { }
+    );
+  # Performs automatic search for an extension in pkgs.vscode-extensions
+  # and uses pkgs.nix4vscode.forVscode if not found and produces derivation list
   mkExtList = import ./mkExtList.nix {
     pkgs = pkgs;
     lib = lib;
   };
+  # Replace extension names with actual derivations
   rebuildExtensions = spec: spec // { extensions = mkExtList spec.extensions; };
-  #mkProfile = name: spec: rebuildExtensions (lib.recursiveUpdate cfg.general spec);
-  mkProfile = name: spec: rebuildExtensions (deepMerge cfg.general spec);
-  mkProfileW =
-    profileName: name: spec:
-    mkProfile name (deepMerge (if profileName == "" then { } else cfg.profiles.${profileName}) spec);
+  # Merges profile specification with general one to produce actual profile
+  # Also filter out `disable_envstr` attr from specification, because we're
+  # using programs.vscode.profile like specification, wich does not contains it
+  mkProfile =
+    name: spec:
+    rebuildExtensions (deepMerge cfg.general (builtins.removeAttrs spec [ "disable_envstr" ]));
+  # Merge extension list specified for workspace with base profile's
+  mkProfile4Workspace =
+    name: spec:
+    mkProfile name (
+      deepMerge (if spec.profile == "" then cfg.profiles.default else cfg.profiles."${spec.profile}") {
+        extensions = spec.extensions;
+      }
+    );
   wtypes = import ./wtypes.nix args;
 in
 {
@@ -214,19 +291,28 @@ in
                 example = "/home/user/Projects/MyApp";
               };
 
-              # settings = wtypes.userSettings;
               extensions = wtypes.extensions;
 
               prerun = mkOption {
-                type = types.str;
+                type = types.listOf types.str;
+                default = [ ];
                 description = "Command to run before opening VSCode.";
-                default = "";
+                example = lib.literalExpression ''
+                  [
+                    "echo 'VSCode is going to be opened!'"
+                  ]
+                '';
               };
 
               postrun = mkOption {
-                type = types.str;
-                description = "Command to run after opening VSCode.";
-                default = "";
+                type = types.listOf types.str;
+                default = [ ];
+                description = "Command to run after VSCode is closed.";
+                example = lib.literalExpression ''
+                  [
+                    "echo 'VSCode is closed!'"
+                  ]
+                '';
               };
 
               disable_envstr = mkOption {
@@ -251,31 +337,29 @@ in
               workspaceFile = mkOption {
                 default = {
                   enable = false;
-                  settings = {};
+                  settings = { };
                   addNixEnvSelect = false;
                 };
                 description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
-                type = types.attrsOf (
-                  types.submodule {
-                    options = {
-                      enable = mkOption {
-                        type = types.bool;
-                        description = "Whether to create `.code-workspace` file.";
-                        default = false;
-                        example = true;
-                      };
-
-                      settings = wtypes.userSettings;
-
-                      addNixEnvSelect = mkOption {
-                        type = types.bool;
-                        description = "Whether to add settings for Nix Environment Selector extension.";
-                        default = false;
-                        example = true;
-                      };
+                type = types.submodule {
+                  options = {
+                    enable = mkOption {
+                      type = types.bool;
+                      description = "Whether to create `.code-workspace` file.";
+                      default = false;
+                      example = true;
                     };
-                  }
-                );
+
+                    settings = wtypes.userSettings;
+
+                    addNixEnvSelect = mkOption {
+                      type = types.bool;
+                      description = "Whether to add settings for Nix Environment Selector extension.";
+                      default = false;
+                      example = true;
+                    };
+                  };
+                };
               };
 
               envrc = mkOption {
@@ -285,13 +369,6 @@ in
                 example = "use flake .";
               };
 
-              # nix = mkOption {
-              #   type = types.nullOr types.str;
-              #   description = "Whether to automatically point Nix Environment selector to shell.nix or flake.nix file. Possible values are `shell`, `flake`, null";
-              #   default = null;
-              #   example = "shell";
-              # };
-
               nix = mkOption {
                 default = {
                   method = null;
@@ -300,7 +377,7 @@ in
                   producesWorkspace = false;
                 };
                 description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
-                type = types.attrsOf (
+                type = types.nullOr (
                   types.submodule {
                     options = {
                       method = mkOption {
@@ -348,27 +425,18 @@ in
   config = lib.mkIf cfg.enable {
     programs.vscode.enable = true;
     programs.vscode.package = cfg.code-package;
+    # Marge profiles with profiles, generated for workspaces with requested extensions
     programs.vscode.profiles =
-      lib.mapAttrs (name: spec: builtins.removeAttrs spec [ "disable_envstr" ])
-        (
-          (builtins.mapAttrs mkProfile cfg.profiles)
-          // (mkDeepMerge (
-            lib.mapAttrsToList (
-              name: spec:
-              if builtins.length spec.extensions == 0 then
-                { }
-              else
-                {
-                  "${genProfileName name spec}" = mkProfileW spec.profile name { extensions = spec.extensions; };
-                }
-            ) cfg.workspaces
-          ))
-        );
+      (builtins.mapAttrs mkProfile cfg.profiles)
+      // (lib.mapAttrs' (name: spec: {
+        name = generateProfileName4Workspace name spec;
+        value = mkProfile4Workspace name spec;
+      }) (lib.filterAttrs (_name: spec: (builtins.length spec.extensions != 0)) cfg.workspaces));
 
     # Build and merge all declared workspaces
     xdg =
       let
-        workspaces = mapAttrs (_name: spec: declare_workspace _name spec) cfg.workspaces;
+        workspaces = builtins.mapAttrs (_name: spec: declare_workspace _name spec) cfg.workspaces;
         declProfAction =
           profileName: profileSpec:
           let
