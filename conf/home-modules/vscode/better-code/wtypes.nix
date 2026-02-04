@@ -95,9 +95,19 @@ in
   };
 
   extensions = mkOption {
-    type = types.listOf types.str;
+    type = types.listOf (
+      types.either types.str (
+        types.either types.package (types.listOf (types.either types.str types.package))
+      )
+    );
     default = [ ];
-    example = literalExpression "[ \"bbenoist.nix\" \"arrterian.nix-env-selector\" ]";
+    example = literalExpression ''
+      [
+        "bbenoist.nix"
+        "arrterian.nix-env-selector"
+        (pkgs.nix4vscode.forOpenVsx [ "foo.bar" "bar.baz" ])
+      ]
+    '';
     description = ''
       The extensions Visual Studio Code should be started with.
     '';
