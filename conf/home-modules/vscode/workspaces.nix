@@ -11,28 +11,12 @@ in
       userSettings = import ./generalUserSettings.nix;
       globalSnippets = import ./generalGlobalSnippets.nix;
       languageSnippets = import ./generalLangSnippets.nix;
-      extensions = [
-        # "arrterian.nix-env-selector"  # weird flakes support
-        "jnoortheen.nix-ide"
-        "mechatroner.rainbow-csv"
-        "ms-vscode.atom-keybindings"
-        "thmsrynr.vscode-namegen" # possibly delete
-        "michaelcurrin.auto-commit-msg"
-        "gruntfuggly.todo-tree"
-        "mkhl.direnv"
-        "openai.chatgpt"
-        # "github.copilot"  # so annoying
-        # "github.copilot-chat"
-        # "Koda.koda"
-        # "Continue.continue"
-      ];
+      extensions = needed_extensions.global;
     };
 
     terminal-emulator = pkgs.kitty;
     terminal-args = "--app-id=kitty_info";
-    # --proxy-server=\"socks5=127.0.0.1:1080\"
-    # args = "--password-store=gnome-libsecret --ozone-platform=wayland";
-    args = "";
+    args = "--password-store=gnome-libsecret --ozone-platform=wayland";
     envstr = "http_proxy=http://127.0.0.1:1081 https_proxy=http://127.0.0.1:1081 no_proxy=localhost,127.0.0.0/8";
 
     profiles = {
@@ -47,12 +31,15 @@ in
         userSettings = import ./latexSettings.nix;
       };
       python = with needed_extensions; {
-        extensions = python ++ py-dev ++ dev ++ [ "tomoki1207.pdf" ];
+        extensions = python ++ dev ++ [ "tomoki1207.pdf" ];
         userSettings = import ./pythonSettings.nix;
       };
       cpp = with needed_extensions; {
         extensions = cpp ++ dev;
         userSettings = import ./cppSettings.nix;
+      };
+      ts = with needed_extensions; {
+        extensions = ts ++ dev;
       };
       remote = with needed_extensions; {
         extensions = remote ++ dev;
@@ -176,6 +163,24 @@ in
         folder = "${config.home.homeDirectory}/repos/mylammps";
         profile = "cpp";
         prerun = ["echo ' '"];
+        nix = {
+          method = "flake";
+          launchInside = true;
+          producesWorkspace = true;
+        };
+      };
+      cfproc = {
+        folder = "${config.home.homeDirectory}/Documents/nucleation/python/cfproc";
+        profile = "python";
+        nix = {
+          method = "flake";
+          launchInside = true;
+          producesWorkspace = true;
+        };
+      };
+      vscode-clang-tidy = {
+        folder = "${config.home.homeDirectory}/repos/vscode-clang-tidy";
+        profile = "ts";
         nix = {
           method = "flake";
           launchInside = true;

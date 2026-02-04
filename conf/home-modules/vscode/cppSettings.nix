@@ -2,7 +2,7 @@
   "cmake.allowUnsupportedPresetsVersions" = false;
   "cmake.configureOnOpen" = true;
   "cmake.configureOnEdit" = false;
-  "cmake.configureSettings" = {};
+  "cmake.configureSettings" = { };
   "cmake.generator" = "Unix Makefiles";
   "cmake.showOptionsMovedNotification" = false;
   "cmake.options.statusBarVisibility" = "compact";
@@ -67,5 +67,17 @@
   "clangd.enableHover" = false;
   "clangd.detectExtensionConflicts" = false;
 
-  
+  "c-cpp-linter.general.runOnOpen" = false;
+  "c-cpp-linter.general.runOnSave" = false;
+  "c-cpp-linter.general.showInformationDialog" = true;
+  "c-cpp-linter.general.showOutputFromLinters" = true;
+  "c-cpp-linter.compiler.additionalFlags" = [
+    "-Qunused-arguments"
+  ];
+  "c-cpp-linter.cppCheck.additionalFlags" = [
+    "--std=c++20"
+    "--platform=native"
+    "--check-level=exhaustive"
+    "--force"
+  ];
 }

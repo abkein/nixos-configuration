@@ -193,6 +193,8 @@
   "geminicodeassist.inlineSuggestions.enableAuto" = false;
   "geminicodeassist.project" = "someimportantproject";
 
+  "direnv.watchForChanges" = false;
+
   "[nix].editor.tabSize" = 2;
   # "nixEnvSelector.suggestion" = false;
   # "nixEnvSelector.useFlakes" = true;

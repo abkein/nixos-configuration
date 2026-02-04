@@ -1,4 +1,20 @@
 {
+  global = [
+    # "arrterian.nix-env-selector"  # weird flakes support
+    "jnoortheen.nix-ide"
+    "mechatroner.rainbow-csv"
+    "ms-vscode.atom-keybindings"
+    "thmsrynr.vscode-namegen" # possibly delete
+    "michaelcurrin.auto-commit-msg"
+    "gruntfuggly.todo-tree"
+    "mkhl.direnv"
+    "openai.chatgpt"
+    # "github.copilot"  # so annoying
+    # "github.copilot-chat"
+    # "Koda.koda"
+    # "Continue.continue"
+  ];
+
   LaTeX = [
     "funkyremi.vscode-google-translate"
     "james-yu.latex-workshop"
@@ -28,14 +44,6 @@
     "ms-python.mypy-type-checker"
   ];
 
-  py-dev = [
-    "jsynowiec.vscode-insertdatestring"
-    "lpubsppop01.vscode-auto-timestamp"
-    "turaiiao.vscode-author-header"
-    # "visualstudioexptteam.intellicode-api-usage-examples"  # deprecated, replaced by copilot
-    # "visualstudioexptteam.vscodeintellicode"  # deprecated, replaced by copilot
-  ];
-
   flutter = [
     "alexisvt.flutter-snippets"
     "dart-code.dart-code"
@@ -53,13 +61,15 @@
     "tomoki1207.pdf"
     "jbenden.c-cpp-flylint"
     "llvm-vs-code-extensions.vscode-clangd"
-    "mine.cpplint"
+    # "mine.cpplint"
     "crugthew.c-cpp-linter"
+    "cs128.cs128-clang-tidy"
   ];
 
   dev = [
     "ms-vscode.hexeditor"
     "github.vscode-pull-request-github"
+    "github.vscode-github-actions"
     "github.remotehub"
     "ymotongpoo.licenser"
     "mads-hartmann.bash-ide-vscode"
@@ -86,6 +96,10 @@
 
   sonar = [
     "sonarsource.sonarlint-vscode" # requires jre
+  ];
+
+  ts = [
+    "dbaeumer.vscode-eslint"
   ];
 
   # "seunlanlege.action-buttons"
