@@ -88,6 +88,7 @@
               nur.overlays.default
               # agenix-rekey.overlays.default
               (import ./overlays/pypackages.nix)
+              (import ./overlays/generic.nix)
             ];
           };
           home-manager = {
