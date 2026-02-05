@@ -6,6 +6,7 @@ in
   better-code = {
     enable = true;
     code-package = pkgs.vscode-fhs;
+    desktopEntries.enable = true;
 
     general = {
       userSettings = import ./generalUserSettings.nix;
@@ -16,7 +17,7 @@ in
 
     terminal-emulator = pkgs.kitty;
     terminal-args = "--app-id=kitty_info";
-    args = "--password-store=gnome-libsecret --ozone-platform=wayland";
+    args = "--password-store=gnome-libsecret --ozone-platform=wayland --enable-proposed-api";
     envstr = "http_proxy=http://127.0.0.1:1081 https_proxy=http://127.0.0.1:1081 no_proxy=localhost,127.0.0.0/8";
 
     profiles = {
@@ -162,7 +163,6 @@ in
       LAMMPS = {
         folder = "${config.home.homeDirectory}/repos/mylammps";
         profile = "cpp";
-        prerun = ["echo ' '"];
         nix = {
           method = "flake";
           launchInside = true;
