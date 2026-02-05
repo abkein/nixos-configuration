@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  needed_extensions = import ./needed_exts.nix;
+  needed_extensions = import ./needed_exts.nix pkgs;
 in
 {
   better-code = {

@@ -1,3 +1,4 @@
+pkgs:
 {
   global = [
     # "arrterian.nix-env-selector"  # weird flakes support
@@ -63,7 +64,8 @@
     "llvm-vs-code-extensions.vscode-clangd"
     # "mine.cpplint"
     "crugthew.c-cpp-linter"
-    "cs128.cs128-clang-tidy"
+    pkgs.vscode-extensions.vscode-clang-tidy
+    # "cs128.cs128-clang-tidy"
   ];
 
   dev = [
