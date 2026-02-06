@@ -73,7 +73,6 @@ pkgs:
     "github.vscode-pull-request-github"
     "github.vscode-github-actions"
     "github.remotehub"
-    "ymotongpoo.licenser"
     "mads-hartmann.bash-ide-vscode"
     "redhat.vscode-xml"
     "tamasfe.even-better-toml"

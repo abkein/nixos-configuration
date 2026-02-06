@@ -110,6 +110,7 @@ in
     '';
     description = ''
       The extensions Visual Studio Code should be started with.
+      String extension ids or raw derivations. Allows 1 level of nested lists.
     '';
   };
 

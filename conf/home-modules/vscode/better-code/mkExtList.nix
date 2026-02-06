@@ -1,4 +1,4 @@
-{pkgs, lib, ...}: needed_extensions:
+{pkgs, lib, ...}: nix4vscodeAlways: needed_extensions:
 let
   inherit (lib) isDerivation isString;
   flat_extensions = lib.flatten needed_extensions;
@@ -21,11 +21,16 @@ let
 
   parsed_extensions = builtins.map parse_extension string_extensions;
   presentExtensions = builtins.filter has_extension parsed_extensions;
-  market_extensions = builtins.map get_extension presentExtensions;
-
   not_presentExtensions = builtins.filter (ext: !has_extension ext) parsed_extensions;
+
+  market_extensions = builtins.map get_extension presentExtensions;
   nix4vscode_extensions = builtins.map unparse_extension not_presentExtensions;
 in
-market_extensions
-++ (if builtins.length nix4vscode_extensions == 0 then [ ] else (pkgs.nix4vscode.forVscode nix4vscode_extensions))
-++ raw_extensions
+if nix4vscodeAlways then
+  (pkgs.nix4vscode.forVscode string_extensions)
+else
+  (
+    market_extensions
+    ++ (if nix4vscode_extensions == [ ] then [ ] else (pkgs.nix4vscode.forVscode nix4vscode_extensions))
+    ++ raw_extensions
+  )

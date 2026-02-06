@@ -13,7 +13,6 @@ let
     ;
   cfg = config.better-code;
   wtypes = import ./wtypes.nix args;
-  deepMerge = (import ./deepMerge.nix).deepMerge;
   # Ensures generated profile name is unique across workspaces and the generated profile name is the same
   # for a workspace, based on its hash
   generateProfileName4Workspace =
@@ -39,6 +38,17 @@ in
         default = null;
         description = "The VSCode package to use.";
         example = pkgs.vscodium;
+      };
+
+      nix4vscodeAlways = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          By default extensions present in nixpkgs will be fetched from nixpkgs,
+          extensions not present in nixpkgs will be fetched using pkgs.nix4vscode.forVscode.
+          Enabling it will force to get all the extensions using pkgs.nix4vscode.forVscode.
+        '';
+        example = true;
       };
 
       desktopEntries = mkOption {
@@ -310,9 +320,10 @@ in
       })
       (
         let
+          deepMerge = (import ./deepMerge.nix).deepMerge;
           # Performs automatic search for an extension in pkgs.vscode-extensions
           # and uses pkgs.nix4vscode.forVscode if not found and produces derivation list
-          mkExtList = import ./mkExtList.nix { inherit pkgs lib; };
+          mkExtList = import ./mkExtList.nix { inherit pkgs lib; } cfg.nix4vscodeAlways;
           # Replace extension names with actual derivations
           rebuildExtensions = spec: spec // { extensions = mkExtList spec.extensions; };
           # Merges profile specification with general one to produce actual profile

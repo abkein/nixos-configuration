@@ -7,6 +7,7 @@ in
     enable = true;
     code-package = pkgs.vscode-fhs;
     desktopEntries.enable = true;
+    nix4vscodeAlways = true;
 
     general = {
       userSettings = import ./generalUserSettings.nix;
