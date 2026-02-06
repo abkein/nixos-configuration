@@ -17,7 +17,7 @@ in
 
     terminal-emulator = pkgs.kitty;
     terminal-args = "--app-id=kitty_info";
-    args = "--password-store=gnome-libsecret --ozone-platform=wayland --enable-proposed-api";
+    args = "--password-store=gnome-libsecret --ozone-platform=wayland";
     envstr = "http_proxy=http://127.0.0.1:1081 https_proxy=http://127.0.0.1:1081 no_proxy=localhost,127.0.0.0/8";
 
     profiles = {
