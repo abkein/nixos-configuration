@@ -239,8 +239,11 @@ in
 
     git = {
       enable = true;
-      userName = "abkein";
-      userEmail = "rickbatra0z@gmail.com";
+      package = pkgs.gitFull;
+      settings.user = {
+        name = "abkein";
+        email = "rickbatra0z@gmail.com";
+      };
       signing = {
         signByDefault = true;
         key = "17027FA2CDE289D5D1613C3994A84F22E630CA42";
