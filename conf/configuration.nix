@@ -406,8 +406,7 @@
       extraBackends = with pkgs; [ hplipWithPlugin sane-airscan ];
     };
     graphics = {
-      extraPackages = [ pkgs.rocmPackages.clr.icd pkgs.amdvlk ];
-      extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+      extraPackages = [ pkgs.rocmPackages.clr.icd ];
     };
     bluetooth = {
       enable = true;
