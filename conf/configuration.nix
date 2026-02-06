@@ -346,7 +346,7 @@
         powerline-fonts
         powerline-symbols
         corefonts
-        vistafonts
+        vista-fonts
         cm_unicode
       ] ++ builtins.filter lib.attrsets.isDerivation
       (builtins.attrValues pkgs.nerd-fonts);
