@@ -67,7 +67,7 @@ in
       ocrmypdf
       thunderbird-latest
       imagemagickBig
-      poppler_utils
+      poppler-utils
       # texliveFull
       texlive.combined.scheme-full
       tex-fmt
