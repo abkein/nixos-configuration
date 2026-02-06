@@ -36,7 +36,7 @@ config: {
       expireDuplicatesFirst = true;
       ignoreAllDups = true;
     };
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.stateHome}/zsh";
 
     oh-my-zsh = {
       enable = true;
