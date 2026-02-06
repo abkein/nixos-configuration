@@ -27,7 +27,7 @@ let
   nix4vscode_extensions = builtins.map unparse_extension not_presentExtensions;
 in
 if nix4vscodeAlways then
-  (pkgs.nix4vscode.forVscode string_extensions)
+  ((pkgs.nix4vscode.forVscode string_extensions) ++ raw_extensions)
 else
   (
     market_extensions
