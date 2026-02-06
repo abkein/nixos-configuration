@@ -1,7 +1,7 @@
 { config, pkgs, inputs, ... }:
 let
-  ayugram-desktop = inputs.ayugram-desktop.packages.${pkgs.system}.ayugram-desktop;
-  # anyrun-pkgs = inputs.anyrun.packages.${pkgs.system};
+  ayugram-desktop = inputs.ayugram-desktop.packages.${pkgs.stdenv.hostPlatform.system}.ayugram-desktop;
+  # anyrun-pkgs = inputs.anyrun.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   imports = [
