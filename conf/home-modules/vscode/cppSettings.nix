@@ -2,14 +2,10 @@
   "cmake.allowUnsupportedPresetsVersions" = false;
   "cmake.configureOnOpen" = true;
   "cmake.configureOnEdit" = false;
+  "cmake.automaticReconfigure" = false;
   "cmake.configureSettings" = { };
-  "cmake.generator" = "Unix Makefiles";
   "cmake.showOptionsMovedNotification" = false;
   "cmake.options.statusBarVisibility" = "compact";
-  "cmake.pinnedCommands" = [
-    "workbench.action.tasks.configureTaskRunner"
-    "workbench.action.tasks.runTask"
-  ];
 
   # "C_Cpp.formatting" = "disabled";
   "C_Cpp.intelliSenseUpdateDelay" = 3000;
