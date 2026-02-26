@@ -249,8 +249,8 @@
       # Screenshot, Record, OCR, Color picker, Clipboard history
       #screenshot
       ",Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
-      "Super, S, exec, grimblast --freeze --notify --openfile copysave area"
-      "Super+Shift, S, exec, grimblast --freeze --notify --openfile copysave output"
+      "Super, S, exec, grimblast --freeze --notify -e 1500 --openparentdir copysave area"
+      "Super+Shift, S, exec, grimblast --freeze --notify -e 1500 --openparentdir copysave output"
       "Control+Alt, O, exec, grim -g \"$(slurp)\" - | tesseract - - | wl-copy"
       "Control+Alt, I, exec, grim -g \"$(slurp)\" - | tesseract -l rus - - | wl-copy"
       # "Super+Shift+Ctrl, S, exec, ~/.config/ags/scripts/grimblast.sh --freeze copy screen"
@@ -402,15 +402,9 @@
       ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
       ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       # Brightness
-      # Uncomment these if you can't get AGS to work
-      #", XF86MonBrightnessUp, exec, brightnessctl set '12.75+'"
-      #", XF86MonBrightnessDown, exec, brightnessctl set '12.75-'"
-      #", XF86MonBrightnessDown, exec, brightnessctl set '12.75-'"
-      # ##################################### AGS keybinds #####################################
-      ", XF86AudioRaiseVolume, exec, ags run-js 'indicator.popup(1);'"
-      ", XF86AudioLowerVolume, exec, ags run-js 'indicator.popup(1);'"
-      ", XF86MonBrightnessUp, exec, ags run-js 'brightness.screen_value += 0.05; indicator.popup(1);'"
-      ", XF86MonBrightnessDown, exec, ags run-js 'brightness.screen_value -= 0.05; indicator.popup(1);'"
+      ", XF86MonBrightnessUp, exec, brightnessctl set '12.75+'"
+      ", XF86MonBrightnessDown, exec, brightnessctl set '12.75-'"
+
 
       # Arrow keys with IJKL
       "Alt, I, exec, ydotool key 103:1 103:0"
