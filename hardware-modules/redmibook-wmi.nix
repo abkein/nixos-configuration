@@ -15,7 +15,7 @@ let
       pname = "redmibook-wmi";
       version = "1.0.3";
 
-      src = ./redmibook_wmi;
+      src = ./redmibook-wmi;
 
       nativeBuildInputs = kernel.moduleBuildDependencies;
 
