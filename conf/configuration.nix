@@ -2,7 +2,12 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -78,7 +83,7 @@
   # };
 
   services = {
-    ipp-usb.enable=true;
+    ipp-usb.enable = true;
     avahi = {
       enable = true;
       nssmdns4 = true;
@@ -91,6 +96,10 @@
         cups-browsed
         hplipWithPlugin
       ];
+    };
+    acpid = {
+      enable = true;
+      logEvents = true;
     };
     blueman.enable = true;
     upower.enable = true;
@@ -109,6 +118,11 @@
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0666"
         KERNEL=="ttyACM*", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0666"
       '';
+        extraHwdb = ''
+        # Apply to AT keyboards (internal laptop keyboard via atkbd/i8042)
+        evdev:atkbd:*
+          KEYBOARD_KEY_e076=fn
+      '';
     };
     pcscd = {
       enable = true;
@@ -118,7 +132,9 @@
     pipewire = {
       enable = true;
       audio.enable = true;
-      wireplumber = { enable = true; };
+      wireplumber = {
+        enable = true;
+      };
       pulse.enable = true;
       alsa = {
         enable = true;
@@ -190,7 +206,9 @@
     #   pkgs = pkgs;
     #   lib = lib;
     # };
-    ssh = { startAgent = false; };
+    ssh = {
+      startAgent = false;
+    };
     gnupg = {
       agent = {
         enable = false;
@@ -216,8 +234,13 @@
       isNormalUser = true;
       description = "C2H5OH";
       createHome = true;
-      extraGroups =
-        [ "networkmanager" "wheel" "input" "scanner" "lp" ];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "input"
+        "scanner"
+        "lp"
+      ];
       # packages = with pkgs; [ ];
       shell = pkgs.zsh;
       home = "/home/kein";
@@ -252,8 +275,10 @@
     terminal-exec = {
       enable = true;
       settings = {
-        GNOME =
-          [ "org.gnome.Terminal.desktop" "com.raggesilver.BlackBox.desktop" ];
+        GNOME = [
+          "org.gnome.Terminal.desktop"
+          "com.raggesilver.BlackBox.desktop"
+        ];
         default = [ "kitty.desktop" ];
       };
     };
@@ -262,7 +287,10 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment = {
-    etc = import ./system-modules/etc.nix { lib=lib; config=config; };
+    etc = import ./system-modules/etc.nix {
+      lib = lib;
+      config = config;
+    };
     systemPackages = with pkgs; [
       clinfo
       vulkan-tools
@@ -273,6 +301,8 @@
       nix-prefetch
       nix-prefetch-git
       nix-prefetch-github
+
+      nix-output-monitor
 
       pulseaudio
 
@@ -307,6 +337,12 @@
       usbutils
       hw-probe
 
+      evtest
+      acpi
+      acpid
+      libinput
+      brightnessctl
+
       # code
       git
 
@@ -332,7 +368,8 @@
 
   fonts = {
     enableDefaultPackages = true;
-    packages = with pkgs;
+    packages =
+      with pkgs;
       [
         lmodern
         jetbrains-mono
@@ -348,8 +385,8 @@
         corefonts
         vista-fonts
         cm_unicode
-      ] ++ builtins.filter lib.attrsets.isDerivation
-      (builtins.attrValues pkgs.nerd-fonts);
+      ]
+      ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
     fontDir = {
       enable = true;
@@ -359,9 +396,18 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        monospace = [ "DejaVu Sans Mono" "Noto Color Emoji" ];
-        sansSerif = [ "DejaVu Sans" "Noto Color Emoji" ];
-        serif = [ "DejaVu Serif" "Noto Color Emoji" ];
+        monospace = [
+          "DejaVu Sans Mono"
+          "Noto Color Emoji"
+        ];
+        sansSerif = [
+          "DejaVu Sans"
+          "Noto Color Emoji"
+        ];
+        serif = [
+          "DejaVu Serif"
+          "Noto Color Emoji"
+        ];
         emoji = [ "Noto Color Emoji" ];
       };
     };
@@ -376,7 +422,10 @@
     };
     settings = {
       netrc-file = config.age.secrets."nix-netrc".path;
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       builders-use-substitutes = true;
       # substituters = [
       #  "https://cache.garnix.io"
@@ -403,7 +452,10 @@
     enableRedistributableFirmware = true;
     sane = {
       enable = true;
-      extraBackends = with pkgs; [ hplipWithPlugin sane-airscan ];
+      extraBackends = with pkgs; [
+        hplipWithPlugin
+        sane-airscan
+      ];
     };
     graphics = {
       extraPackages = [ pkgs.rocmPackages.clr.icd ];
