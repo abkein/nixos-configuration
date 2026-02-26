@@ -12,42 +12,69 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "xhci_pci"
-    "usb_storage"
-    "usbhid"
-    "sd_mod"
-    "rtsx_pci_sdmmc"
-  ];
-  boot.initrd.kernelModules = [
-    "dm-snapshot"
-    "cryptd"
-  ];
-  # boot.initrd.luks.devices."crypted".device = "/dev/nvme0n1p2";
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot = {
+    initrd = {
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "usb_storage"
+        "usbhid"
+        "sd_mod"
+        "rtsx_pci_sdmmc"
+      ];
+      kernelModules = [
+        "dm-snapshot"
+        "cryptd"
+      ];
+      # luks.devices."crypted".device = "/dev/nvme0n1p2";
+    };
+    kernelModules = [ "kvm-amd" ];
+    extraModulePackages = [ ];
+    kernel.sysctl."kernel.sysrq" = 1;
+  };
 
-  # fileSystems."/" = {
-  #   device = "/dev/disk/by-uuid/d990af03-81ac-4527-bcba-81a575ffc5ce";
-  #   fsType = "ext4";
-  # };
+  # fileSystems = {
+  #   "/" = {
+  #     device = "/dev/disk/by-uuid/d990af03-81ac-4527-bcba-81a575ffc5ce";
+  #     fsType = "ext4";
+  #   };
 
-  # fileSystems."/boot" = {
-  #   device = "/dev/disk/by-uuid/6F70-6DF3";
-  #   fsType = "vfat";
-  #   options = [
-  #     "fmask=0077"
-  #     "dmask=0077"
-  #   ];
+  #   "/boot" = {
+  #     device = "/dev/disk/by-uuid/6F70-6DF3";
+  #     fsType = "vfat";
+  #     options = [
+  #       "fmask=0077"
+  #       "dmask=0077"
+  #     ];
+  #   };
   # };
 
   swapDevices = [ { device = "/dev/disk/by-uuid/94513675-0e3a-4fc6-95f5-b28663fe1aa9"; } ];
   # boot.resumeDevice = "/dev/disk/by-uuid/94513675-0e3a-4fc6-95f5-b28663fe1aa9";
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=1h
-    SuspendState=mem
-  '';
+  systemd = {
+    sleep.extraConfig = ''
+      HibernateDelaySec=1h
+      SuspendState=mem
+    '';
+
+    oomd = {
+      enable = true;
+      enableUserSlices = true;
+      enableSystemSlice = true;
+      enableRootSlice = false;
+    };
+
+    slices = {
+      "-".sliceConfig = {
+        ManagedOOMSwap = "kill";
+      };
+
+      "user".sliceConfig = {
+        ManagedOOMMemoryPressureLimit = "50%";
+        ManagedOOMMemoryPressureDurationSec = "10s";
+      };
+    };
+  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
