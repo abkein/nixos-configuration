@@ -5,15 +5,21 @@
   "editor.formatOnPaste" = true;
   "editor.formatOnType" = true;
   "editor.fontLigatures" = true;
+  "editor.autoIndentOnPaste" = true;
   "editor.unicodeHighlight.ambiguousCharacters" = false;
   "editor.renderWhitespace" = "all";
   # "editor.defaultFormatter" = "trunk.io";
 
   "window.titleBarStyle" = "custom";
+  "window.customTitleBarVisibility" = "hidden";
+  "window.dialogStyle" = "custom";
+  "window.menuBarVisibility" = "hidden";
 
   "explorer.confirmDragAndDrop" = false;
   "explorer.confirmDelete" = false;
   "explorer.confirmPasteNative" = false;
+
+  "extensions.ignoreRecommendations" = true;
 
   "files.hotExit" = "onExitAndWindowClose";
   "files.autoSave" = "afterDelay";
@@ -52,7 +58,6 @@
   "workbench.layoutControl.enabled" = false;
   "workbench.editorAssociations" = {
     "*.pdf" = "latex-workshop-pdf-hook";
-    "*.gz" = "default";
   };
 
   "terminal.integrated.sendKeybindingsToShell" = true;
@@ -66,11 +71,6 @@
   "vscodeGoogleTranslate.preferredLanguage" = "Russian";
   "dart.previewFlutterUiGuides" = true;
 
-  "licenser.author" = "Perevoshchikov Egor";
-  "licenser.license" = "GPLv3";
-  "licenser.disableAutoHeaderInsertion" = true;
-  "licenser.disableAutoSave" = true;
-
   "scm.alwaysShowActions" = true;
   "scm.alwaysShowRepositories" = true;
   "scm.defaultViewMode" = "tree";
@@ -80,18 +80,6 @@
 
   "lammps.AutoComplete.Setting" = "Extensive";
   "lammps.Hover.Detail" = "Complete";
-  "lammps.tasks.binary" = "/home/kein/.local/bin/lmp";
-
-  "author-header" = {
-    "author" = "Egor Perevoshchikov";
-    "contents" = [
-      "Open type style"
-    ];
-    "auto-comment-type" = "#";
-    "auto-space" = true;
-    "auto-title" = true;
-    "auto-date-type" = 3;
-  };
 
   "remote.SSH.configFile" = "/home/kein/.ssh/config";
   "remote.SSH.enableRemoteCommand" = true;
@@ -128,13 +116,6 @@
       # }
     ];
   };
-
-  "insertDateString.format" = "DD-MM-YYYY hh=mm=ss";
-  "insertDateString.formatDate" = "DD-MM-YYYY";
-
-  "lpubsppop01.autoTimeStamp.lineLimit" = 10;
-  "lpubsppop01.autoTimeStamp.momentFormat" = "DD-MM-YYYY HH=mm=ss";
-  "lpubsppop01.autoTimeStamp.birthTimeStart" = "# Created= ]";
 
   "ltex.additionalRules.languageModel" = "ru";
   "ltex.additionalRules.motherTongue" = "ru-RU";
@@ -195,7 +176,9 @@
 
   "direnv.watchForChanges" = false;
 
-  "[nix].editor.tabSize" = 2;
+  "[nix]" = {
+    "editor.tabSize" = 2;
+  };
   # "nixEnvSelector.suggestion" = false;
   # "nixEnvSelector.useFlakes" = true;
   "nix.enableLanguageServer" = true;

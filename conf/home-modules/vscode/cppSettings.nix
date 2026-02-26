@@ -1,11 +1,11 @@
 {
-  "cmake.allowUnsupportedPresetsVersions" = false;
   "cmake.configureOnOpen" = true;
   "cmake.configureOnEdit" = false;
   "cmake.automaticReconfigure" = false;
   "cmake.configureSettings" = { };
   "cmake.showOptionsMovedNotification" = false;
   "cmake.options.statusBarVisibility" = "compact";
+  "cmake.showConfigureWithDebuggerNotification" = false;
 
   # "C_Cpp.formatting" = "disabled";
   "C_Cpp.intelliSenseUpdateDelay" = 3000;
