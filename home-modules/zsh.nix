@@ -4,10 +4,10 @@ config: {
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    shellAliases = let flakeDir = "~/nixos-configuration/conf"; in {
-      rb = "nh os switch /home/kein/nixos-configuration/conf";  # sudo nixos-rebuild switch --flake ${flakeDir}
+    shellAliases = let flakeDir = "~/nixos-configuration"; in {
+      rb = "nh os switch ${flakeDir}";  # sudo nixos-rebuild switch --flake ${flakeDir}
       upd = "sudo nix flake update --flake ${flakeDir}";
-      upg = "nh os switch -u /home/kein/nixos-configuration/conf";  # sudo nixos-rebuild switch --upgrade --flake ${flakeDir}
+      upg = "nh os switch -u ${flakeDir}";  # sudo nixos-rebuild switch --upgrade --flake ${flakeDir}
 
       dg = "sudo nix-env --delete-generations +3 --profile /nix/var/nix/profiles/system";
       cg = "sudo nix-collect-garbage -d";
