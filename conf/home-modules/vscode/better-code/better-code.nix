@@ -165,7 +165,7 @@ in
       };
 
       workspaces = mkOption {
-        default = { };
+        default = {};
         description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
         type = types.attrsOf (
           types.submodule {
@@ -207,9 +207,9 @@ in
               };
 
               profile = mkOption {
-                type = types.str;
+                type = types.nullOr types.str;
                 description = "Profile used for this workspace. Written to workspace setting \"workbench.profile\". Nothing written if empty.";
-                default = "";
+                default = null;
                 example = "default";
               };
 
@@ -255,6 +255,8 @@ in
                   launchInside = false;
                   producesWorkspace = false;
                   preinit = false;
+                  updateLock = false;
+                  overrideInputs = { };
                 };
                 description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
                 type = types.submodule {
@@ -296,6 +298,24 @@ in
                       description = "Whether to initialize the environment before opening VSCode.";
                       default = true;
                       example = false;
+                    };
+
+                    updateLock = mkOption {
+                      type = types.bool;
+                      description = "Whether to regenerate `flake.lock` file during `preinit`.";
+                      default = false;
+                      example = true;
+                    };
+
+                    overrideInputs = mkOption {
+                      type = types.attrsOf types.str;
+                      description = "Overrides flake inputs via `--override-input \${name} \${source}`. Applies both to `preinit` and `launchInside`.";
+                      default = { };
+                      example = lib.literalExpression ''
+                        {
+                          nixpkgs="github:NixOS/nixpkgs/bfc1b8a4574108ceef22f02bafcf6611380c100d";
+                        }
+                      '';
                     };
                   };
                 };
@@ -423,6 +443,10 @@ in
             value =
               let
                 nixSpec = spec.nix;
+                inputOverrides = builtins.concatStringsSep " " (
+                  lib.mapAttrsToList (name: value: "--override-input ${name} ${value}") nixSpec.overrideInputs
+                );
+                regenLockCmd = "nix flake lock ${spec.folder} ${inputOverrides}";
                 # Helper to run specified command inside the user-specified environment (inside nix-shell or nix develop).
                 # If the environment wasn't specified (nixSpec.method is null) then it isn't used
                 environmentLaunchCommand =
@@ -430,9 +454,10 @@ in
                   if nixSpec.method == "shell" then
                     "nix-shell ${spec.folder}/shell.nix --command '${command}'"
                   else if nixSpec.method == "flake" then
-                    "nix develop ${spec.folder}${
-                      if nixSpec.flakeOutput != null then "#${nixSpec.flakeOutput}" else ""
-                    } --command bash -c '${command}'"
+                    let
+                      output = if nixSpec.flakeOutput != null then "#${nixSpec.flakeOutput}" else "";
+                    in
+                    "nix develop ${spec.folder}${output} ${inputOverrides} --command bash -c '${command}'"
                   else
                     "";
                 # Execute command 'exit' inside the environment launched inside the terminal emulator.
@@ -446,7 +471,7 @@ in
                 # a new profile will be generated using the base profile. Now we need just its name
                 # which is ensured to be similar to the name of the actually generated profile.
                 profile =
-                  if spec.profile == "" then
+                  if spec.profile == null then
                     "default"
                   else if (spec.extensions == [ ]) then
                     spec.profile
@@ -474,6 +499,7 @@ in
                 cmdChain =
                   # Commands to be launched before launching VSCode
                   spec.prerun
+                  ++ (if nixSpec.updateLock then [ regenLockCmd ] else [ ])
                   ++ (if ((nixSpec.method != null) && nixSpec.preinit) then [ preinitWrap ] else [ ])
                   ++ [ codeCmdWrapped ]
                   # Commands to be launched after VSCode is closed
