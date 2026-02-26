@@ -208,10 +208,10 @@
         # You can write arbitrary Nix expressions here, to produce valid "options" declaration result.
         # Tip: for flake-based configuration, utilize `builtins.getFlake`
         "nixos" = {
-          "expr" = "(builtins.getFlake \"/home/kein/nixos-configuration\").nixosConfigurations.<name>.options";
+          "expr" = "(builtins.getFlake \"/home/kein/nixos-configuration\").nixosConfigurations.jeta.options";
         };
         "home-manager" = {
-          "expr" = "(builtins.getFlake \"/home/kein/nixos-configuration\").homeConfigurations.<name>.options";
+          "expr" = "(builtins.getFlake \"/home/kein/nixos-configuration\").homeConfigurations.jeta.options";
         };
       };
     };
