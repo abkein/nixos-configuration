@@ -12,8 +12,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./pstate.nix
-    ./zenpower.nix
     # ./system-modules/flatpak.nix
     ./shadow/xray.nix
     # ./system-modules/openssh.nix
@@ -117,11 +115,6 @@
         ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", ENV{MTP_NO_PROBE}="1"
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0666"
         KERNEL=="ttyACM*", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0666"
-      '';
-        extraHwdb = ''
-        # Apply to AT keyboards (internal laptop keyboard via atkbd/i8042)
-        evdev:atkbd:*
-          KEYBOARD_KEY_e076=fn
       '';
     };
     pcscd = {

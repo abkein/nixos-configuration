@@ -10,7 +10,20 @@
 }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./pstate.nix
+    ./zenpower.nix
+    ./redmibook_wmi.nix
+  ];
+
+  services.udev = {
+    extraHwdb = ''
+      # Apply to AT keyboards (internal laptop keyboard via atkbd/i8042)
+      evdev:atkbd:*
+        KEYBOARD_KEY_e076=fn
+    '';
+  };
 
   boot = {
     initrd = {
