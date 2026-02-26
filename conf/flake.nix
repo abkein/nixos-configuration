@@ -63,6 +63,7 @@
   {
     nixosConfigurations.jeta = nixpkgs.lib.nixosSystem rec{
       system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
         ./disko.nix
@@ -106,7 +107,6 @@
           };
         }
       ];
-      specialArgs = { inherit inputs; };
     };
     # agenix-rekey = agenix-rekey.configure {
     #   userFlake = self;
