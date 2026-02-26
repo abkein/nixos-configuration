@@ -19,7 +19,7 @@ in
   ];
 
   age = {
-    identityPaths = [ "/home/kein/nixos-configuration/conf/secrets/keys/yubikey-identity.pub" ];
+    identityPaths = [ "/home/kein/nixos-configuration/secrets/keys/yubikey-identity.pub" ];
     secrets = {
       "syncthingPass" = {
         file = ./secrets/agenix/encrypted/syncthingPass.age;

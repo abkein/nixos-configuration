@@ -27,7 +27,7 @@
     #   storageMode = "local";
     #   localStorageDir = ./. + "/secrets/rekeyed/${config.networking.hostName}";
     # };
-    identityPaths = [ "/home/kein/nixos-configuration/conf/secrets/keys/yubikey-identity.pub" ];
+    identityPaths = [ "/home/kein/nixos-configuration/secrets/keys/yubikey-identity.pub" ];
     secrets = {
       "nix-access-tokens.conf" = {
         file = ./secrets/agenix/encrypted/nix-access-tokens.conf.age;
