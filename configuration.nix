@@ -378,9 +378,9 @@
         corefonts
         vista-fonts
         cm_unicode
-        nerd-fonts.symbols-only
-      ];
-      # ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+        # nerd-fonts.symbols-only
+      ]
+      ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
     fontDir = {
       enable = true;
@@ -389,6 +389,7 @@
 
     fontconfig = {
       enable = true;
+      useEmbeddedBitmaps = true;
       defaultFonts = {
         monospace = [
           "JetBrains Mono"
