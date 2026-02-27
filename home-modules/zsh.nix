@@ -14,14 +14,14 @@ config: {
       os = "sudo nix-store --optimise";
       destroy = "dg && cg && os";
 
-      _cat = "$(which cat)";
+      # _cat = "$(which cat)";
       cat = "bat";
-      _tree = "$(which tree)";
+      # _tree = "$(which tree)";
       tree = "eza --tree";
       rm = "rm -i";
       cp = "cp -i";
       mv = "mv -i";
-      _top = "$(which top)";
+      # _top = "$(which top)";
       top = "btop";
 
       refresh = "upd && upg && destroy";
