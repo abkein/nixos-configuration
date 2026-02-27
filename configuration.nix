@@ -87,6 +87,10 @@
       nssmdns4 = true;
       openFirewall = true;
     };
+    tlp = {
+      enable = true;
+      # pd.enable = true;
+    };
     printing = {
       enable = true;
       drivers = with pkgs; [
@@ -188,8 +192,9 @@
     proxychains = import ./system-modules/proxychains.nix pkgs;
     thunar = {
       enable = true;
-      plugins = with pkgs.xfce; [
+      plugins = with pkgs; [
         thunar-volman
+        thunar-vcs-plugin
         thunar-archive-plugin
         thunar-media-tags-plugin
       ];
@@ -280,6 +285,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment = {
+    sessionVariables.NIXOS_OZONE_WL = "1";
     etc = import ./system-modules/etc.nix {
       lib = lib;
       config = config;
@@ -361,26 +367,24 @@
 
   fonts = {
     enableDefaultPackages = true;
-    packages =
-      with pkgs;
-      [
-        lmodern
-        jetbrains-mono
-        noto-fonts
-        noto-fonts-color-emoji
-        noto-fonts-lgc-plus
-        noto-fonts-cjk-sans
-        noto-fonts-cjk-serif
-        twemoji-color-font
-        font-awesome
-        powerline-fonts
-        powerline-symbols
-        corefonts
-        vista-fonts
-        cm_unicode
-        # nerd-fonts.symbols-only
-      ]
-      ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+    packages = with pkgs; [
+      lmodern
+      # jetbrains-mono
+      noto-fonts
+      noto-fonts-color-emoji
+      noto-fonts-lgc-plus
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      twemoji-color-font
+      font-awesome
+      powerline-fonts
+      powerline-symbols
+      corefonts
+      vista-fonts
+      cm_unicode
+      nerd-fonts.symbols-only
+    ];
+    # ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
     fontDir = {
       enable = true;
@@ -429,14 +433,13 @@
       cores = 8;
       connect-timeout = 5;
       download-attempts = 1;
-      stalled-download-timeout = 15;  # instead of 300
-      timeout = 60;                   # optional hard cap
-      # substituters = [
-      #  "https://cache.garnix.io"
-      # ];
-      # trusted-public-keys = [
-      #  "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-      # ];
+      stalled-download-timeout = 15; # instead of 300
+      substituters = [
+       "https://cache.garnix.io"
+      ];
+      trusted-public-keys = [
+       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      ];
       # extra-substituters = [
       #    "https://anyrun.cachix.org"
       # ];

@@ -1,6 +1,12 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 let
-  ayugram-desktop = inputs.ayugram-desktop.packages.${pkgs.stdenv.hostPlatform.system}.ayugram-desktop;
+  ayugram-desktop =
+    inputs.ayugram-desktop.packages.${pkgs.stdenv.hostPlatform.system}.ayugram-desktop;
   # anyrun-pkgs = inputs.anyrun.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
@@ -31,8 +37,7 @@ in
 
   wayland.windowManager.hyprland = import ./home-modules/hypr/hyprland.nix;
 
-  xdg =
-  {
+  xdg = {
     enable = true;
     # defaults:
     # cacheHome = "~/.cache";  # $XDG_CACHE_HOME
@@ -54,8 +59,6 @@ in
         pkgs.xdg-desktop-portal-hyprland
       ];
     };
-
-    # configFile = import ./home-modules/configFiles.nix;
   };
 
   home = {
@@ -64,7 +67,7 @@ in
     stateVersion = "24.11";
     packages = with pkgs; [
       ayugram-desktop
-      ocrmypdf
+      # ocrmypdf
       thunderbird-latest
       imagemagickBig
       poppler-utils
@@ -121,10 +124,9 @@ in
       zotero
 
       # text
-      nixfmt-rfc-style
       nixd
       nil
-      # nixfmt
+      nixfmt # now same as nixfmt-rfc-style
       libreoffice-fresh
       xed-editor
       obsidian
@@ -157,7 +159,7 @@ in
 
       ffmpeg-full
 
-      electrum
+      # electrum
 
       # unstable.gemini-cli
       # ugemini-cli
@@ -168,6 +170,7 @@ in
       # QT_QPA_PLATFORMTHEME = "qt6ct";
       # QT_STYLE_OVERRIDE = "";
       # SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
+      NIXOS_OZONE_WL = "1";
       XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
       # For apps to prevent spamming home directory with .trash
       SONARLINT_USER_HOME = "${config.xdg.dataHome}/sonarlint";
@@ -250,7 +253,9 @@ in
         format = "openpgp";
       };
     };
-    git-credential-oauth = { enable = false; };
+    git-credential-oauth = {
+      enable = false;
+    };
     # anyrun = {
     #   enable = true;
     #   config = {
