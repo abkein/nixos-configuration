@@ -20,6 +20,7 @@ let
 
     # Decompile the table
     iasl -d dsdt.aml
+    rm dsdt.aml
 
     patch -p0 < dsdt.dsl.diff
 
@@ -28,6 +29,7 @@ let
 
     # Compile to AML
     iasl -sa dsdt.dsl
+    # iasl dsdt.dsl
 
     # Build the required initrd layout
     mkdir -p kernel/firmware/acpi

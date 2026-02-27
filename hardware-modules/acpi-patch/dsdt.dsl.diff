@@ -1,27 +1,38 @@
-21c21
-< DefinitionBlock ("", "DSDT", 2, "XMCC  ", "XMCC2209", 0x00000002)
----
-> DefinitionBlock ("", "DSDT", 2, "XMCC  ", "XMCC2209", 0x00000003)
-861c861,862
-<     If ((CNSB == Zero))
----
-> 
->     Name (_S3, Package (0x04)  // _S3_: S3 System State
-863,873c864,868
-<         If ((DAS3 == One))
-<         {
-<             Name (_S3, Package (0x04)  // _S3_: S3 System State
-<             {
-<                 0x03, 
-<                 0x03, 
-<                 Zero, 
-<                 Zero
-<             })
-<         }
-<     }
----
->         0x03, 
->         0x03, 
->         Zero, 
->         Zero
->     })
+--- dsdt.dsl	2026-02-24 06:53:58.121849244 +0300
++++ dsdt_copy.dsl	2026-02-27 11:20:30.410787066 +0300
+@@ -18,7 +18,7 @@
+  *     Compiler ID      "ACPI"
+  *     Compiler Version 0x00040000 (262144)
+  */
+-DefinitionBlock ("", "DSDT", 2, "XMCC  ", "XMCC2209", 0x00000002)
++DefinitionBlock ("", "DSDT", 2, "XMCC  ", "XMCC2209", 0x00000003)
+ {
+     External (_SB_.ALIB, MethodObj)    // 2 Arguments
+     External (_SB_.APTS, MethodObj)    // 1 Arguments
+@@ -858,19 +858,14 @@
+         Zero, 
+         Zero
+     })
+-    If ((CNSB == Zero))
++
++    Name (_S3, Package (0x04)  // _S3_: S3 System State
+     {
+-        If ((DAS3 == One))
+-        {
+-            Name (_S3, Package (0x04)  // _S3_: S3 System State
+-            {
+-                0x03, 
+-                0x03, 
+-                Zero, 
+-                Zero
+-            })
+-        }
+-    }
++        0x03, 
++        0x03, 
++        Zero, 
++        Zero
++    })
+ 
+     Name (_S4, Package (0x04)  // _S4_: S4 System State
+     {
