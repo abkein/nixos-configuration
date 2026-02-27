@@ -1,0 +1,27 @@
+21c21
+< DefinitionBlock ("", "DSDT", 2, "XMCC  ", "XMCC2209", 0x00000002)
+---
+> DefinitionBlock ("", "DSDT", 2, "XMCC  ", "XMCC2209", 0x00000003)
+861c861,862
+<     If ((CNSB == Zero))
+---
+> 
+>     Name (_S3, Package (0x04)  // _S3_: S3 System State
+863,873c864,868
+<         If ((DAS3 == One))
+<         {
+<             Name (_S3, Package (0x04)  // _S3_: S3 System State
+<             {
+<                 0x03, 
+<                 0x03, 
+<                 Zero, 
+<                 Zero
+<             })
+<         }
+<     }
+---
+>         0x03, 
+>         0x03, 
+>         Zero, 
+>         Zero
+>     })
