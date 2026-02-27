@@ -21,7 +21,9 @@
     extraHwdb = ''
       # Apply to AT keyboards (internal laptop keyboard via atkbd/i8042)
       evdev:atkbd:*
-        KEYBOARD_KEY_e076=fn
+        KEYBOARD_KEY_e072=computer  # Media
+        KEYBOARD_KEY_e076=hp  # FN key
+        KEYBOARD_KEY_e077=hp  # WMI
     '';
   };
 

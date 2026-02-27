@@ -44,7 +44,7 @@ let
       meta = with lib; {
         description = "WMI hotkey driver for Xiaomi RedmiBook 15 series";
         platforms = platforms.linux;
-        license = licenses.gpl3;
+        license = licenses.gpl2;
         homepage = "https://github.com/vrolife/modern_laptop";
         broken = false;
         maintainers = with lib.maintainers; [ abkein ];
