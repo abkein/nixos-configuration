@@ -425,6 +425,11 @@
         "flakes"
       ];
       builders-use-substitutes = true;
+      cores = 8;
+      connect-timeout = 5;
+      download-attempts = 1;
+      stalled-download-timeout = 15;  # instead of 300
+      timeout = 60;                   # optional hard cap
       # substituters = [
       #  "https://cache.garnix.io"
       # ];
