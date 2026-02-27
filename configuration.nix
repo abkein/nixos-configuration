@@ -378,8 +378,9 @@
         corefonts
         vista-fonts
         cm_unicode
-      ]
-      ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+        nerd-fonts.symbols-only
+      ];
+      # ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
     fontDir = {
       enable = true;
@@ -390,16 +391,20 @@
       enable = true;
       defaultFonts = {
         monospace = [
-          "DejaVu Sans Mono"
+          "JetBrains Mono"
+          "Symbols Nerd Font Mono"
           "Noto Color Emoji"
+          "DejaVu Sans Mono"
         ];
         sansSerif = [
-          "DejaVu Sans"
+          "Noto Sans"
           "Noto Color Emoji"
+          "DejaVu Sans"
         ];
         serif = [
-          "DejaVu Serif"
+          "Noto Serif"
           "Noto Color Emoji"
+          "DejaVu Serif"
         ];
         emoji = [ "Noto Color Emoji" ];
       };
