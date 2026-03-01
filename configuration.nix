@@ -435,7 +435,8 @@
       download-attempts = 1;
       stalled-download-timeout = 15; # instead of 300
       substituters = [
-       "https://cache.garnix.io"
+        "https://cache.nixos.org?priority=50"
+        "https://cache.garnix.io?priority=200"
       ];
       trusted-public-keys = [
        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
