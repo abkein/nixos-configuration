@@ -15,10 +15,6 @@ in
       source = ../confs/python/pythonrc.py;
       target = "python/pythonrc";
     };
-    pypackages_overlay = generic // {
-      source = ../overlays/pypackages.nix;
-      target = "nixpkgs/overlays/pypackages.nix";
-    };
     networkmanager_dmenu = generic // {
       source = ../confs/networkmanager_dmenu.ini;
       target = "networkmanager-dmenu/config.ini";
