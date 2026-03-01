@@ -1,15 +1,19 @@
 {
   enable = true;
   settings = {
-    preload = [
-      "~/Pictures/Wallpapers/sr-71-red_copy.png"
-      "~/Pictures/Wallpapers/sr-71-black-side_copy.jpg"
-      "~/Pictures/Wallpapers/rocket_copy.png"
-    ];
     wallpaper = [
-      "eDP-1, ~/Pictures/Wallpapers/rocket_copy.png"
-      "DP-6, ~/Pictures/Wallpapers/sr-71-black-side_copy.jpg"
-      "DP-9, ~/Pictures/Wallpapers/sr-71-red_copy.png"
+      {
+        monitor = "eDP-1";
+        path = "~/Pictures/Wallpapers/rocket_copy.png";
+      }
+      {
+        monitor = "DP-6";
+        path = "~/Pictures/Wallpapers/sr-71-black-side_copy.jpg";
+      }
+      {
+        monitor = "DP-9";
+        path = "~/Pictures/Wallpapers/sr-71-red_copy.png";
+      }
     ];
   };
 }

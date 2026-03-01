@@ -2,16 +2,7 @@
   enable = true;
   xwayland.enable = true;
   settings = {
-    "$SLURP_COMMAND"="\"$(slurp -d -c f8daeeBB -b 55405044 -s 00000000)\"";
-
-    # source= [
-    #   /home/kein/.config/hypr/hyprland/env.conf
-    #   /home/kein/.config/hypr/hyprland/execs.conf
-    #   /home/kein/.config/hypr/hyprland/general.conf
-    #   /home/kein/.config/hypr/hyprland/rules.conf
-    #   /home/kein/.config/hypr/hyprland/colors.conf
-    #   /home/kein/.config/hypr/hyprland/keybinds.conf
-    # ];
+    "$SLURP_COMMAND" = "\"$(slurp -d -c f8daeeBB -b 55405044 -s 00000000)\"";
 
     monitor = [
       "eDP-1,    3200x2000@120,   0x0, 1.6"
@@ -39,20 +30,20 @@
     };
 
     input = {
-        kb_layout = "us,ru";
-        kb_options = "grp:alt_shift_toggle, compose:ralt";
-        numlock_by_default = true;
-        repeat_delay = 250;
-        repeat_rate = 35;
+      kb_layout = "us,ru";
+      kb_options = "grp:alt_shift_toggle, compose:ralt";
+      numlock_by_default = true;
+      repeat_delay = 250;
+      repeat_rate = 35;
 
-        touchpad = {
-            natural_scroll = "yes";
-            disable_while_typing = true;
-            clickfinger_behavior = true;
-            scroll_factor = 0.5;
-        };
-        special_fallthrough = true;
-        follow_mouse = 1;
+      touchpad = {
+        natural_scroll = "yes";
+        disable_while_typing = true;
+        clickfinger_behavior = true;
+        scroll_factor = 0.5;
+      };
+      special_fallthrough = true;
+      follow_mouse = 1;
     };
 
     binds = {
@@ -100,24 +91,24 @@
       rounding = 10;
 
       blur = {
-          enabled = true;
-          xray = true;
-          special = false;
-          new_optimizations = true;
-          size = 7;
-          passes = 4;
-          brightness = 1;
-          noise = 0.01;
-          contrast = 1;
-          popups = true;
-          popups_ignorealpha = 0.6;
+        enabled = true;
+        xray = true;
+        special = false;
+        new_optimizations = true;
+        size = 7;
+        passes = 4;
+        brightness = 1;
+        noise = 0.01;
+        contrast = 1;
+        popups = true;
+        popups_ignorealpha = 0.6;
       };
 
       shadow = {
-          range = 20;
-          offset = "0 2";
-          render_power = 3;
-          color = "rgba(0000001A)";
+        range = 20;
+        offset = "0 2";
+        render_power = 3;
+        color = "rgba(0000001A)";
       };
 
       dim_inactive = false;
@@ -170,7 +161,7 @@
 
       disable_hyprland_logo = true;
       force_default_wallpaper = 0;
-      new_window_takes_over_fullscreen = 2;
+      on_focus_under_fullscreen = 2;
       # enable_hyprcursor = true
 
       background_color = "rgba(1f1a1dFF)";
@@ -182,40 +173,31 @@
 
     plugin = {
       hyprbars = {
-          # Honestly idk if it works like css, but well, why not
-          bar_text_font = "Rubik, Geist, AR One Sans, Reddit Sans, Inter, Roboto, Ubuntu, Noto Sans, sans-serif";
-          bar_height = 30;
-          bar_padding = 10;
-          bar_button_padding = 5;
-          bar_precedence_over_border = true;
-          bar_part_of_window = true;
+        # Honestly idk if it works like css, but well, why not
+        bar_text_font = "Rubik, Geist, AR One Sans, Reddit Sans, Inter, Roboto, Ubuntu, Noto Sans, sans-serif";
+        bar_height = 30;
+        bar_padding = 10;
+        bar_button_padding = 5;
+        bar_precedence_over_border = true;
+        bar_part_of_window = true;
 
-          bar_color = "rgba(120F11FF)";
-          "col.text" = "rgba(eae0e4FF)";
+        bar_color = "rgba(120F11FF)";
+        "col.text" = "rgba(eae0e4FF)";
 
-          # example buttons (R -> L)
-          hyprbars-button = [
-            # "color, size, on-click"
-            "rgb(eae0e4), 13, 󰖭, hyprctl dispatch killactive"
-            "rgb(eae0e4), 13, 󰖯, hyprctl dispatch fullscreen 1"
-            "rgb(eae0e4), 13, 󰖰, hyprctl dispatch movetoworkspacesilent special"
-          ];
+        # example buttons (R -> L)
+        hyprbars-button = [
+          # "color, size, on-click"
+          "rgb(eae0e4), 13, 󰖭, hyprctl dispatch killactive"
+          "rgb(eae0e4), 13, 󰖯, hyprctl dispatch fullscreen 1"
+          "rgb(eae0e4), 13, 󰖰, hyprctl dispatch movetoworkspacesilent special"
+        ];
       };
     };
 
     exec-once = [
       # Bar, wallpaper
-      #"ags"
       "waybar"
-      # "hyprpaper"
-      # Core components (authentication, lock screen, notification daemon)
-      # "dunst -conf $XDG_CONFIG_HOME/dunst/dunstrc"
-      # "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-      # "hypridle"
-      # "dbus-update-activation-environment --all"
-      # "sleep 1 && dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       "keepassxc"
-      # Clipboard: history
       "wl-paste --type text --watch cliphist store"
       "wl-paste --type image --watch cliphist store"
       # Cursor
@@ -248,7 +230,7 @@
       "Control+Shift+Alt+Super, Delete, exec, systemctl poweroff || loginctl poweroff"
       # Screenshot, Record, OCR, Color picker, Clipboard history
       #screenshot
-      ",Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
+      "Super,Print, exec, grim -g \"$(slurp)\" - | swappy -f -"
       "Super, S, exec, grimblast --freeze --notify -e 1500 --openparentdir copysave area"
       "Super+Shift, S, exec, grimblast --freeze --notify -e 1500 --openparentdir copysave output"
       "Control+Alt, O, exec, grim -g \"$(slurp)\" - | tesseract - - | wl-copy"
@@ -276,27 +258,6 @@
 
       # App launcher
       "Control+Super, Slash, exec, pkill anyrun || anyrun"
-      # ##################################### AGS keybinds #####################################
-      # "Control+Super, T, exec, ~/.config/ags/scripts/color_generation/switchwall.sh"
-      # "Control+Alt, Slash, exec, ags run-js 'cycleMode();'"
-      # "Super, Tab, exec, ags -t 'overview'"
-      # "Super, Slash, exec, for ((i=0; i<$(xrandr --listmonitors | grep -c 'Monitor'); i++)); do ags -t \"cheatsheet\"\"$i\"; done"
-      # "Super, B, exec, ags -t 'sideleft'"
-      # "Super, A, exec, ags -t 'sideleft'"
-      # "Super, O, exec, ags -t 'sideleft'"
-      # "Super, N, exec, ags -t 'sideright'"
-      # "Super, M, exec, ags run-js 'openMusicControls.value = (!mpris.getPlayer() ? false : !openMusicControls.value);'"
-      # "Super, Comma, exec, ags run-js 'openColorScheme.value = true; Utils.timeout(2000, () => openColorScheme.value = false);'"
-      # "Super, K, exec, for ((i=0; i<$(xrandr --listmonitors | grep -c 'Monitor'); i++)); do ags -t \"osk\"\"$i\"; done"
-      # "Control+Alt, Delete, exec, ags -t 'session'"
-      # ##################################### Plugins #########################################
-      # "Control+Super, P, exec, hyprctl plugin load \"~/.config/hypr/plugins/droidbars.so\""
-      # "Control+Super, O, exec, hyprctl plugin unload \"~/.config/hypr/plugins/droidbars.so\""
-      # Testing
-      # "SuperAlt, f12, exec, notify-send "Hyprland version: $(hyprctl version | head -2 | tail -1 | cut -f2 -d ' ')" "owo" -a 'Hyprland keybind'"
-      # "Super+Alt, f12, exec, notify-send "Millis since epoch" "$(date +%s%N | cut -b1-13)" -a 'Hyprland keybind'"
-      # "Super+Alt, f12, exec, notify-send 'Test notification' \"Here's a really long message to test truncation and wrapping\\nYou can middle click or flick this notification to dismiss it!\" -a 'Shell' -A \"Test1=I got it!\" -A \"Test2=Another action\" -t 5000"
-      # "Super+Alt, Equal, exec, notify-send \"Urgent notification\" \"Ah hell no\" -u critical -a 'Hyprland keybind'"
       # ########################### Keybinds for Hyprland ############################
       # Swap windows
       "Super+Shift, left, movewindow, l"
@@ -405,7 +366,6 @@
       ", XF86MonBrightnessUp, exec, brightnessctl set '12.75+'"
       ", XF86MonBrightnessDown, exec, brightnessctl set '12.75-'"
 
-
       # Arrow keys with IJKL
       "Alt, I, exec, ydotool key 103:1 103:0"
       "Alt, K, exec, ydotool key 108:1 108:0"
@@ -413,11 +373,10 @@
       "Alt, L, exec, ydotool key 106:1 106:0"
     ];
 
-
     binde = [
-    # Window split ratio
-    "Super, Minus, splitratio, -0.1"
-    "Super, Equal, splitratio, 0.1"
+      # Window split ratio
+      "Super, Minus, splitratio, -0.1"
+      "Super, Equal, splitratio, 0.1"
     ];
 
     bindm = [
@@ -435,129 +394,144 @@
       "10,monitor:eDP-1"
     ];
 
-    windowrulev2 = [
-      "bordercolor rgba(ffabf1AA) rgba(ffabf177),pinned:1"
-      # ######## Window rules ########
-      "float, class:system-config-printer"
-      "float, class:com.ayugram"
-      "float, class:org.gnome.SimpleScan"
-      # "float, title:^Rename\s\".*\"$"
-      "float, title:\s+Rename\s+\".*\"\s+"
-      "float, title:Extension: (Zotero Connector) - Zotero Item Selector — Mozilla Firefox"
-      "float, class:kitty_info"
-      "float, class:.blueman-manager-wrapped"
-      "float, class:thunderbird,initialTitle:Calendar Reminders"
-      "float, class:thunderbird,title:An error has occurred"
-      "float, title:SVG Input"
-      "float, class:org.inkscape.Inkscape"  # Float all inkscape windows
-      "tile, title:^(.*?\s+-\s+Inkscape)$"  # But keep main window tiled
-      "float, title:Extensions"
-      "float, title:Password Required - Betterbird"
-      "float, title:Progress"
-      "float, title:Plugins Manager"
-      "float, class:org.gnome.font-viewer"
-      "float, class:latexclip"
-      "float, title: png bitmap image import"
-      "opacity 0.9 0.8, class:obsidian"
-      "opacity 0.9 0.8, class:^(firefox)$"
-      "opacity 0.9 0.8, class:thunar"
-      "float, title:^Password Required - Mozilla Firefox$"
-      "workspace 2, class:^(firefox)$"
-      "workspace 10, class:^org.keepassxc.KeePassXC$"
-      "opacity 0.8 0.7, class:^(foot)$"
-      "opacity 0.7 0.7, class:^(kitty)$"
-      "opacity 0.8 0.6, class:^(com.mitchellh.ghostty)$"
-      "opacity 0.7 0.6, class:^([Dd]iscord)"
-      "opacity 0.95 0.8, class:^([Cc]ode)"
-      "opacity 0.9 0.8, class:^([Nn]emo)"
-      "opacity 0.9 0.7, title:^Extract$"
-      "opacity 0.9 0.7, title:^Authenticate$"
-      "float, title:EPS Input"
-      "float, title:KeePassXC -  Access Request"
-      "float, class:evince"
-      "float, class:org.pipewire.Helvum"
-      "float, class:com.github.wwmm.easyeffects"
-      "float, class:org.rncbc.qpwgraph"
-      "float, title:File Operation Progress"
-      "float, class:thunderbird, title:Alert"
-      "size 980 890, class:evince"
-      #"move 2900 70, class:evince"
-      "size 800 800, class:swayimg"
-      "float, class:swayimg"
-      "float, title:KeePassXC - Passkey credentials"
-      "float, class:org.telegram.desktop$"
-      "float, class:yubico.org.ykman-gui$"
-      "float, title:.+[Pp]references$"
-      "float, title:.+[Pp]references$"
-      "float, title:[Pp]roperties$"
-      "float, title:Extract$"
-      "float, title:File Roller$"
-      "float, title:nwg-look"
-      "float, class:^timeshift-gtk$"
-      "tile,class:(wps)"
-      "tile,class:(dev.warp.Warp)"
-      "float, class:^([Pp]avucontrol)"
-      "opacity 0.9 0.9, class:^([Pp]avucontrol)"
-
-    ];
-
     windowrule = [
-      # "noblur,.*"
-      # "float, ^(blueberry.py)$"
-      # "float, ^(steam)$"
-      # "float, ^(guifetch)$ # FlafyDev/guifetch"
-      # Dialogs
-      "float,title:^(Open File)(.*)$"
-      "float,title:^(Select a File)(.*)$"
-      "float,title:^(Choose wallpaper)(.*)$"
-      "float,title:^(Open Folder)(.*)$"
-      "float,title:^(Save As)(.*)$"
-      "float,title:^(Library)(.*)$"
+      # previously: bordercolor ...,pinned:1
+      "match:pin true, border_color rgba(ffabf1AA) rgba(ffabf177)"
 
+      # floats
+      "match:class system-config-printer, float on"
+      "match:class com.ayugram, float on"
+      "match:class org.gnome.SimpleScan, float on"
+      ''match:title \s+Rename\s+\".*\"\s+, float on''
+      ''match:title "Extension: (Zotero Connector) - Zotero Item Selector — Mozilla Firefox", float on''
+      "match:class kitty_info, float on"
+      "match:class .*blueman-manager-wrapped.*, float on"
+      ''match:class thunderbird, match:initial_title "Calendar Reminders", float on''
+      ''match:class thunderbird, match:title "An error has occurred", float on''
+      ''match:title "SVG Input", float on''
+
+      # inkscape: float everything, but keep the main window tiled
+      "match:class org.inkscape.Inkscape, float on"
+      ''match:title ^(.*?\s+-\s+Inkscape)$, tile on''
+      ''match:title "Extensions", float on''
+
+      ''match:title "Password Required - Betterbird", float on''
+      ''match:title "Progress", float on''
+      ''match:title "Plugins Manager", float on''
+      "match:class org.gnome.font-viewer, float on"
+      "match:class latexclip, float on"
+      ''match:title " png bitmap image import", float on''
+      "match:title ^Password Required - Mozilla Firefox$, float on"
+
+      ''match:title "EPS Input", float on''
+      ''match:title "KeePassXC -  Access Request", float on''
+      "match:class evince, float on"
+      "match:class org.pipewire.Helvum, float on"
+      "match:class com.github.wwmm.easyeffects, float on"
+      "match:class org.rncbc.qpwgraph, float on"
+      ''match:title "File Operation Progress", float on''
+      ''match:class thunderbird, match:title "Alert", float on''
+      "match:class swayimg, float on"
+      ''match:title "KeePassXC - Passkey credentials", float on''
+      "match:class org.telegram.desktop$, float on"
+      "match:class yubico.org.ykman-gui$, float on"
+      "match:title .+[Pp]references$, float on"
+      "match:title [Pp]roperties$, float on"
+      "match:title Extract$, float on"
+      "match:title File Roller$, float on"
+      "match:title nwg-look, float on"
+      "match:class ^timeshift-gtk$, float on"
+      "match:class (wps), tile on"
+      "match:class (dev.warp.Warp), tile on"
+      "match:class ^([Pp]avucontrol), float on"
+
+      # sizes (static)
+      "match:class evince, size 980 890"
+      "match:class swayimg, size 800 800"
+
+      # opacities (dynamic)
+      "match:class obsidian, opacity 0.9 0.8"
+      "match:class ^(firefox)$, opacity 0.9 0.8"
+      "match:class thunar, opacity 0.9 0.8"
+      "match:class ^(foot)$, opacity 0.8 0.7"
+      "match:class ^(kitty)$, opacity 0.7 0.7"
+      "match:class ^(com.mitchellh.ghostty)$, opacity 0.8 0.6"
+      "match:class ^([Dd]iscord), opacity 0.7 0.6"
+      "match:class ^([Cc]ode), opacity 0.95 0.8"
+      "match:class ^([Nn]emo), opacity 0.9 0.8"
+      "match:title ^Extract$, opacity 0.9 0.7"
+      "match:title ^Authenticate$, opacity 0.9 0.7"
+      "match:class ^([Pp]avucontrol), opacity 0.9 0.9"
+
+      # workspace assignment
+      "match:class ^(firefox)$, workspace 2"
+      "match:class ^org.keepassxc.KeePassXC$, workspace 10"
+
+      # your old windowrule (v1) dialog floats
+      "match:title ^(Open File)(.*)$, float on"
+      "match:title ^(Select a File)(.*)$, float on"
+      "match:title ^(Choose wallpaper)(.*)$, float on"
+      "match:title ^(Open Folder)(.*)$, float on"
+      "match:title ^(Save As)(.*)$, float on"
+      "match:title ^(Library)(.*)$, float on"
     ];
 
     layerrule = [
-      # ######## Layer rules ########
-      "xray 1, .*"
-      #"= noanim, .*"
-      "noanim, walker"
-      "noanim, selection"
-      "noanim, overview"
-      "noanim, anyrun"
-      "noanim, sideleft"
-      "noanim, sideright"
-      "noanim, indicator.*"
-      "noanim, osk"
-      "noanim, noanim"
-      "blur, gtk-layer-shell"
-      "ignorezero, gtk-layer-shell"
-      "blur, launcher"
-      "ignorealpha 0.5, launcher"
-      "blur, notifications"
-      "ignorealpha 0.69, notifications"
+      "match:namespace .*, xray 1"
+
+      # no animations
+      "match:namespace walker, no_anim on"
+      "match:namespace selection, no_anim on"
+      "match:namespace overview, no_anim on"
+      "match:namespace anyrun, no_anim on"
+      "match:namespace sideleft, no_anim on"
+      "match:namespace sideright, no_anim on"
+      "match:namespace indicator.*, no_anim on"
+      "match:namespace osk, no_anim on"
+      "match:namespace noanim, no_anim on"
+
+      # generic layer-shell
+      "match:namespace gtk-layer-shell, blur on"
+      "match:namespace gtk-layer-shell, ignore_alpha 0"
+
+      "match:namespace launcher, blur on"
+      "match:namespace launcher, ignore_alpha 0.5"
+
+      "match:namespace notifications, blur on"
+      "match:namespace notifications, ignore_alpha 0.69"
 
       # ags
-      "blur, session"
-      "blur, bar"
-      "ignorealpha 0.6, bar"
-      "blur, corner.*"
-      "ignorealpha 0.6, corner.*"
-      "blur, dock"
-      "ignorealpha 0.6, dock"
-      "blur, indicator.*"
-      "ignorealpha 0.6, indicator.*"
-      "blur, overview"
-      "ignorealpha 0.6, overview"
-      "blur, cheatsheet"
-      "ignorealpha 0.6, cheatsheet"
-      "blur, sideright"
-      "ignorealpha 0.6, sideright"
-      "blur, sideleft"
-      "ignorealpha 0.6, sideleft"
-      "blur, indicator*"
-      "ignorealpha 0.6, indicator*"
-      "blur, osk"
-      "ignorealpha 0.6, osk"
+      "match:namespace session, blur on"
+
+      "match:namespace bar, blur on"
+      "match:namespace bar, ignore_alpha 0.6"
+
+      "match:namespace corner.*, blur on"
+      "match:namespace corner.*, ignore_alpha 0.6"
+
+      "match:namespace dock, blur on"
+      "match:namespace dock, ignore_alpha 0.6"
+
+      "match:namespace indicator.*, blur on"
+      "match:namespace indicator.*, ignore_alpha 0.6"
+
+      "match:namespace overview, blur on"
+      "match:namespace overview, ignore_alpha 0.6"
+
+      "match:namespace cheatsheet, blur on"
+      "match:namespace cheatsheet, ignore_alpha 0.6"
+
+      "match:namespace sideright, blur on"
+      "match:namespace sideright, ignore_alpha 0.6"
+
+      "match:namespace sideleft, blur on"
+      "match:namespace sideleft, ignore_alpha 0.6"
+
+      "match:namespace indicator*, blur on"
+      "match:namespace indicator*, ignore_alpha 0.6"
+
+      "match:namespace osk, blur on"
+      "match:namespace osk, ignore_alpha 0.6"
     ];
 
   };
