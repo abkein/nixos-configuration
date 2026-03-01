@@ -8,7 +8,11 @@
   pkgs,
   ...
 }:
-
+let
+  httpp = "http://127.0.0.1:1081";
+  httpsp = "http://127.0.0.1:1081";
+  np = "localhost,127.0.0.1,::1";
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -63,7 +67,28 @@
       ];
     };
     # modemmanager.enable = true;
+    proxy = {
+      default = httpp;
+      httpProxy = httpp;
+      httpsProxy = httpsp;
+      noProxy = np;
+    };
+    nftables = {
+      enable = true;
+    };
+    firewall = {
+      enable = true;
+    };
   };
+
+  # systemd.services.nix-daemon.serviceConfig.Environment = [
+  #   "http_proxy=http://127.0.0.1:1081"
+  #   "https_proxy=http://127.0.0.1:1081"
+  #   "no_proxy=localhost,127.0.0.1,::1"
+  #   "HTTP_PROXY=http://127.0.0.1:1081"
+  #   "HTTPS_PROXY=http://127.0.0.1:1081"
+  #   "NO_PROXY=localhost,127.0.0.1,::1"
+  # ];
 
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
@@ -429,10 +454,11 @@
         "nix-command"
         "flakes"
       ];
+      http2 = false;
       builders-use-substitutes = true;
       cores = 8;
       connect-timeout = 5;
-      download-attempts = 1;
+      download-attempts = 2;
       stalled-download-timeout = 15; # instead of 300
       substituters = [
         "https://cache.nixos.org?priority=50"
