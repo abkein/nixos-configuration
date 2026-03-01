@@ -15,15 +15,15 @@
     ./hardware-modules/acpi-patch.nix
   ];
 
-  services.udev = {
-    extraHwdb = ''
-      # Apply to AT keyboards (internal laptop keyboard via atkbd/i8042)
-      evdev:atkbd:*
-       KEYBOARD_KEY_e072=226    # KEY_MEDIA
-       KEYBOARD_KEY_e076=0x1d0  # KEY_FN
-       KEYBOARD_KEY_e077=211    # KEY_HP
-    '';
-  };
+  # services.udev = {
+  #   extraHwdb = ''
+  #     # Apply to AT keyboards (internal laptop keyboard via atkbd/i8042)
+  #     evdev:atkbd:*
+  #      KEYBOARD_KEY_e076=0x1d0  # KEY_FN
+  #      KEYBOARD_KEY_e072=226    # KEY_MEDIA
+  #      KEYBOARD_KEY_e077=211    # KEY_HP
+  #   '';
+  # };
 
   boot = {
     initrd = {
@@ -62,13 +62,13 @@
   #   };
   # };
 
-  swapDevices = [ { device = "/dev/disk/by-uuid/94513675-0e3a-4fc6-95f5-b28663fe1aa9"; } ];
+  # swapDevices = [ { device = "/dev/disk/by-uuid/94513675-0e3a-4fc6-95f5-b28663fe1aa9"; } ];
   # boot.resumeDevice = "/dev/disk/by-uuid/94513675-0e3a-4fc6-95f5-b28663fe1aa9";
   systemd = {
-    sleep.extraConfig = ''
-      HibernateDelaySec=1h
-      SuspendState=mem
-    '';
+    # sleep.extraConfig = ''
+    #   HibernateDelaySec=1h
+    #   SuspendState=mem
+    # '';
 
     oomd = {
       enable = true;
