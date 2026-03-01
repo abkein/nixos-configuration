@@ -21,6 +21,7 @@ in
     # ./home-modules/thunderbird.nix
     ./home-modules/dot-config-files.nix
     ./home-modules/files.nix
+    ./home-modules/waybar.nix
     ./shadow/ssh.nix
   ];
 
@@ -236,7 +237,6 @@ in
       historySize = 999999;
     };
     zsh = import ./home-modules/zsh.nix config;
-    waybar = import ./home-modules/waybar.nix;
     wofi = import ./home-modules/wofi.nix;
     java.enable = true;
 
