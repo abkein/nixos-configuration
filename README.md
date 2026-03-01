@@ -3,4 +3,4 @@ Hello!
 TODO:
  - Enable ocrmypdf
  - Enable electrum
- - Enbale jetbrains-mono
+ - Enbale jetbrains-mono -- overlay
