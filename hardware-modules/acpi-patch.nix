@@ -42,6 +42,7 @@ in
 {
   boot.initrd.prepend = [ "${acpiOverride}" ];
 
+  # boot.kernelParams = [ "mem_sleep_default=deep" ];
   # Optional, for debugging ACPI override load messages:
   # boot.kernelParams = [
   #   "acpi.debug_level=0x2"

@@ -40,7 +40,8 @@ static int redmibook_wmi_probe(struct wmi_device *wdev, const void *context)
     set_bit(KEY_PROG3, data->input_dev->keybit);
     set_bit(KEY_PROG4, data->input_dev->keybit);
     set_bit(KEY_FN_F10, data->input_dev->keybit);
-    set_bit(KEY_MEDIA, data->input_dev->keybit);
+    // set_bit(KEY_MEDIA, data->input_dev->keybit);
+    set_bit(KEY_SYSRQ, data->input_dev->keybit);
     return input_register_device(data->input_dev);
 }
 
@@ -52,13 +53,13 @@ static void redmibook_wmi_notify(struct wmi_device *wdev, union acpi_object *obj
     u8 code = 0;
     u8 value = 0;
 
-    if (wdev == NULL) 
+    if (wdev == NULL)
         return;
 
     data = dev_get_drvdata(&wdev->dev);
     if (data == NULL)
         return;
-    
+
     if (dump_event_data) {
         pr_info("DEBUG: event data: ");
         switch (obj->type) {
@@ -134,13 +135,15 @@ static void redmibook_wmi_notify(struct wmi_device *wdev, union acpi_object *obj
         input_event(data->input_dev, EV_MSC, MSC_RAW, value);
         input_report_key(data->input_dev, KEY_FN_F10, 0);
         input_sync(data->input_dev);
-        break;    
+        break;
     case 0x18: // <Xiao Ai> Down
-        input_report_key(data->input_dev, KEY_MEDIA, 1);
+        // input_report_key(data->input_dev, KEY_MEDIA, 1);
+        input_report_key(data->input_dev, KEY_SYSRQ, 1);
         input_sync(data->input_dev);
         break;
     case 0x19: // <Xiao Ai> Up
-        input_report_key(data->input_dev, KEY_MEDIA, 0);
+        // input_report_key(data->input_dev, KEY_MEDIA, 0);
+        input_report_key(data->input_dev, KEY_SYSRQ, 0);
         input_sync(data->input_dev);
         break;
     }
@@ -150,13 +153,13 @@ static void redmibook_wmi_remove(struct wmi_device *wdev)
 {
     struct redmibook_wmi_data *data = NULL;
 
-    if (wdev == NULL) 
+    if (wdev == NULL)
         return;
 
     data = dev_get_drvdata(&wdev->dev);
     if (data == NULL)
         return;
-    
+
     if (data->input_dev != NULL) {
         input_unregister_device(data->input_dev);
         data->input_dev = NULL;
