@@ -105,6 +105,7 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             backupFileExtension = "hm-backup";
+            overwriteBackup = true;
             sharedModules = [
               sops-nix.homeManagerModules.sops
               agenix.homeManagerModules.default
