@@ -89,7 +89,7 @@
     };
     tlp = {
       enable = true;
-      # pd.enable = true;
+      pd.enable = true;
     };
     printing = {
       enable = true;
@@ -369,7 +369,7 @@
     enableDefaultPackages = true;
     packages = with pkgs; [
       lmodern
-      # jetbrains-mono
+      jetbrains-mono
       noto-fonts
       noto-fonts-color-emoji
       noto-fonts-lgc-plus
@@ -396,20 +396,20 @@
       useEmbeddedBitmaps = true;
       defaultFonts = {
         monospace = [
+          "DejaVu Sans Mono"
           "JetBrains Mono"
           "Symbols Nerd Font Mono"
           "Noto Color Emoji"
-          "DejaVu Sans Mono"
         ];
         sansSerif = [
+          "DejaVu Sans"
           "Noto Sans"
           "Noto Color Emoji"
-          "DejaVu Sans"
         ];
         serif = [
+          "DejaVu Serif"
           "Noto Serif"
           "Noto Color Emoji"
-          "DejaVu Serif"
         ];
         emoji = [ "Noto Color Emoji" ];
       };
