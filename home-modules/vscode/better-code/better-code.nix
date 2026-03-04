@@ -251,7 +251,7 @@ in
               nix = mkOption {
                 default = {
                   method = null;
-                  flakeOutput = null;
+                  flakePath = null;
                   launchInside = false;
                   producesWorkspace = false;
                   preinit = false;
@@ -268,11 +268,11 @@ in
                       example = "shell";
                     };
 
-                    flakeOutput = mkOption {
+                    flakePath = mkOption {
                       type = types.nullOr types.str;
-                      description = "Name of the flake output (that goes after # in `nix develop /path/to/flake#OutputName`) or `null` (default, uses default output).";
+                      description = "Path to the flake (relative to the workspace folder, can include output name) or `null` (uses the workspace folder).";
                       default = null;
-                      example = "compilers";
+                      example = "~/devShells#myCPPShell";
                     };
 
                     launchInside = mkOption {
@@ -455,9 +455,9 @@ in
                     "nix-shell ${spec.folder}/shell.nix --command '${command}'"
                   else if nixSpec.method == "flake" then
                     let
-                      output = if nixSpec.flakeOutput != null then "#${nixSpec.flakeOutput}" else "";
+                      resolvedFlakePath = if nixSpec.flakePath != null then nixSpec.flakePath else spec.folder;
                     in
-                    "nix develop ${spec.folder}${output} ${inputOverrides} --command bash -c '${command}'"
+                    "nix develop ${resolvedFlakePath} ${inputOverrides} --command bash -c '${command}'"
                   else
                     "";
                 # Execute command 'exit' inside the environment launched inside the terminal emulator.

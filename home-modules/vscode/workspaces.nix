@@ -54,9 +54,6 @@ in
           method = "flake";
           launchInside = true;
           producesWorkspace = true;
-          overrideInputs = {
-            nixpkgs = "github:NixOS/nixpkgs/${inputs.nixpkgs.sourceInfo.rev}";
-          };
         };
       in
       {
@@ -175,7 +172,12 @@ in
         LAMMPS = {
           folder = "${config.home.homeDirectory}/repos/mylammps";
           profile = "cpp";
-          nix = basicNix;
+          nix = basicNix // { flakePath = "/home/kein/devShells/lammps"; };
+        };
+        MDcraft = {
+          folder = "${config.home.homeDirectory}/repos/MDcraft";
+          profile = "cpp";
+          nix = basicNix // { flakePath = "/home/kein/devShells/MDcraft"; };
         };
         cfproc = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/python/cfproc";

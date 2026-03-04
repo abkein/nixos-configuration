@@ -12,6 +12,8 @@
   "C_Cpp.experimentalFeatures" = "enabled";
   "C_Cpp.workspaceParsingPriority" = "high";
   "C_Cpp.autocompleteAddParentheses" = true;
+  "C_Cpp.exclusionPolicy" = "checkFilesAndFolders";
+  "C_Cpp.intelliSenseCachePath" = "$XDG_CACHE_HOME/vscode-cpptools/";
   # "C_Cpp.default.mergeConfigurations" = true;
   "C_Cpp.default.cppStandard" = "c++20";
   "C_Cpp.default.configurationProvider" = "ms-vscode.cmake-tools";

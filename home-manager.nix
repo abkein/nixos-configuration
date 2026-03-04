@@ -11,17 +11,7 @@ let
 in
 {
   imports = [
-    #./home-modules/vscode/vscode.nix
-    ./home-modules/vscode/better-code/better-code.nix
-    ./home-modules/vscode/workspaces.nix
-    ./home-modules/gnupg.nix
-    ./home-modules/syncthing.nix
-    ./home-modules/dolphin.nix
-    ./home-modules/firefox.nix
-    # ./home-modules/thunderbird.nix
-    ./home-modules/dot-config-files.nix
-    ./home-modules/files.nix
-    ./home-modules/waybar.nix
+    ./home-modules/home-modules.nix
     ./shadow/ssh.nix
   ];
 
@@ -220,6 +210,7 @@ in
       silent = false;
       enableBashIntegration = true;
       enableZshIntegration = true;
+      nix-direnv.enable = true;
     };
     eza = {
       enable = true;
@@ -236,7 +227,6 @@ in
       historyFile = "${config.xdg.stateHome}/bash/history";
       historySize = 999999;
     };
-    zsh = import ./home-modules/zsh.nix config;
     wofi = import ./home-modules/wofi.nix;
     java.enable = true;
 

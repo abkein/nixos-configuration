@@ -67,12 +67,12 @@ in
       ];
     };
     # modemmanager.enable = true;
-    proxy = {
-      default = httpp;
-      httpProxy = httpp;
-      httpsProxy = httpsp;
-      noProxy = np;
-    };
+    # proxy = {
+    #   default = httpp;
+    #   httpProxy = httpp;
+    #   httpsProxy = httpsp;
+    #   noProxy = np;
+    # };
     nftables = {
       enable = true;
     };
@@ -310,6 +310,7 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment = {
+    pathsToLink = [ "/share/zsh" ];  # for ZSH autocompletion for system packages
     sessionVariables.NIXOS_OZONE_WL = "1";
     etc = import ./system-modules/etc.nix {
       lib = lib;
@@ -454,7 +455,7 @@ in
         "nix-command"
         "flakes"
       ];
-      http2 = false;
+      # http2 = false;
       builders-use-substitutes = true;
       cores = 8;
       connect-timeout = 5;
@@ -462,7 +463,7 @@ in
       stalled-download-timeout = 15; # instead of 300
       substituters = [
         "https://cache.nixos.org?priority=50"
-        "https://cache.garnix.io?priority=200"
+        # "https://cache.garnix.io?priority=200"
       ];
       trusted-public-keys = [
        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
