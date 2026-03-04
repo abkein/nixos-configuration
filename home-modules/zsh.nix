@@ -1,4 +1,4 @@
-{ config }:
+{ config, ... }:
 {
   programs.zsh = {
     enable = true;
@@ -20,7 +20,7 @@
       extended = true;
       size = 9999999;
       save = 9999999;
-      path = "${config.xdg.dotDir}/.zsh_history";
+      path = "${config.xdg.stateHome}/.zsh_history";
       expireDuplicatesFirst = true;
       ignoreAllDups = true;
     };
