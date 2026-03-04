@@ -12,7 +12,18 @@
       ];
     };
     enableVteIntegration = true;
-    syntaxHighlighting.enable = true;
+    syntaxHighlighting = {
+      enable = true;
+      highlighters = [
+        "main"
+        "brackets"
+        "pattern"  # add conf
+        "regexp"  # add conf
+        "cursor"
+        "root"
+        "line"
+      ];
+    };
 
     dotDir = "${config.xdg.configHome}/zsh";
     history = {

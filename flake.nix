@@ -90,15 +90,6 @@
               # agenix-rekey.overlays.default
               (import ./overlays/pypackages.nix)
               (import ./overlays/generic.nix)
-              (final: prev: {
-                pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-                  (python-final: python-prev: {
-                    picosvg = python-prev.picosvg.overridePythonAttrs (oldAttrs: {
-                      doCheck = false;
-                    });
-                  })
-                ];
-              })
             ];
           };
           home-manager = {
