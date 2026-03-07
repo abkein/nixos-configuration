@@ -17,5 +17,6 @@
     ./files.nix
     ./waybar.nix
     ./zsh.nix
+    ./hypr/hypr.nix
   ];
 }

@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  cfg,
   ...
 }:
 let
@@ -16,7 +17,7 @@ in
   ];
 
   age = {
-    identityPaths = [ "/home/kein/nixos-configuration/secrets/keys/yubikey-identity.pub" ];
+    identityPaths = [ "${cfg.flakepath}/secrets/keys/yubikey-identity.pub" ];
     secrets = {
       "syncthingPass" = {
         file = ./secrets/agenix/encrypted/syncthingPass.age;
@@ -25,8 +26,6 @@ in
     # ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
     secretsDir = "/run/user/1000/agenix";
   };
-
-  wayland.windowManager.hyprland = import ./home-modules/hypr/hyprland.nix;
 
   xdg = {
     enable = true;
@@ -53,8 +52,8 @@ in
   };
 
   home = {
-    username = "kein";
-    homeDirectory = "/home/kein";
+    username = cfg.username;
+    homeDirectory = cfg.userhome;
     stateVersion = "24.11";
     packages = with pkgs; [
       ayugram-desktop
@@ -186,9 +185,6 @@ in
       configFile = "${config.xdg.configHome}/dunst/dunstrc";
       settings = import ./home-modules/dunst.nix;
     };
-    hyprpolkitagent.enable = true;
-    hyprpaper = import ./home-modules/hypr/hyprpaper.nix;
-    hypridle = import ./home-modules/hypr/hypridle.nix;
   };
 
   programs = {
@@ -219,7 +215,6 @@ in
       git = true;
       icons = "always";
     };
-    hyprlock = import ./home-modules/hypr/hyprlock.nix;
     bash = {
       enable = true;
       enableCompletion = true;

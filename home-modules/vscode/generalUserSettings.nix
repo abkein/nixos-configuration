@@ -102,7 +102,8 @@
         "name" = "SyncRepo";
         "color" = "white";
         "singleInstance" = true;
-        "command" = "rsync -azP --exclude-from=\${workspaceFolder}/rsync.ex \${workspaceFolder} fisher=/scratch/perevoshchikyy/repos/\${workspaceFolderBasename}/../"; # This is executed in the terminal.
+        "command" =
+          "rsync -azP --exclude-from=\${workspaceFolder}/rsync.ex \${workspaceFolder} fisher=/scratch/perevoshchikyy/repos/\${workspaceFolderBasename}/../"; # This is executed in the terminal.
       }
       {
         "cwd" = "\${cwd}";
@@ -161,13 +162,16 @@
     "python:S108" = {
       "level" = "off";
     };
-    "python:S1192" = { # String literals should not be duplicated
+    "python:S1192" = {
+      # String literals should not be duplicated
       "level" = "off";
     };
-    "python:S117" = { # Local variable and function parameter names should comply with a naming convention
+    "python:S117" = {
+      # Local variable and function parameter names should comply with a naming convention
       "level" = "off";
     };
-    "python:S5843" = { # Regular expressions should not be too complicated
+    "python:S5843" = {
+      # Regular expressions should not be too complicated
       "level" = "off";
     };
   };
@@ -184,6 +188,9 @@
 
   "direnv.watchForChanges" = false;
 
+  "[cpp]" = {
+    "editor.tabSize" = 2;
+  };
   "[nix]" = {
     "editor.tabSize" = 2;
   };

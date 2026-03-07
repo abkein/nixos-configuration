@@ -6,6 +6,7 @@
   config,
   lib,
   pkgs,
+  cfg,
   ...
 }:
 let
@@ -29,7 +30,7 @@ in
     #   storageMode = "local";
     #   localStorageDir = ./. + "/secrets/rekeyed/${config.networking.hostName}";
     # };
-    identityPaths = [ "/home/kein/nixos-configuration/secrets/keys/yubikey-identity.pub" ];
+    identityPaths = [ "${cfg.flakepath}/secrets/keys/yubikey-identity.pub" ];
     secrets = {
       "nix-access-tokens.conf" = {
         file = ./secrets/agenix/encrypted/nix-access-tokens.conf.age;
@@ -55,7 +56,7 @@ in
   };
 
   networking = {
-    hostName = "jeta";
+    hostName = cfg.hostname;
     networkmanager = {
       enable = true;
       wifi = {
@@ -246,27 +247,29 @@ in
       enable = true;
       clean.enable = true;
       clean.extraArgs = "--keep-since 4d --keep 3";
-      flake = "/home/kein/nixos-confiduration/conf";
+      flake = cfg.flakepath;
     };
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
-    users.kein = {
-      uid = 1000;
-      isNormalUser = true;
-      description = "C2H5OH";
-      createHome = true;
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-        "input"
-        "scanner"
-        "lp"
-      ];
-      # packages = with pkgs; [ ];
-      shell = pkgs.zsh;
-      home = "/home/kein";
+    users = {
+      "${cfg.username}" = {
+        uid = 1000;
+        isNormalUser = true;
+        description = "C2H5OH";
+        createHome = true;
+        extraGroups = [
+          "networkmanager"
+          "wheel"
+          "input"
+          "scanner"
+          "lp"
+        ];
+        # packages = with pkgs; [ ];
+        shell = pkgs.zsh;
+        home = cfg.userhome;
+      };
     };
   };
 
@@ -310,7 +313,7 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment = {
-    pathsToLink = [ "/share/zsh" ];  # for ZSH autocompletion for system packages
+    pathsToLink = [ "/share/zsh" ]; # for ZSH autocompletion for system packages
     sessionVariables.NIXOS_OZONE_WL = "1";
     etc = import ./system-modules/etc.nix {
       lib = lib;
@@ -466,7 +469,7 @@ in
         # "https://cache.garnix.io?priority=200"
       ];
       trusted-public-keys = [
-       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       ];
       # extra-substituters = [
       #    "https://anyrun.cachix.org"

@@ -14,7 +14,7 @@
       type = "git";
       submodules = true;
       url = "https://github.com/ndfined-crp/ayugram-desktop/";
-     };
+    };
 
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
@@ -59,125 +59,88 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, home-manager, ayugram-desktop, nix-vscode-extensions, nix4vscode, agenix, nur, anyrun, sops-nix, disko, ... }@inputs:
-  {
-    nixosConfigurations.jeta = nixpkgs.lib.nixosSystem rec{
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./configuration.nix
-        ./disko.nix
-        nur.modules.nixos.default
-        sops-nix.nixosModules.sops
-        agenix.nixosModules.default
-        # agenix-rekey.nixosModules.default
-        home-manager.nixosModules.home-manager
-        disko.nixosModules.disko
-        {
-          environment.systemPackages = [ agenix.packages.${system}.default ];
-        }
-        {
-          nixpkgs = {
-            config = {
-              allowUnfree = true;
-              permittedInsecurePackages = [
-                "python3.12-ecdsa-0.19.1"
-              ];
-            };
-            overlays = [
-              nix4vscode.overlays.forVscode
-              nur.overlays.default
-              # agenix-rekey.overlays.default
-              (import ./overlays/pypackages.nix)
-              (import ./overlays/generic.nix)
-            ];
-          };
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            backupFileExtension = "hm-backup";
-            overwriteBackup = true;
-            sharedModules = [
-              sops-nix.homeManagerModules.sops
-              agenix.homeManagerModules.default
-            ];
-            users.kein = ./home-manager.nix;
-            extraSpecialArgs = {
-              inherit inputs;
-            };
-          };
-        }
-      ];
-    };
-    # agenix-rekey = agenix-rekey.configure {
-    #   userFlake = self;
-    #   nixosConfigurations = self.nixosConfigurations;
-    # };
-  }
-  //
-  flake-utils.lib.eachDefaultSystem ( system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      home-manager,
+      ayugram-desktop,
+      nix-vscode-extensions,
+      nix4vscode,
+      agenix,
+      nur,
+      anyrun,
+      sops-nix,
+      disko,
+      ...
+    }@inputs:
     let
-      pkgs = import nixpkgs { inherit system; };
-      python = pkgs.python3;
+      system = "x86_64-linux";
+      cfg = rec {
+        username = "kein";
+        userhome = "/home/kein";
+        flakepath = "${userhome}/nixos-configuration";
+        hostname = "jeta";
+      };
     in
     {
-      packages = {
-        pyalex = import ./pkgs/pyalex.nix { pkgs=pkgs; python3Packages=python.pkgs; };
-        crossrefapi = import ./pkgs/crossrefapi.nix { pkgs=pkgs; python3Packages=python.pkgs; };
+      nixosConfigurations."${cfg.hostname}" = nixpkgs.lib.nixosSystem rec {
+        inherit system;
+        specialArgs = {
+          inherit inputs;
+          inherit cfg;
+        };
+        modules = [
+          ./configuration.nix
+          ./disko.nix
+          nur.modules.nixos.default
+          sops-nix.nixosModules.sops
+          agenix.nixosModules.default
+          # agenix-rekey.nixosModules.default
+          home-manager.nixosModules.home-manager
+          disko.nixosModules.disko
+          {
+            nixpkgs = {
+              config = {
+                allowUnfree = true;
+                permittedInsecurePackages = [
+                  "python3.12-ecdsa-0.19.1"
+                ];
+              };
+              overlays = [
+                nix4vscode.overlays.forVscode
+                nur.overlays.default
+                # agenix-rekey.overlays.default
+                (import ./overlays/pypackages.nix)
+                (import ./overlays/generic.nix)
+              ];
+            };
+            environment.systemPackages = [ agenix.packages.${system}.default ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "hm-backup";
+              overwriteBackup = true;
+              sharedModules = [
+                sops-nix.homeManagerModules.sops
+                agenix.homeManagerModules.default
+              ];
+              users = {
+                "${cfg.username}" = ./home-manager.nix;
+              };
+              extraSpecialArgs = {
+                inherit inputs;
+                inherit cfg;
+              };
+            };
+          }
+        ];
       };
-
-      devShells = rec {
-        default = basePython;
-
-        basePython = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            # python
-            pkg-config
-            meson
-            ninja
-            gfortran14
-            # stdenv.cc.cc
-          ];
-        };
-
-        basePythonInteractive = pkgs.mkShell {
-          inputsFrom = [ basePython ];
-          buildInputs = [
-            (python.withPackages (ps: with ps; [
-              ipykernel
-              pip
-              bash_kernel
-              ipython
-              ipykernel
-              jupyter
-              jupyterlab
-              notebook
-              pyzmq
-              numpy
-              pandas
-              scipy
-              requests
-              matplotlib
-            ]))
-          ];
-        };
-
-        "project-monography" = pkgs.mkShell {
-          inputsFrom = [ basePythonInteractive ];
-          buildInputs = [
-            (python.withPackages (ps: [
-              self.packages.${system}.pyalex
-              self.packages.${system}.crossrefapi
-            ]))
-          ];
-        };
-      };
-
-      # # `nix flake check` entry points (fast CI-like checks)
-      # checks.imports = pkgs.runCommand "imports" { } ''
-      #   ${pkgs.python312}/bin/python -c "import crossrefapi; print(crossrefapi.__name__)"
-      #   touch $out
-      # '';
-    }
-  );
+      # agenix-rekey = agenix-rekey.configure {
+      #   userFlake = self;
+      #   nixosConfigurations = self.nixosConfigurations;
+      # };
+      # devShells.${system}.default = nixpkgs.mkShell {};
+    };
 }
