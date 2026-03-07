@@ -27,10 +27,10 @@ in
       source = ../confs/defshell.nix;
       target = "defshell.nix";
     };
-    pyshell = generic // {
-      source = ../confs/python/pyshell.nix;
-      target = "python/pyshell.nix";
-    };
+    # pyshell = generic // {
+    #   source = ../confs/python/pyshell.nix;
+    #   target = "python/pyshell.nix";
+    # };
     pyreqs = generic // {
       source = ../confs/python/defreqs.txt;
       target = "python/defreqs.txt";

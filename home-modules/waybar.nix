@@ -10,6 +10,10 @@ in
 {
   programs.waybar = {
     enable = true;
+    systemd = {
+      enable = true;
+      # enableInspect = true;
+    };
     settings = {
       mainBar = {
         height = 30;

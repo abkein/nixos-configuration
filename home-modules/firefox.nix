@@ -142,7 +142,7 @@ in
       }
       // L2A makeExtNav [
         "easyscreenshot@mozillaonline.com" # Easy Screenshot
-        "simple-tab-groups@drive4ik" # Simple Tab Groups
+        # "simple-tab-groups@drive4ik" # Simple Tab Groups
         "@testpilot-containers" # Firefox Multi-Account Containers
         "keepassxc-browser@keepassxc.org" # KeePassXC-Browser
         "addon@darkreader.org" # Dark Reader
@@ -154,7 +154,7 @@ in
       // L2A makeExt [
         "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}" # Auto Tab Discard
         "jid1-BoFifL9Vbdl2zQ@jetpack" # Decentraleyes
-        "firefox.container-shortcuts@strategery.io" # Easy Container Shortcuts
+        # "firefox.container-shortcuts@strategery.io" # Easy Container Shortcuts
         "{1018e4d6-728f-4b20-ad56-37578a4de76b}" # Flagfox
         "jid1-AQqSMBYb0a8ADg@jetpack" # Mailvelope
         "jid1-MnnxcxisBPnSXQ@jetpack" # Privacy Badger
@@ -241,6 +241,10 @@ in
         "browser.contentblocking.category" = {
           Value = "strict";
           Status = "locked";
+        };
+        "svg.context-properties.content.enabled" = {
+          Value = true;
+          Status = "user";
         };
         "security.insecure_connection_text.enabled" = {
           Value = true;

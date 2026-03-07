@@ -198,7 +198,7 @@
 
       exec-once = [
         # Bar, wallpaper
-        "waybar"
+        # "waybar"
         "keepassxc"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
@@ -365,8 +365,8 @@
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         # Brightness
-        ", XF86MonBrightnessUp, exec, brightnessctl set '12.75+'"
-        ", XF86MonBrightnessDown, exec, brightnessctl set '12.75-'"
+        ", XF86MonBrightnessUp, exec, brightnessctl --device=amdgpu_bl1 set '1%-'"
+        ", XF86MonBrightnessDown, exec, brightnessctl --device=amdgpu_bl1 set '+1%'"
 
         # Arrow keys with IJKL
         "Alt, I, exec, ydotool key 103:1 103:0"
@@ -400,10 +400,11 @@
       windowrule = [
         {
           name = "KeePassXC prompt float";
-          "match:class" = "org.keepassxc.KeePassXC";
-          "match:title" = "KeePassXC -  Access Request";
+          "match:class" = ''^org\.keepassxc\.KeePassXC$'';
+          "match:title" = ''^KeePassXC\s+-\s+Access\s+Request$'';
           float = true;
           center = true;
+          stay_focused = true;
         }
         # previously: bordercolor ...,pinned:1
         "match:pin true, border_color rgba(ffabf1AA) rgba(ffabf177)"

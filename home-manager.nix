@@ -62,8 +62,8 @@ in
       imagemagickBig
       poppler-utils
       # texliveFull
-      texlive.combined.scheme-full
-      tex-fmt
+      # texlive.combined.scheme-full
+      # tex-fmt
       ghostscript
       python312Packages.plotext
       backintime-common
@@ -135,8 +135,9 @@ in
       vlc
       gimp
       swayimg
-      inkscape-with-extensions
-      inkscape-extensions.textext
+      inkscape
+      # -with-extensions
+      # inkscape-extensions.textext
 
       zoom-us
       qrencode
