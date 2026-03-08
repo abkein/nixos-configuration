@@ -9,17 +9,12 @@
   "editor.unicodeHighlight.ambiguousCharacters" = false;
   "editor.renderWhitespace" = "all";
   # "editor.defaultFormatter" = "trunk.io";
-  # "editor.fontFamily" = "JetBrainsMono Nerd Font Mono, Symbols Nerd Font Mono, JetBrains Mono, Noto Color Emoji, monospace";
+
+  # "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'Font Awesome 7 Free', 'Symbols Nerd Font', monospace";
+  # "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'Symbols Nerd Font', 'Font Awesome 7 Free', monospace";
 
   "terminal.integrated.sendKeybindingsToShell" = true;
   "terminal.integrated.enableMultiLinePasteWarning" = "never";
-  # "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font Mono, Symbols Nerd Font Mono, JetBrains Mono, Noto Color Emoji";
-
-  # "editor.fontFamily" = "JetBrainsMono Nerd Font Mono, Font Awesome 7 Free, Symbols Nerd Font Mono, JetBrains Mono, monospace";
-  # "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font Mono, Font Awesome 7 Free, Symbols Nerd Font Mono, JetBrains Mono, monospace";
-
-  # "workbench.fontAliasing" = "auto";
-  # "workbench.fontFamily" = "JetBrainsMono Nerd Font Mono, JetBrains Mono, sans-serif";
 
   "window.titleBarStyle" = "custom";
   "window.customTitleBarVisibility" = "hidden";

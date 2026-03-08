@@ -61,9 +61,6 @@ in
       thunderbird-latest
       imagemagickBig
       poppler-utils
-      # texliveFull
-      # texlive.combined.scheme-full
-      # tex-fmt
       ghostscript
       python312Packages.plotext
       backintime-common
@@ -290,11 +287,6 @@ in
     #       )
     #     '';
     #   };
-    # };
-    # texlive = {
-    #   enable = true;
-    #   package = pkgs.texlive.combine pkgs.texlive.combined.scheme-full;
-    #   packageSet = pkgs.texlive.combined;
     # };
     gradle.home = ".local/share/gradle";
   };

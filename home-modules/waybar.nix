@@ -24,7 +24,6 @@ in
           "systemd-failed-units"
           "privacy"
           "idle_inhibitor"
-          # "pulseaudio"
           "wireplumber"
           "wireplumber#source"
           "network#wlan"
@@ -63,8 +62,8 @@ in
 
           persistent-workspaces = {
             eDP-1 = lst;
-            DP-9 = lst;
             DP-6 = lst;
+            DP-9 = lst;
           };
         };
         keyboard-state = {
@@ -90,7 +89,7 @@ in
         clock = {
           timezone = "Europe/Moscow";
           format = "{:%H:%M}  ";
-          format-alt = "{:%A, %B %d, %Y (%R)}  ";
+          format-alt = "{:%A, %B %d, %Y (%R)}  ";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           calendar = {
             mode = "year";
@@ -113,6 +112,26 @@ in
         };
         cpu = {
           format = "{usage}%  {max_frequency} GHz";
+          tooltip-format = "{icon0}{icon2}{icon4}{icon6}{icon8}{icon10}{icon12}{icon14}";
+          format-icons = [
+            "<span color='#69ff94'>▁</span>" # green
+            "<span color='#2aa9ff'>▂</span>" # blue
+            "<span color='#f8f8f2'>▃</span>" # white
+            "<span color='#f8f8f2'>▄</span>" # white
+            "<span color='#ffffa5'>▅</span>" # yellow
+            "<span color='#ffffa5'>▆</span>" # yellow
+            "<span color='#ff9977'>▇</span>" # orange
+            "<span color='#dd532e'>█</span>" # red
+          ];
+          # "format-icons" = [
+          #   "🁣" "🁤" "🁥" "🁦" "🁧" "🁨" "🁩"
+          #   "🁪" "🁫" "🁬" "🁭" "🁮" "🁯" "🁰"
+          #   "🁱" "🁲" "🁳" "🁴" "🁵" "🁶" "🁷"
+          #   "🁸" "🁹" "🁺" "🁻" "🁼" "🁽" "🁾"
+          #   "🁿" "🂀" "🂁" "🂂" "🂃" "🂄" "🂅"
+          #   "🂆" "🂇" "🂈" "🂉" "🂊" "🂋" "🂌"
+          #   "🂍" "🂎" "🂏" "🂐" "🂑" "🂒" "🂓" "🁢"
+          # ];
           on-click = "ghostty -e btop";
           tooltip = true;
         };
@@ -129,9 +148,9 @@ in
           # "format-critical"= "{temperatureC}°C {icon}",
           format = "{temperatureC}°C {icon}";
           format-icons = [
-            ""
+            ""
             ""
-            ""
+            ""
           ];
         };
         backlight = {
@@ -149,16 +168,45 @@ in
             ""
           ];
         };
-        bluetooth = {
-          controller = "hci0";
-          format = " {status}";
-          format-connected = " {device_alias}";
-          format-connected-battery = " {device_alias} {device_battery_percentage}%";
-          tooltip-format = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
-          tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
-          tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
-          tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
-        };
+        bluetooth =
+          let
+            about_controller = "State: {status}\n{controller_alias}\t{controller_address_type}\t{controller_address}";
+            about_device = "{device_alias}\t{device_address_type}\t{device_address}";
+          in
+          {
+            controller = "hci0";
+            min-length = 3;
+            on-click = "blueman-manager";
+            on-click-middle = "blueman-adapters";
+            on-click-right = "blueman-services";
+            format = "󰂯 {status}";
+            format-no-controller = " {status}";
+            format-disabled = " 󰂲";
+            format-off = "󰂲";
+            format-on = "󰂯";
+            format-connected = "󰂱 {device_alias}";
+            format-connected-battery = "󰂱 {device_alias} {device_battery_percentage}% {icon}";
+            format-icons = [
+              "󰤾"
+              "󰤿"
+              "󰥀"
+              "󰥁"
+              "󰥂"
+              "󰥃"
+              "󰥄"
+              "󰥅"
+              "󰥆"
+              "󰥈"
+            ];
+            tooltip-format = "${about_controller}\n{num_connections} connected";
+            tooltip-format-disabled = "${about_controller}\nDisabled";
+            tooltip-format-off = "${about_controller}\nOFF";
+            tooltip-format-on = "${about_controller}\nNot connected";
+            tooltip-format-connected = "${about_controller}\n{num_connections} connected\n\n{device_enumerate}";
+            tooltip-format-connected-battery = "${about_controller}\n{num_connections} connected\n\n{device_enumerate}";
+            tooltip-format-enumerate-connected = "${about_device}";
+            tooltip-format-enumerate-connected-battery = "${about_device}\t{device_battery_percentage}%";
+          };
         battery = {
           states = {
             full = 95;
@@ -167,21 +215,31 @@ in
           };
           full-at = 95;
           format = "{capacity}% {icon}";
-          format-full = "{capacity}% {icon}";
-          format-charging = "{capacity}% {icon} ";
+          format-charging = "{capacity}% {icon}󱐋";
+          format-unknown = "{capacity}% {icon} ";
           format-plugged = "{capacity}% {icon} ";
           format-alt = "{time} {icon}";
-          # "format-good"= "", # An empty format will hide the module
-          # "format-full"= "",
           format-icons = [
-            ""
-            ""
-            ""
-            ""
-            ""
+            "󰂎"
+            "󰁺"
+            "󰁻"
+            "󰁼"
+            "󰁽"
+            "󰁾"
+            "󰁿"
+            "󰂀"
+            "󰂁"
+            "󰂂"
+            "󰁹"
           ];
+          events = {
+            on-discharging-warning = "notify-send -u normal 'Low Battery'";
+            on-discharging-critical = "notify-send -u critical 'Very Low Battery'";
+            on-charging-full = "notify-send -u normal 'Battery Full!'";
+          };
           tooltip = true;
-          tooltip-format = "Power draw: {power}\nCycles: {cycles}\nHealth: {health}";
+          tooltip-format = "{time} to {timeTo}\nPower draw: {power}\nCycles: {cycles}\nHealth: {health}";
+          tooltip-format-plugged = "{timeTo}\nPower draw: {power}\nCycles: {cycles}\nHealth: {health}";
           bat = "BATT";
         };
         power-profiles-daemon = {
@@ -189,7 +247,7 @@ in
           tooltip-format = "Power profile= {profile}";
           tooltip = true;
           format-icons = {
-            default = "";
+            default = "";
             performance = "";
             balanced = "";
             power-saver = "";
@@ -220,9 +278,9 @@ in
         "network#wlan" = {
           interface = "wlan*";
           format-wifi = "{essid} ({frequency} GHz, {signalStrength}%) ";
-          format-ethernet = "{ipaddr}/{cidr}  {bandwidthUpBytes} vs {bandwidthDownBytes}";
-          tooltip-format = "{ifname} via {gwaddr} \n{bandwidthUpBytes} vs {bandwidthDownBytes}";
-          format-linked = "{ifname} (No IP) ";
+          format-ethernet = "{ipaddr}/{cidr} 󰈁 {bandwidthUpBytes} vs {bandwidthDownBytes}";
+          tooltip-format = "{ifname} via {gwaddr} \n{bandwidthUpBytes} vs {bandwidthDownBytes}";
+          format-linked = "{ifname} (No IP) ";
           format-disconnected = "Disconnected ⚠";
           format-alt = "{ipaddr}/{cidr} {bandwidthUpBytes} vs {bandwidthDownBytes}";
           format-disabled = "";
@@ -230,12 +288,12 @@ in
         "network#eth" = {
           interface = "eth*";
           format-wifi = "{essid} ({frequency} GHz, {signalStrength}%) ";
-          format-ethernet = "{ipaddr}/{cidr}  {bandwidthUpBytes} vs {bandwidthDownBytes}";
-          tooltip-format = "{ifname} via {gwaddr} ";
-          format-linked = "{ifname} (No IP) ";
+          format-ethernet = "{ipaddr}/{cidr} 󰈁 {bandwidthUpBytes} vs {bandwidthDownBytes}";
+          tooltip-format = "{ifname} via {gwaddr} 󰈁";
+          format-linked = "{ifname} (No IP) 󰈁";
           format-disconnected = "Disconnected ⚠";
           format-alt = "{ipaddr}/{cidr} {bandwidthUpBytes} vs {bandwidthDownBytes}";
-          format-disabled = "";
+          format-disabled = "󰈂";
         };
         systemd-failed-units = {
           hide-on-ok = false;
@@ -247,21 +305,21 @@ in
         pulseaudio = {
           scroll-step = 1;
           format = "{volume}% {icon}   {format_source}";
-          format-bluetooth = "{volume}% {icon} {format_source}";
-          format-bluetooth-muted = " {icon} {format_source}";
-          format-muted = " {format_source}";
+          format-bluetooth = "{volume}% {icon}󰂯 {format_source}";
+          format-bluetooth-muted = "󰖁 {icon}󰂯 {format_source}";
+          format-muted = "󰖁 {format_source}";
           format-source = "{volume}% ";
           format-source-muted = "";
           format-icons = {
             headphone = "";
-            hands-free = "";
-            headset = "";
+            hands-free = "󰋎";
+            headset = "󰋎";
             phone = "";
             phone-muted = "";
             portable = "";
             portable-muted = "";
             car = "";
-            hdmi = "hdmi";
+            hdmi = "󰡁";
             default = [
               ""
               ""
@@ -277,59 +335,25 @@ in
           on-click = "pavucontrol";
         };
         wireplumber = {
+          only-physical = true;
           scroll-step = 1;
           node-type = "Audio/Sink";
           format = "{volume}% {icon}";
-          format-bluetooth = "{volume}% {icon}";
-          format-bluetooth-muted = " {icon}";
-          format-muted = "";
-          tooltip = true;
-          tooltip-format = "{node_name}";
-          format-icons = {
-            headphone = "";
-            hands-free = "";
-            headset = "";
-            phone = "";
-            phone-muted = "";
-            portable = "";
-            portable-muted = "";
-            car = "";
-            hdmi = "hdmi";
-            default = [
-              ""
-              ""
-              ""
-            ];
-            speaker = [
-              ""
-              ""
-              ""
-            ];
-
-          };
-          on-click = "helvum";
-        };
-        "wireplumber#source" = {
-          scroll-step = 1;
-          node-type = "Audio/Source";
-          format = "{volume}% {icon}";
-          format-bluetooth = "{volume}% {icon}";
-          format-bluetooth-muted = " {icon}";
-          format-muted = "";
-          # format-source = "{source_volume}% ";
-          # format-source-muted = "";
+          format-bluetooth = "{volume}% {icon}󰂯";
+          format-bluetooth-muted = "󰖁 {icon}󰂯";
+          format-muted = "󰖁";
           tooltip = true;
           tooltip-format = "Sink: {node_name}";
           format-icons = {
             headphone = "";
-            hands-free = "";
-            headset = "";
+            hands-free = "󰋎";
+            headset = "󰋎";
             phone = "";
             phone-muted = "";
             portable = "";
             portable-muted = "";
             car = "";
-            hdmi = "hdmi";
+            hdmi = "󰡁";
             default = [
               ""
               ""
@@ -342,7 +366,43 @@ in
             ];
 
           };
-          on-click = "helvum";
+          on-click = "qpwgraph";
+        };
+        "wireplumber#source" = {
+          only-physical = true;
+          scroll-step = 1;
+          node-type = "Audio/Source";
+          format = "{volume}% {icon}";
+          format-bluetooth = "{volume}% {icon}󰂯";
+          format-bluetooth-muted = " {icon}󰂯";
+          format-muted = "";
+          # format-source = "{source_volume}% ";
+          # format-source-muted = "";
+          tooltip = true;
+          tooltip-format = "Source: {node_name}";
+          format-icons = {
+            headphone = "";
+            hands-free = "󰋎";
+            headset = "󰋎";
+            phone = "";
+            phone-muted = "";
+            portable = "";
+            portable-muted = "";
+            car = "";
+            hdmi = "󰡁";
+            default = [
+              ""
+              ""
+              ""
+            ];
+            speaker = [
+              ""
+              ""
+              ""
+            ];
+
+          };
+          on-click = "qpwgraph";
         };
       };
       #     style =

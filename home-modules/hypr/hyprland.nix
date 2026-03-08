@@ -340,11 +340,6 @@
 
       bindl = [
         # ################### It just works™ keybinds ###################
-        # Volume
-        "Super ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle"
-        "Alt ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle"
-        ",XF86AudioMute, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%"
-        "Super+Shift,M, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%"
         # Screenshot, Record, OCR, Color picker, Clipboard history
         #screenshot
         "Super,Print,exec,grim - | wl-copy"
@@ -362,11 +357,15 @@
       ];
 
       bindle = [
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        "Alt, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+        "Alt, XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+"
+        "Alt, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"
         # Brightness
-        ", XF86MonBrightnessUp, exec, brightnessctl --device=amdgpu_bl1 set '1%-'"
-        ", XF86MonBrightnessDown, exec, brightnessctl --device=amdgpu_bl1 set '+1%'"
+        ", XF86MonBrightnessUp, exec, brightnessctl --device=amdgpu_bl1 set '+1%'"
+        ", XF86MonBrightnessDown, exec, brightnessctl --device=amdgpu_bl1 set '1%-'"
 
         # Arrow keys with IJKL
         "Alt, I, exec, ydotool key 103:1 103:0"

@@ -9,11 +9,6 @@
   cfg,
   ...
 }:
-let
-  httpp = "http://127.0.0.1:1081";
-  httpsp = "http://127.0.0.1:1081";
-  np = "localhost,127.0.0.1,::1";
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -364,6 +359,7 @@ in
       pinentry-all
       usbutils
       hw-probe
+      gucharmap
 
       evtest
       acpi
@@ -399,25 +395,20 @@ in
     packages = with pkgs; [
       nerd-fonts.jetbrains-mono
       nerd-fonts.symbols-only
-      font-awesome
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
       # lmodern
-      # jetbrains-mono
       # noto-fonts
       # noto-fonts-color-emoji
       # noto-fonts-lgc-plus
       # noto-fonts-cjk-sans
       # noto-fonts-cjk-serif
-      # twemoji-color-font
-      # font-awesome
       # powerline-fonts
       # powerline-symbols
       # corefonts
       # vista-fonts
       # cm_unicode
-      # nerd-fonts.symbols-only
     ];
     # ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
@@ -429,39 +420,24 @@ in
     fontconfig = {
       enable = true;
       useEmbeddedBitmaps = true;
-      # defaultFonts = {
-      #   monospace = [
-      #     "DejaVu Sans Mono"
-      #     "JetBrains Mono"
-      #     "Symbols Nerd Font Mono"
-      #     "Noto Color Emoji"
-      #   ];
-      #   sansSerif = [
-      #     "DejaVu Sans"
-      #     "Noto Sans"
-      #     "Noto Color Emoji"
-      #   ];
-      #   serif = [
-      #     "DejaVu Serif"
-      #     "Noto Serif"
-      #     "Noto Color Emoji"
-      #   ];
-      #   emoji = [ "Noto Color Emoji" ];
-      # };
       defaultFonts = {
         monospace = [
           "JetBrainsMono Nerd Font"
           "Symbols Nerd Font"
+          # "DejaVu Sans Mono"
+          # "Noto Color Emoji"
         ];
         sansSerif = [
           "Noto Sans"
           "Symbols Nerd Font"
-          "Font Awesome 7 Free"
+          # "DejaVu Sans"
+          # "Noto Color Emoji"
         ];
         serif = [
           "Noto Serif"
           "Symbols Nerd Font"
-          "Font Awesome 7 Free"
+          # "DejaVu Serif"
+          # "Noto Color Emoji"
         ];
         emoji = [ "Noto Color Emoji" ];
       };

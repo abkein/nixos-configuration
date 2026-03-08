@@ -9,7 +9,6 @@ in pkgs.mkShell {
     python
     python.pkgs.venvShellHook
     python.pkgs.ipykernel
-    # texliveFull
 
     pkg-config
     meson
