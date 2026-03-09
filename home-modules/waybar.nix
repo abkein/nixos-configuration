@@ -154,7 +154,7 @@ in
           ];
         };
         backlight = {
-          # "device"= "acpi_video1",
+          reverse-scrolling = true;
           format = "{percent}% {icon}";
           format-icons = [
             ""
@@ -336,10 +336,11 @@ in
         };
         wireplumber = {
           only-physical = true;
+          reverse-scrolling = true;
           scroll-step = 1;
           node-type = "Audio/Sink";
-          format = "{volume}% {icon}";
-          format-bluetooth = "{volume}% {icon}󰂯";
+          format = "Out: {volume}% {icon}";
+          format-bluetooth = "Out: {volume}% {icon}󰂯";
           format-bluetooth-muted = "󰖁 {icon}󰂯";
           format-muted = "󰖁";
           tooltip = true;
@@ -366,15 +367,17 @@ in
             ];
 
           };
-          on-click = "qpwgraph";
+          on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          on-click-middle = "qpwgraph";
         };
         "wireplumber#source" = {
           only-physical = true;
+          reverse-scrolling = true;
           scroll-step = 1;
           node-type = "Audio/Source";
-          format = "{volume}% {icon}";
-          format-bluetooth = "{volume}% {icon}󰂯";
-          format-bluetooth-muted = " {icon}󰂯";
+          format = "In: {volume}% {icon}";
+          format-bluetooth = "In: {volume}% {icon}󰂯";
+          format-bluetooth-muted = " 󰂯";
           format-muted = "";
           # format-source = "{source_volume}% ";
           # format-source-muted = "";
@@ -402,7 +405,8 @@ in
             ];
 
           };
-          on-click = "qpwgraph";
+          on-click = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+          on-click-middle = "qpwgraph";
         };
       };
       #     style =
