@@ -160,6 +160,7 @@
       };
       jack.enable = true;
     };
+
     # xserver = {
     #   enable = true;
     #   xkb = {
@@ -502,8 +503,13 @@
       powerOnBoot = true;
       settings = {
         General = {
+          # Specify the policy to the JUST-WORKS repairing initiated by peer
+          # Possible values: "never", "confirm", "always"
+          # Defaults to "never"
+          JustWorksRepairing = "confirm";
           # Shows battery charge of connected devices on supported
-          # Bluetooth adapters. Defaults to 'false'.
+          # Bluetooth adapters.
+          # Enables D-Bus experimental interfaces. Defaults to 'false'.
           Experimental = true;
           # When enabled other devices can connect faster to us, however
           # the tradeoff is increased power consumption. Defaults to
@@ -511,19 +517,14 @@
           FastConnectable = true;
         };
         Policy = {
-          # Enable all controllers when they are found. This includes
-          # adapters present on start as well as adapters that are plugged
+          # AutoEnable defines option to enable all controllers when they are found.
+          # This includes adapters present on start as well as adapters that are plugged
           # in later on. Defaults to 'true'.
           AutoEnable = true;
         };
       };
     };
   };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
