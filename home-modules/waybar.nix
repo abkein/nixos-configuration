@@ -80,6 +80,7 @@ in
             activated = "";
             deactivated = "";
           };
+          timeout = 60;
         };
         tray = {
           # "icon-size"= 21;
@@ -136,16 +137,27 @@ in
           tooltip = true;
         };
         memory = {
-          format = "{percentage}%  {swapPercentage}%";
+          format = "{percentage}% {icon} {swapPercentage}%";  # ""
           tooltip = true;
           tooltip-format = "RAM: {used:0.1f}/{total:0.1f} GiB\nSwap: {swapUsed:0.1f}/{swapTotal:0.1f} GiB";
+          format-icons = [
+            "<span color='#69ff94'>▁</span>" # green
+            "<span color='#2aa9ff'>▂</span>" # blue
+            "<span color='#f8f8f2'>▃</span>" # white
+            "<span color='#f8f8f2'>▄</span>" # white
+            "<span color='#ffffa5'>▅</span>" # yellow
+            "<span color='#ffffa5'>▆</span>" # yellow
+            "<span color='#ff9977'>▇</span>" # orange
+            "<span color='#dd532e'>█</span>" # red
+          ];
         };
         temperature = {
           # "thermal-zone"= 2,
           # "hwmon-path"= "/sys/class/hwmon/hwmon2/temp1_input",
           warning-threshold = 60;
           critical-threshold = 80;
-          # "format-critical"= "{temperatureC}°C {icon}",
+          # format-critical = "{temperatureC}°C {icon} ";
+          # format-warning = "{temperatureC}°C {icon} ";
           format = "{temperatureC}°C {icon}";
           format-icons = [
             ""
