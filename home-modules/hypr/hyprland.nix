@@ -1,5 +1,6 @@
 { ... }:
 {
+  wayland.systemd.target = "graphical-session.target";
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;

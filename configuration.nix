@@ -17,6 +17,7 @@
     ./system-modules/regreet.nix
     ./system-modules/proxychains.nix
     ./system-modules/wayland.nix
+    ./system-modules/etc.nix
     # ./system-modules/openssh.nix
     # ./system-modules/syncthing.nix
   ];
@@ -180,7 +181,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${lib.getExe config.programs.hyprland.package} --config /etc/${config.environment.etc.hyprland-regreet.target}";
+          command = "${config.programs.hyprland.package}/bin/Hyprland --config /etc/${config.environment.etc.hyprland-regreet.target}";
           user = "greeter";
         };
       };
@@ -305,10 +306,6 @@
   environment = {
     pathsToLink = [ "/share/zsh" ]; # for ZSH autocompletion for system packages
     sessionVariables.NIXOS_OZONE_WL = "1";
-    etc = import ./system-modules/etc.nix {
-      lib = lib;
-      config = config;
-    };
     systemPackages = with pkgs; [
       clinfo
       vulkan-tools

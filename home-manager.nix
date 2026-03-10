@@ -40,15 +40,15 @@ in
       createDirectories = true;
     };
 
-    portal = {
-      enable = true;
-      # xdgOpenUsePortal = true;  # breaks Github authentication in vscode
-      extraPortals = [
-        pkgs.xdg-desktop-portal
-        pkgs.xdg-desktop-portal-gtk
-        pkgs.xdg-desktop-portal-hyprland
-      ];
-    };
+    # portal = {
+    #   enable = true;
+    #   # xdgOpenUsePortal = true;  # breaks Github authentication in vscode
+    #   extraPortals = [
+    #     pkgs.xdg-desktop-portal
+    #     # pkgs.xdg-desktop-portal-gtk  # auto by hyprland
+    #     # pkgs.xdg-desktop-portal-hyprland  # auto by hyprland
+    #   ];
+    # };
   };
 
   home = {
@@ -92,8 +92,6 @@ in
       swappy
       wf-recorder
       jq
-
-      remmina
 
       nix-tree
       dunst
