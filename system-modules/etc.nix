@@ -3,7 +3,6 @@
   environment.etc = {
     hyprland-regreet = {
       enable = true;
-      # source = ./confs/Hyprland-regreet.conf;
       text = ''
         exec-once = ${lib.getExe config.programs.regreet.package}; hyprctl dispatch exit
 
@@ -36,6 +35,7 @@
         misc {
             disable_hyprland_logo = true
             disable_splash_rendering = true
+            disable_watchdog_warning = true
         }
       '';
       target = "greetd/hyprland.conf";

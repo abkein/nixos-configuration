@@ -1,4 +1,7 @@
 { ... }:
+let
+  hex2hypr = color: "rgba(${builtins.substring 1 (-1) color})";
+in
 {
   wayland.systemd.target = "graphical-session.target";
   wayland.windowManager.hyprland = {
@@ -40,16 +43,12 @@
         float_gaps = 5;
         gaps_workspaces = 50;
 
-        # Fallback colors
-        "col.active_border" = "rgba(0DB7D4FF)";
-        "col.inactive_border" = "rgba(00000000)"; # "rgba(31313600)";
-        # "col.active_border" = "rgba(eae0e445)"
-        # "col.inactive_border" = "rgba(9a8d9533)"
+        "col.active_border" = hex2hypr "#0DB7D4FF"; # hex2hypr "#eae0e445"
+        "col.inactive_border" = hex2hypr "#00000000"; # hex2hypr "#9a8d9533";
 
         layout = "dwindle";
         no_focus_fallback = true;
         resize_on_border = true;
-
       };
 
       decoration = {
@@ -63,9 +62,8 @@
 
         blur = {
           enabled = true;
-          size = 7;
-          passes = 4;
-          xray = true;
+          size = 3;
+          passes = 1;
           noise = 0.01;
           contrast = 1;
           brightness = 1;
@@ -77,15 +75,15 @@
           enabled = true;
           range = 15;
           render_power = 3;
-          color = "rgba(0DB7D4FF)"; # "rgba(ee1a1a1a)";
-          color_inactive = "rgba(0000001A)";
+          color = hex2hypr "#0DB7D4FF"; # hex2hypr "#ee1a1a1a";
+          color_inactive = hex2hypr "#0000001A";
           offset = "0 2";
         };
       };
 
       input = {
         kb_layout = "us,ru";
-        kb_options = "grp:alt_shift_toggle, compose:ralt, lv3:menu_switch";  # , lv5:menu_switch
+        kb_options = "grp:alt_shift_toggle, compose:ralt, lv3:menu_switch"; # , lv5:menu_switch
         numlock_by_default = true;
         repeat_rate = 30;
         repeat_delay = 300;
@@ -113,37 +111,45 @@
 
       misc = {
         disable_hyprland_logo = true;
-        vfr = 1;
-        vrr = 0;
-        # layers_hog_mouse_focus = true
-        focus_on_activate = true;
-        animate_manual_resizes = false;
-        animate_mouse_windowdragging = false;
-        enable_swallow = false;
-        swallow_regex = "(foot|kitty|allacritty|Alacritty)";
-
+        disable_splash_rendering = true;
         force_default_wallpaper = 0;
-        on_focus_under_fullscreen = 2;
-        # enable_hyprcursor = true
-
-        background_color = "rgba(1f1a1dFF)";
+        vrr = 1;
+        animate_manual_resizes = true;
+        animate_mouse_windowdragging = true;
+        # enable_swallow = false;
+        # swallow_regex = "(foot|kitty|allacritty|Alacritty)";
+        focus_on_activate = true;
+        middle_click_paste = false;
       };
 
-      debug = {
-        disable_logs = false;
-        enable_stdout_logs = true;
+      # binds = {
+      #   scroll_event_delay = 0;
+      # };
+
+      # xwayland = {
+      #   # force_zero_scaling = true;
+      # };
+
+      ecosystem = {
+        enforce_permissions = true;
       };
 
-      binds = {
-        scroll_event_delay = 0;
-      };
+      permission = [
+        ",screencopy,allow"
+        ",plugin,ask"
+        ",keyboard,ask"
+      ];
+
+      # debug = {
+      #   disable_logs = false;
+      #   enable_stdout_logs = true;
+      # };
 
       dwindle = {
         preserve_split = true;
         smart_split = false;
         smart_resizing = false;
       };
-
 
       animations = {
         enabled = true;
@@ -176,10 +182,6 @@
           #specialWorkspace, 1, 3, md3_decel, slidefadevert 15%
           "specialWorkspace, 1, 3, md3_decel, slidevert"
         ];
-      };
-
-      xwayland = {
-        force_zero_scaling = true;
       };
 
       plugin = {
@@ -427,6 +429,8 @@
         "match:class .*blueman-manager-wrapped.*, float on"
         ''match:class thunderbird, match:initial_title "Calendar Reminders", float on''
         ''match:class thunderbird, match:title "An error has occurred", float on''
+        ''match:class thunderbird, match:title "Alert", float on''
+        ''match:class thunderbird, match:title "Check Spelling", float on''
         ''match:title "SVG Input", float on''
 
         # inkscape: float everything, but keep the main window tiled
@@ -449,7 +453,6 @@
         "match:class com.github.wwmm.easyeffects, float on"
         "match:class org.rncbc.qpwgraph, float on"
         ''match:title "File Operation Progress", float on''
-        ''match:class thunderbird, match:title "Alert", float on''
         "match:class swayimg, float on"
         ''match:title "KeePassXC - Passkey credentials", float on''
         "match:class org.telegram.desktop$, float on"

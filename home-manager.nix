@@ -72,10 +72,6 @@ in
       fractal
       vesktop
       pstree
-      hyprpicker
-      hyprsunset
-      hyprsysteminfo
-      hyprland-qt-support
       fastfetch
       speedtest-cli
       ooniprobe-cli
@@ -121,10 +117,6 @@ in
       keepassxc
       gpgme
       gpgme.dev
-
-      xdg-desktop-portal
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
 
       # image/audio/video
       vlc
