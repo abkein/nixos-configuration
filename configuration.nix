@@ -16,6 +16,7 @@
     ./shadow/xray.nix
     ./system-modules/regreet.nix
     ./system-modules/proxychains.nix
+    ./system-modules/wayland.nix
     # ./system-modules/openssh.nix
     # ./system-modules/syncthing.nix
   ];
@@ -204,10 +205,6 @@
     # nix-ld = {
     #   enable = true;
     # };
-    hyprland = {
-      enable = true;
-      xwayland.enable = true;
-    };
     zsh.enable = true;
     thunar = {
       enable = true;
@@ -280,8 +277,8 @@
       # xdgOpenUsePortal = true;  # breaks Github authentication in vscode
       extraPortals = [
         pkgs.xdg-desktop-portal
-        pkgs.xdg-desktop-portal-gtk
-        pkgs.xdg-desktop-portal-hyprland
+        # pkgs.xdg-desktop-portal-gtk  # auto enabled by hyprland
+        # pkgs.xdg-desktop-portal-hyprland  # auto enabled by hyprland
       ];
     };
     mime = {
