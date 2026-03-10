@@ -26,36 +26,78 @@
         # "XDG_SCREENSHOTS_DIR,~/screens"
       ];
 
-      debug = {
-        disable_logs = false;
-        enable_stdout_logs = true;
+      general = {
+        # Gaps and border
+        border_size = 1;
+        gaps_in = 2;
+        gaps_out = 2;
+        float_gaps = 5;
+        gaps_workspaces = 50;
+
+        # Fallback colors
+        "col.active_border" = "rgba(0DB7D4FF)";
+        "col.inactive_border" = "rgba(00000000)"; # "rgba(31313600)";
+        # "col.active_border" = "rgba(eae0e445)"
+        # "col.inactive_border" = "rgba(9a8d9533)"
+
+        layout = "dwindle";
+        no_focus_fallback = true;
+        resize_on_border = true;
+
+      };
+
+      decoration = {
+        rounding = 10;
+        inactive_opacity = 0.9;
+        dim_modal = true;
+        dim_inactive = true;
+        dim_strength = 0.05;
+        dim_special = 0.2;
+        dim_around = 0.2;
+
+        blur = {
+          enabled = true;
+          size = 7;
+          passes = 4;
+          xray = true;
+          noise = 0.01;
+          contrast = 1;
+          brightness = 1;
+          popups = true;
+          popups_ignorealpha = 0.6;
+        };
+
+        shadow = {
+          enabled = true;
+          range = 15;
+          render_power = 3;
+          color = "rgba(0DB7D4FF)"; # "rgba(ee1a1a1a)";
+          color_inactive = "rgba(0000001A)";
+          offset = "0 2";
+        };
       };
 
       input = {
         kb_layout = "us,ru";
-        kb_options = "grp:alt_shift_toggle, compose:ralt";
+        kb_options = "grp:alt_shift_toggle, compose:ralt, lv3:menu_switch";  # , lv5:menu_switch
         numlock_by_default = true;
-        repeat_delay = 250;
-        repeat_rate = 35;
+        repeat_rate = 30;
+        repeat_delay = 300;
+        follow_mouse = 1;
+        focus_on_close = 1;
+        special_fallthrough = true;
 
         touchpad = {
-          natural_scroll = "yes";
           disable_while_typing = true;
-          clickfinger_behavior = true;
+          natural_scroll = true;
           scroll_factor = 0.5;
+          clickfinger_behavior = true;
         };
-        special_fallthrough = true;
-        follow_mouse = 1;
       };
 
-      binds = {
-        scroll_event_delay = 0;
-      };
-
+      # weird thing, IDK
       gestures = {
-        # workspace_swipe = true;
         workspace_swipe_distance = 700;
-        # workspace_swipe_fingers = 4;
         workspace_swipe_cancel_ratio = 0.2;
         workspace_swipe_min_speed_to_force = 5;
         workspace_swipe_direction_lock = true;
@@ -63,24 +105,31 @@
         workspace_swipe_create_new = true;
       };
 
-      general = {
-        # Gaps and border
-        gaps_in = 2;
-        gaps_out = 2;
-        gaps_workspaces = 50;
-        border_size = 1;
+      misc = {
+        disable_hyprland_logo = true;
+        vfr = 1;
+        vrr = 0;
+        # layers_hog_mouse_focus = true
+        focus_on_activate = true;
+        animate_manual_resizes = false;
+        animate_mouse_windowdragging = false;
+        enable_swallow = false;
+        swallow_regex = "(foot|kitty|allacritty|Alacritty)";
 
-        # Fallback colors
-        "col.active_border" = "rgba(0DB7D4FF)";
-        "col.inactive_border" = "rgba(31313600)";
-        # "col.active_border" = "rgba(eae0e445)"
-        # "col.inactive_border" = "rgba(9a8d9533)"
+        force_default_wallpaper = 0;
+        on_focus_under_fullscreen = 2;
+        # enable_hyprcursor = true
 
-        resize_on_border = true;
-        no_focus_fallback = true;
-        layout = "dwindle";
+        background_color = "rgba(1f1a1dFF)";
+      };
 
-        allow_tearing = false;
+      debug = {
+        disable_logs = false;
+        enable_stdout_logs = true;
+      };
+
+      binds = {
+        scroll_event_delay = 0;
       };
 
       dwindle = {
@@ -89,34 +138,6 @@
         smart_resizing = false;
       };
 
-      decoration = {
-        rounding = 10;
-
-        blur = {
-          enabled = true;
-          xray = true;
-          special = false;
-          new_optimizations = true;
-          size = 7;
-          passes = 4;
-          brightness = 1;
-          noise = 0.01;
-          contrast = 1;
-          popups = true;
-          popups_ignorealpha = 0.6;
-        };
-
-        shadow = {
-          range = 20;
-          offset = "0 2";
-          render_power = 3;
-          color = "rgba(0000001A)";
-        };
-
-        dim_inactive = false;
-        dim_strength = 0.1;
-        dim_special = 0;
-      };
 
       animations = {
         enabled = true;
@@ -149,24 +170,6 @@
           #specialWorkspace, 1, 3, md3_decel, slidefadevert 15%
           "specialWorkspace, 1, 3, md3_decel, slidevert"
         ];
-      };
-
-      misc = {
-        vfr = 1;
-        vrr = 0;
-        # layers_hog_mouse_focus = true
-        focus_on_activate = true;
-        animate_manual_resizes = false;
-        animate_mouse_windowdragging = false;
-        enable_swallow = false;
-        swallow_regex = "(foot|kitty|allacritty|Alacritty)";
-
-        disable_hyprland_logo = true;
-        force_default_wallpaper = 0;
-        on_focus_under_fullscreen = 2;
-        # enable_hyprcursor = true
-
-        background_color = "rgba(1f1a1dFF)";
       };
 
       xwayland = {
