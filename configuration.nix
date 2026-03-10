@@ -14,6 +14,8 @@
     ./hardware-configuration.nix
     # ./system-modules/flatpak.nix
     ./shadow/xray.nix
+    ./system-modules/regreet.nix
+    ./system-modules/proxychains.nix
     # ./system-modules/openssh.nix
     # ./system-modules/syncthing.nix
   ];
@@ -199,10 +201,6 @@
   };
 
   programs = {
-    regreet = {
-      enable = true;
-      settings = import ./system-modules/regreet-settings.nix;
-    };
     # nix-ld = {
     #   enable = true;
     # };
@@ -211,7 +209,6 @@
       xwayland.enable = true;
     };
     zsh.enable = true;
-    proxychains = import ./system-modules/proxychains.nix pkgs;
     thunar = {
       enable = true;
       plugins = with pkgs; [
