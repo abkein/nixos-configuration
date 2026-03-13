@@ -3,6 +3,7 @@
   #     "reportUnboundVariable" = "none";
   #     "reportGeneralTypeIssues" = "none"
   # };
+  "chat.mcp.gallery.enabled" = true;
   "python.locator" = "js";
   "python.editor.formatOnType" = true;
   "python.editor.defaultFormatter" = "ms-python.black-formatter";
@@ -44,5 +45,5 @@
     "jsdelivr.com"
     "unpkg.com"
   ];
-  "jupyter.logging.level" = "trace";
+  # "jupyter.logging.level" = "info";
 }

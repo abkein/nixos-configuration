@@ -182,7 +182,7 @@ in
         cfproc = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/python/cfproc";
           profile = "python";
-          nix = basicNix;
+          nix = basicNix // { flakePath = "/home/kein/devShells/cfproc"; };
         };
         vscode-clang-tidy = {
           folder = "${config.home.homeDirectory}/repos/vscode-clang-tidy";
