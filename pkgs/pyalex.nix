@@ -2,7 +2,7 @@
   python3Packages.buildPythonPackage rec {
     pname = "pyalex";
     version = "0.18";
-    format = "pyproject";
+    pyproject = true;
 
     src = pkgs.fetchPypi {
       inherit pname version;
