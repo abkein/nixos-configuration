@@ -1,0 +1,91 @@
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index dfe95c9b8..a73fe1574 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -13183,6 +13183,47 @@ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ 	return valid_vsdb_found ? i : -ENODEV;
+ }
+ 
++static bool amdgpu_dm_dp_path_supports_freesync(struct drm_dp_aux *aux)
++{
++	u8 dpcd[DP_RECEIVER_CAP_SIZE];
++
++	if (drm_dp_read_dpcd_caps(aux, dpcd) < 0)
++		return false;
++
++	return drm_dp_sink_can_do_video_without_timing_msa(dpcd);
++}
++
++/* MST VRR requires every receiver in the path to tolerate invalid MSA timing. */
++static bool
++amdgpu_dm_mst_path_supports_freesync(struct amdgpu_dm_connector *aconnector)
++{
++	struct drm_dp_mst_port *port = aconnector->mst_output_port;
++	struct drm_dp_mst_branch *mstb;
++
++	if (!port || !port->mgr || !port->mgr->aux)
++		return false;
++
++	if (!amdgpu_dm_dp_path_supports_freesync(&port->aux))
++		return false;
++
++	for (mstb = port->parent; mstb; ) {
++		struct drm_dp_aux *aux;
++
++		if (mstb->port_parent) {
++			aux = &mstb->port_parent->aux;
++			mstb = mstb->port_parent->parent;
++		} else {
++			aux = port->mgr->aux;
++			mstb = NULL;
++		}
++
++		if (!amdgpu_dm_dp_path_supports_freesync(aux))
++			return false;
++	}
++
++	return true;
++}
++
+ /**
+  * amdgpu_dm_update_freesync_caps - Update Freesync capabilities
+  *
+@@ -13242,9 +13283,22 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 		parse_edid_displayid_vrr(connector, edid);
+ 
+ 	if (edid && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
++		     sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
+ 		     sink->sink_signal == SIGNAL_TYPE_EDP)) {
+-		if (amdgpu_dm_connector->dc_link &&
+-		    amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_param) {
++		bool dp_path_supports_vrr;
++
++		if (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT_MST)
++			dp_path_supports_vrr =
++				amdgpu_dm_mst_path_supports_freesync(amdgpu_dm_connector);
++		else
++			dp_path_supports_vrr =
++				amdgpu_dm_connector->dc_link &&
++				amdgpu_dm_connector->dc_link->dpcd_caps
++					.allow_invalid_MSA_timing_param;
++
++		if (dp_path_supports_vrr &&
++		    connector->display_info.monitor_range.min_vfreq &&
++		    connector->display_info.monitor_range.max_vfreq) {
+ 			amdgpu_dm_connector->min_vfreq = connector->display_info.monitor_range.min_vfreq;
+ 			amdgpu_dm_connector->max_vfreq = connector->display_info.monitor_range.max_vfreq;
+ 			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 7be50e8c0..3b9c29353 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -681,7 +681,8 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 
+ 	connector->vrr_capable_property = master->base.vrr_capable_property;
+ 	if (connector->vrr_capable_property)
+-		drm_connector_attach_vrr_capable_property(connector);
++		drm_object_attach_property(&connector->base,
++					   connector->vrr_capable_property, 0);
+ 
+ 	drm_object_attach_property(
+ 		&connector->base,
