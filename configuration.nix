@@ -273,15 +273,15 @@
   xdg = {
     autostart.enable = true;
     menus.enable = true;
-    portal = {
-      enable = true;
-      # xdgOpenUsePortal = true;  # breaks Github authentication in vscode
-      extraPortals = [
-        pkgs.xdg-desktop-portal
-        # pkgs.xdg-desktop-portal-gtk  # auto enabled by hyprland
-        # pkgs.xdg-desktop-portal-hyprland  # auto enabled by hyprland
-      ];
-    };
+    # portal = {
+    #   enable = true;
+    #   # xdgOpenUsePortal = true;  # breaks Github authentication in vscode
+    #   extraPortals = [
+    #     pkgs.xdg-desktop-portal
+    #     # pkgs.xdg-desktop-portal-gtk  # auto enabled by hyprland
+    #     # pkgs.xdg-desktop-portal-hyprland  # auto enabled by hyprland
+    #   ];
+    # };
     mime = {
       enable = true;
       # defaultApplications = import ./confs/mimes.nix;
@@ -319,17 +319,15 @@
 
       nix-output-monitor
 
-      pulseaudio
-
       # system
       polkit_gnome
       wlr-randr
       ydotool
       wl-clipboard
       hyprland-protocols
-      xdg-desktop-portal
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
+      # xdg-desktop-portal
+      # xdg-desktop-portal-hyprland
+      # xdg-desktop-portal-gtk
       xdg-utils
       xdg-user-dirs
       xdg-ninja
@@ -343,6 +341,9 @@
       dig
       openvpn
       # syncthingtray
+
+      drm_info
+      v4l-utils # edid-decode
 
       # utilities
       killall

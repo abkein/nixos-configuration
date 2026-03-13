@@ -16,9 +16,9 @@ in
       "$SLURP_COMMAND" = "\"$(slurp -d -c f8daeeBB -b 55405044 -s 00000000)\"";
 
       monitor = [
-        "eDP-1,    3200x2000@120,   0x0, 1.6"
-        "desc:Acer Technologies SA240Y 0x0480DAE1, 1920x1080@74.97, 2000x0, 1"
-        "desc:Xiaomi Corporation Mi monitor 5323110031874, 3440x1440@180.00, 0x-1440, 1"
+        "eDP-1,    3200x2000@120,   0x0, 1.6, bitdepth, 10, cm, srgb, vrr, 1"
+        "desc:Acer Technologies SA240Y 0x0480DAE1, 1920x1080@74.97, 2000x0, 1, bitdepth, 10, cm, srgb"#, bitdepth, 10, cm, wide"
+        "desc:Xiaomi Corporation Mi monitor 5323110031874, 3440x1440@180.00, 0x-1440, 1, bitdepth, 10, cm, srgb, vrr, 1"
         ", preferred, auto, 1"
       ];
 
@@ -113,7 +113,7 @@ in
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         force_default_wallpaper = 0;
-        vrr = 1;
+        # vrr = 1;
         animate_manual_resizes = true;
         animate_mouse_windowdragging = true;
         # enable_swallow = false;
@@ -131,13 +131,13 @@ in
       # };
 
       ecosystem = {
-        enforce_permissions = true;
+        enforce_permissions = false;
       };
 
       permission = [
         ",screencopy,allow"
         ",plugin,ask"
-        ",keyboard,ask"
+        ",keyboard,allow"
       ];
 
       # debug = {
@@ -210,7 +210,7 @@ in
       exec-once = [
         # Bar, wallpaper
         # "waybar"
-        "keepassxc"
+        # "keepassxc"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
         # Cursor
@@ -218,6 +218,9 @@ in
       ];
 
       bind = [
+        # ################################### System ###################################
+        "Super, XF86MyComputer, exec, hyprshutdown --post-cmd 'systemctl shutdown'"
+        "Alt, XF86MyComputer, exec, hyprshutdown --post-cmd 'systemctl reboot'"
         "Super, Super_L, exec, pgrep wofi >/dev/null 2>&1 && pkill wofi || wofi"
         "Super, P, togglefloating,"
         # ################################### Applications ###################################
@@ -555,7 +558,6 @@ in
         "match:namespace osk, blur on"
         "match:namespace osk, ignore_alpha 0.6"
       ];
-
     };
   };
 }

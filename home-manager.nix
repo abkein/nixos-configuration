@@ -98,7 +98,6 @@ in
       grimblast
       waybar
 
-      kitty
       networkmanager_dmenu
       networkmanagerapplet
       qpwgraph
