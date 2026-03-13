@@ -18,8 +18,11 @@ in
       mainBar = {
         height = 30;
         spacing = 4;
-        modules-left = [ "hyprland/workspaces" ];
-        modules-center = [ "hyprland/window" ];
+        modules-left = [
+          "hyprland/workspaces"
+          "hyprland/window"
+        ];
+        # modules-center = [ "hyprland/window" ];
         modules-right = [
           "systemd-failed-units"
           "privacy"
@@ -38,8 +41,47 @@ in
           "hyprland/language"
           "battery"
           "clock"
+          "group/group-power"
           "tray"
         ];
+        "group/group-power" = {
+          orientation = "inherit";
+          drawer = {
+            transition-duration = 500;
+            children-class = "not-power";
+            transition-left-to-right = false;
+          };
+          modules = [
+            "custom/power" # First element is the "group leader" and won't ever be hidden
+            "custom/reboot"
+            "custom/quit"
+            "custom/lock"
+          ];
+        };
+        "custom/power" = {
+          format = "";
+          tooltip = true;
+          tooltip-format = "Shutdown";
+          on-click = "hyprshutdown --post-cmd 'systemctl shutdown'";
+        };
+        "custom/reboot" = {
+          format = "󰜉";
+          tooltip = true;
+          tooltip-format = "Reboot";
+          on-click = "hyprshutdown --post-cmd 'systemctl reboot'";
+        };
+        "custom/quit" = {
+          format = "󰗼";
+          tooltip = true;
+          tooltip-format = "Quit";
+          on-click = "hyprshutdown"; # "hyprctl dispatch exit";
+        };
+        "custom/lock" = {
+          format = "󰍁";
+          tooltip = true;
+          tooltip-format = "Lock";
+          on-click = "hyprlock";
+        };
         "hyprland/workspaces" = {
           all-outputs = true;
           active-only = false;
@@ -137,7 +179,7 @@ in
           tooltip = true;
         };
         memory = {
-          format = "{percentage}% {icon} {swapPercentage}%";  # ""
+          format = "{percentage}% {icon} {swapPercentage}%"; # ""
           tooltip = true;
           tooltip-format = "RAM: {used:0.1f}/{total:0.1f} GiB\nSwap: {swapUsed:0.1f}/{swapTotal:0.1f} GiB";
           format-icons = [
@@ -221,16 +263,18 @@ in
           };
         battery = {
           states = {
-            full = 95;
+            ok = 90;
             warning = 30;
             critical = 15;
           };
           full-at = 95;
-          format = "{capacity}% {icon}";
+          format = "{capacity}% {icon}";
           format-charging = "{capacity}% {icon}󱐋";
           format-unknown = "{capacity}% {icon} ";
           format-plugged = "{capacity}% {icon} ";
-          format-alt = "{time} {icon}";
+          format-ok = "{capacity}% {icon} ";
+          format-full = "{capacity}% {icon} 󰓎";
+          format-alt = "{timeTo} {icon}";
           format-icons = [
             "󰂎"
             "󰁺"
@@ -247,10 +291,12 @@ in
           events = {
             on-discharging-warning = "notify-send -u normal 'Low Battery'";
             on-discharging-critical = "notify-send -u critical 'Very Low Battery'";
+            on-discharging = "notify-send -u normal 'Discharging now...'";
+            on-charging = "notify-send -u normal 'Charging now...'";
             on-charging-full = "notify-send -u normal 'Battery Full!'";
           };
           tooltip = true;
-          tooltip-format = "{time} to {timeTo}\nPower draw: {power}\nCycles: {cycles}\nHealth: {health}";
+          tooltip-format = "{timeTo}\nPower draw: {power}\nCycles: {cycles}\nHealth: {health}";
           tooltip-format-plugged = "{timeTo}\nPower draw: {power}\nCycles: {cycles}\nHealth: {health}";
           bat = "BATT";
         };
