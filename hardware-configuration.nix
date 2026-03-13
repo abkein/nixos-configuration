@@ -19,10 +19,11 @@
   #   extraHwdb = ''
   #     # Apply to AT keyboards (internal laptop keyboard via atkbd/i8042)
   #     evdev:atkbd:*
-  #      KEYBOARD_KEY_e076=0x1d0  # KEY_FN
-  #      KEYBOARD_KEY_e072=226    # KEY_MEDIA
-  #      KEYBOARD_KEY_e077=211    # KEY_HP
+  #      KEYBOARD_KEY_e076=0x1d0  # KEY_FN  # FN key
+  #      KEYBOARD_KEY_e072=226    # KEY_MEDIA  # XiaoAI
   #   '';
+  #   #  KEYBOARD_KEY_e077=211    # KEY_HP  # WMI KEYS
+  #   #  157    # KEY_COMPUTER
   # };
 
   boot = {
