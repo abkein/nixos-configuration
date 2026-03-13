@@ -41,7 +41,8 @@ static int redmibook_wmi_probe(struct wmi_device *wdev, const void *context)
     set_bit(KEY_PROG4, data->input_dev->keybit);
     set_bit(KEY_FN_F10, data->input_dev->keybit);
     // set_bit(KEY_MEDIA, data->input_dev->keybit);
-    set_bit(KEY_SYSRQ, data->input_dev->keybit);
+    // set_bit(KEY_SYSRQ, data->input_dev->keybit);
+    set_bit(KEY_COMPUTER, data->input_dev->keybit);
     return input_register_device(data->input_dev);
 }
 
@@ -138,12 +139,14 @@ static void redmibook_wmi_notify(struct wmi_device *wdev, union acpi_object *obj
         break;
     case 0x18: // <Xiao Ai> Down
         // input_report_key(data->input_dev, KEY_MEDIA, 1);
-        input_report_key(data->input_dev, KEY_SYSRQ, 1);
+        // input_report_key(data->input_dev, KEY_SYSRQ, 1);
+        input_report_key(data->input_dev, KEY_COMPUTER, 1);
         input_sync(data->input_dev);
         break;
     case 0x19: // <Xiao Ai> Up
         // input_report_key(data->input_dev, KEY_MEDIA, 0);
-        input_report_key(data->input_dev, KEY_SYSRQ, 0);
+        // input_report_key(data->input_dev, KEY_SYSRQ, 0);
+        input_report_key(data->input_dev, KEY_COMPUTER, 0);
         input_sync(data->input_dev);
         break;
     }
