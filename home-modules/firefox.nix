@@ -103,7 +103,7 @@ in
         ProviderURL = "https://8.8.8.8/dns-query"; # 8.8.8.8, 8.8.4.4
         # ProviderURL = "https://mozilla.cloudflare-dns.com/dns-query";  # 162.159.61.4 172.64.41.4
         # ProviderURL = "https://dns.cloudflare.com/dns-query";  # 162.159.61.4 172.64.41.4
-        # ProviderURL = " https://dns.quad9.net/dns-query";  # 9.9.9.9, 149.112.112.112
+        # ProviderURL = "https://dns.quad9.net/dns-query";  # 9.9.9.9, 149.112.112.112
         Locked = true;
         ExcludedDomains = [ ];
         Fallback = false;
