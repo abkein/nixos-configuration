@@ -85,62 +85,73 @@
       };
     in
     {
-      nixosConfigurations."${cfg.hostname}" = nixpkgs.lib.nixosSystem rec {
-        inherit system;
-        specialArgs = {
-          inherit inputs;
-          inherit cfg;
-        };
-        modules = [
-          ./configuration.nix
-          ./disko.nix
-          nur.modules.nixos.default
-          sops-nix.nixosModules.sops
-          agenix.nixosModules.default
-          # agenix-rekey.nixosModules.default
-          home-manager.nixosModules.home-manager
-          disko.nixosModules.disko
-          {
-            nixpkgs = {
-              config = {
-                allowUnfree = true;
-                permittedInsecurePackages = [
-                  "python3.12-ecdsa-0.19.1"
+      nixosConfigurations = {
+        jeta = nixpkgs.lib.nixosSystem rec {
+          inherit system;
+          specialArgs = {
+            inherit inputs;
+            inherit cfg;
+          };
+          modules = [
+            ./configuration.nix
+            ./disko.nix
+            nur.modules.nixos.default
+            sops-nix.nixosModules.sops
+            agenix.nixosModules.default
+            # agenix-rekey.nixosModules.default
+            home-manager.nixosModules.home-manager
+            disko.nixosModules.disko
+            {
+              nixpkgs = {
+                config = {
+                  allowUnfree = true;
+                  permittedInsecurePackages = [
+                    "python3.12-ecdsa-0.19.1"
+                  ];
+                };
+                overlays = [
+                  nix4vscode.overlays.forVscode
+                  nur.overlays.default
+                  # agenix-rekey.overlays.default
+                  (import ./overlays/pypackages.nix)
+                  (import ./overlays/generic.nix)
                 ];
               };
-              overlays = [
-                nix4vscode.overlays.forVscode
-                nur.overlays.default
-                # agenix-rekey.overlays.default
-                (import ./overlays/pypackages.nix)
-                (import ./overlays/generic.nix)
-              ];
-            };
-            environment.systemPackages = [ agenix.packages.${system}.default ];
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "hm-backup";
-              overwriteBackup = true;
-              sharedModules = [
-                sops-nix.homeManagerModules.sops
-                agenix.homeManagerModules.default
-              ];
-              users = {
-                "${cfg.username}" = ./home-manager.nix;
+              environment.systemPackages = [ agenix.packages.${system}.default ];
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                backupFileExtension = "hm-backup";
+                overwriteBackup = true;
+                sharedModules = [
+                  sops-nix.homeManagerModules.sops
+                  agenix.homeManagerModules.default
+                ];
+                users = {
+                  "${cfg.username}" = ./home-manager.nix;
+                };
+                extraSpecialArgs = {
+                  inherit inputs;
+                  inherit cfg;
+                };
               };
-              extraSpecialArgs = {
-                inherit inputs;
-                inherit cfg;
-              };
-            };
-          }
+            }
+          ];
+        };
+        yun = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          ./yun/configuration.nix
+          ./yun/hardware-configuration.nix
+          ./yun/disko.nix
         ];
       };
-      # agenix-rekey = agenix-rekey.configure {
-      #   userFlake = self;
-      #   nixosConfigurations = self.nixosConfigurations;
-      # };
-      # devShells.${system}.default = nixpkgs.mkShell {};
+        # agenix-rekey = agenix-rekey.configure {
+        #   userFlake = self;
+        #   nixosConfigurations = self.nixosConfigurations;
+        # };
+        # devShells.${system}.default = nixpkgs.mkShell {};
+      };
     };
 }
