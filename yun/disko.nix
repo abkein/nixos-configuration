@@ -2,11 +2,15 @@
   disko.devices = {
     disk = {
       main = {
-        device = "/dev/sr0";
+        device = "/dev/sda";
         type = "disk";
         content = {
           type = "gpt";
           partitions = {
+            BIOS = {
+              size = "1M";
+              type = "EF02";
+            };
             ESP = {
               type = "EF00";
               size = "500M";
