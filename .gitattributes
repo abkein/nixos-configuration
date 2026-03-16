@@ -1,2 +1,3 @@
 shadow/xray.nix filter=git-agecrypt diff=git-agecrypt
 shadow/ssh.nix filter=git-agecrypt diff=git-agecrypt
+shadow/xray_yun.nix filter=git-agecrypt diff=git-agecrypt

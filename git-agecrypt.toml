@@ -1,3 +1,4 @@
 [config]
 "shadow/xray.nix" = ["age1yubikey1q02n4jegke9g9ntr7kcymns0pjpyqfllnr4k5tesa79az7mau8s2gfsnx92"]
 "shadow/ssh.nix" = ["age1yubikey1q02n4jegke9g9ntr7kcymns0pjpyqfllnr4k5tesa79az7mau8s2gfsnx92"]
+"shadow/xray_yun.nix" = ["age1yubikey1q02n4jegke9g9ntr7kcymns0pjpyqfllnr4k5tesa79az7mau8s2gfsnx92"]
