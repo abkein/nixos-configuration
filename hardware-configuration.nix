@@ -13,6 +13,7 @@
     ./hardware-modules/zenpower.nix
     ./hardware-modules/redmibook-wmi.nix
     ./hardware-modules/acpi-patch.nix
+    ./hardware-modules/amdgpu-patch.nix
   ];
 
   # services.udev = {
