@@ -182,6 +182,10 @@ in
         clipboard-trim-trailing-spaces = true;
       };
     };
+    htop = {
+      enable = true;
+      # settings = {};
+    };
     direnv = {
       enable = true;
       silent = false;
