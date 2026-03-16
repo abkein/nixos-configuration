@@ -8,6 +8,7 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
+    ../shadow/xray_yun.nix
   ];
   boot.loader.grub = {
     # With an EF02 BIOS boot partition, disko adds the disk automatically.
