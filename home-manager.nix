@@ -90,7 +90,6 @@ in
       jq
 
       nix-tree
-      dunst
       cliphist
       wev
       slurp
@@ -167,11 +166,6 @@ in
   services = {
     # blueman-applet.enable = true;
     ssh-agent.enable = true;
-    dunst = {
-      enable = true;
-      configFile = "${config.xdg.configHome}/dunst/dunstrc";
-      settings = import ./home-modules/dunst.nix;
-    };
   };
 
   programs = {
