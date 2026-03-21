@@ -61,6 +61,8 @@ in
       thunderbird-latest
       imagemagickBig
       poppler-utils
+      texlive.combined.scheme-full
+      tex-fmt
       ghostscript
       python312Packages.plotext
       backintime-common

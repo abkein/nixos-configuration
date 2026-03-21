@@ -391,7 +391,7 @@
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
-      # lmodern
+      lmodern
       # noto-fonts
       # noto-fonts-color-emoji
       # noto-fonts-lgc-plus
@@ -401,7 +401,7 @@
       # powerline-symbols
       # corefonts
       # vista-fonts
-      # cm_unicode
+      cm_unicode
     ];
     # ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
