@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 let
   needed_extensions = import ./needed_exts.nix pkgs;
 in
@@ -63,6 +63,10 @@ in
           folder = "${config.home.homeDirectory}/nixos-configuration";
           profile = "nix";
         };
+        devShells = {
+          folder = "${config.home.homeDirectory}/devShells";
+          profile = "nix";
+        };
         lmptest = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/lmptest";
           profile = "python";
@@ -70,7 +74,7 @@ in
         Quicknotebook = {
           folder = "${config.xdg.dataHome}/quicknotebook";
           prerun = [
-            "kitty --app-id=\"kitty_info\" ${config.home.homeDirectory}/execs/quicknotebook.sh"
+            ''kitty --app-id="kitty_info" ${config.home.homeDirectory}/execs/quicknotebook.sh''
           ];
           profile = "python";
         };
