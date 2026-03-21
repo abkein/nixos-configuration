@@ -10,6 +10,8 @@
   "editor.renderWhitespace" = "all";
   # "editor.defaultFormatter" = "trunk.io";
 
+  "chat.disableAIFeatures" = true;
+
   # "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'Font Awesome 7 Free', 'Symbols Nerd Font', monospace";
   # "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'Symbols Nerd Font', 'Font Awesome 7 Free', monospace";
 
@@ -62,6 +64,7 @@
   "git.ignoreRebaseWarning" = true;
 
   "workbench.layoutControl.enabled" = false;
+  "workbench.secondarySideBar.defaultVisibility" = "hidden";
   "workbench.editorAssociations" = {
     "*.pdf" = "latex-workshop-pdf-hook";
   };

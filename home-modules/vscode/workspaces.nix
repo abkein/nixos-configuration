@@ -27,7 +27,9 @@ in
         enableUpdateCheck = false;
         enableExtensionUpdateCheck = false;
       };
-      nix = { };
+      nix = {
+        extensions = needed_extensions.dev;
+      };
       LaTeX = with needed_extensions; {
         extensions = LaTeX ++ python;
         userSettings = import ./latexSettings.nix;
