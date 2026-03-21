@@ -12,11 +12,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-vuzzt5LTU35uEOsZDkZPJpa7pyLFUE0QH49cnFjF3ZY=";
   };
 
+  dontUnpack = true;
+
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/share/v2ray/
-    install --mode=444 geoip.dat "$out/share/v2ray/geoip.dat"
+    install --mode=444 $src "$out/share/v2ray/geoip.dat"
 
     runHook postInstall
   '';

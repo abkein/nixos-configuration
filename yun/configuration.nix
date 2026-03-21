@@ -50,6 +50,7 @@
     };
     firewall = {
       enable = true;
+      allowedTCPPorts = [ 443 ];
     };
   };
   time.timeZone = "Europe/Helsinki";

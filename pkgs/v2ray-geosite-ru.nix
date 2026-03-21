@@ -8,15 +8,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   version = "202603181028";
 
   src = fetchurl {
-    url = "https://github.com/runetfreedom/russia-v2ray-rules-dat/releases/download/${finalAttrs.version}/gesite.dat";
+    url = "https://github.com/runetfreedom/russia-v2ray-rules-dat/releases/download/${finalAttrs.version}/geosite.dat";
     hash = "sha256-lJAw2SdINlIfY5rDgPannzqYme+hbwvMDwpl8AFKDE4=";
   };
+
+  dontUnpack = true;
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/share/v2ray/
-    install --mode=444 geosite.dat "$out/share/v2ray/geosite.dat"
+    install --mode=444 $src "$out/share/v2ray/geosite.dat"
 
     runHook postInstall
   '';
