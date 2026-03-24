@@ -108,10 +108,18 @@ in
       nixd
       nil
       nixfmt # now same as nixfmt-rfc-style
-      libreoffice-fresh
       xed-editor
       obsidian
-      aider-chat
+      # aider-chat
+
+      libreoffice-fresh
+      crow-translate
+
+      hunspell
+      hunspellDicts.en-us-large
+      hunspellDicts.ru-ru
+
+      baobab
 
       # security
       keepassxc
