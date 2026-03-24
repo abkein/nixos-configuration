@@ -38,6 +38,7 @@ in
     userDirs = {
       enable = true;
       createDirectories = true;
+      setSessionVariables = true;
     };
 
     # portal = {
@@ -146,7 +147,7 @@ in
 
       ffmpeg-full
 
-      # electrum
+      electrum
 
       # unstable.gemini-cli
       # ugemini-cli
@@ -289,18 +290,23 @@ in
     gradle.home = ".local/share/gradle";
   };
 
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
+  gtk =
+    let
+      theme = {
+        name = "adw-gtk3-dark";
+        package = pkgs.adw-gtk3;
+      };
+    in
+    {
+      enable = true;
+      iconTheme = {
+        name = "Adwaita";
+        package = pkgs.adwaita-icon-theme;
+      };
+      theme = theme;
+      gtk4.theme = theme;
+      gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     };
-    theme = {
-      name = "adw-gtk3-dark";
-      package = pkgs.adw-gtk3;
-    };
-    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-  };
 
   qt = {
     enable = true;
