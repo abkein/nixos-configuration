@@ -120,6 +120,7 @@ in
       hunspellDicts.ru-ru
 
       baobab
+      bleachbit
 
       # security
       keepassxc
