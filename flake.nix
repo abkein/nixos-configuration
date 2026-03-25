@@ -3,34 +3,44 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ayugram-desktop = {
-      type = "git";
-      submodules = true;
-      url = "https://github.com/ndfined-crp/ayugram-desktop/";
+    systems.url = "github:nix-systems/default";
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
     };
 
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.flake-utils.follows = "flake-utils";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    # nix-vscode-extensions = {
+    #   url = "github:nix-community/nix-vscode-extensions";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   # inputs.flake-utils.follows = "flake-utils";
+    # };
 
     nix4vscode = {
       url = "github:nix-community/nix4vscode";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
     };
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.darwin.follows = "";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        darwin.follows = "";
+        systems.follows = "systems";
+        home-manager.follows = "home-manager";
+      };
     };
 
     # agenix-rekey = {
@@ -41,21 +51,48 @@
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
-    anyrun = {
-      url = "github:anyrun-org/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # anyrun = {
+    #   url = "github:anyrun-org/anyrun";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # sops-nix = {
+    #   url = "github:Mic92/sops-nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     disko = {
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake/beta";
+      inputs = {
+        # IMPORTANT: To ensure compatibility with the latest Firefox version, use nixpkgs-unstable.
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+
+    # git-hooks = {
+    #   url = "github:cachix/git-hooks.nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
+    ayugram-desktop = {
+      url = "github:ndfined-crp/ayugram-desktop/ayugram-v6.3.10";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        # git-hooks.follows = "git-hooks";
+      };
+      # type = "git";
+      # submodules = true;
+      # url = "https://github.com/ndfined-crp/ayugram-desktop/";
     };
   };
 
@@ -63,16 +100,6 @@
     {
       self,
       nixpkgs,
-      flake-utils,
-      home-manager,
-      ayugram-desktop,
-      nix-vscode-extensions,
-      nix4vscode,
-      agenix,
-      nur,
-      anyrun,
-      sops-nix,
-      disko,
       ...
     }@inputs:
     let
@@ -92,61 +119,72 @@
             inherit inputs;
             inherit cfg;
           };
-          modules = [
-            ./configuration.nix
-            ./disko.nix
-            nur.modules.nixos.default
-            sops-nix.nixosModules.sops
-            agenix.nixosModules.default
-            # agenix-rekey.nixosModules.default
-            home-manager.nixosModules.home-manager
-            disko.nixosModules.disko
-            {
-              nixpkgs = {
-                config = {
-                  allowUnfree = true;
-                  permittedInsecurePackages = [
-                    "python3.12-ecdsa-0.19.1"
+          modules =
+            (with inputs; [
+              nur.modules.nixos.default
+              agenix.nixosModules.default
+              home-manager.nixosModules.home-manager
+              disko.nixosModules.disko
+              # sops-nix.nixosModules.sops
+              # agenix-rekey.nixosModules.default
+            ])
+            ++ [
+              ./configuration.nix
+              ./disko.nix
+              {
+                nixpkgs = {
+                  config = {
+                    allowUnfree = true;
+                    permittedInsecurePackages = [
+                      "python3.12-ecdsa-0.19.1"
+                    ];
+                  };
+                  overlays =
+                    (with inputs; [
+                      nix4vscode.overlays.forVscode
+                      nur.overlays.default
+                      # nix-vscode-extensions.overlays.default
+                      # agenix-rekey.overlays.default
+                    ])
+                    ++ [
+                      (import ./overlays/pypackages.nix)
+                      (import ./overlays/generic.nix)
+                    ];
+                };
+                environment.systemPackages = [ inputs.agenix.packages.${system}.default ];
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  backupFileExtension = "hm-backup";
+                  overwriteBackup = true;
+                  sharedModules = with inputs; [
+                    agenix.homeManagerModules.default
+                    zen-browser.homeModules.beta
+                    # sops-nix.homeManagerModules.sops
                   ];
+                  users = {
+                    "${cfg.username}" = ./home-manager.nix;
+                  };
+                  extraSpecialArgs = {
+                    inherit inputs;
+                    inherit cfg;
+                  };
                 };
-                overlays = [
-                  nix4vscode.overlays.forVscode
-                  nur.overlays.default
-                  # agenix-rekey.overlays.default
-                  (import ./overlays/pypackages.nix)
-                  (import ./overlays/generic.nix)
-                ];
-              };
-              environment.systemPackages = [ agenix.packages.${system}.default ];
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                backupFileExtension = "hm-backup";
-                overwriteBackup = true;
-                sharedModules = [
-                  sops-nix.homeManagerModules.sops
-                  agenix.homeManagerModules.default
-                ];
-                users = {
-                  "${cfg.username}" = ./home-manager.nix;
-                };
-                extraSpecialArgs = {
-                  inherit inputs;
-                  inherit cfg;
-                };
-              };
-            }
-          ];
+              }
+            ];
         };
         yun = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          disko.nixosModules.disko
-          ./yun/configuration.nix
-          ./yun/hardware-configuration.nix
-          ./yun/disko.nix
-        ];
-      };
+          system = "x86_64-linux";
+          modules =
+            (with inputs; [
+              disko.nixosModules.disko
+            ])
+            ++ [
+              ./yun/configuration.nix
+              ./yun/hardware-configuration.nix
+              ./yun/disko.nix
+            ];
+        };
         # agenix-rekey = agenix-rekey.configure {
         #   userFlake = self;
         #   nixosConfigurations = self.nixosConfigurations;
