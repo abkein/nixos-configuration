@@ -458,17 +458,16 @@
       stalled-download-timeout = 15; # instead of 300
       substituters = [
         "https://cache.nixos.org?priority=50"
-        # "https://cache.garnix.io?priority=200"
+        "https://cache.garnix.io?priority=200"
+        "https://ayugram-desktop.cachix.org?priority=201"
+        # "https://anyrun.cachix.org"
       ];
       trusted-public-keys = [
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "ayugram-desktop.cachix.org:AZ5EqHrJsAKL5YkZYLPEsb1FdD9QlypUwQ0REcJftgA="
+        # "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       ];
-      # extra-substituters = [
-      #    "https://anyrun.cachix.org"
-      # ];
-      # extra-trusted-public-keys = [
-      #    "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
-      # ];
     };
     extraOptions = ''
       !include ${config.age.secrets."nix-access-tokens.conf".path}
