@@ -71,9 +71,7 @@ in
       tesseract
       #chatbox
       chromium
-      #cinny-desktop  # depends on vulnerable libsoup
-      fractal
-      vesktop
+      element-desktop
       pstree
       fastfetch
       speedtest-cli
