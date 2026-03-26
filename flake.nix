@@ -2,7 +2,7 @@
   description = "My NixOS configuration with integrated home-manager";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/6c9a78c09ff4d6c21d0319114873508a6ec01655";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -78,17 +78,17 @@
       };
     };
 
-    # git-hooks = {
-    #   url = "github:cachix/git-hooks.nix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ayugram-desktop = {
-      url = "github:ndfined-crp/ayugram-desktop/ayugram-v6.3.10";
+      url = "github:abkein/ayugram-desktop/ad9096991e9dce9a2e2454a2fc6e0c6d7335b486";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        # git-hooks.follows = "git-hooks";
+        git-hooks.follows = "git-hooks";
       };
       # type = "git";
       # submodules = true;
