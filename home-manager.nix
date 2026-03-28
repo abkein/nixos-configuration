@@ -1,15 +1,10 @@
 {
   config,
   pkgs,
-  inputs,
+  ipkgs,
   cfg,
   ...
 }:
-let
-  ayugram-desktop =
-    inputs.ayugram-desktop.packages.${pkgs.stdenv.hostPlatform.system}.ayugram-desktop;
-  # anyrun-pkgs = inputs.anyrun.packages.${pkgs.stdenv.hostPlatform.system};
-in
 {
   imports = [
     ./home-modules/home-modules.nix
@@ -56,101 +51,106 @@ in
     username = cfg.username;
     homeDirectory = cfg.userhome;
     stateVersion = "24.11";
-    packages = with pkgs; [
-      ayugram-desktop
-      ocrmypdf
-      thunderbird-latest
-      imagemagickBig
-      poppler-utils
-      texlive.combined.scheme-full
-      tex-fmt
-      ghostscript
-      python312Packages.plotext
-      backintime-common
-      backintime-qt
-      tesseract
-      #chatbox
-      chromium
-      element-desktop
-      pstree
-      fastfetch
-      speedtest-cli
-      ooniprobe-cli
-      iperf
-      tor-browser
-      quickemu
-      adwaita-qt
-      adwaita-qt6
-      libsForQt5.qt5ct
-      kdePackages.qt6ct
-      file-roller
-      xdot
-      graphviz
-      swappy
-      wf-recorder
-      jq
+    packages =
+      (with ipkgs; [
+        ayugram-desktop
+        codex-cli
+        claude-code
+      ])
+      ++ (with pkgs; [
+        ocrmypdf
+        thunderbird-latest
+        imagemagickBig
+        poppler-utils
+        texlive.combined.scheme-full
+        tex-fmt
+        ghostscript
+        python312Packages.plotext
+        backintime-common
+        backintime-qt
+        tesseract
+        #chatbox
+        chromium
+        element-desktop
+        pstree
+        fastfetch
+        speedtest-cli
+        ooniprobe-cli
+        iperf
+        tor-browser
+        quickemu
+        adwaita-qt
+        adwaita-qt6
+        libsForQt5.qt5ct
+        kdePackages.qt6ct
+        file-roller
+        xdot
+        graphviz
+        swappy
+        wf-recorder
+        jq
 
-      nix-tree
-      cliphist
-      wev
-      slurp
-      grim
-      grimblast
-      waybar
+        nix-tree
+        cliphist
+        wev
+        slurp
+        grim
+        grimblast
+        waybar
 
-      networkmanager_dmenu
-      networkmanagerapplet
-      qpwgraph
-      zotero
+        networkmanager_dmenu
+        networkmanagerapplet
+        qpwgraph
+        zotero
 
-      # text
-      nixd
-      nil
-      nixfmt # now same as nixfmt-rfc-style
-      xed-editor
-      obsidian
-      # aider-chat
+        # text
+        nixd
+        nil
+        nixfmt # now same as nixfmt-rfc-style
+        xed-editor
+        obsidian
+        # aider-chat
 
-      libreoffice-fresh
-      crow-translate
+        libreoffice-fresh
+        crow-translate
 
-      hunspell
-      hunspellDicts.en-us-large
-      hunspellDicts.ru-ru
+        hunspell
+        hunspellDicts.en-us-large
+        hunspellDicts.ru-ru
 
-      baobab
-      bleachbit
+        baobab
+        bleachbit
 
-      # security
-      keepassxc
-      gpgme
-      gpgme.dev
+        # security
+        keepassxc
+        gpgme
+        gpgme.dev
 
-      # image/audio/video
-      vlc
-      gimp
-      swayimg
-      inkscape
-      # -with-extensions
-      # inkscape-extensions.textext
+        # image/audio/video
+        vlc
+        gimp
+        swayimg
+        inkscape
+        # -with-extensions
+        # inkscape-extensions.textext
 
-      zoom-us
-      qrencode
-      libnotify
+        zoom-us
+        qrencode
+        libnotify
 
-      tor-browser
-      zip
-      unzip
-      veusz
+        tor-browser
+        zip
+        unzip
+        veusz
 
-      ffmpeg-full
+        ffmpeg-full
 
-      electrum
+        electrum
 
-      # unstable.gemini-cli
-      # ugemini-cli
-      # claude-code
-    ];
+        # unstable.gemini-cli
+        # ugemini-cli
+        # claude-code
+      ]);
     # file = import ./home-modules/files.nix;
     sessionVariables = {
       # QT_QPA_PLATFORMTHEME = "qt6ct";

@@ -84,7 +84,7 @@
     };
 
     ayugram-desktop = {
-      url = "github:abkein/ayugram-desktop/ad9096991e9dce9a2e2454a2fc6e0c6d7335b486";
+      url = "github:ndfined-crp/ayugram-desktop";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -94,6 +94,18 @@
       # submodules = true;
       # url = "https://github.com/ndfined-crp/ayugram-desktop/";
     };
+
+    codex-cli = {
+      url = "github:sadjow/codex-cli-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs =
@@ -102,89 +114,112 @@
       nixpkgs,
       ...
     }@inputs:
-    let
-      system = "x86_64-linux";
-      cfg = rec {
-        username = "kein";
-        userhome = "/home/kein";
-        flakepath = "${userhome}/nixos-configuration";
-        hostname = "jeta";
-      };
-    in
     {
       nixosConfigurations = {
-        jeta = nixpkgs.lib.nixosSystem rec {
-          inherit system;
-          specialArgs = {
-            inherit inputs;
-            inherit cfg;
-          };
-          modules =
-            (with inputs; [
-              nur.modules.nixos.default
-              agenix.nixosModules.default
-              home-manager.nixosModules.home-manager
-              disko.nixosModules.disko
-              # sops-nix.nixosModules.sops
-              # agenix-rekey.nixosModules.default
-            ])
-            ++ [
-              ./configuration.nix
-              ./disko.nix
+        jeta =
+          let
+            cfg = rec {
+              system = "x86_64-linux";
+              username = "kein";
+              userhome = "/home/kein";
+              flakepath = "${userhome}/nixos-configuration";
+              hostname = "jeta";
+            };
+            ipkgs =
+              let
+                system = cfg.system;
+              in
+              with inputs;
               {
-                nixpkgs = {
-                  config = {
-                    allowUnfree = true;
-                    permittedInsecurePackages = [
-                      "python3.12-ecdsa-0.19.1"
+                agenix = agenix.packages.${system}.default;
+                codex-cli = codex-cli.packages.${system}.default;
+                claude-code = claude-code.packages.${system}.default;
+                ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
+                # anyrun-pkgs = anyrun.packages.${system}.default;
+              };
+          in
+          nixpkgs.lib.nixosSystem {
+            inherit (cfg) system;
+            specialArgs = {
+              inherit ipkgs;
+              inherit cfg;
+            };
+            modules =
+              (with inputs; [
+                nur.modules.nixos.default
+                agenix.nixosModules.default
+                home-manager.nixosModules.home-manager
+                disko.nixosModules.disko
+                # sops-nix.nixosModules.sops
+                # agenix-rekey.nixosModules.default
+              ])
+              ++ [
+                ./configuration.nix
+                ./disko.nix
+                {
+                  nixpkgs = {
+                    hostPlatform = cfg.system;
+                    config = {
+                      allowUnfree = true;
+                      permittedInsecurePackages = [
+                        "python3.12-ecdsa-0.19.1"
+                      ];
+                    };
+                    overlays =
+                      (with inputs; [
+                        nix4vscode.overlays.forVscode
+                        nur.overlays.default
+                        # nix-vscode-extensions.overlays.default
+                        # agenix-rekey.overlays.default
+                      ])
+                      ++ [
+                        (import ./overlays/pypackages.nix)
+                        (import ./overlays/generic.nix)
+                      ];
+                  };
+                  environment.systemPackages = with ipkgs; [ agenix ];
+                  home-manager = {
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
+                    backupFileExtension = "hm-backup";
+                    overwriteBackup = true;
+                    sharedModules = with inputs; [
+                      agenix.homeManagerModules.default
+                      zen-browser.homeModules.beta
+                      # sops-nix.homeManagerModules.sops
                     ];
+                    users = {
+                      "${cfg.username}" = ./home-manager.nix;
+                    };
+                    extraSpecialArgs = {
+                      inherit ipkgs;
+                      inherit cfg;
+                    };
                   };
-                  overlays =
-                    (with inputs; [
-                      nix4vscode.overlays.forVscode
-                      nur.overlays.default
-                      # nix-vscode-extensions.overlays.default
-                      # agenix-rekey.overlays.default
-                    ])
-                    ++ [
-                      (import ./overlays/pypackages.nix)
-                      (import ./overlays/generic.nix)
-                    ];
-                };
-                environment.systemPackages = [ inputs.agenix.packages.${system}.default ];
-                home-manager = {
-                  useGlobalPkgs = true;
-                  useUserPackages = true;
-                  backupFileExtension = "hm-backup";
-                  overwriteBackup = true;
-                  sharedModules = with inputs; [
-                    agenix.homeManagerModules.default
-                    zen-browser.homeModules.beta
-                    # sops-nix.homeManagerModules.sops
-                  ];
-                  users = {
-                    "${cfg.username}" = ./home-manager.nix;
-                  };
-                  extraSpecialArgs = {
-                    inherit inputs;
-                    inherit cfg;
-                  };
-                };
-              }
-            ];
-        };
-        yun = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules =
-            (with inputs; [
-              disko.nixosModules.disko
-            ])
-            ++ [
-              ./yun/configuration.nix
-              ./yun/hardware-configuration.nix
-              ./yun/disko.nix
-            ];
-        };
+                }
+              ];
+          };
+        yun =
+          let
+            cfg = {
+              system = "x86_64-linux";
+            };
+          in
+          nixpkgs.lib.nixosSystem {
+            system = cfg.system;
+            modules =
+              (with inputs; [
+                disko.nixosModules.disko
+              ])
+              ++ [
+                {
+                  nixpkgs.hostPlatform = cfg.system;
+                }
+                ./yun/configuration.nix
+                ./yun/hardware-configuration.nix
+                ./yun/disko.nix
+              ];
+          };
         # agenix-rekey = agenix-rekey.configure {
         #   userFlake = self;
         #   nixosConfigurations = self.nixosConfigurations;

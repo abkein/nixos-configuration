@@ -40,17 +40,62 @@
         ]
       },
       "locked": {
-        "lastModified": 1774481814,
+        "lastModified": 1774558224,
         "narHash": "sha256-gvlqbG3qcKN3gBXXwa8kvKRFZDxNgt9P9lpUHSyVq4o=",
-        "owner": "abkein",
+        "owner": "ndfined-crp",
         "repo": "ayugram-desktop",
-        "rev": "ad9096991e9dce9a2e2454a2fc6e0c6d7335b486",
+        "rev": "a70db0d26a718e9c06a27cd7ae7bc47ff10bee91",
         "type": "github"
       },
       "original": {
-        "owner": "abkein",
+        "owner": "ndfined-crp",
         "repo": "ayugram-desktop",
-        "rev": "ad9096991e9dce9a2e2454a2fc6e0c6d7335b486",
+        "type": "github"
+      }
+    },
+    "claude-code": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774649084,
+        "narHash": "sha256-GNyQRoMJxxasuw2/cOYSU4KEwLVwFr81c2UpVM1vGko=",
+        "owner": "sadjow",
+        "repo": "claude-code-nix",
+        "rev": "f632b3d71e2dbebedeccb0a09a42f27a53af1a33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sadjow",
+        "repo": "claude-code-nix",
+        "type": "github"
+      }
+    },
+    "codex-cli": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774566674,
+        "narHash": "sha256-UVHUY9jHiFj9jqY3KH28OThDEX4JUeEEWIUE+3VFJVI=",
+        "owner": "sadjow",
+        "repo": "codex-cli-nix",
+        "rev": "d43a70bd123e49cb862ee36d0e3ab2ed550308df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sadjow",
+        "repo": "codex-cli-nix",
         "type": "github"
       }
     },
@@ -261,6 +306,8 @@
       "inputs": {
         "agenix": "agenix",
         "ayugram-desktop": "ayugram-desktop",
+        "claude-code": "claude-code",
+        "codex-cli": "codex-cli",
         "disko": "disko",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
