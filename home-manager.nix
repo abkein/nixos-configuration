@@ -147,9 +147,18 @@
 
         electrum
 
-        # unstable.gemini-cli
-        # ugemini-cli
-        # claude-code
+        (python3.withPackages (
+          ps: with ps; [
+            bash-kernel
+            ipython
+            ipykernel
+            numpy
+            pandas
+            scipy
+            requests
+            matplotlib
+          ]
+        ))
       ]);
     # file = import ./home-modules/files.nix;
     sessionVariables = {
