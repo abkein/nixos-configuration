@@ -125,10 +125,6 @@
     ];
   };
 
-  "ltex.additionalRules.languageModel" = "ru";
-  "ltex.additionalRules.motherTongue" = "ru-RU";
-  "ltex.language" = "ru-RU";
-
   "todo-tree.general.tags" = [
     "BUG"
     "HACK"
