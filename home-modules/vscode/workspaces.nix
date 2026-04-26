@@ -5,7 +5,7 @@ in
 {
   better-code = {
     enable = true;
-    code-package = pkgs.vscodium;
+    code-package = pkgs.vscode;
     desktopEntries.enable = true;
     nix4vscodeAlways = true;
 
