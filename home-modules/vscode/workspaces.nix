@@ -17,8 +17,11 @@ in
     };
 
     terminal-emulator = pkgs.kitty;
-    terminal-args = "--app-id=kitty_info";
-    args = "--password-store=gnome-libsecret --ozone-platform=wayland";
+    terminal-args = [ "--app-id=kitty_info" ];
+    args = [
+      "--password-store=gnome-libsecret"
+      "--ozone-platform=wayland"
+    ];
     envstr = "http_proxy=http://127.0.0.1:1081 https_proxy=http://127.0.0.1:1081 no_proxy=localhost,127.0.0.0/8";
 
     profiles = {
@@ -178,17 +181,23 @@ in
         LAMMPS = {
           folder = "${config.home.homeDirectory}/repos/mylammps";
           profile = "cpp";
-          nix = basicNix // { flakePath = "/home/kein/devShells/lammps"; };
+          nix = basicNix // {
+            flakePath = "/home/kein/devShells/lammps";
+          };
         };
         MDcraft = {
           folder = "${config.home.homeDirectory}/repos/MDcraft";
           profile = "cpp";
-          nix = basicNix // { flakePath = "/home/kein/devShells/MDcraft"; };
+          nix = basicNix // {
+            flakePath = "/home/kein/devShells/MDcraft";
+          };
         };
         cfproc = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/python/cfproc";
           profile = "python";
-          nix = basicNix // { flakePath = "/home/kein/devShells/cfproc"; };
+          nix = basicNix // {
+            flakePath = "/home/kein/devShells/cfproc";
+          };
         };
         vscode-clang-tidy = {
           folder = "${config.home.homeDirectory}/repos/vscode-clang-tidy";

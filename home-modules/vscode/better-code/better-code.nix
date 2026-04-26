@@ -92,17 +92,24 @@ in
       };
 
       terminal-args = mkOption {
-        type = types.str;
+        type = types.listOf types.str;
+        default = [ ];
         description = "Additional CLI arguments provided to teminal emulator instance";
-        default = "";
-        example = "--app-id=kitty_info";
+        example = lib.literalExpression ''
+          [ "--app-id=kitty_info" ]
+        '';
       };
 
       args = mkOption {
-        type = types.str;
+        type = types.listOf types.str;
+        default = [ ];
         description = "Additional CLI arguments provided to every VSCode instance";
-        default = "";
-        example = "--password-store=gnome-libsecret --ozone-platform=wayland";
+        example = lib.literalExpression ''
+          [
+            "--password-store=gnome-libsecret"
+            "--ozone-platform=wayland"
+          ]
+        '';
       };
 
       envstr = mkOption {
@@ -165,7 +172,7 @@ in
       };
 
       workspaces = mkOption {
-        default = {};
+        default = { };
         description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
         type = types.attrsOf (
           types.submodule {
@@ -422,18 +429,24 @@ in
       )
       (mkIf cfg.desktopEntries.enable (
         let
-          # Generate command to launch VSCode prepending environment string (env variables like http_proxy=http://127.0.0.1:1080
-          # and others that go before executable), specifying profile and other user-specified arguments
+          # Generate the general command to launch VSCode prepending environment string (env variables like
+          # http_proxy=http://127.0.0.1:1080 and others that go before executable, sometimes called "args before"),
+          # specifying profile and other user-specified arguments
           basic_code_CMD =
             profile: disable_envstr:
             let
-              envstr =
-                if (cfg.envstr != "" && !disable_envstr) then
-                  "${builtins.replaceStrings [ "$" ] [ "\\$" ] cfg.envstr} "
-                else
-                  "";
+              envstr = lib.optionalString (cfg.envstr != "" && !disable_envstr) (
+                builtins.replaceStrings [ "$" ] [ "\\$" ] cfg.envstr
+              );
             in
-            "${envstr}${lib.getExe config.programs.vscode.package} --profile ${profile} ${cfg.args}";
+            lib.concatStringsSep " " (
+              [
+                envstr
+                (lib.getExe config.programs.vscode.package)
+                "--profile ${profile}"
+              ]
+              ++ cfg.args
+            );
           mkProfileAction = profileName: profileSpec: {
             name = profileName;
             exec = "bash -c \"${basic_code_CMD profileName profileSpec.disable_envstr}\"";
@@ -451,22 +464,23 @@ in
                 # If the environment wasn't specified (nixSpec.method is null) then it isn't used
                 environmentLaunchCommand =
                   command:
-                  if nixSpec.method == "shell" then
-                    "nix-shell ${spec.folder}/shell.nix --command '${command}'"
-                  else if nixSpec.method == "flake" then
-                    let
-                      resolvedFlakePath = if nixSpec.flakePath != null then nixSpec.flakePath else spec.folder;
-                    in
-                    "nix develop ${resolvedFlakePath} ${inputOverrides} --command bash -c '${command}'"
-                  else
-                    "";
+                  let
+                    resolvedFlakePath = if nixSpec.flakePath != null then nixSpec.flakePath else spec.folder;
+                  in
+                  "nix develop ${resolvedFlakePath} ${inputOverrides} --command bash -c '${command}'";
                 # Execute command 'exit' inside the environment launched inside the terminal emulator.
                 # I think it's useful so if the environment needs to be set-up, e.g. nix needs to download
                 # packages. If so in the terminal emulator the user will see the progress (and errors if the are)
                 # and at the end VSCode will be launched immediately. Otherwise the output from nixisn't visible
                 # which leads to a frustration (is it stuck or something?) and in the case of errors (e.g. nix
                 # couldn't download smth or the env file contains errors) there's no way to know it.
-                preinitWrap = "${lib.getExe cfg.terminal-emulator} ${cfg.terminal-args} ${environmentLaunchCommand "exit"}";
+                preinitWrap = lib.concatStringsSep " " (
+                  [
+                    (lib.getExe cfg.terminal-emulator)
+                  ]
+                  ++ cfg.terminal-args
+                  ++ [ (environmentLaunchCommand "exit") ]
+                );
                 # Determine the profile name. If there are extensions specified for current workspace,
                 # a new profile will be generated using the base profile. Now we need just its name
                 # which is ensured to be similar to the name of the actually generated profile.
@@ -499,8 +513,11 @@ in
                 cmdChain =
                   # Commands to be launched before launching VSCode
                   spec.prerun
+                  # Update flake.lock file, possible updating inputs
                   ++ (if nixSpec.updateLock then [ regenLockCmd ] else [ ])
+                  # Preinitialize environment in terminal (fetch packages)
                   ++ (if ((nixSpec.method != null) && nixSpec.preinit) then [ preinitWrap ] else [ ])
+                  # Command to launch VSCode
                   ++ [ codeCmdWrapped ]
                   # Commands to be launched after VSCode is closed
                   ++ spec.postrun;
