@@ -10,6 +10,7 @@ pkgs:
     "gruntfuggly.todo-tree"
     "mkhl.direnv"
     "openai.chatgpt"
+    # "anthropic.claude-code"
     # "esbenp.prettier-vscode"
     # "github.copilot"  # so annoying
     # "github.copilot-chat"

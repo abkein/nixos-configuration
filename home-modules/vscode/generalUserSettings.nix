@@ -11,6 +11,7 @@
   # "editor.defaultFormatter" = "trunk.io";
 
   "chat.disableAIFeatures" = true;
+  "claudeCode.disableLoginPrompt" = true;
 
   # "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'Font Awesome 7 Free', 'Symbols Nerd Font', monospace";
   # "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'Symbols Nerd Font', 'Font Awesome 7 Free', monospace";
