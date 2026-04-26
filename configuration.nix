@@ -457,6 +457,7 @@
       download-attempts = 2;
       stalled-download-timeout = 15; # instead of 300
       substituters = [
+        "https://mirror.yandex.ru/nixos?priority=30"
         "https://cache.nixos.org?priority=50"
         # "https://cache.garnix.io?priority=200"
         # "https://ayugram-desktop.cachix.org?priority=201"
