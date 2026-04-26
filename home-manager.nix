@@ -63,9 +63,7 @@
         imagemagickBig
         poppler-utils
         texlive.combined.scheme-full
-        tex-fmt
         ghostscript
-        python312Packages.plotext
         backintime-common
         backintime-qt
         tesseract
@@ -78,7 +76,7 @@
         ooniprobe-cli
         iperf
         tor-browser
-        quickemu
+        # quickemu
         adwaita-qt
         adwaita-qt6
         libsForQt5.qt5ct
@@ -157,6 +155,8 @@
             scipy
             requests
             matplotlib
+
+            plotext
           ]
         ))
       ]);
