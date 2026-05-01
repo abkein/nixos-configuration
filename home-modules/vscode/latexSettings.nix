@@ -1,5 +1,23 @@
+{ pkgs, ... }:
 {
+  "ltex.additionalRules.languageModel" = "/home/kein/repos/languagetool/";
+  "ltex.additionalRules.motherTongue" = "ru-RU";
+  "ltex.language" = "ru-RU";
+  "ltex.additionalRules.enablePickyRules" = true;
+  "ltex.checkFrequency" = "edit";  # manual, save
+  "ltex.completionEnabled" = true;
+  "ltex.ltex-ls.path" = pkgs.ltex-ls-plus;
+  "ltex.ltex-ls-plus.path" = pkgs.ltex-ls-plus;
+  "ltex.statusBarItem" = true;
+
+  "latex-workshop.formatting.latex" = "latexindent";
+  "latex-workshop.latex.outDir" = "";
+  # "latex-workshop.latex.clean.fileTypes" = [ ];
+  "latex-workshop.latex.clean.subfolder.enabled" = true;
+  "latex-workshop.latex.autoBuild.run" = "never";
+  # "latex-workshop.latex.autoClean.run" = "onSucceeded";
   "latex-workshop.latex.recipe.default" = "lastUsed";
+
   "latex-workshop.latex.recipes" = [
     {
       "name" = "latexmk";
@@ -88,7 +106,7 @@
         "-outdir=%OUTDIR%"
         "%DOC%"
       ];
-      "env" = {};
+      "env" = { };
     }
     {
       "name" = "xelatexmk";
@@ -101,7 +119,7 @@
         "-outdir=%OUTDIR%"
         "%DOC%"
       ];
-      "env" = {};
+      "env" = { };
     }
     {
       "name" = "latexmk_rconly";
@@ -109,7 +127,7 @@
       "args" = [
         "%DOC%"
       ];
-      "env" = {};
+      "env" = { };
     }
     {
       "name" = "bibtex";
@@ -117,7 +135,7 @@
       "args" = [
         "%DOCFILE%"
       ];
-      "env" = {};
+      "env" = { };
     }
     {
       "name" = "rnw2tex";
@@ -126,7 +144,7 @@
         "-e"
         "knitr::opts_knit$set(concordance = TRUE); knitr::knit('%DOCFILE_EXT%')"
       ];
-      "env" = {};
+      "env" = { };
     }
     {
       "name" = "jnw2tex";
@@ -135,7 +153,7 @@
         "-e"
         "using Weave; weave(\"%DOC_EXT%\", doctype=\"tex\")"
       ];
-      "env" = {};
+      "env" = { };
     }
     {
       "name" = "jnw2texminted";
@@ -144,7 +162,7 @@
         "-e"
         "using Weave; weave(\"%DOC_EXT%\", doctype=\"texminted\")"
       ];
-      "env" = {};
+      "env" = { };
     }
     {
       "name" = "pnw2tex";
@@ -154,7 +172,7 @@
         "tex"
         "%DOC_EXT%"
       ];
-      "env" = {};
+      "env" = { };
     }
     {
       "name" = "pnw2texminted";
@@ -164,7 +182,7 @@
         "texminted"
         "%DOC_EXT%"
       ];
-      "env" = {};
+      "env" = { };
     }
     {
       "name" = "tectonic";
@@ -175,7 +193,7 @@
         "--print"
         "%DOC%.tex"
       ];
-      "env" = {};
+      "env" = { };
     }
     {
       "name" = "lualatex";
@@ -207,7 +225,7 @@
         "-outdir=%OUTDIR%"
         "%DOC%"
       ];
-      "env" = {};
+      "env" = { };
     }
     {
       "name" = "pdflatex";
@@ -221,10 +239,4 @@
       ];
     }
   ];
-  "latex-workshop.latex.outDir" = "";
-  "latex-workshop.latex.clean.fileTypes" = [];
-  "latex-workshop.latex.clean.subfolder.enabled" = true;
-  "latex-workshop.latex.autoBuild.run" = "never";
-  "latex-workshop.latex.autoClean.run" = "onSucceeded";
-  "latex-workshop.formatting.latex" = "tex-fmt";
 }
