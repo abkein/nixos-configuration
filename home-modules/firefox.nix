@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, ... }:
 let
   makeExt = id: {
     name = id;
@@ -22,6 +22,7 @@ in
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     # preferences = {
     #   "security.sandbox.content.read_path_whitelist" = "/nix/store/";
     #   "gfx.font_rendering.fontconfig.max_generic_substitutions" = 127;

@@ -1,10 +1,13 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, cfg, ... }:
 {
   services.syncthing = {
     enable = true;
     # openDefaultPorts = true;
-    passwordFile = config.age.secrets."syncthingPass".path;
     guiAddress = "127.0.0.1:8384";  # default
+    guiCredentials = {
+      passwordFile = config.age.secrets."syncthingPass".path;
+      username = cfg.username;
+    };
     # user = "kein";
     # dataDir = config.users.users.kein.home;
     settings = {
