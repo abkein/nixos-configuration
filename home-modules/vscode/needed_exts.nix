@@ -49,9 +49,9 @@ pkgs:
   ];
 
   flutter = [
-    "alexisvt.flutter-snippets"
-    "dart-code.dart-code"
-    "dart-code.flutter"
+    # "alexisvt.flutter-snippets"  # <-- Uncomment
+    # "dart-code.dart-code"  # <-- Uncomment
+    # "dart-code.flutter"  # <-- Uncomment
   ];
 
   cpp = [
@@ -79,7 +79,7 @@ pkgs:
     "mads-hartmann.bash-ide-vscode"
     "redhat.vscode-xml"
     "tamasfe.even-better-toml"
-    "thfriedrich.lammps"
+    # "thfriedrich.lammps"  # <-- Uncomment
   ];
 
   misc = [

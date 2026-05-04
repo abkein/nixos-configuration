@@ -64,6 +64,7 @@
   "git.enableCommitSigning" = true;
   "git.ignoreRebaseWarning" = true;
 
+  "workbench.colorTheme" = "Dark Modern";
   "workbench.layoutControl.enabled" = false;
   "workbench.secondarySideBar.defaultVisibility" = "hidden";
   "workbench.editorAssociations" = {
