@@ -48,6 +48,7 @@
     kernel.sysctl."kernel.sysrq" = 1;
   };
 
+  boot.initrd.luks.devices.crypted.keyFileTimeout = 5;
   # fileSystems = {
   #   "/" = {
   #     device = "/dev/disk/by-uuid/d990af03-81ac-4527-bcba-81a575ffc5ce";

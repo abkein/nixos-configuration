@@ -12,7 +12,10 @@
   ];
 
   age = {
-    identityPaths = [ "${cfg.flakepath}/secrets/keys/yubikey-identity.pub" ];
+    identityPaths = [
+      "${cfg.userhome}/Documents/private/actual_age.key"
+      # "${cfg.flakepath}/secrets/keys/yubikey-identity.pub"
+    ];
     secrets = {
       "syncthingPass" = {
         file = ./secrets/agenix/encrypted/syncthingPass.age;
@@ -139,7 +142,7 @@
         tor-browser
         zip
         unzip
-        veusz
+        # veusz  # <-- Uncomment
 
         ffmpeg-full
 

@@ -29,7 +29,11 @@
     #   storageMode = "local";
     #   localStorageDir = ./. + "/secrets/rekeyed/${config.networking.hostName}";
     # };
-    identityPaths = [ "${cfg.flakepath}/secrets/keys/yubikey-identity.pub" ];
+
+    identityPaths = [
+      "/root/keys/actual_age_root.key"
+      # "${cfg.flakepath}/secrets/keys/yubikey-identity.pub"
+    ];
     secrets = {
       "nix-access-tokens.conf" = {
         file = ./secrets/agenix/encrypted/nix-access-tokens.conf.age;
@@ -37,9 +41,9 @@
       "nix-netrc" = {
         file = ./secrets/agenix/encrypted/nix-netrc.age;
       };
-      "syncthingPass" = {
-        file = ./secrets/agenix/encrypted/syncthingPass.age;
-      };
+      # "syncthingPass" = {
+      #   file = ./secrets/agenix/encrypted/syncthingPass.age;
+      # };
     };
     ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
   };
