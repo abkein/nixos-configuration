@@ -5,11 +5,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "russia-v2ray-geosite";
-  version = "202603181028";
+  version = "202605040625";
 
   src = fetchurl {
     url = "https://github.com/runetfreedom/russia-v2ray-rules-dat/releases/download/${finalAttrs.version}/geosite.dat";
-    hash = "sha256-lJAw2SdINlIfY5rDgPannzqYme+hbwvMDwpl8AFKDE4=";
+    hash = "sha256-mZy0KINBDkCAv1w1749xA6cc+dmHBx/ETuS0rYQ6UX8=";
   };
 
   dontUnpack = true;
