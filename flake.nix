@@ -2,7 +2,8 @@
   description = "My NixOS configuration with integrated home-manager";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/6c9a78c09ff4d6c21d0319114873508a6ec01655";
+    # nixpkgs.url = "github:NixOS/nixpkgs/6c9a78c09ff4d6c21d0319114873508a6ec01655";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -161,9 +162,9 @@
                     hostPlatform = cfg.system;
                     config = {
                       allowUnfree = true;
-                      permittedInsecurePackages = [
-                        "python3.12-ecdsa-0.19.1"
-                      ];
+                      # permittedInsecurePackages = [
+                      #   "python3.12-ecdsa-0.19.1"
+                      # ];
                     };
                     overlays =
                       (with inputs; [
