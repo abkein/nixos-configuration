@@ -248,6 +248,16 @@
     git-credential-oauth = {
       enable = false;
     };
+    mcp = {
+      enable = true;
+      servers = {
+        # Start the MCP client with GITHUB_PERSONAL_ACCESS_TOKEN set.
+        github = {
+          command = "${pkgs.github-mcp-server}/bin/github-mcp-server";
+          args = [ "stdio" ];
+        };
+      };
+    };
     # anyrun = {
     #   enable = true;
     #   config = {
