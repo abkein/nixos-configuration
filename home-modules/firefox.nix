@@ -37,62 +37,71 @@ in
       "ru"
       "de"
     ];
-    profiles.default = {
-      id = 0;
-      name = "default";
-      path = "m8wjwc3u.default";
-      search = {
-        default = "google";
-        privateDefault = "duckduckgo";
+    profiles = {
+      cleanProf = {
+        id = 1;
+        name = "cleanProf";
+        path = "a8wjwc3u.cleanProf";
       };
-      containers = {
-        Personal = {
-          id = 1;
-          name = "Personal";
-          color = "blue";
-          icon = "fingerprint";
+      default = {
+        isDefault = true;
+        id = 0;
+        name = "default";
+        path = "m8wjwc3u.default";
+        search = {
+          default = "google";
+          privateDefault = "duckduckgo";
         };
-        Work = {
-          id = 2;
-          name = "Work";
-          color = "orange";
-          icon = "briefcase";
+        containers = {
+          Personal = {
+            id = 1;
+            name = "Personal";
+            color = "blue";
+            icon = "fingerprint";
+          };
+          Work = {
+            id = 2;
+            name = "Work";
+            color = "orange";
+            icon = "briefcase";
+          };
+          Linux = {
+            id = 6;
+            name = "Linux";
+            color = "turquoise";
+            icon = "circle";
+          };
+          PAM = {
+            id = 7;
+            name = "PAM";
+            color = "yellow";
+            icon = "circle";
+          };
+          ann = {
+            id = 8;
+            name = "ann";
+            color = "blue";
+            icon = "vacation";
+          };
+          Study = {
+            id = 9;
+            name = "Study";
+            color = "green";
+            icon = "chill";
+          };
+          OpenWRT = {
+            id = 10;
+            name = "OpenWRT";
+            color = "purple";
+            icon = "circle";
+          };
         };
-        Linux = {
-          id = 6;
-          name = "Linux";
-          color = "turquoise";
-          icon = "circle";
+        extensions = {
+          packages = with pkgs.nur.repos.rycee.firefox-addons; [
+            zotero-connector
+            zeroomega
+          ];
         };
-        PAM = {
-          id = 7;
-          name = "PAM";
-          color = "yellow";
-          icon = "circle";
-        };
-        ann = {
-          id = 8;
-          name = "ann";
-          color = "blue";
-          icon = "vacation";
-        };
-        Study = {
-          id = 9;
-          name = "Study";
-          color = "green";
-          icon = "chill";
-        };
-        OpenWRT = {
-          id = 10;
-          name = "OpenWRT";
-          color = "purple";
-          icon = "circle";
-        };
-      };
-      extensions = {
-        packages = with pkgs.nur.repos.rycee.firefox-addons; [
-          zotero-connector
-        ];
       };
     };
     # https://mozilla.github.io/policy-templates/
@@ -143,7 +152,6 @@ in
       }
       // L2A makeExtNav [
         "easyscreenshot@mozillaonline.com" # Easy Screenshot
-        # "simple-tab-groups@drive4ik" # Simple Tab Groups
         "@testpilot-containers" # Firefox Multi-Account Containers
         "keepassxc-browser@keepassxc.org" # KeePassXC-Browser
         "addon@darkreader.org" # Dark Reader
@@ -153,6 +161,9 @@ in
         "{0e10f3d7-07f6-4f12-97b9-9b27e07139a5}" # Netcraft Extension
       ]
       // L2A makeExt [
+        "en-US-Extended@averymiller.org" # English (US) Dictionary Extended
+        "ruspell-wiktionary-eyo@addons.mozilla.org" # Словарь русской орфогр. из Викисловаря (ё,е)
+        "ruspell-wiktionary@addons.mozilla.org" # Словарь русской орфографии из Викисловаря
         "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}" # Auto Tab Discard
         "jid1-BoFifL9Vbdl2zQ@jetpack" # Decentraleyes
         # "firefox.container-shortcuts@strategery.io" # Easy Container Shortcuts
@@ -163,18 +174,18 @@ in
         "uBlock0@raymondhill.net" # uBlock Origin
         "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" # Video DownloadHelper
         "rto@rto.rto" # РуТрекер - официальный плагин (доступ и пр.)
-        "@amiunique-extension" # AmIUnique
+        # "@amiunique-extension" # AmIUnique  # Constantly consumes too much CPU
         "{96ef5869-e3ba-4d21-b86e-21b163096400}" # Font Fingerprint Defender
         # "queryamoid@kaply.com" # Query AMO Addon ID
         "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" # User-Agent Switcher and Manager
         # "{2cf5dbed-78fe-4bd5-9524-38fdf837be98}"  # WebGL Fingerprint Defender
-        # "{55f61747-c3d3-4425-97f9-dfc19a0be23c}"  # Spoof Timezone
+        "{55f61747-c3d3-4425-97f9-dfc19a0be23c}" # Spoof Timezone
         # "CanvasBlocker@kkapsner.de"  # CanvasBlocker  # Breaks certain websites
         # "2.0@disconnect.me"  # Disconnect  # Breaks certain websites
         # "jid1-ZAdIEUB7XOzOJw@jetpack"  # DuckDuckGo Privacy Essentials  # Breaks certain websites
         # "{73a6fe31-595d-460b-a920-fcc0f8843232}" # NoScript
         # "suziwen1@gmail.com" # Proxy SwitchyOmega 3 (ZeroOmega)
-        # "{cb08faed-9460-474a-ba0b-d98b13b5e001}" # Regex Search
+        "{cb08faed-9460-474a-ba0b-d98b13b5e001}" # Regex Search
         # "{e662576a-2f73-4069-bcca-ddf440fea62b}" # Web Apps by 123apps
       ];
       HardwareAcceleration = true;
