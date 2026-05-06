@@ -11,7 +11,11 @@
   # "editor.defaultFormatter" = "trunk.io";
 
   "chat.disableAIFeatures" = true;
+  "chatgpt.composerEnterBehavior" = "cmdIfMultiline";
   "claudeCode.disableLoginPrompt" = true;
+  "claudeCode.preferredLocation" = "sidebar";
+  "claudeCode.claudeProcessWrapper" = "claude";
+  "claudeCode.useCtrlEnterToSend" = true;
 
   # "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'Font Awesome 7 Free', 'Symbols Nerd Font', monospace";
   # "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'Symbols Nerd Font', 'Font Awesome 7 Free', monospace";
