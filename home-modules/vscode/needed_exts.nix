@@ -10,7 +10,7 @@ pkgs:
     "gruntfuggly.todo-tree"
     "mkhl.direnv"
     "openai.chatgpt"
-    # "anthropic.claude-code"
+    "anthropic.claude-code"
     # "esbenp.prettier-vscode"
     # "github.copilot"  # so annoying
     # "github.copilot-chat"
@@ -49,9 +49,9 @@ pkgs:
   ];
 
   flutter = [
-    # "alexisvt.flutter-snippets"  # <-- Uncomment
-    # "dart-code.dart-code"  # <-- Uncomment
-    # "dart-code.flutter"  # <-- Uncomment
+    "alexisvt.flutter-snippets"
+    "dart-code.dart-code"
+    "dart-code.flutter"
   ];
 
   cpp = [
@@ -79,7 +79,7 @@ pkgs:
     "mads-hartmann.bash-ide-vscode"
     "redhat.vscode-xml"
     "tamasfe.even-better-toml"
-    # "thfriedrich.lammps"  # <-- Uncomment
+    "thfriedrich.lammps"
   ];
 
   misc = [
