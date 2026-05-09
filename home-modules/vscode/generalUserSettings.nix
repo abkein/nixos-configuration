@@ -12,6 +12,7 @@
 
   "chat.disableAIFeatures" = true;
   "chatgpt.composerEnterBehavior" = "cmdIfMultiline";
+  "chatgpt.followUpQueueMode" = "steer";
   "claudeCode.disableLoginPrompt" = true;
   "claudeCode.preferredLocation" = "sidebar";
   "claudeCode.claudeProcessWrapper" = "claude";
