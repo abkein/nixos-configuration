@@ -11,6 +11,7 @@
   # "editor.defaultFormatter" = "trunk.io";
 
   "chat.disableAIFeatures" = true;
+  "chat.mcp.gallery.enabled" = true;
   "chatgpt.composerEnterBehavior" = "cmdIfMultiline";
   "chatgpt.followUpQueueMode" = "steer";
   "claudeCode.disableLoginPrompt" = true;

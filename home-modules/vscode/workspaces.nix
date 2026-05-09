@@ -199,10 +199,17 @@ in
             flakePath = "/home/kein/devShells/cfproc";
           };
         };
-        vscode-clang-tidy = {
-          folder = "${config.home.homeDirectory}/repos/vscode-clang-tidy";
-          profile = "ts";
-          nix = basicNix;
+        # vscode-clang-tidy = {
+        #   folder = "${config.home.homeDirectory}/repos/vscode-clang-tidy";
+        #   profile = "ts";
+        #   nix = basicNix;
+        # };
+        articles = {
+          folder = "${config.home.homeDirectory}/repos/articles";
+          profile = "python";
+          nix = basicNix // {
+            flakePath = "${config.home.homeDirectory}/repos/articles";
+          };
         };
       };
   };

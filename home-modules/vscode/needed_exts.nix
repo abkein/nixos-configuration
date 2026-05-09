@@ -32,11 +32,13 @@ pkgs:
   python = [
     "ms-python.black-formatter"
     "ms-python.debugpy"
-    "ms-python.flake8"
     "ms-python.isort"
     "ms-python.python"
-    "ms-python.vscode-pylance"
+    "ms-python.flake8"
     "ms-python.autopep8"
+    "ms-python.mypy-type-checker"
+    "ms-python.vscode-python-envs"
+    "ms-python.vscode-pylance"
     "ms-toolsai.jupyter"
     "ms-toolsai.jupyter-keymap"
     "ms-toolsai.jupyter-renderers"
@@ -45,7 +47,6 @@ pkgs:
     "ms-toolsai.vscode-jupyter-powertoys"
     "kevinrose.vsc-python-indent"
     "njpwerner.autodocstring"
-    "ms-python.mypy-type-checker"
   ];
 
   flutter = [
