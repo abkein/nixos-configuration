@@ -153,6 +153,7 @@
             bash-kernel
             ipython
             ipykernel
+            isort
             numpy
             pandas
             scipy
@@ -255,6 +256,10 @@
         github = {
           command = "${pkgs.github-mcp-server}/bin/github-mcp-server";
           args = [ "stdio" ];
+        };
+        nixos = {
+          command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+          args = [];
         };
       };
     };

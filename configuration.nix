@@ -348,6 +348,7 @@
 
       drm_info
       v4l-utils # edid-decode
+      rocmPackages.rocminfo
 
       # utilities
       killall
