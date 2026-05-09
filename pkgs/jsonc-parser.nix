@@ -1,25 +1,36 @@
-{pkgs, python3Packages} :
-  python3Packages.buildPythonPackage rec {
-    pname = "jsonc-parser";
-    version = "1.1.5";
-    format = "pyproject";
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
+  pythonOlder,
 
-    src = pkgs.fetchPypi {
-      inherit pname version;
-      sha256 = "sha256-cSbRdyWwQTzUCvQpfZ9kEsQYGmITXkxBzfj2qCxZNuY=";
-    };
+  # build-system
+  setuptools,
+}:
+buildPythonPackage (finalAttrs: {
+  pname = "jsonc-parser";
+  version = "1.1.5";
+  pyproject = true;
+  disabled = pythonOlder "3.5";
 
-    nativeBuildInputs = with python3Packages; [
-      setuptools
-    ];
+  src = fetchFromGitHub {
+    owner = "NickolaiBeloguzov";
+    repo = finalAttrs.pname;
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-yRsuVnaJOfkiGGXRvPi60Va/PJoagn5dYRfREUXV+uE=";
+  };
 
-    pythonImportsCheck = [ "jsonc_parser" ];
+  nativeBuildInputs = [
+    setuptools
+  ];
 
-    meta = with pkgs.lib; {
-      description = "This package is a lightweight, zero-dependency module for parsing files with .jsonc extension. (a.k.a. JSON with comments)";
-      homepage = "https://github.com/NickolaiBeloguzov/jsonc-parser";
-      license = licenses.mit;
-      maintainers = with maintainers; [ abkein ];
-      broken = false;
-    };
-  }
+  pythonImportsCheck = [ "jsonc_parser" ];
+
+  meta = with lib; {
+    description = "A lightweight, native tool for parsing .jsonc files";
+    homepage = "https://github.com/NickolaiBeloguzov/jsonc-parser";
+    license = licenses.mit;
+    maintainers = with maintainers; [ abkein ];
+    platforms = platforms.linux ++ platforms.darwin;
+  };
+})

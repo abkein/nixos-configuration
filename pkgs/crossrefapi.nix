@@ -1,46 +1,64 @@
-{pkgs, python3Packages} :
-  let
-    ipython_8_37 = python3Packages.ipython.overridePythonAttrs (old: rec {
-      version = "8.37.0";
-      src = pkgs.fetchPypi {
-        pname = "ipython";
-        inherit version;
-        sha256 = "sha256-yoFYQeGkGh5rc6CwjzA4r5siUlZNAfxAU1bTQDMBIhY=";
-      };
-    });
-  in
-  python3Packages.buildPythonPackage rec {
-    pname = "crossrefapi";
-    version = "1.7.0";
-    format = "pyproject";
+{
+  lib,
+  fetchFromGitHub,
+  buildPythonPackage,
 
-    src = pkgs.fetchPypi {
-      inherit pname version;
-      sha256 = "sha256-WY8no8wb2NKXcN4oSwsTFcgg3h1wiUCElF1SZeb+La4=";
-    };
+  # dependencies
+  requests,
+  urllib3,
+  ipython,
 
-    nativeBuildInputs = with python3Packages; [
-      poetry-core
-    ];
+  # tests
+  pytestCheckHook,
 
-    propagatedBuildInputs = with python3Packages; [
-      requests
-      urllib3
-      ipython_8_37
-    ];
+  # build-system
+  poetry-core
+}:
+buildPythonPackage (finalAttrs: {
+  pname = "crossrefapi";
+  version = "1.7.0";
+  pyproject = true;
 
-    pythonImportsCheck = [ "crossref" ];
+  src = fetchFromGitHub {
+    owner = "fabiobatalha";
+    repo = finalAttrs.pname;
+    rev = finalAttrs.version;
+    hash = "sha256-yMw6EkeG59ub82yMoJ+o2/hZOAxF8vGLWStyiCE1k1o=";
+  };
 
-    # nativeCheckInputs = with python3Packages; [ pytest ruff pkgs.pre-commit black ];
-    # checkPhase = ''
-    #   pytest
-    # '';
+  build-system = [
+    poetry-core
+  ];
 
-    meta = with pkgs.lib; {
-      description = "Library that implements the endpoints of the Crossref API";
-      homepage = "https://github.com/fabiobatalha/crossrefapi";
-      license = licenses.bsd2;
-      maintainers = with maintainers; [ abkein ];
-      broken = false;
-    };
-  }
+  dependencies = [
+    requests
+    urllib3
+    ipython
+  ];
+
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail 'ipython = "^8.28.0"' 'ipython = "^9.0.0"' \
+      --replace-fail 'ipython = "^8.20.0"' 'ipython = "^9.0.0"'
+  '';
+
+  nativeCheckInputs = [
+    pytestCheckHook
+  ];
+
+  # These tests require network access
+  disabledTests = [
+    "test_integration.py"
+    "test_restful.py"
+  ];
+
+  pythonImportsCheck = [ "crossref" ];
+
+  meta = with lib; {
+    description = "Library that implements the endpoints of the Crossref API";
+    homepage = "https://github.com/fabiobatalha/crossrefapi";
+    license = licenses.bsd2;
+    maintainers = with maintainers; [ abkein ];
+    platforms = platforms.linux ++ platforms.darwin;
+  };
+})

@@ -9,7 +9,7 @@ let
 in
 {
   python3Packages = super.python3Packages.overrideScope (pySelf: pySuper: {
-    pyzotero = import ../pkgs/pyzotero.nix { pkgs=self; python3Packages=pySelf; };
+    # pyzotero = import ../pkgs/pyzotero.nix { pkgs=self; python3Packages=pySelf; };  # now in nixpkgs
     jsonc-parser = import ../pkgs/jsonc-parser.nix { pkgs=self; python3Packages=pySelf; };
     pyalex = import ../pkgs/pyalex.nix { pkgs=self; python3Packages=pySelf; };
     crossrefapi = import ../pkgs/crossrefapi.nix { pkgs=self; python3Packages=pySelf; };
@@ -21,6 +21,6 @@ in
   keepassxc-proxy-client = self.python3Packages.keepassxc-proxy-client;
   pyzotero = self.python3Packages.pyzotero;
   jsonc-parser = self.python3Packages.jsonc-parser;
-  pyalex = self.python3Packages.pyalex;
+  # pyalex = self.python3Packages.pyalex;
   crossrefapi = self.python3Packages.crossrefapi;
 }
