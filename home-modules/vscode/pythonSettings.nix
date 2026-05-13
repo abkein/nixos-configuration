@@ -1,10 +1,12 @@
+let
+  showNotifications = "off";
+in
 {
   # "python.analysis.diagnosticSeverityOverrides" = {
   #     "reportUnboundVariable" = "none";
   #     "reportGeneralTypeIssues" = "none"
   # };
   "python.locator" = "js";
-  "python.editor.formatOnType" = true;
   "python.analysis.inlayHints.functionReturnTypes" = true;
   "python.analysis.inlayHints.pytestParameters" = true;
   "python.analysis.inlayHints.variableTypes" = true;
@@ -13,8 +15,15 @@
   "python.analysis.autoFormatStrings" = true;
   "python.analysis.diagnosticMode" = "workspace";
   "python.analysis.autoImportCompletions" = true;
-  "python.analysis.downloadStubs" = true;
-  "python.analysis.inlayHints.callArgumentNames" = true;
+  "python.analysis.inlayHints.callArgumentNames" = "all";
+  # "python.analysis.downloadStubs" = true; # Does not exists
+  # "python.editor.formatOnType" = true; # Does not exists
+
+  "autopep8.showNotifications" = showNotifications;
+  "black-formatter.showNotifications" = showNotifications;
+  "flake8.showNotifications" = showNotifications;
+  "mypy-type-checker.showNotifications" = showNotifications;
+  "isort.showNotifications" = showNotifications;
 
   "jupyter.askForKernelRestart" = false;
   "jupyter.disableJupyterAutoStart" = true;

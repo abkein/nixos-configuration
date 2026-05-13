@@ -47,6 +47,7 @@ pkgs:
     "ms-toolsai.vscode-jupyter-powertoys"
     "kevinrose.vsc-python-indent"
     "njpwerner.autodocstring"
+    "charliermarsh.ruff"
   ];
 
   flutter = [

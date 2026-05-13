@@ -211,6 +211,13 @@ in
             flakePath = "${config.home.homeDirectory}/repos/articles";
           };
         };
+        scidownl = {
+          folder = "${config.home.homeDirectory}/repos/articles/nix-wiring/SciDownl";
+          profile = "python";
+          nix = basicNix // {
+            flakePath = "${config.home.homeDirectory}/repos/articles/nix-wiring/SciDownl";
+          };
+        };
       };
   };
 }
