@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   makeExt = id: {
     name = id;
@@ -24,8 +29,46 @@ let
       Status = "locked";
     }
   );
+
+  policy-templates = builtins.fromJSON (builtins.readFile ./policies_description.json);
+  cfg = config.programs.zen-browser;
+
+  checkIfPreferenceDefined = preference: builtins.hasAttr "${preference}" cfg.policies.Preferences;
+  checkIfPolicyDefined = policy: builtins.hasAttr "${policy}" cfg.policies;
+  # Only checks top-level policies
+  checkIfPolicyExists = policyName: builtins.hasAttr "${policyName}" policy-templates;
+
+  mkWarningPreferenceConflictsPolicy =
+    policy: preference: "Preference `${preference}` conflicts with policy `${policy}`";
+  checkPreference =
+    policyName: preference:
+    lib.optional (checkIfPreferenceDefined preference) (
+      mkWarningPreferenceConflictsPolicy policyName preference
+    );
+
+  checkPolicy =
+    policyName: value: builtins.map (checkPreference policyName) value.Preferences-Affected;
+  checkPolicyRecursive =
+    policyName: value:
+    (checkPolicy policyName value)
+    ++ builtins.map (
+      name: lib.optionals (builtins.hasAttr "${name}" value) (checkPolicyRecursive name value.${name})
+    ) value.Children;
+  policiesPreferencesConflicts = lib.flatten (
+    lib.mapAttrsToList (
+      policyName: value:
+      lib.optionals (checkIfPolicyDefined policyName) (checkPolicyRecursive policyName value)
+    ) policy-templates
+  );
+
+  mkWarningNonexistentPolicy = policyName: "Policy `${policyName}` does not exists.";
+  nonexistentPolicies = builtins.map (
+    policyName: lib.optional (!(checkIfPolicyExists policyName)) (mkWarningNonexistentPolicy policyName)
+  ) (builtins.attrNames cfg.policies);
 in
 {
+  warnings = policiesPreferencesConflicts ++ nonexistentPolicies;
+
   programs.zen-browser = {
     enable = true;
     # package = pkgs.firefox;
@@ -261,16 +304,16 @@ in
           "browser.gesture.swipe.left" = "";
           "browser.gesture.swipe.right" = "";
           "browser.tabs.hoverPreview.enabled" = true;
-          "browser.newtabpage.activity-stream.feeds.topsites" = false;
-          "browser.topsites.contile.enabled" = false;
-          "browser.translations.enable" = false;
+          # "browser.newtabpage.activity-stream.feeds.topsites" = false;
+          # "browser.topsites.contile.enabled" = false;
+          # "browser.translations.enable" = false;
 
           "privacy.resistFingerprinting" = true;
           "privacy.resistFingerprinting.randomization.canvas.use_siphash" = true;
           "privacy.resistFingerprinting.randomization.daily_reset.enabled" = true;
           "privacy.resistFingerprinting.randomization.daily_reset.private.enabled" = true;
           "privacy.resistFingerprinting.block_mozAddonManager" = true;
-          "privacy.spoof_english" = 1;
+          # "privacy.spoof_english" = 1;
 
           "privacy.firstparty.isolate" = true;
           "network.cookie.cookieBehavior" = 5;
