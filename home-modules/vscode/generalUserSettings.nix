@@ -73,9 +73,9 @@
   "workbench.colorTheme" = "Dark Modern";
   "workbench.layoutControl.enabled" = false;
   "workbench.secondarySideBar.defaultVisibility" = "hidden";
-  "workbench.editorAssociations" = {
-    "*.pdf" = "latex-workshop-pdf-hook";
-  };
+  # "workbench.editorAssociations" = {
+  #   "*.pdf" = "pdf.preview";
+  # };
 
   "debug.onTaskErrors" = "abort";
 

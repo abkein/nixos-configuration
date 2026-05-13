@@ -1,10 +1,14 @@
 { pkgs, ... }:
 {
+  "workbench.editorAssociations" = {
+    "*.pdf" = "latex-workshop-pdf-hook";
+  };
+
   "ltex.additionalRules.languageModel" = "/home/kein/repos/languagetool/";
   "ltex.additionalRules.motherTongue" = "ru-RU";
   "ltex.language" = "ru-RU";
   "ltex.additionalRules.enablePickyRules" = true;
-  "ltex.checkFrequency" = "edit";  # manual, save
+  "ltex.checkFrequency" = "edit"; # manual, save
   "ltex.completionEnabled" = true;
   "ltex.ltex-ls.path" = pkgs.ltex-ls-plus;
   "ltex.ltex-ls-plus.path" = pkgs.ltex-ls-plus;
