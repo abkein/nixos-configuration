@@ -18,6 +18,7 @@
     ./system-modules/proxychains.nix
     ./system-modules/wayland.nix
     ./system-modules/etc.nix
+    ./system-modules/zram.nix
     # ./system-modules/openssh.nix
     # ./system-modules/syncthing.nix
   ];
