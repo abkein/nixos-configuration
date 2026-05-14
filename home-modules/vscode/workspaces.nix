@@ -34,8 +34,8 @@ in
         extensions = needed_extensions.dev;
       };
       LaTeX = with needed_extensions; {
-        extensions = LaTeX ++ python;
-        userSettings = import ./latexSettings.nix {inherit pkgs;};
+        extensions = LaTeX; # ++ python;
+        userSettings = import ./latexSettings.nix { inherit pkgs; };
       };
       python = with needed_extensions; {
         extensions = python ++ dev ++ [ "tomoki1207.pdf" ];
