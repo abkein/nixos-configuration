@@ -138,12 +138,14 @@
                 ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
                 # anyrun-pkgs = anyrun.packages.${system}.default;
               };
+            mylib = import ./mylib.nix nixpkgs.lib;
           in
           nixpkgs.lib.nixosSystem {
             inherit (cfg) system;
             specialArgs = {
               inherit ipkgs;
               inherit cfg;
+              inherit mylib;
             };
             modules =
               (with inputs; [
@@ -195,6 +197,7 @@
                     extraSpecialArgs = {
                       inherit ipkgs;
                       inherit cfg;
+                      inherit mylib;
                     };
                   };
                 }
