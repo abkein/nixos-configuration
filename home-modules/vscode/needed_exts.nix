@@ -11,6 +11,9 @@ pkgs:
     "mkhl.direnv"
     "openai.chatgpt"
     "anthropic.claude-code"
+    "yzhang.markdown-all-in-one"
+    "trond-snekvik.simple-rst"
+    # "shd101wyy.markdown-preview-enhanced"
     # "esbenp.prettier-vscode"
     # "github.copilot"  # so annoying
     # "github.copilot-chat"
@@ -24,9 +27,7 @@ pkgs:
     "ms-ceintl.vscode-language-pack-ru"
     # "valentjn.vscode-ltex"
     "ltex-plus.vscode-ltex-plus"
-    "yzhang.markdown-all-in-one"
     "mammothb.gnuplot"
-    "trond-snekvik.simple-rst"
   ];
 
   python = [

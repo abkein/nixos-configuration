@@ -110,6 +110,7 @@
         nixfmt # now same as nixfmt-rfc-style
         xed-editor
         obsidian
+        prettier
         # aider-chat
 
         libreoffice-fresh
