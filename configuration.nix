@@ -270,9 +270,13 @@
   };
 
   security = {
+    virtualisation.flushL1DataCache = "always";
+    soteria.enable = true;
+    # protectKernelImage = true; # test
+
+    rtkit.enable = true; # At least needed by PipeWire
     polkit.enable = true;
     pam.p11.enable = true;
-    rtkit.enable = true;
   };
 
   xdg = {
@@ -405,7 +409,7 @@
       # noto-fonts-cjk-serif
       # powerline-fonts
       # powerline-symbols
-      # corefonts
+      corefonts
       # vista-fonts
       cm_unicode
     ];
