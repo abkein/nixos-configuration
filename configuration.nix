@@ -390,6 +390,9 @@
       yubico-piv-tool
       yubioath-flutter
       # yubikey-personalization  # probably not needed, as `yubikey-personalization` is marked as deprecated and suggests using `yubioath-flutter`
+
+      jq
+      ripgrep
     ];
   };
 

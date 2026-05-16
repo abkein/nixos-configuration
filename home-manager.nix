@@ -89,7 +89,7 @@
         graphviz
         swappy
         wf-recorder
-        jq
+        ripgrep-all
 
         nix-tree
         cliphist
