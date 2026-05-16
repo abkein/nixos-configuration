@@ -4,7 +4,7 @@
   mylib,
   cfg,
   ...
-}:
+}@args:
 lib.mkMerge (
   lib.map mylib.flattenAttrsDot' [
     {
@@ -60,18 +60,18 @@ lib.mkMerge (
         hotExit = "onExitAndWindowClose";
         autoSave = "afterDelay";
         trimTrailingWhitespace = true;
-        associations = builtins.toJSON {
+        associations = mylib.literal {
           "*.gpi" = "gnuplot";
           "*.in" = "lmps";
         };
-        exclude = builtins.toJSON {
+        exclude = mylib.literal {
           "**/.trunk/*actions/" = true;
           "**/.trunk/*logs/" = true;
           "**/.trunk/*notifications/" = true;
           "**/.trunk/*out/" = true;
           "**/.trunk/*plugins/" = true;
         };
-        watcherExclude = builtins.toJSON {
+        watcherExclude = mylib.literal {
           "**/.trunk/*actions/" = true;
           "**/.trunk/*logs/" = true;
           "**/.trunk/*notifications/" = true;
@@ -130,7 +130,7 @@ lib.mkMerge (
       "remote.SSH.configFile" = "/home/kein/.ssh/config";
       "remote.SSH.enableRemoteCommand" = true;
 
-      actionButtons = builtins.toJSON {
+      actionButtons = mylib.literal {
         defaultColor = "#ff0034"; # Can also use string color names.
         loadNpmCommands = false; # Disables automatic generation of actions for npm commands.
         reloadButton = "♻️"; # Custom reload button text or icon (default ↻). null value enables automatic reload on configuration change
@@ -163,7 +163,7 @@ lib.mkMerge (
         ];
       };
 
-      "todo-tree.general.tags" = builtins.toJSON [
+      "todo-tree.general.tags" = [
         "BUG"
         "HACK"
         "FIXME"
@@ -182,14 +182,14 @@ lib.mkMerge (
       # };
 
       sonarlint = {
-        "connectedMode.connections.sonarcloud" = builtins.toJSON [
+        "connectedMode.connections.sonarcloud" = [
           {
             "organizationKey" = "abkein";
             "connectionId" = "abkein";
             "region" = "EU";
           }
         ];
-        rules = builtins.toJSON {
+        rules = mylib.literal {
           "cpp=S134" = {
             "level" = "off";
           };
@@ -220,10 +220,10 @@ lib.mkMerge (
         };
       };
 
-      "[cpp]" = builtins.toJSON {
+      "[cpp]" = mylib.literal {
         "editor.tabSize" = 2;
       };
-      "[nix]" = builtins.toJSON {
+      "[nix]" = mylib.literal {
         "editor.tabSize" = 2;
       };
 
@@ -236,7 +236,7 @@ lib.mkMerge (
         enableLanguageServer = true;
         serverPath = "${pkgs.nil}/bin/nil"; # or "nixd"
         # LSP config can be passed via the ``nix.serverSettings.{lsp}`` as shown below.
-        serverSettings = builtins.toJSON {
+        serverSettings = mylib.literal {
           # check https://github.com/oxalica/nil/blob/main/docs/configuration.md for all options available
           nil = {
             diagnostics = {
@@ -375,6 +375,6 @@ lib.mkMerge (
         };
       };
     }
-    (import ./by-extension/tamasfe.even-better-toml.nix)
+    (import ./by-extension/tamasfe.even-better-toml.nix args)
   ]
 )

@@ -1,3 +1,4 @@
+{ mylib, ... }:
 {
   evenBetterToml = {
     # Even Better TOML
@@ -29,7 +30,7 @@
       # Indent entries under tables.
       indentEntries = true;
       # Indentation to use, should be tabs or spaces but technically could be anything.
-      indentString = null;
+      # indentString = null;
       # Indent subtables if they come in order.
       indentTables = true;
       # Expand values inside in line tables.
@@ -44,20 +45,20 @@
       trailingNewline = true;
     };
     # Array of Taplo rules in JSON format, see [Configuration File - Rules](https:#taplo.tamasfe.dev/configuration/file.html#rules). The rules given here are appended to existing rules from config files, if any. There is no conversion done, all object keys must be snake_case, including formatting rules.
-    rules = builtins.toJSON [ ];
+    rules = [ ];
     # Additional document and schema associations.
     schema = {
       #  The key must be a regular expression, this pattern is used to associate schemas with absolute document URIs. Overlapping patterns result in undefined behaviour and either matching schema can be used.
       #
       #  The value must be an absolute URI to the JSON schema, for supported values and more information [read here](https:#taplo.tamasfe.dev/configuration#visual-studio-code).
-      associations = builtins.toJSON { };
+      associations = mylib.literal { };
       # The amount of seconds after which cached catalogs and schemas expire and will be attempted to be fetched again.
       cache.diskExpiration = 1800;
       # The amount of seconds after which schemas will be invalidated from memory.
       # **NOTE**: setting too low values will cause performance issues and validation of some schemas will fail.
       cache.memoryExpiration = 300;
       # A list of URLs to schema catalogs where schemas and associations can be fetched from
-      catalogs = builtins.toJSON [
+      catalogs = [
         "https://www.schemastore.org/api/json/catalog.json"
       ];
       # Enable completion and validation based on JSON schemas.
@@ -75,13 +76,13 @@
       # Whether to enable the usage of a Taplo configuration file.
       configFile.enabled = true;
       # An absolute, or workspace relative path to the Taplo configuration file.
-      configFile.path = null;
+      # configFile.path = null;
       # Environment variables for Taplo.
-      environment = builtins.toJSON { };
+      environment = mylib.literal { };
       # Additional arguments for Taplo. Has no effect for the bundled LSP.
-      extraArgs = builtins.toJSON [ ];
+      extraArgs = [ ];
       # An absolute path to the `taplo` executable. `taplo.bundled` needs to be set to `false` for this to have any effect.
-      path = null;
+      # path = null;
     };
   };
 }
