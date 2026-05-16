@@ -14,13 +14,13 @@
   programs.zotero = {
     enable = true;
 
-    # package = pkgs.unstable.zotero;
+    # package = pkgs.zotero;
 
     profiles.default = {
       name = "default";
       id = 0;
       isDefault = true;
-      path = "d6c407me.default"; # "p6c407me.default"
+      path = "d6c407me.default";
 
       extensions = with pkgs.zotero-addons; [
         format-metadata
@@ -34,7 +34,6 @@
         inspire
         short-doi
         better-bibtex
-        cita
         attachment-scanner
         zotero-ocr
         zotmoov
@@ -42,8 +41,6 @@
         better-notes
         open-pdf
         zotero-gpt
-        ai-research-assistant
-        # zotero-delitemwithatt
       ];
 
       settings = {

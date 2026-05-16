@@ -315,30 +315,31 @@ in
     };
   };
 
-  cita = buildZoteroXpiAddon rec {
-    pname = "zotero-cita";
-    version = "0.5.5";
-    addonId = "zotero-wikicite@wikidata.org";
+  # Unlikely to work
+  # cita = buildZoteroXpiAddon rec {
+  #   pname = "zotero-cita";
+  #   version = "0.5.5";
+  #   addonId = "zotero-wikicite@wikidata.org";
 
-    src = fetchGitHubReleaseFile {
-      owner = "diegodlh";
-      repo = pname;
-      tag = "v${version}";
-      file = "zotero-cita-v${version}.xpi";
-      hash = "sha256-8L7wUABOMXoQ+irGZtcgpZu8cXHYLFR7UgCGKRmlJmQ=";
-    };
+  #   src = fetchGitHubReleaseFile {
+  #     owner = "diegodlh";
+  #     repo = pname;
+  #     tag = "v${version}";
+  #     file = "zotero-cita-v${version}.xpi";
+  #     hash = "sha256-8L7wUABOMXoQ+irGZtcgpZu8cXHYLFR7UgCGKRmlJmQ=";
+  #   };
 
-    meta = with lib; {
-      homepage = "https://github.com/diegodlh/zotero-cita";
-      license = [ licenses.gpl3 ];
-      platforms = platforms.all;
-    };
-  };
+  #   meta = with lib; {
+  #     homepage = "https://github.com/diegodlh/zotero-cita";
+  #     license = [ licenses.gpl3 ];
+  #     platforms = platforms.all;
+  #   };
+  # };
 
   open-pdf = buildZoteroXpiAddon rec {
     pname = "zotero-open-pdf";
     version = "1.0.12";
-    addonId = "open-pdf@iris-advies.com";
+    addonId = "zotero-open-pdf@iris-advies.com";
 
     src = fetchGitHubReleaseFile {
       owner = "retorquere";
@@ -559,24 +560,24 @@ in
     };
   };
 
-  ai-research-assistant = buildZoteroXpiAddon rec {
-    pname = "ai-research-assistant";
-    version = "0.7.5";
-    addonId = "aria@apex973.com";
+  # Up to Zotero 7
+  # ai-research-assistant = buildZoteroXpiAddon rec {
+  #   pname = "ai-research-assistant";
+  #   version = "0.7.5";
+  #   addonId = "aria@apex974.com";
 
-    src = fetchGitHubReleaseFile {
-      owner = "lifan0127";
-      repo = pname;
-      tag = "v${version}";
-      file = "aria.xpi";
-      hash = "sha256-xqki7703PPYdHqUwDGyG3+nBfabYVfnGz10EJ2oeH7c=";
-    };
+  #   src = fetchGitHubReleaseFile {
+  #     owner = "lifan0127";
+  #     repo = pname;
+  #     tag = "v${version}";
+  #     file = "aria.xpi";
+  #     hash = "sha256-xqki7703PPYdHqUwDGyG3+nBfabYVfnGz10EJ2oeH7c=";
+  #   };
 
-    meta = with lib; {
-      homepage = "https://github.com/lifan0127/ai-research-assistant";
-      license = [ licenses.agpl3Only ];
-      platforms = platforms.all;
-    };
-  };
-
+  #   meta = with lib; {
+  #     homepage = "https://github.com/lifan0127/ai-research-assistant";
+  #     license = [ licenses.agpl3Only ];
+  #     platforms = platforms.all;
+  #   };
+  # };
 }
