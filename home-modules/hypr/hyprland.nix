@@ -17,7 +17,7 @@ in
 
       monitor = [
         "eDP-1,    3200x2000@120,   0x0, 1.6, bitdepth, 10, cm, srgb, vrr, 1"
-        "desc:Acer Technologies SA240Y 0x0480DAE1, 1920x1080@74.97, 2000x0, 1, bitdepth, 10, cm, srgb"#, bitdepth, 10, cm, wide"
+        "desc:Acer Technologies SA240Y 0x0480DAE1, 1920x1080@74.97, 2000x0, 1, bitdepth, 10, cm, srgb" # , bitdepth, 10, cm, wide"
         "desc:Xiaomi Corporation Mi monitor 5323110031874, 3440x1440@180.00, 0x-1440, 1, bitdepth, 10, cm, srgb, vrr, 1"
         ", preferred, auto, 1"
       ];
@@ -419,6 +419,51 @@ in
           center = true;
           stay_focused = true;
         }
+        {
+          name = "Zotero main window tile";
+          match = {
+            class = "^Zotero$";
+            title = "^Zotero$";
+            initial_title = "^Zotero$";
+          };
+          tile = true;
+        }
+        # {
+        #   name = "Zotero Plugins Manager window tile";
+        #   match = {
+        #     class = "^Zotero$";
+        #     title = "^Plugins Manager$";
+        #     initial_title = "^about:blank$";
+        #   };
+        #   tile = true;
+        # }
+        # {
+        #   name = "Zotero Settings window tile";
+        #   match = {
+        #     class = "^Zotero$";
+        #     title = "^Zotero Settings$";
+        #     initial_title = "^Zotero Settings$";
+        #   };
+        #   tile = true;
+        # }
+        # {
+        #   name = "Zotero Console window tile";
+        #   match = {
+        #     class = "^Zotero$";
+        #     title = "^Parent process Browser Console$";
+        #     initial_title = "^Parent process Browser Console$";
+        #   };
+        #   tile = true;
+        # }
+        {
+          name = "Zotero secondary windows float";
+          match = {
+            class = "^Zotero$";
+            initial_title = "negative:^Zotero$";
+          };
+          float = true;
+          center = true;
+        }
         # previously: bordercolor ...,pinned:1
         "match:pin true, border_color rgba(ffabf1AA) rgba(ffabf177)"
 
@@ -450,7 +495,6 @@ in
         "match:title ^Password Required - Mozilla Firefox$, float on"
 
         ''match:title "EPS Input", float on''
-        ''match:title "KeePassXC -  Access Request", float on''
         "match:class evince, float on"
         "match:class org.pipewire.Helvum, float on"
         "match:class com.github.wwmm.easyeffects, float on"
