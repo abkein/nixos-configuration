@@ -23,20 +23,27 @@
       path = "d6c407me.default"; # "p6c407me.default"
 
       extensions = with pkgs.zotero-addons; [
-        # zotero-abstract-cleaner
-        # zotero-auto-index
+        format-metadata
+        pdf-translate
+        markdb-connect
+        pubpeer
+        addons
+        arxiv-workflow
+        chartero
+        zutilo
+        inspire
+        short-doi
+        better-bibtex
+        cita
+        attachment-scanner
         zotero-ocr
-        zotero-open-pdf
-        zotero-preview
-        # zotero-robustlinks
-        # zotero-storage-scanner
-        # zotmoov
+        zotmoov
+        scite
+        zotero-better-notes
+        open-pdf
+        zotero-gpt
+        ai-research-assistant
         # zotero-delitemwithatt
-        scite-zotero
-        # cita
-        # ai-research-assistant
-        # zotero-better-notes
-        # zotero-gpt
       ];
 
       settings = {

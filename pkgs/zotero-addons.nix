@@ -126,7 +126,7 @@ in
     };
   };
 
-  pubpeer_zotero_plugin = buildZoteroXpiAddon rec {
+  pubpeer = buildZoteroXpiAddon rec {
     pname = "pubpeer_zotero_plugin";
     version = "1.0.8";
     addonId = "zotero-pubpeer@pubpeer.com";
@@ -499,7 +499,7 @@ in
     };
   };
 
-  scite-zotero = buildZoteroXpiAddon rec {
+  scite = buildZoteroXpiAddon rec {
     pname = "scite-zotero-plugin";
     version = "2.0.5";
     addonId = "scite-zotero-plugin@scite.ai";
