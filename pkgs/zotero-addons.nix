@@ -1,6 +1,7 @@
 pkgs:
 let
-  inherit (pkgs) lib makeOverridable;
+  inherit (pkgs) lib;
+  inherit (lib) makeOverridable;
 
   buildZoteroXpiAddon = makeOverridable (
     {
@@ -62,6 +63,26 @@ in
       # Does stdenv support these?
       # description = "Python wrapper for the arXiv API";
       # changelog = "https://github.com/lukasschwab/arxiv.py/releases/tag/${src.tag}";
+    };
+  };
+
+  pdf-translate = buildZoteroXpiAddon rec {
+    pname = "zotero-pdf-translate";
+    version = "2.4.4";
+    addonId = "zoteropdftranslate@euclpts.com";
+
+    src = fetchGitHubReleaseFile {
+      owner = "windingwind";
+      repo = pname;
+      tag = "v${version}";
+      file = "translate-for-zotero.xpi";
+      hash = "sha256-Pw6oK2G5pc/sk4tGO5Uom7nCt9C0NoCynqq9Jb9qLEM=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/windingwind/zotero-pdf-translate";
+      license = licenses.agpl3Plus;
+      platforms = platforms.all;
     };
   };
 
