@@ -86,6 +86,86 @@ in
     };
   };
 
+  notero = buildZoteroXpiAddon rec {
+    pname = "notero";
+    version = "1.2.3";
+    addonId = "notero@vanoni.dev";
+
+    src = fetchGitHubReleaseFile {
+      owner = "dvanoni";
+      repo = pname;
+      tag = "v${version}";
+      file = "notero-${version}.xpi";
+      hash = "sha256-To2b8fl4pyiQj39rKmIgtR4IQDw/p0IKcS+smet2NVU=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/dvanoni/notero";
+      license = licenses.mit;
+      platforms = platforms.all;
+    };
+  };
+
+  addons = buildZoteroXpiAddon rec {
+    pname = "zotero-addons";
+    version = "9.0.2";
+    addonId = "zoteroAddons@ytshen.com";
+
+    src = fetchGitHubReleaseFile {
+      owner = "syt2";
+      repo = pname;
+      tag = "V${version}";
+      file = "zotero-addons.xpi";
+      hash = "sha256-uVXs7H8pL30WpHMUVdsq43MzsTDcA8WzazQlYh+R65w=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/syt2/zotero-addons";
+      license = licenses.agpl3Plus;
+      platforms = platforms.all;
+    };
+  };
+
+  arxiv-workflow = buildZoteroXpiAddon rec {
+    pname = "zotero-arxiv-workflow";
+    version = "0.3.7";
+    addonId = "arxiv@allanchain.github.com";
+
+    src = fetchGitHubReleaseFile {
+      owner = "AllanChain";
+      repo = pname;
+      tag = "v${version}";
+      file = "zotero-arxiv-workflow.xpi";
+      hash = "sha256-56GJQreorgLm5QHozsXYfuxHgqevqHFUf0qLs6Ddzos=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/AllanChain/zotero-arxiv-workflow";
+      license = licenses.agpl3Plus;
+      platforms = platforms.all;
+    };
+  };
+
+  chartero = buildZoteroXpiAddon rec {
+    pname = "Chartero";
+    version = "2.11.0";
+    addonId = "chartero@volatile.static";
+
+    src = fetchGitHubReleaseFile {
+      owner = "volatile-static";
+      repo = pname;
+      tag = "v${version}";
+      file = "chartero.xpi";
+      hash = "sha256-ToU4VUaAL2WFcXmcidhEPpSYIegyGlA69QPcuGMlQ2g=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/volatile-static/Chartero";
+      # package.json says AGPL-2.0-or-later, while LICENSE is Apache-2.0.
+      platforms = platforms.all;
+    };
+  };
+
   zutilo = buildZoteroXpiAddon rec {
     pname = "Zutilo";
     version = "4.2.1";
