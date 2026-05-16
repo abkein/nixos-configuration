@@ -86,6 +86,26 @@ in
     };
   };
 
+  metadata-hunter = buildZoteroXpiAddon rec {
+    pname = "zotero-metadata-hunter";
+    version = "0.3.1";
+    addonId = "metadatahunter@federicotorrielli.github.io";
+
+    src = fetchGitHubReleaseFile {
+      owner = "federicotorrielli";
+      repo = pname;
+      tag = "v${version}";
+      file = "metadatahunter@federicotorrielli.github.io-${version}.xpi";
+      hash = "sha256-f2cWQg7Tyk4bpEhr+cWiNHS/hsvd+kk1PoUC6MWfgok=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/federicotorrielli/zotero-metadata-hunter";
+      # unclear license
+      platforms = platforms.all;
+    };
+  };
+
   notero = buildZoteroXpiAddon rec {
     pname = "notero";
     version = "1.2.3";
@@ -101,6 +121,26 @@ in
 
     meta = with lib; {
       homepage = "https://github.com/dvanoni/notero";
+      license = licenses.mit;
+      platforms = platforms.all;
+    };
+  };
+
+  zotseek = buildZoteroXpiAddon rec {
+    pname = "ZotSeek";
+    version = "1.14.0";
+    addonId = "zotseek@zotero.org";
+
+    src = fetchGitHubReleaseFile {
+      owner = "introfini";
+      repo = pname;
+      tag = "v${version}";
+      file = "zotseek-${version}.xpi";
+      hash = "sha256-LnJPSPV1wDpTab0b+16SpM0UjQOwqzrGn4GlRz+jEpQ=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/introfini/ZotSeek";
       license = licenses.mit;
       platforms = platforms.all;
     };
