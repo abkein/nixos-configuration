@@ -126,6 +126,26 @@ in
     };
   };
 
+  pubpeer_zotero_plugin = buildZoteroXpiAddon rec {
+    pname = "pubpeer_zotero_plugin";
+    version = "1.0.8";
+    addonId = "zotero-pubpeer@pubpeer.com";
+
+    src = fetchGitHubReleaseFile {
+      owner = "PubPeerFoundation";
+      repo = pname;
+      tag = "v${version}";
+      file = "zotero-pubpeer-${version}.xpi";
+      hash = "sha256-R8BfdtHg1hFNI423uBEBlj4jkQpWkv75qQcMLNDKMsc=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/PubPeerFoundation/pubpeer_zotero_plugin";
+      # unclear license
+      platforms = platforms.all;
+    };
+  };
+
   addons = buildZoteroXpiAddon rec {
     pname = "zotero-addons";
     version = "9.0.2";

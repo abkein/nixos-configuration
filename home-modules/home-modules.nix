@@ -14,6 +14,7 @@
     ./zsh.nix
     ./hypr/hypr.nix
     ./dunst.nix
+    ./zotero/zotero.nix
     ./zotero.nix
   ];
 }
