@@ -46,7 +46,7 @@
       settings = {
         # See <https://www.zotero.org/support/preferences/hidden_preferences> also.
         "general.smoothScroll" = false;
-        "intl.accept_language" = "en-US, en";
+        "intl.accept_languages" = "en-US, en";
         # "browser.theme.toolbar-theme" = 0;
 
         # Use the flake-provided versions of translators and styles.
