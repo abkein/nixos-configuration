@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, ... }@args:
 let
   needed_extensions = import ./needed_exts.nix pkgs;
 in
@@ -10,7 +10,7 @@ in
     nix4vscodeAlways = true;
 
     general = {
-      userSettings = import ./generalUserSettings.nix;
+      userSettings = import ./generalUserSettings.nix args;
       globalSnippets = import ./generalGlobalSnippets.nix;
       languageSnippets = import ./generalLangSnippets.nix;
       extensions = needed_extensions.global;
