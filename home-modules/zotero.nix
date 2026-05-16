@@ -173,10 +173,6 @@
 
       # TODO Other extensions settings to be enabled
       # // {
-      #   # Add-ons > Robust Links (Item adding settings)
-      #   "extensions.robustlinks.archiveonadd" = "yes";
-      #   "extensions.robustlinks.whatarchive" = "random";
-
       #   # Add-ons > Citation settings
       #   "extensions.zoteropreview.citationstyle" = style; # Zotero Citation Preview
 
@@ -184,64 +180,6 @@
       #   "extensions.shortdoi.tag_invalid" = "#invalid_doi";
       #   "extensions.shortdoi.tag_multiple" = "#multiple_doi";
       #   "extensions.shortdoi.tag_nodoi" = "#no_doi";
-
-      # FIXME: ZotMov replace ZotFile for Zotero 7, port settings for it
-      # Add-ons > Zotero PDF Preview
-      # "extensions.zotero.pdfpreview.previewTabName" = "PDF"; # Default tab name clashes with Zotero Citation Preview
-
-      #   # Add-ons > Zotero AutoIndex
-      #   "extensions.zotero.fulltext.pdfMaxPages" = 1024;
-
-      #   # Add-ons > ZotFile (Attachment settings)
-      #   "extensions.zotfile.dest_dir" = "${study}/doc";
-      #   "extensions.zotfile.useZoteroToRename" = false; # ZotFile > Renaming Rules > "Use Zotero to Rename";
-      #   "extensions.zotfile.pdfExtraction.localeDateInNote" = false;
-      #   "extensions.zotfile.pdfExtraction.isoDate" = true; # Use YYYY-MM-DD in the note titles
-      #   "extensions.zotfile.pdfExtraction.UsePDFJS" = true; # ZotFile > Advanced Settings > "Extract annotations..." > "Use pdf.js to extract annotations"
-
-      #   # [Last, First - ]title[ (volume)][ ([year][, book title/journal/publisher/meeting])]
-      #   "extensions.zotfile.renameFormat" = "{%g - }%t{ (%v)}{ (%y{, %B|, %w})}"; # ZotFile > Renaming Rules > "Format for all Item Types except Patents"
-
-      #   "extensions.zotfile.wildcards.user" = builtins.toString (builtins.toJSON {
-      #     "B" = "bookTitle"; # %B: For book sections.
-      #     "4" = {
-      #       field = "dateAdded";
-      #       operations = [{
-      #         flags = "g";
-      #         function = "replace";
-      #         regex = "(\\d{4})-(\\d{2})-(\\d{2})(.*)";
-      #         replacement = "$1$2$3";
-      #       }];
-      #     };
-      #   });
-
-      #   "extensions.zotfile.authors_delimiter" = ", "; # ZotFile > Renaming Rules > "Delimiter between multiple authors"
-
-      #   "extensions.zotfile.truncate_title" = true; # ZotFile > Renaming Rules > "Truncate title after . or : or ?"
-
-      #   "extensions.zotfile.truncate_title_max" = true; # ZotFile > Renaming Rules > "Maximum length of title"
-      #   "extensions.zotfile.max_titlelength" = 80;
-
-      #   "extensions.zotfile.truncate_authors" = true; # ZotFile > Renaming Rules > "Maximum number of authors"
-      #   "extensions.zotfile.max_authors" = 2; # ZotFile > Renaming Rules > "Maximum number of authors"
-
-      #   "extensions.zotfile.removeDiacritics" = true; # ZotFile > Advanced Settings > "Remove special characters (diacritics) from filename"
-
-      #   "extensions.zotfile.import" = false; # ZotFile > Location of Files > Custom Location
-      #   "extensions.zotero.autoRenameFiles.linked" = true; # ZotFile > General Settings > Location of Files > Custom Location
-
-      #   "extensions.zotfile.useFileTypes" = true; # ZotFile > Advanced Settings > "Only work with the following filetypes"
-      #   "extensions.zotfile.filetypes" = lib.concatStringsSep "," [
-      #     "pdf"
-      #     "epub"
-      #     "docx"
-      #     "odt"
-      #   ];
-
-      #   "extensions.zotfile.confirmation" = false; # ZotFile > Advanced Settings > "Ask user when attaching new files"
-      #   "extensions.zotfile.confirmation_batch" = 0;
-      #   "extensions.zotfile.confirmation_batch_ask" = false; # ZotFile > Advanced Settings > "Ask user to (batch) rename or move [0] or more attachments
-      #   "extensions.zotfile.automatic_renaming" = 3; # ZotFile > Advanced Settigns > "Automatically rename new attachments" > "Always ask (non-disruptive)"
       # }
 
       # Warning: Configuration options which will only become relevant with Zotero 7.
