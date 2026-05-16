@@ -5,12 +5,9 @@ let
   buildZoteroXpiAddon = makeOverridable (
     {
       stdenv ? pkgs.stdenv,
-      # fetchurl ? pkgs.fetchurl,
       pname,
       version,
       addonId,
-      # url,
-      # hash,
       src,
       meta,
       ...
@@ -121,7 +118,7 @@ in
     #   hash = "sha256-dEruz3MDkyp3Gbcn37Z8/oJpsK9IqtS+sE7LWXeuwxY=";
     # };
 
-    # Temporarily? fetch from fork
+    # Temporarily? fetch from fork, b/c upstream does not support Zotero 8, 9 yet
     src = fetchGitHubReleaseFile {
       owner = "JuliusBairaktaris";
       repo = pname;
