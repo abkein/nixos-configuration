@@ -106,6 +106,26 @@ in
     };
   };
 
+  markdb-connect = buildZoteroXpiAddon rec {
+    pname = "zotero-markdb-connect";
+    version = "0.2.1";
+    addonId = "daeda@mit.edu";
+
+    src = fetchGitHubReleaseFile {
+      owner = "daeh";
+      repo = pname;
+      tag = "v${version}";
+      file = "markdb-connect.xpi";
+      hash = "sha256-m1OCaohWrCt0hFrX2nXRQ+xE0SI1G9wvE5v4g2zvP0k=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/daeh/zotero-markdb-connect";
+      license = licenses.mit;
+      platforms = platforms.all;
+    };
+  };
+
   addons = buildZoteroXpiAddon rec {
     pname = "zotero-addons";
     version = "9.0.2";
