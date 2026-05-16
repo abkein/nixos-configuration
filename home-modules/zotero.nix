@@ -39,7 +39,7 @@
         zotero-ocr
         zotmoov
         scite
-        zotero-better-notes
+        better-notes
         open-pdf
         zotero-gpt
         ai-research-assistant

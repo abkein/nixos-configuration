@@ -539,7 +539,7 @@ in
     };
   };
 
-  zotero-better-notes = buildZoteroXpiAddon rec {
+  better-notes = buildZoteroXpiAddon rec {
     pname = "zotero-better-notes";
     version = "2.0.18";
     addonId = "Knowledge4Zotero@windingwind.com";
