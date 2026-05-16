@@ -50,17 +50,17 @@
     schema = {
       #  The key must be a regular expression, this pattern is used to associate schemas with absolute document URIs. Overlapping patterns result in undefined behaviour and either matching schema can be used.
       #
-      #  The value must be an absolute URI to the JSON schema, for supported values and more information [read here](https:#taplo.tamasfe.dev/configuration#visual-studio-code).
-      associations = mylib.literal { };
+      #  The value must be an absolute URI to the JSON schema, for supported values and more information [read here](https://taplo.tamasfe.dev/configuration#visual-studio-code).
+      # associations = mylib.literal { };
       # The amount of seconds after which cached catalogs and schemas expire and will be attempted to be fetched again.
-      cache.diskExpiration = 1800;
+      # cache.diskExpiration = 1800;
       # The amount of seconds after which schemas will be invalidated from memory.
       # **NOTE**: setting too low values will cause performance issues and validation of some schemas will fail.
-      cache.memoryExpiration = 300;
+      # cache.memoryExpiration = 300;
       # A list of URLs to schema catalogs where schemas and associations can be fetched from
-      catalogs = [
-        "https://www.schemastore.org/api/json/catalog.json"
-      ];
+      # catalogs = [
+      #   "https://www.schemastore.org/api/json/catalog.json"
+      # ];
       # Enable completion and validation based on JSON schemas.
       enabled = true;
       # Whether to show clickable links for keys in the editor.
