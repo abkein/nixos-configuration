@@ -102,7 +102,7 @@
         networkmanager_dmenu
         networkmanagerapplet
         qpwgraph
-        zotero
+        # zotero
 
         # text
         nixfmt # now same as nixfmt-rfc-style
