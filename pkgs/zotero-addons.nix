@@ -86,6 +86,26 @@ in
     };
   };
 
+  reference = buildZoteroXpiAddon rec {
+    pname = "zotero-reference";
+    version = "1.7.2";
+    addonId = "zoteroreference@polygon.org";
+
+    src = fetchGitHubReleaseFile {
+      owner = "MuiseDestiny";
+      repo = pname;
+      tag = version;
+      file = "zotero-reference.xpi";
+      hash = "sha256-ebZ4lkEFhziFXfLBzMgwQ0lZn8hMxGvzQjIkH4y8GEA=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/MuiseDestiny/zotero-reference";
+      license = licenses.agpl3Plus;
+      platforms = platforms.all;
+    };
+  };
+
   metadata-hunter = buildZoteroXpiAddon rec {
     pname = "zotero-metadata-hunter";
     version = "0.3.1";
@@ -102,6 +122,86 @@ in
     meta = with lib; {
       homepage = "https://github.com/federicotorrielli/zotero-metadata-hunter";
       # unclear license
+      platforms = platforms.all;
+    };
+  };
+
+  google-scholar-citation-count = buildZoteroXpiAddon rec {
+    pname = "zotero-google-scholar-citation-count";
+    version = "6.0.0";
+    addonId = "justin@justinribeiro.com";
+
+    src = fetchGitHubReleaseFile {
+      owner = "justinribeiro";
+      repo = pname;
+      tag = "v${version}";
+      file = "zotero-google-scholar-citation-count-${version}.xpi";
+      hash = "sha256-GEXlDlS+PcbJnbjgKLZHgdVGO0Dq6fLTd7C5LgnfCkY=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/justinribeiro/zotero-google-scholar-citation-count";
+      license = licenses.mpl20;
+      platforms = platforms.all;
+    };
+  };
+
+  mcp = buildZoteroXpiAddon rec {
+    pname = "zotero-mcp";
+    version = "1.4.7";
+    addonId = "zotero-mcp-plugin@autoagent.my";
+
+    src = fetchGitHubReleaseFile {
+      owner = "cookjohn";
+      repo = pname;
+      tag = "v${version}";
+      file = "zotero-mcp-plugin-${version}.xpi";
+      hash = "sha256-xJhYVFrulQMTfMxr3l3Zz9xz0Oekz3hqnBrFknY8EQ0=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/cookjohn/zotero-mcp";
+      license = licenses.mit;
+      platforms = platforms.all;
+    };
+  };
+
+  mineru = buildZoteroXpiAddon rec {
+    pname = "zotero-mineru";
+    version = "0.1.57";
+    addonId = "zotero-mineru@example.com";
+
+    src = fetchGitHubReleaseFile {
+      owner = "lisontowind";
+      repo = pname;
+      tag = "v${version}";
+      file = "zotero-mineru.xpi";
+      hash = "sha256-0lr6cr07241i9nYSCX8QM1kq/Wn2iZUOX4ShEyEmN9I=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/lisontowind/zotero-mineru";
+      license = licenses.mit;
+      platforms = platforms.all;
+    };
+  };
+
+  scipdf = buildZoteroXpiAddon rec {
+    pname = "zotero-scipdf";
+    version = "8.0.4";
+    addonId = "scipdf@ytshen.com";
+
+    src = fetchGitHubReleaseFile {
+      owner = "syt2";
+      repo = pname;
+      tag = "V${version}";
+      file = "sci-pdf.xpi";
+      hash = "sha256-LWZHzH8mMKeJt+nExKgZIqva9sR45454KwOwxT6YPlY=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/syt2/zotero-scipdf";
+      license = licenses.agpl3Plus;
       platforms = platforms.all;
     };
   };
@@ -126,6 +226,26 @@ in
     };
   };
 
+  cita = buildZoteroXpiAddon rec {
+    pname = "zotero-cita";
+    version = "1.0.0-beta.19";
+    addonId = "zotero-wikicite@wikidata.org";
+
+    src = fetchGitHubReleaseFile {
+      owner = "zotero-cita";
+      repo = pname;
+      tag = "v${version}";
+      file = "zotero-cita.xpi";
+      hash = "sha256-6LOfvvFPqPMhSy8HmjrCYEuEZboCkK6VSCwSJpFxsf8=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/zotero-cita/zotero-cita";
+      license = licenses.gpl3Plus;
+      platforms = platforms.all;
+    };
+  };
+
   zotseek = buildZoteroXpiAddon rec {
     pname = "ZotSeek";
     version = "1.14.0";
@@ -142,6 +262,26 @@ in
     meta = with lib; {
       homepage = "https://github.com/introfini/ZotSeek";
       license = licenses.mit;
+      platforms = platforms.all;
+    };
+  };
+
+  zotxt = buildZoteroXpiAddon rec {
+    pname = "zotxt";
+    version = "9.0.0";
+    addonId = "zotxt@e6h.org";
+
+    src = fetchGitHubReleaseFile {
+      owner = "egh";
+      repo = pname;
+      tag = "v${version}";
+      file = "zotxt-${version}.xpi";
+      hash = "sha256-/75pRXFDyVxc/0X4UbjeiljUtPIM4pkI0dhTgNZseCk=";
+    };
+
+    meta = with lib; {
+      homepage = "https://github.com/egh/zotxt";
+      license = licenses.gpl3Plus;
       platforms = platforms.all;
     };
   };
