@@ -19,8 +19,9 @@
   # "latex-workshop.latex.clean.fileTypes" = [ ];
   "latex-workshop.latex.clean.subfolder.enabled" = true;
   "latex-workshop.latex.autoBuild.run" = "never";
-  # "latex-workshop.latex.autoClean.run" = "onSucceeded";
+  "latex-workshop.latex.autoClean.run" = "onSucceeded";
   "latex-workshop.latex.recipe.default" = "lastUsed";
+  "latex-workshop.latex.clean.method" = "glob";
 
   "latex-workshop.latex.recipes" = [
     {
