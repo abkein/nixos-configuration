@@ -91,10 +91,11 @@
       ];
     }
     {
-      "name" = "lualatex->biber->lualatex";
+      "name" = "lualatex->biber->lualatex * 2";
       "tools" = [
         "lualatex"
         "biber"
+        "lualatex"
         "lualatex"
       ];
     }
@@ -108,6 +109,7 @@
         "-interaction=nonstopmode"
         "-file-line-error"
         "-lualatex"
+        "-halt-on-error"
         "-outdir=%OUTDIR%"
         "%DOC%"
       ];
@@ -120,6 +122,7 @@
         "-synctex=1"
         "-interaction=nonstopmode"
         "-file-line-error"
+        "-halt-on-error"
         "-xelatex"
         "-outdir=%OUTDIR%"
         "%DOC%"
@@ -207,6 +210,7 @@
         "-synctex=1"
         "-interaction=nonstopmode"
         "-file-line-error"
+        "-halt-on-error"
         "-pdf"
         "%DOC%"
       ];
@@ -225,6 +229,7 @@
         "-shell-escape"
         "-synctex=1"
         "-interaction=nonstopmode"
+        "-halt-on-error"
         "-file-line-error"
         "-pdf"
         "-outdir=%OUTDIR%"
@@ -239,6 +244,7 @@
         "--shell-escape" # if you want to have the shell-escape flag
         "-synctex=1"
         "-interaction=nonstopmode"
+        "-halt-on-error"
         "-file-line-error"
         "%DOC%.tex"
       ];
