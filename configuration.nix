@@ -19,6 +19,7 @@
     ./system-modules/wayland.nix
     ./system-modules/etc.nix
     ./system-modules/zram.nix
+    ./system-modules/networking.nix
     # ./system-modules/openssh.nix
     # ./system-modules/syncthing.nix
   ];
@@ -59,46 +60,6 @@
     efi.canTouchEfiVariables = true;
   };
 
-  networking = {
-    hostName = cfg.hostname;
-    networkmanager = {
-      enable = true;
-      wifi = {
-        powersave = false;
-        backend = "iwd";
-      };
-      plugins = with pkgs; [ networkmanager-openvpn ];
-    };
-    # modemmanager.enable = true;
-    # proxy =
-    #   let
-    #     httpp = "http://127.0.0.1:1081";
-    #     httpsp = "http://127.0.0.1:1081";
-    #   in
-    #   {
-    #     # default = "http://user:password@proxy:port/";
-    #     default = httpp;
-    #     httpProxy = httpp;
-    #     httpsProxy = httpsp;
-    #     noProxy = "127.0.0.1,localhost,internal.domain";
-    #   };
-    nftables = {
-      enable = true;
-    };
-    firewall = {
-      enable = true;
-    };
-  };
-
-  # systemd.services.nix-daemon.serviceConfig.Environment = [
-  #   "http_proxy=http://127.0.0.1:1081"
-  #   "https_proxy=http://127.0.0.1:1081"
-  #   "no_proxy=localhost,127.0.0.1,::1"
-  #   "HTTP_PROXY=http://127.0.0.1:1081"
-  #   "HTTPS_PROXY=http://127.0.0.1:1081"
-  #   "NO_PROXY=localhost,127.0.0.1,::1"
-  # ];
-
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
 
@@ -135,7 +96,6 @@
     };
     blueman.enable = true;
     upower.enable = true;
-    vnstat.enable = true;
     thermald.enable = true;
     udev = {
       enable = true;
