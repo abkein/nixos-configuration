@@ -67,9 +67,7 @@
         powersave = false;
         backend = "iwd";
       };
-      plugins = with pkgs; [
-        networkmanager-openvpn
-      ];
+      plugins = with pkgs; [ networkmanager-openvpn ];
     };
     # modemmanager.enable = true;
     # proxy = {
