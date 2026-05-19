@@ -1,27 +1,25 @@
-let 
-  tools = {
-    code = [
-      "org.x.editor.desktop"     # xed-editor
-      "code.desktop"  # Microsoft Visual Studio Code
-    ];
-    general_image = [
-        "swayimg.desktop"
-        "gimp.desktop"
-    ];
-  };
+let
+  code = [
+    "org.x.editor.desktop" # xed-editor
+    "code.desktop" # Microsoft Visual Studio Code
+  ];
+  general_image = [
+    "swayimg.desktop"
+    "gimp.desktop"
+  ];
 in
-with tools; {
+{
 
   ### application ###
-  
+
   "application/pdf" = [
-    "org.gnome.Evince.desktop"  # evince pdf viewer
-    "draw.desktop"    # LibreOffice Draw
+    "org.gnome.Evince.desktop" # evince pdf viewer
+    "draw.desktop" # LibreOffice Draw
   ];
   "application/postscript" = [
     "swayimg.desktop"
     "org.inkscape.Inkscape.desktop"
-    "org.gnome.Evince.desktop"  # evince pdf viewer
+    "org.gnome.Evince.desktop" # evince pdf viewer
   ];
   "application/json" = code;
   "application/javascript" = code;
@@ -32,7 +30,8 @@ with tools; {
   "application/vnd.ms-excel" = "calc.desktop";
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = "calc.desktop";
   "application/vnd.ms-powerpoint" = "impress.desktop";
-  "application/vnd.openxmlformats-officedocument.presentationml.presentation: PPTX" = "impress.desktop";
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation: PPTX" =
+    "impress.desktop";
 
   # "application/zip" = "nemo-fileroller";
   # "application/gzip" = "nemo-fileroller";

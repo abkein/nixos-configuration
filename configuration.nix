@@ -70,12 +70,18 @@
       plugins = with pkgs; [ networkmanager-openvpn ];
     };
     # modemmanager.enable = true;
-    # proxy = {
-    #   default = httpp;
-    #   httpProxy = httpp;
-    #   httpsProxy = httpsp;
-    #   noProxy = np;
-    # };
+    # proxy =
+    #   let
+    #     httpp = "http://127.0.0.1:1081";
+    #     httpsp = "http://127.0.0.1:1081";
+    #   in
+    #   {
+    #     # default = "http://user:password@proxy:port/";
+    #     default = httpp;
+    #     httpProxy = httpp;
+    #     httpsProxy = httpsp;
+    #     noProxy = "127.0.0.1,localhost,internal.domain";
+    #   };
     nftables = {
       enable = true;
     };
@@ -95,10 +101,6 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Moscow";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
