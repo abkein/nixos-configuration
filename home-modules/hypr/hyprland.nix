@@ -49,6 +49,7 @@ in
         layout = "dwindle";
         no_focus_fallback = true;
         resize_on_border = true;
+        extend_border_grab_area = 2;
       };
 
       decoration = {
@@ -73,7 +74,7 @@ in
 
         shadow = {
           enabled = true;
-          range = 15;
+          range = 10;
           render_power = 3;
           color = hex2hypr "#0DB7D4FF"; # hex2hypr "#ee1a1a1a";
           color_inactive = hex2hypr "#0000001A";
