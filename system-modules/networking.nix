@@ -42,6 +42,8 @@
     };
     firewall = {
       enable = lib.mkForce true;
+      allowedTCPPorts = [ 1716 ];
+      allowedUDPPorts = [ 1716 ];
     };
   };
 
