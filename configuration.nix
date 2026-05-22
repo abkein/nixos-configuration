@@ -170,7 +170,7 @@
   programs = {
     yubikey-touch-detector = {
       enable = true;
-      verbose = true;
+      # verbose = true;
     };
     # nix-ld = {
     #   enable = true;
