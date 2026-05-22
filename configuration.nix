@@ -168,6 +168,10 @@
   };
 
   programs = {
+    yubikey-touch-detector = {
+      enable = true;
+      verbose = true;
+    };
     # nix-ld = {
     #   enable = true;
     # };
