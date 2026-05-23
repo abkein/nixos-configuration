@@ -14,7 +14,7 @@
     networkmanager = {
       enable = true;
       wifi = {
-        powersave = false;
+        # powersave = false;
         backend = "iwd";
       };
       plugins = with pkgs; [
