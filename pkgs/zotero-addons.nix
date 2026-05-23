@@ -1,6 +1,5 @@
-pkgs:
+{ pkgs, lib, ... }:
 let
-  inherit (pkgs) lib;
   inherit (lib) makeOverridable;
 
   buildZoteroXpiAddon = makeOverridable (
