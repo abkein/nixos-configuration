@@ -114,9 +114,12 @@
         libreoffice-fresh
         crow-translate
 
-        hunspell
-        hunspellDicts.en-us-large
-        hunspellDicts.ru-ru
+        (hunspell.withDicts (
+          d: with d; [
+            ru-ru
+            en-us-large
+          ]
+        ))
 
         baobab
         bleachbit
