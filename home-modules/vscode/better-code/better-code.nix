@@ -23,7 +23,7 @@ in
     better-code = {
       enable = mkOption {
         type = types.bool;
-        default = false;
+        default = false;    
         description = "Enable the automated VSCode configuration.";
       };
 
