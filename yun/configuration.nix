@@ -65,6 +65,10 @@
       package = pkgs.mlocate;
     };
     resolved.enable = true;
+    iperf3 = {
+      enable = true;
+      openFirewall = true;
+    };
   };
 
   nix = {
