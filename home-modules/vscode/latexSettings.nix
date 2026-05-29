@@ -49,6 +49,19 @@
       ];
     }
     {
+      "name" = "pdflatex";
+      "tools" = [
+        "pdflatex"
+      ];
+    }
+    {
+      "name" = "pdflatex * 2";
+      "tools" = [
+        "pdflatex"
+        "pdflatex"
+      ];
+    }
+    {
       "name" = "pdflatex -> bibtex -> pdflatex * 2";
       "tools" = [
         "pdflatex"
@@ -91,6 +104,13 @@
       ];
     }
     {
+      "name" = "lualatex * 2";
+      "tools" = [
+        "lualatex"
+        "lualatex"
+      ];
+    }
+    {
       "name" = "lualatex->biber->lualatex * 2";
       "tools" = [
         "lualatex"
@@ -100,6 +120,7 @@
       ];
     }
   ];
+
   "latex-workshop.latex.tools" = [
     {
       "name" = "lualatexmk";

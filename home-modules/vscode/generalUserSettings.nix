@@ -80,8 +80,11 @@ lib.mkMerge (
         };
       };
 
-      "diffEditor.codeLens" = true;
-      "diffEditor.wordWrap" = "on";
+      diffEditor = {
+        codeLens = true;
+        wordWrap = "on";
+        ignoreTrimWhitespace = false;
+      };
 
       "notebook.lineNumbers" = "on";
 
