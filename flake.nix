@@ -60,10 +60,10 @@
     #   };
     # };
 
-    # treefmt-nix = {
-    #   url = "github:numtide/treefmt-nix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # agenix-rekey = {
     #   url = "github:oddlama/agenix-rekey";
@@ -139,10 +139,19 @@
     { self, nixpkgs, ... }@inputs:
     let
       lib = nixpkgs.lib;
+      eachSystem = inputs.flake-utils.lib.eachSystem;
+      treefmtEval = eachSystem (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
       useAgenixRekey = false;
       secrets = "secrets/agenix/encrypted";
     in
     {
+      # for `nix fmt`
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+      # for `nix flake check`
+      checks = eachSystem (pkgs: {
+        formatting = treefmtEval.${pkgs.system}.config.build.check self;
+      });
+
       nixosConfigurations = {
         jeta =
           let
