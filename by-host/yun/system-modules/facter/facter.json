@@ -1,0 +1,7498 @@
+{
+  "version": 1,
+  "system": "x86_64-linux",
+  "virtualisation": "vmware",
+  "uefi": {
+    "supported": true,
+    "platform_size": 64
+  },
+  "hardware": {
+    "bios": {
+      "apm_info": {
+        "supported": false,
+        "enabled": false,
+        "version": 0,
+        "sub_version": 0,
+        "bios_flags": 0
+      },
+      "vbe_info": {
+        "version": 0,
+        "video_memory": 0
+      },
+      "pnp": false,
+      "pnp_id": 0,
+      "lba_support": false,
+      "low_memory_size": 0,
+      "smbios_version": 519
+    },
+    "bridge": [
+      {
+        "index": 7,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 23
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:17.0",
+        "sysfs_bus_id": "0000:00:17.0",
+        "detail": {
+          "function": 0,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 19,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 8,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 22
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:16.6",
+        "sysfs_bus_id": "0000:00:16.6",
+        "detail": {
+          "function": 6,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 17,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 9,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 24
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:18.3",
+        "sysfs_bus_id": "0000:00:18.3",
+        "detail": {
+          "function": 3,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 30,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 10,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 21
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:15.1",
+        "sysfs_bus_id": "0000:00:15.1",
+        "detail": {
+          "function": 1,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 4,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 11,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 22
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:16.4",
+        "sysfs_bus_id": "0000:00:16.4",
+        "detail": {
+          "function": 4,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 15,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 12,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 24
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:18.1",
+        "sysfs_bus_id": "0000:00:18.1",
+        "detail": {
+          "function": 1,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 28,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 13,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 1
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "8086",
+          "name": "Intel Corporation",
+          "value": 32902
+        },
+        "device": {
+          "hex": "7191",
+          "value": 29073
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "Intel PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:01.0",
+        "sysfs_bus_id": "0000:00:01.0",
+        "detail": {
+          "function": 0,
+          "command": 23,
+          "header_type": 1,
+          "secondary_bus": 1,
+          "prog_if": 0
+        },
+        "module_alias": "pci:v00008086d00007191sv00000000sd00000000bc06sc04i00"
+      },
+      {
+        "index": 14,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 23
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:17.7",
+        "sysfs_bus_id": "0000:00:17.7",
+        "detail": {
+          "function": 7,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 26,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 16,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 22
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:16.2",
+        "sysfs_bus_id": "0000:00:16.2",
+        "detail": {
+          "function": 2,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 13,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 17,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 23
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:17.5",
+        "sysfs_bus_id": "0000:00:17.5",
+        "detail": {
+          "function": 5,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 24,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 18,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 22
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:16.0",
+        "sysfs_bus_id": "0000:00:16.0",
+        "detail": {
+          "function": 0,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 11,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 19,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 21
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:15.6",
+        "sysfs_bus_id": "0000:00:15.6",
+        "detail": {
+          "function": 6,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 9,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 20,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 7
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0001",
+          "name": "ISA bridge",
+          "value": 1
+        },
+        "vendor": {
+          "hex": "8086",
+          "name": "Intel Corporation",
+          "value": 32902
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "7110",
+          "value": 28944
+        },
+        "sub_device": {
+          "hex": "1976",
+          "value": 6518
+        },
+        "revision": {
+          "hex": "0008",
+          "value": 8
+        },
+        "model": "Intel ISA bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:07.0",
+        "sysfs_bus_id": "0000:00:07.0",
+        "detail": {
+          "function": 0,
+          "command": 7,
+          "header_type": 0,
+          "secondary_bus": 0,
+          "prog_if": 0
+        },
+        "module_alias": "pci:v00008086d00007110sv000015ADsd00001976bc06sc01i00"
+      },
+      {
+        "index": 21,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 23
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:17.3",
+        "sysfs_bus_id": "0000:00:17.3",
+        "detail": {
+          "function": 3,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 22,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 22,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 24
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:18.6",
+        "sysfs_bus_id": "0000:00:18.6",
+        "detail": {
+          "function": 6,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 33,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 23,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 21
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:15.4",
+        "sysfs_bus_id": "0000:00:15.4",
+        "detail": {
+          "function": 4,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 7,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 25,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 23
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:17.1",
+        "sysfs_bus_id": "0000:00:17.1",
+        "detail": {
+          "function": 1,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 20,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 26,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 0
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Host bridge",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "8086",
+          "name": "Intel Corporation",
+          "value": 32902
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "7190",
+          "value": 29072
+        },
+        "sub_device": {
+          "hex": "1976",
+          "value": 6518
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "Intel Host bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:00.0",
+        "sysfs_bus_id": "0000:00:00.0",
+        "detail": {
+          "function": 0,
+          "command": 6,
+          "header_type": 0,
+          "secondary_bus": 0,
+          "prog_if": 0
+        },
+        "driver": "agpgart-intel",
+        "driver_module": "intel_agp",
+        "drivers": [
+          "agpgart-intel"
+        ],
+        "driver_modules": [
+          "intel_agp"
+        ],
+        "module_alias": "pci:v00008086d00007190sv000015ADsd00001976bc06sc00i00"
+      },
+      {
+        "index": 27,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 22
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:16.7",
+        "sysfs_bus_id": "0000:00:16.7",
+        "detail": {
+          "function": 7,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 18,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 29,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 24
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:18.4",
+        "sysfs_bus_id": "0000:00:18.4",
+        "detail": {
+          "function": 4,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 31,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 30,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 21
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:15.2",
+        "sysfs_bus_id": "0000:00:15.2",
+        "detail": {
+          "function": 2,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 5,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 31,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 22
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:16.5",
+        "sysfs_bus_id": "0000:00:16.5",
+        "detail": {
+          "function": 5,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 16,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 32,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 24
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:18.2",
+        "sysfs_bus_id": "0000:00:18.2",
+        "detail": {
+          "function": 2,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 29,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 33,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 21
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:15.0",
+        "sysfs_bus_id": "0000:00:15.0",
+        "detail": {
+          "function": 0,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 3,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 34,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 22
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:16.3",
+        "sysfs_bus_id": "0000:00:16.3",
+        "detail": {
+          "function": 3,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 14,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 35,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 7
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0080",
+          "name": "Bridge",
+          "value": 128
+        },
+        "vendor": {
+          "hex": "8086",
+          "name": "Intel Corporation",
+          "value": 32902
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "7113",
+          "value": 28947
+        },
+        "sub_device": {
+          "hex": "1976",
+          "value": 6518
+        },
+        "revision": {
+          "hex": "0008",
+          "value": 8
+        },
+        "model": "Intel Bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:07.3",
+        "sysfs_bus_id": "0000:00:07.3",
+        "detail": {
+          "function": 3,
+          "command": 0,
+          "header_type": 0,
+          "secondary_bus": 0,
+          "prog_if": 0
+        },
+        "module_alias": "pci:v00008086d00007113sv000015ADsd00001976bc06sc80i00"
+      },
+      {
+        "index": 36,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 24
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:18.0",
+        "sysfs_bus_id": "0000:00:18.0",
+        "detail": {
+          "function": 0,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 27,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 37,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 23
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:17.6",
+        "sysfs_bus_id": "0000:00:17.6",
+        "detail": {
+          "function": 6,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 25,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 38,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 22
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:16.1",
+        "sysfs_bus_id": "0000:00:16.1",
+        "detail": {
+          "function": 1,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 12,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 39,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 21
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:15.7",
+        "sysfs_bus_id": "0000:00:15.7",
+        "detail": {
+          "function": 7,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 10,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 41,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 23
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:17.4",
+        "sysfs_bus_id": "0000:00:17.4",
+        "detail": {
+          "function": 4,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 23,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 42,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 17
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0001",
+          "name": "Subtractive decode",
+          "value": 1
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "0790",
+          "value": 1936
+        },
+        "sub_device": {
+          "hex": "0790",
+          "value": 1936
+        },
+        "revision": {
+          "hex": "0002",
+          "value": 2
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:11.0",
+        "sysfs_bus_id": "0000:00:11.0",
+        "detail": {
+          "function": 0,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 2,
+          "prog_if": 1
+        },
+        "module_alias": "pci:v000015ADd00000790sv000015ADsd00000790bc06sc04i01"
+      },
+      {
+        "index": 43,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 24
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:18.7",
+        "sysfs_bus_id": "0000:00:18.7",
+        "detail": {
+          "function": 7,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 34,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 44,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 21
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:15.5",
+        "sysfs_bus_id": "0000:00:15.5",
+        "detail": {
+          "function": 5,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 8,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 45,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 23
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:17.2",
+        "sysfs_bus_id": "0000:00:17.2",
+        "detail": {
+          "function": 2,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 21,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 46,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 24
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:18.5",
+        "sysfs_bus_id": "0000:00:18.5",
+        "detail": {
+          "function": 5,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 32,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      },
+      {
+        "index": 47,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "bridge"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 21
+        },
+        "base_class": {
+          "hex": "0006",
+          "name": "Bridge",
+          "value": 6
+        },
+        "sub_class": {
+          "hex": "0004",
+          "name": "PCI bridge",
+          "value": 4
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "Normal decode",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "sub_device": {
+          "hex": "07a0",
+          "value": 1952
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware PCI bridge",
+        "sysfs_id": "/devices/pci0000:00/0000:00:15.3",
+        "sysfs_bus_id": "0000:00:15.3",
+        "detail": {
+          "function": 3,
+          "command": 7,
+          "header_type": 1,
+          "secondary_bus": 6,
+          "prog_if": 0
+        },
+        "driver": "pcieport",
+        "driver_module": "pcieportdrv",
+        "drivers": [
+          "pcieport"
+        ],
+        "driver_modules": [
+          "pcieportdrv"
+        ],
+        "module_alias": "pci:v000015ADd000007A0sv000015ADsd000007A0bc06sc04i00"
+      }
+    ],
+    "cdrom": [
+      {
+        "index": 48,
+        "attached_to": 40,
+        "class_list": [
+          "cdrom",
+          "scsi",
+          "block_device"
+        ],
+        "bus_type": {
+          "hex": "0084",
+          "name": "SCSI",
+          "value": 132
+        },
+        "slot": {
+          "bus": 0,
+          "number": 0
+        },
+        "base_class": {
+          "hex": "0106",
+          "name": "Mass Storage Device",
+          "value": 262
+        },
+        "sub_class": {
+          "hex": "0002",
+          "name": "CD-ROM",
+          "value": 2
+        },
+        "pci_interface": {
+          "hex": "0003",
+          "name": "DVD",
+          "value": 3
+        },
+        "vendor": {
+          "hex": "0000",
+          "name": "NECVMWar",
+          "value": 0
+        },
+        "device": {
+          "hex": "0000",
+          "name": "VMware IDE CDR00",
+          "value": 0
+        },
+        "revision": {
+          "hex": "0000",
+          "name": "1.00",
+          "value": 0
+        },
+        "model": "NECVMWar VMware IDE CDR00",
+        "sysfs_id": "/class/block/sr0",
+        "sysfs_bus_id": "0:0:0:0",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:07.1/ata1/host0/target0:0:0/0:0:0:0",
+        "unix_device_names": [
+          "/dev/cdrom",
+          "/dev/disk/by-id/ata-VMware_Virtual_IDE_CDROM_Drive_00000000000000000001",
+          "/dev/disk/by-path/pci-0000:00:07.1-ata-1",
+          "/dev/disk/by-path/pci-0000:00:07.1-ata-1.0",
+          "/dev/sr0"
+        ],
+        "unix_device_name2": "/dev/sg0",
+        "driver": "ata_piix",
+        "driver_module": "ata_piix",
+        "drivers": [
+          "ata_piix",
+          "sr"
+        ],
+        "driver_modules": [
+          "ata_piix",
+          "sr_mod"
+        ]
+      }
+    ],
+    "cpu": [
+      {
+        "architecture": "x86_64",
+        "vendor_name": "GenuineIntel",
+        "model_name": "Intel(R) Xeon(R) CPU E5-2697 v4 @ 2.30GHz",
+        "family": 6,
+        "model": 45,
+        "stepping": 2,
+        "features": [
+          "fpu",
+          "vme",
+          "de",
+          "pse",
+          "tsc",
+          "msr",
+          "pae",
+          "mce",
+          "cx8",
+          "apic",
+          "sep",
+          "mtrr",
+          "pge",
+          "mca",
+          "cmov",
+          "pat",
+          "pse36",
+          "clflush",
+          "mmx",
+          "fxsr",
+          "sse",
+          "sse2",
+          "ss",
+          "ht",
+          "syscall",
+          "nx",
+          "rdtscp",
+          "lm",
+          "constant_tsc",
+          "arch_perfmon",
+          "nopl",
+          "xtopology",
+          "tsc_reliable",
+          "nonstop_tsc",
+          "cpuid",
+          "tsc_known_freq",
+          "pni",
+          "pclmulqdq",
+          "ssse3",
+          "cx16",
+          "pcid",
+          "sse4_1",
+          "sse4_2",
+          "x2apic",
+          "popcnt",
+          "tsc_deadline_timer",
+          "aes",
+          "xsave",
+          "avx",
+          "hypervisor",
+          "lahf_lm",
+          "pti",
+          "ssbd",
+          "ibrs",
+          "ibpb",
+          "stibp",
+          "tsc_adjust",
+          "arat",
+          "md_clear",
+          "flush_l1d",
+          "arch_capabilities"
+        ],
+        "bugs": [
+          "cpu_meltdown",
+          "spectre_v1",
+          "spectre_v2",
+          "spec_store_bypass",
+          "l1tf",
+          "mds",
+          "swapgs",
+          "itlb_multihit",
+          "retbleed",
+          "bhi",
+          "spectre_v2_user",
+          "its"
+        ],
+        "power_management": [
+          ""
+        ],
+        "bogo": 4594,
+        "cache": 46080,
+        "units": 2,
+        "page_size": 4096,
+        "physical_id": 0,
+        "siblings": 2,
+        "cores": 2,
+        "fpu": false,
+        "fpu_exception": false,
+        "cpuid_level": 13,
+        "write_protect": false,
+        "clflush_size": 64,
+        "cache_alignment": 64,
+        "address_sizes": {
+          "physical": "0x2b",
+          "virtual": "0x30"
+        }
+      }
+    ],
+    "disk": [
+      {
+        "index": 49,
+        "attached_to": 6,
+        "class_list": [
+          "disk",
+          "scsi",
+          "block_device"
+        ],
+        "bus_type": {
+          "hex": "0084",
+          "name": "SCSI",
+          "value": 132
+        },
+        "slot": {
+          "bus": 2,
+          "number": 0
+        },
+        "base_class": {
+          "hex": "0106",
+          "name": "Mass Storage Device",
+          "value": 262
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Disk",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "0000",
+          "name": "VMware",
+          "value": 0
+        },
+        "device": {
+          "hex": "0000",
+          "name": "Virtual disk",
+          "value": 0
+        },
+        "revision": {
+          "hex": "0000",
+          "name": "2.0",
+          "value": 0
+        },
+        "model": "VMware Virtual disk",
+        "sysfs_id": "/class/block/sda",
+        "sysfs_bus_id": "2:0:0:0",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:15.0/0000:03:00.0/host2/target2:0:0/2:0:0:0",
+        "unix_device_names": [
+          "/dev/disk/by-path/pci-0000:03:00.0-scsi-0:0:0:0",
+          "/dev/sda"
+        ],
+        "unix_device_name2": "/dev/sg1",
+        "rom_id": "0x80",
+        "resources": [
+          {
+            "type": "disk_geo",
+            "cylinders": 65270,
+            "heads": 255,
+            "sectors": 63,
+            "size": "0x0",
+            "geo_type": "logical"
+          },
+          {
+            "type": "size",
+            "unit": "sectors",
+            "value_1": 1048576000,
+            "value_2": 512
+          }
+        ],
+        "driver": "vmw_pvscsi",
+        "driver_module": "vmw_pvscsi",
+        "drivers": [
+          "sd",
+          "vmw_pvscsi"
+        ],
+        "driver_modules": [
+          "sd_mod",
+          "vmw_pvscsi"
+        ]
+      }
+    ],
+    "graphics_card": [
+      {
+        "index": 24,
+        "attached_to": 0,
+        "class_list": [
+          "graphics_card",
+          "pci"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 15
+        },
+        "base_class": {
+          "hex": "0003",
+          "name": "Display controller",
+          "value": 3
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "VGA compatible controller",
+          "value": 0
+        },
+        "pci_interface": {
+          "hex": "0000",
+          "name": "VGA",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "0405",
+          "name": "VMWARE0405",
+          "value": 1029
+        },
+        "sub_device": {
+          "hex": "0405",
+          "value": 1029
+        },
+        "model": "VMware VMWARE0405",
+        "sysfs_id": "/devices/pci0000:00/0000:00:0f.0",
+        "sysfs_bus_id": "0000:00:0f.0",
+        "resources": [
+          {
+            "type": "io",
+            "base": 8256,
+            "range": 16,
+            "enabled": true,
+            "access": "read_write"
+          }
+        ],
+        "detail": {
+          "function": 0,
+          "command": 7,
+          "header_type": 0,
+          "secondary_bus": 0,
+          "prog_if": 0
+        },
+        "driver": "vmwgfx",
+        "driver_module": "vmwgfx",
+        "drivers": [
+          "vmwgfx"
+        ],
+        "driver_modules": [
+          "vmwgfx"
+        ],
+        "driver_info": {
+          "type": "x11",
+          "db_entry_0": [
+            "4",
+            "vmware"
+          ],
+          "server": "vmware",
+          "xf86_version": "4",
+          "supports_3d": false,
+          "Colors": {
+            "all": 0,
+            "c8": 0,
+            "c15": 0,
+            "c16": 0,
+            "c24": 0,
+            "c32": 0
+          },
+          "dac_speed": 0,
+          "script": ""
+        },
+        "module_alias": "pci:v000015ADd00000405sv000015ADsd00000405bc03sc00i00"
+      }
+    ],
+    "memory": [
+      {
+        "index": 5,
+        "attached_to": 0,
+        "class_list": [
+          "memory"
+        ],
+        "base_class": {
+          "hex": "0101",
+          "name": "Internally Used Class",
+          "value": 257
+        },
+        "sub_class": {
+          "hex": "0002",
+          "name": "Main Memory",
+          "value": 2
+        },
+        "model": "Main Memory",
+        "resources": [
+          {
+            "type": "phys_mem",
+            "range": 2013265920
+          }
+        ]
+      }
+    ],
+    "network_controller": [
+      {
+        "index": 15,
+        "attached_to": 18,
+        "class_list": [
+          "network_controller",
+          "pci"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 11,
+          "number": 0
+        },
+        "base_class": {
+          "hex": "0002",
+          "name": "Network controller",
+          "value": 2
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Ethernet controller",
+          "value": 0
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07b0",
+          "value": 1968
+        },
+        "sub_device": {
+          "hex": "07b0",
+          "value": 1968
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "VMware Ethernet controller",
+        "sysfs_id": "/devices/pci0000:00/0000:00:16.0/0000:0b:00.0",
+        "sysfs_bus_id": "0000:0b:00.0",
+        "unix_device_names": [
+          "ens192"
+        ],
+        "resources": [
+          {
+            "type": "hwaddr",
+            "address": 48
+          },
+          {
+            "type": "io",
+            "base": 12288,
+            "range": 16,
+            "enabled": true,
+            "access": "read_write"
+          },
+          {
+            "type": "phwaddr",
+            "address": 48
+          }
+        ],
+        "detail": {
+          "function": 0,
+          "command": 1031,
+          "header_type": 0,
+          "secondary_bus": 0,
+          "prog_if": 0
+        },
+        "driver": "vmxnet3",
+        "driver_module": "vmxnet3",
+        "drivers": [
+          "vmxnet3"
+        ],
+        "driver_modules": [
+          "vmxnet3"
+        ],
+        "module_alias": "pci:v000015ADd000007B0sv000015ADsd000007B0bc02sc00i00",
+        "label": "Ethernet0"
+      }
+    ],
+    "network_interface": [
+      {
+        "index": 50,
+        "attached_to": 15,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0001",
+          "name": "Ethernet",
+          "value": 1
+        },
+        "model": "Ethernet network interface",
+        "sysfs_id": "/class/net/ens192",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:16.0/0000:0b:00.0",
+        "unix_device_names": [
+          "ens192"
+        ],
+        "resources": [
+          {
+            "type": "hwaddr",
+            "address": 48
+          },
+          {
+            "type": "phwaddr",
+            "address": 48
+          }
+        ],
+        "driver": "vmxnet3",
+        "driver_module": "vmxnet3",
+        "drivers": [
+          "vmxnet3"
+        ],
+        "driver_modules": [
+          "vmxnet3"
+        ]
+      },
+      {
+        "index": 51,
+        "attached_to": 0,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0000",
+          "name": "Loopback",
+          "value": 0
+        },
+        "model": "Loopback network interface",
+        "sysfs_id": "/class/net/lo",
+        "unix_device_names": [
+          "lo"
+        ]
+      }
+    ],
+    "pci": [
+      {
+        "index": 28,
+        "attached_to": 0,
+        "class_list": [
+          "pci",
+          "unknown"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 7
+        },
+        "base_class": {
+          "hex": "0008",
+          "name": "Generic system peripheral",
+          "value": 8
+        },
+        "sub_class": {
+          "hex": "0080",
+          "name": "System peripheral",
+          "value": 128
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "0740",
+          "value": 1856
+        },
+        "sub_device": {
+          "hex": "0740",
+          "value": 1856
+        },
+        "revision": {
+          "hex": "0010",
+          "value": 16
+        },
+        "model": "VMware System peripheral",
+        "sysfs_id": "/devices/pci0000:00/0000:00:07.7",
+        "sysfs_bus_id": "0000:00:07.7",
+        "resources": [
+          {
+            "type": "io",
+            "base": 8192,
+            "range": 64,
+            "enabled": true,
+            "access": "read_write"
+          }
+        ],
+        "detail": {
+          "function": 7,
+          "command": 1031,
+          "header_type": 0,
+          "secondary_bus": 0,
+          "prog_if": 0
+        },
+        "driver": "vmw_vmci",
+        "driver_module": "vmw_vmci",
+        "drivers": [
+          "vmw_vmci"
+        ],
+        "driver_modules": [
+          "vmw_vmci"
+        ],
+        "module_alias": "pci:v000015ADd00000740sv000015ADsd00000740bc08sc80i00"
+      }
+    ],
+    "storage_controller": [
+      {
+        "index": 6,
+        "attached_to": 33,
+        "class_list": [
+          "storage_controller",
+          "pci"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 3,
+          "number": 0
+        },
+        "base_class": {
+          "hex": "0001",
+          "name": "Mass storage controller",
+          "value": 1
+        },
+        "sub_class": {
+          "hex": "0007",
+          "value": 7
+        },
+        "vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "07c0",
+          "value": 1984
+        },
+        "sub_device": {
+          "hex": "07c0",
+          "value": 1984
+        },
+        "revision": {
+          "hex": "0002",
+          "value": 2
+        },
+        "model": "VMware Mass storage controller",
+        "sysfs_id": "/devices/pci0000:00/0000:00:15.0/0000:03:00.0",
+        "sysfs_bus_id": "0000:03:00.0",
+        "resources": [
+          {
+            "type": "io",
+            "base": 16384,
+            "range": 8,
+            "enabled": true,
+            "access": "read_write"
+          }
+        ],
+        "detail": {
+          "function": 0,
+          "command": 1031,
+          "header_type": 0,
+          "secondary_bus": 0,
+          "prog_if": 0
+        },
+        "driver": "vmw_pvscsi",
+        "driver_module": "vmw_pvscsi",
+        "drivers": [
+          "vmw_pvscsi"
+        ],
+        "driver_modules": [
+          "vmw_pvscsi"
+        ],
+        "module_alias": "pci:v000015ADd000007C0sv000015ADsd000007C0bc01sc07i00",
+        "label": "SCSI0"
+      },
+      {
+        "index": 40,
+        "attached_to": 0,
+        "class_list": [
+          "storage_controller",
+          "pci"
+        ],
+        "bus_type": {
+          "hex": "0004",
+          "name": "PCI",
+          "value": 4
+        },
+        "slot": {
+          "bus": 0,
+          "number": 7
+        },
+        "base_class": {
+          "hex": "0001",
+          "name": "Mass storage controller",
+          "value": 1
+        },
+        "sub_class": {
+          "hex": "0001",
+          "name": "IDE interface",
+          "value": 1
+        },
+        "pci_interface": {
+          "hex": "008a",
+          "value": 138
+        },
+        "vendor": {
+          "hex": "8086",
+          "name": "Intel Corporation",
+          "value": 32902
+        },
+        "sub_vendor": {
+          "hex": "15ad",
+          "name": "VMware, Inc.",
+          "value": 5549
+        },
+        "device": {
+          "hex": "7111",
+          "value": 28945
+        },
+        "sub_device": {
+          "hex": "1976",
+          "value": 6518
+        },
+        "revision": {
+          "hex": "0001",
+          "value": 1
+        },
+        "model": "Intel IDE interface",
+        "sysfs_id": "/devices/pci0000:00/0000:00:07.1",
+        "sysfs_bus_id": "0000:00:07.1",
+        "resources": [
+          {
+            "type": "io",
+            "base": 1014,
+            "range": 1,
+            "enabled": true,
+            "access": "read_write"
+          },
+          {
+            "type": "io",
+            "base": 368,
+            "range": 8,
+            "enabled": true,
+            "access": "read_write"
+          },
+          {
+            "type": "io",
+            "base": 496,
+            "range": 8,
+            "enabled": true,
+            "access": "read_write"
+          },
+          {
+            "type": "io",
+            "base": 8272,
+            "range": 16,
+            "enabled": true,
+            "access": "read_write"
+          },
+          {
+            "type": "io",
+            "base": 886,
+            "range": 1,
+            "enabled": true,
+            "access": "read_write"
+          }
+        ],
+        "detail": {
+          "function": 1,
+          "command": 5,
+          "header_type": 0,
+          "secondary_bus": 0,
+          "prog_if": 138
+        },
+        "driver": "ata_piix",
+        "driver_module": "ata_piix",
+        "drivers": [
+          "ata_piix"
+        ],
+        "driver_modules": [
+          "ata_piix"
+        ],
+        "module_alias": "pci:v00008086d00007111sv000015ADsd00001976bc01sc01i8A"
+      }
+    ],
+    "system": {
+      "model": "VMware",
+      "form_factor": "desktop"
+    }
+  },
+  "smbios": {
+    "bios": {
+      "handle": 0,
+      "vendor": "VMware, Inc.",
+      "version": "VMW71.00V.21100432.B64.2301110304",
+      "date": "01/11/2023",
+      "features": [
+        "ISA supported",
+        "PCI supported",
+        "PnP supported",
+        "BIOS flashable"
+      ],
+      "start_address": "0x0",
+      "rom_size": 2097152
+    },
+    "board": {
+      "handle": 2,
+      "manufacturer": "Intel Corporation",
+      "product": "440BX Desktop Reference Platform",
+      "version": "None",
+      "board_type": {
+        "hex": "0002",
+        "name": "Unknown",
+        "value": 2
+      },
+      "features": null,
+      "location": "",
+      "chassis": 0
+    },
+    "chassis": [
+      {
+        "handle": 3,
+        "manufacturer": "No Enclosure",
+        "version": "N/A",
+        "chassis_type": {
+          "hex": "0001",
+          "name": "Other",
+          "value": 1
+        },
+        "lock_present": false,
+        "bootup_state": {
+          "hex": "0003",
+          "name": "Safe",
+          "value": 3
+        },
+        "power_state": {
+          "hex": "0003",
+          "name": "Safe",
+          "value": 3
+        },
+        "thermal_state": {
+          "hex": "0003",
+          "name": "Safe",
+          "value": 3
+        },
+        "security_state": {
+          "hex": "0003",
+          "name": "None",
+          "value": 3
+        },
+        "oem": "0x0"
+      }
+    ],
+    "group_associations": [
+      {
+        "handle": 153,
+        "power": {
+          "hex": "0000",
+          "name": "Disabled",
+          "value": 0
+        },
+        "keyboard": {
+          "hex": "0003",
+          "name": "Unknown",
+          "value": 3
+        },
+        "admin": {
+          "hex": "0001",
+          "name": "Enabled",
+          "value": 1
+        },
+        "reset": {
+          "hex": "0003",
+          "name": "Unknown",
+          "value": 3
+        }
+      }
+    ],
+    "memory_64_error": [
+      {
+        "handle": 156,
+        "error_type": {
+          "hex": "0003",
+          "name": "OK",
+          "value": 3
+        },
+        "granularity": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "operation": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "syndrome": 0,
+        "array_address": "0x8000000000000000",
+        "device_address": "0x8000000000000000",
+        "range": 2147483648
+      }
+    ],
+    "memory_array": [
+      {
+        "handle": 18,
+        "location": {
+          "hex": "0003",
+          "name": "Motherboard",
+          "value": 3
+        },
+        "usage": {
+          "hex": "0003",
+          "name": "System memory",
+          "value": 3
+        },
+        "ecc": {
+          "hex": "0003",
+          "name": "None",
+          "value": 3
+        },
+        "max_size": "0x200000",
+        "error_handle": 65534,
+        "slots": 64
+      }
+    ],
+    "memory_array_mapped_address": [
+      {
+        "handle": 148,
+        "array_handle": 18,
+        "start_address": "0x0",
+        "end_address": "0xa0000",
+        "part_width": 0
+      },
+      {
+        "handle": 149,
+        "array_handle": 18,
+        "start_address": "0x100000",
+        "end_address": "0x10000000",
+        "part_width": 0
+      }
+    ],
+    "memory_device": [
+      {
+        "handle": 19,
+        "location": "RAM slot #0",
+        "bank_location": "RAM slot #0",
+        "manufacturer": "VMware Virtual RAM",
+        "part_number": "VMW-2048MB",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 64,
+        "ecc_bits": 0,
+        "size": 2097152,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0003",
+          "name": "DRAM",
+          "value": 3
+        },
+        "memory_type_details": [
+          "Synchronous"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 20,
+        "location": "RAM slot #1",
+        "bank_location": "RAM slot #1",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 21,
+        "location": "RAM slot #2",
+        "bank_location": "RAM slot #2",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 22,
+        "location": "RAM slot #3",
+        "bank_location": "RAM slot #3",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 23,
+        "location": "RAM slot #4",
+        "bank_location": "RAM slot #4",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 24,
+        "location": "RAM slot #5",
+        "bank_location": "RAM slot #5",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 25,
+        "location": "RAM slot #6",
+        "bank_location": "RAM slot #6",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 26,
+        "location": "RAM slot #7",
+        "bank_location": "RAM slot #7",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 27,
+        "location": "RAM slot #8",
+        "bank_location": "RAM slot #8",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 28,
+        "location": "RAM slot #9",
+        "bank_location": "RAM slot #9",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 29,
+        "location": "RAM slot #10",
+        "bank_location": "RAM slot #10",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 30,
+        "location": "RAM slot #11",
+        "bank_location": "RAM slot #11",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 31,
+        "location": "RAM slot #12",
+        "bank_location": "RAM slot #12",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 32,
+        "location": "RAM slot #13",
+        "bank_location": "RAM slot #13",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 33,
+        "location": "RAM slot #14",
+        "bank_location": "RAM slot #14",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 34,
+        "location": "RAM slot #15",
+        "bank_location": "RAM slot #15",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 35,
+        "location": "RAM slot #16",
+        "bank_location": "RAM slot #16",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 36,
+        "location": "RAM slot #17",
+        "bank_location": "RAM slot #17",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 37,
+        "location": "RAM slot #18",
+        "bank_location": "RAM slot #18",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 38,
+        "location": "RAM slot #19",
+        "bank_location": "RAM slot #19",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 39,
+        "location": "RAM slot #20",
+        "bank_location": "RAM slot #20",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 40,
+        "location": "RAM slot #21",
+        "bank_location": "RAM slot #21",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 41,
+        "location": "RAM slot #22",
+        "bank_location": "RAM slot #22",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 42,
+        "location": "RAM slot #23",
+        "bank_location": "RAM slot #23",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 43,
+        "location": "RAM slot #24",
+        "bank_location": "RAM slot #24",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 44,
+        "location": "RAM slot #25",
+        "bank_location": "RAM slot #25",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 45,
+        "location": "RAM slot #26",
+        "bank_location": "RAM slot #26",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 46,
+        "location": "RAM slot #27",
+        "bank_location": "RAM slot #27",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 47,
+        "location": "RAM slot #28",
+        "bank_location": "RAM slot #28",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 48,
+        "location": "RAM slot #29",
+        "bank_location": "RAM slot #29",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 49,
+        "location": "RAM slot #30",
+        "bank_location": "RAM slot #30",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 50,
+        "location": "RAM slot #31",
+        "bank_location": "RAM slot #31",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 51,
+        "location": "RAM slot #32",
+        "bank_location": "RAM slot #32",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 52,
+        "location": "RAM slot #33",
+        "bank_location": "RAM slot #33",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 53,
+        "location": "RAM slot #34",
+        "bank_location": "RAM slot #34",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 54,
+        "location": "RAM slot #35",
+        "bank_location": "RAM slot #35",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 55,
+        "location": "RAM slot #36",
+        "bank_location": "RAM slot #36",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 56,
+        "location": "RAM slot #37",
+        "bank_location": "RAM slot #37",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 57,
+        "location": "RAM slot #38",
+        "bank_location": "RAM slot #38",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 58,
+        "location": "RAM slot #39",
+        "bank_location": "RAM slot #39",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 59,
+        "location": "RAM slot #40",
+        "bank_location": "RAM slot #40",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 60,
+        "location": "RAM slot #41",
+        "bank_location": "RAM slot #41",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 61,
+        "location": "RAM slot #42",
+        "bank_location": "RAM slot #42",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 62,
+        "location": "RAM slot #43",
+        "bank_location": "RAM slot #43",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 63,
+        "location": "RAM slot #44",
+        "bank_location": "RAM slot #44",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 64,
+        "location": "RAM slot #45",
+        "bank_location": "RAM slot #45",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 65,
+        "location": "RAM slot #46",
+        "bank_location": "RAM slot #46",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 66,
+        "location": "RAM slot #47",
+        "bank_location": "RAM slot #47",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 67,
+        "location": "RAM slot #48",
+        "bank_location": "RAM slot #48",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 68,
+        "location": "RAM slot #49",
+        "bank_location": "RAM slot #49",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 69,
+        "location": "RAM slot #50",
+        "bank_location": "RAM slot #50",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 70,
+        "location": "RAM slot #51",
+        "bank_location": "RAM slot #51",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 71,
+        "location": "RAM slot #52",
+        "bank_location": "RAM slot #52",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 72,
+        "location": "RAM slot #53",
+        "bank_location": "RAM slot #53",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 73,
+        "location": "RAM slot #54",
+        "bank_location": "RAM slot #54",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 74,
+        "location": "RAM slot #55",
+        "bank_location": "RAM slot #55",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 75,
+        "location": "RAM slot #56",
+        "bank_location": "RAM slot #56",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 76,
+        "location": "RAM slot #57",
+        "bank_location": "RAM slot #57",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 77,
+        "location": "RAM slot #58",
+        "bank_location": "RAM slot #58",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 78,
+        "location": "RAM slot #59",
+        "bank_location": "RAM slot #59",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 79,
+        "location": "RAM slot #60",
+        "bank_location": "RAM slot #60",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 80,
+        "location": "RAM slot #61",
+        "bank_location": "RAM slot #61",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 81,
+        "location": "RAM slot #62",
+        "bank_location": "RAM slot #62",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 82,
+        "location": "RAM slot #63",
+        "bank_location": "RAM slot #63",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 18,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 83,
+        "location": "NVD slot #0",
+        "bank_location": "NVD slot #0",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 84,
+        "location": "NVD slot #1",
+        "bank_location": "NVD slot #1",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 85,
+        "location": "NVD slot #2",
+        "bank_location": "NVD slot #2",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 86,
+        "location": "NVD slot #3",
+        "bank_location": "NVD slot #3",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 87,
+        "location": "NVD slot #4",
+        "bank_location": "NVD slot #4",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 88,
+        "location": "NVD slot #5",
+        "bank_location": "NVD slot #5",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 89,
+        "location": "NVD slot #6",
+        "bank_location": "NVD slot #6",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 90,
+        "location": "NVD slot #7",
+        "bank_location": "NVD slot #7",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 91,
+        "location": "NVD slot #8",
+        "bank_location": "NVD slot #8",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 92,
+        "location": "NVD slot #9",
+        "bank_location": "NVD slot #9",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 93,
+        "location": "NVD slot #10",
+        "bank_location": "NVD slot #10",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 94,
+        "location": "NVD slot #11",
+        "bank_location": "NVD slot #11",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 95,
+        "location": "NVD slot #12",
+        "bank_location": "NVD slot #12",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 96,
+        "location": "NVD slot #13",
+        "bank_location": "NVD slot #13",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 97,
+        "location": "NVD slot #14",
+        "bank_location": "NVD slot #14",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 98,
+        "location": "NVD slot #15",
+        "bank_location": "NVD slot #15",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 99,
+        "location": "NVD slot #16",
+        "bank_location": "NVD slot #16",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 100,
+        "location": "NVD slot #17",
+        "bank_location": "NVD slot #17",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 101,
+        "location": "NVD slot #18",
+        "bank_location": "NVD slot #18",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 102,
+        "location": "NVD slot #19",
+        "bank_location": "NVD slot #19",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 103,
+        "location": "NVD slot #20",
+        "bank_location": "NVD slot #20",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 104,
+        "location": "NVD slot #21",
+        "bank_location": "NVD slot #21",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 105,
+        "location": "NVD slot #22",
+        "bank_location": "NVD slot #22",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 106,
+        "location": "NVD slot #23",
+        "bank_location": "NVD slot #23",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 107,
+        "location": "NVD slot #24",
+        "bank_location": "NVD slot #24",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 108,
+        "location": "NVD slot #25",
+        "bank_location": "NVD slot #25",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 109,
+        "location": "NVD slot #26",
+        "bank_location": "NVD slot #26",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 110,
+        "location": "NVD slot #27",
+        "bank_location": "NVD slot #27",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 111,
+        "location": "NVD slot #28",
+        "bank_location": "NVD slot #28",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 112,
+        "location": "NVD slot #29",
+        "bank_location": "NVD slot #29",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 113,
+        "location": "NVD slot #30",
+        "bank_location": "NVD slot #30",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 114,
+        "location": "NVD slot #31",
+        "bank_location": "NVD slot #31",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 115,
+        "location": "NVD slot #32",
+        "bank_location": "NVD slot #32",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 116,
+        "location": "NVD slot #33",
+        "bank_location": "NVD slot #33",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 117,
+        "location": "NVD slot #34",
+        "bank_location": "NVD slot #34",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 118,
+        "location": "NVD slot #35",
+        "bank_location": "NVD slot #35",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 119,
+        "location": "NVD slot #36",
+        "bank_location": "NVD slot #36",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 120,
+        "location": "NVD slot #37",
+        "bank_location": "NVD slot #37",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 121,
+        "location": "NVD slot #38",
+        "bank_location": "NVD slot #38",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 122,
+        "location": "NVD slot #39",
+        "bank_location": "NVD slot #39",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 123,
+        "location": "NVD slot #40",
+        "bank_location": "NVD slot #40",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 124,
+        "location": "NVD slot #41",
+        "bank_location": "NVD slot #41",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 125,
+        "location": "NVD slot #42",
+        "bank_location": "NVD slot #42",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 126,
+        "location": "NVD slot #43",
+        "bank_location": "NVD slot #43",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 127,
+        "location": "NVD slot #44",
+        "bank_location": "NVD slot #44",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 128,
+        "location": "NVD slot #45",
+        "bank_location": "NVD slot #45",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 129,
+        "location": "NVD slot #46",
+        "bank_location": "NVD slot #46",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 130,
+        "location": "NVD slot #47",
+        "bank_location": "NVD slot #47",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 131,
+        "location": "NVD slot #48",
+        "bank_location": "NVD slot #48",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 132,
+        "location": "NVD slot #49",
+        "bank_location": "NVD slot #49",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 133,
+        "location": "NVD slot #50",
+        "bank_location": "NVD slot #50",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 134,
+        "location": "NVD slot #51",
+        "bank_location": "NVD slot #51",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 135,
+        "location": "NVD slot #52",
+        "bank_location": "NVD slot #52",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 136,
+        "location": "NVD slot #53",
+        "bank_location": "NVD slot #53",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 137,
+        "location": "NVD slot #54",
+        "bank_location": "NVD slot #54",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 138,
+        "location": "NVD slot #55",
+        "bank_location": "NVD slot #55",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 139,
+        "location": "NVD slot #56",
+        "bank_location": "NVD slot #56",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 140,
+        "location": "NVD slot #57",
+        "bank_location": "NVD slot #57",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 141,
+        "location": "NVD slot #58",
+        "bank_location": "NVD slot #58",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 142,
+        "location": "NVD slot #59",
+        "bank_location": "NVD slot #59",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 143,
+        "location": "NVD slot #60",
+        "bank_location": "NVD slot #60",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 144,
+        "location": "NVD slot #61",
+        "bank_location": "NVD slot #61",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 145,
+        "location": "NVD slot #62",
+        "bank_location": "NVD slot #62",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      },
+      {
+        "handle": 146,
+        "location": "NVD slot #63",
+        "bank_location": "NVD slot #63",
+        "manufacturer": "",
+        "part_number": "",
+        "array_handle": 0,
+        "error_handle": 65535,
+        "width": 0,
+        "ecc_bits": 0,
+        "size": 0,
+        "form_factor": {
+          "hex": "0009",
+          "name": "DIMM",
+          "value": 9
+        },
+        "set": 0,
+        "memory_type": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "memory_type_details": [
+          "Unknown"
+        ],
+        "speed": 0
+      }
+    ],
+    "memory_device_mapped_address": [
+      {
+        "handle": 150,
+        "memory_device_handle": 19,
+        "array_map_handle": 148,
+        "start_address": "0x0",
+        "end_address": "0xa0000",
+        "row_position": 255,
+        "interleave_position": 255,
+        "interleave_depth": 255
+      },
+      {
+        "handle": 151,
+        "memory_device_handle": 19,
+        "array_map_handle": 149,
+        "start_address": "0x100000",
+        "end_address": "0x10000000",
+        "row_position": 255,
+        "interleave_position": 255,
+        "interleave_depth": 255
+      }
+    ],
+    "memory_error": [
+      {
+        "handle": 147,
+        "error_type": {
+          "hex": "0003",
+          "name": "OK",
+          "value": 3
+        },
+        "granularity": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "operation": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "syndrome": 0,
+        "array_address": "0x80000000",
+        "device_address": "0x80000000",
+        "range": 8388608
+      }
+    ],
+    "onboard": [
+      {
+        "handle": 16,
+        "devices": [
+          {
+            "name": "VMware SVGA II",
+            "type": {
+              "hex": "0003",
+              "name": "Video",
+              "value": 3
+            },
+            "enabled": false
+          },
+          {
+            "name": "ES1371",
+            "type": {
+              "hex": "0007",
+              "name": "Sound",
+              "value": 7
+            },
+            "enabled": false
+          }
+        ]
+      }
+    ],
+    "port_connector": [
+      {
+        "handle": 6,
+        "port_type": {
+          "hex": "0009",
+          "name": "Serial Port 16550A Compatible",
+          "value": 9
+        },
+        "internal_connector_type": {
+          "hex": "0018",
+          "name": "9 Pin Dual Inline [pin 10 cut]",
+          "value": 24
+        },
+        "internal_reference_designator": "J19",
+        "external_connector_type": {
+          "hex": "0008",
+          "name": "DB-9 pin male",
+          "value": 8
+        },
+        "external_reference_designator": "COM 1"
+      },
+      {
+        "handle": 7,
+        "port_type": {
+          "hex": "0005",
+          "name": "Parallel Port ECP/EPP",
+          "value": 5
+        },
+        "internal_connector_type": {
+          "hex": "0019",
+          "name": "25 Pin Dual Inline [pin 26 cut]",
+          "value": 25
+        },
+        "internal_reference_designator": "J23",
+        "external_connector_type": {
+          "hex": "0005",
+          "name": "DB-25 pin female",
+          "value": 5
+        },
+        "external_reference_designator": "Parallel"
+      },
+      {
+        "handle": 8,
+        "port_type": {
+          "hex": "000d",
+          "name": "Keyboard Port",
+          "value": 13
+        },
+        "internal_reference_designator": "J11",
+        "external_connector_type": {
+          "hex": "0014",
+          "name": "Circular DIN-8 male",
+          "value": 20
+        },
+        "external_reference_designator": "Keyboard"
+      },
+      {
+        "handle": 9,
+        "port_type": {
+          "hex": "000d",
+          "name": "Keyboard Port",
+          "value": 13
+        },
+        "internal_reference_designator": "J12",
+        "external_connector_type": {
+          "hex": "0014",
+          "name": "Circular DIN-8 male",
+          "value": 20
+        },
+        "external_reference_designator": "PS/2 Mouse"
+      }
+    ],
+    "processor": [
+      {
+        "handle": 4,
+        "socket": "CPU 0",
+        "socket_type": {
+          "hex": "0004",
+          "name": "ZIF Socket",
+          "value": 4
+        },
+        "socket_populated": true,
+        "manufacturer": "GenuineIntel",
+        "version": "Intel(R) Xeon(R) CPU E5-2697 v4 @ 2.30GHz",
+        "part": "",
+        "processor_type": {
+          "hex": "0003",
+          "name": "CPU",
+          "value": 3
+        },
+        "processor_family": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "processor_status": {
+          "hex": "0001",
+          "name": "Enabled",
+          "value": 1
+        },
+        "clock_ext": 0,
+        "clock_max": 2190,
+        "cache_handle_l1": 0,
+        "cache_handle_l2": 0,
+        "cache_handle_l3": 0
+      },
+      {
+        "handle": 5,
+        "socket": "CPU 1",
+        "socket_type": {
+          "hex": "0004",
+          "name": "ZIF Socket",
+          "value": 4
+        },
+        "socket_populated": true,
+        "manufacturer": "GenuineIntel",
+        "version": "Intel(R) Xeon(R) CPU E5-2697 v4 @ 2.30GHz",
+        "part": "",
+        "processor_type": {
+          "hex": "0003",
+          "name": "CPU",
+          "value": 3
+        },
+        "processor_family": {
+          "hex": "0002",
+          "name": "Unknown",
+          "value": 2
+        },
+        "processor_status": {
+          "hex": "0001",
+          "name": "Enabled",
+          "value": 1
+        },
+        "clock_ext": 0,
+        "clock_max": 2190,
+        "cache_handle_l1": 0,
+        "cache_handle_l2": 0,
+        "cache_handle_l3": 0
+      }
+    ],
+    "slot": [
+      {
+        "handle": 10,
+        "designation": "PCI Slot J11",
+        "slot_type": {
+          "hex": "0006",
+          "name": "PCI",
+          "value": 6
+        },
+        "bus_width": {
+          "hex": "0005",
+          "name": "32 bit",
+          "value": 5
+        },
+        "usage": {
+          "hex": "0004",
+          "name": "In Use",
+          "value": 4
+        },
+        "length": {
+          "hex": "0004",
+          "name": "Long",
+          "value": 4
+        },
+        "id": 1,
+        "features": [
+          "5.0 V",
+          "3.3 V"
+        ]
+      },
+      {
+        "handle": 11,
+        "designation": "PCI Slot J12",
+        "slot_type": {
+          "hex": "0006",
+          "name": "PCI",
+          "value": 6
+        },
+        "bus_width": {
+          "hex": "0005",
+          "name": "32 bit",
+          "value": 5
+        },
+        "usage": {
+          "hex": "0003",
+          "name": "Available",
+          "value": 3
+        },
+        "length": {
+          "hex": "0004",
+          "name": "Long",
+          "value": 4
+        },
+        "id": 2,
+        "features": [
+          "5.0 V",
+          "3.3 V"
+        ]
+      },
+      {
+        "handle": 12,
+        "designation": "PCI Slot J13",
+        "slot_type": {
+          "hex": "0006",
+          "name": "PCI",
+          "value": 6
+        },
+        "bus_width": {
+          "hex": "0005",
+          "name": "32 bit",
+          "value": 5
+        },
+        "usage": {
+          "hex": "0004",
+          "name": "In Use",
+          "value": 4
+        },
+        "length": {
+          "hex": "0004",
+          "name": "Long",
+          "value": 4
+        },
+        "id": 3,
+        "features": [
+          "5.0 V",
+          "3.3 V"
+        ]
+      },
+      {
+        "handle": 13,
+        "designation": "PCI Slot J14",
+        "slot_type": {
+          "hex": "0006",
+          "name": "PCI",
+          "value": 6
+        },
+        "bus_width": {
+          "hex": "0005",
+          "name": "32 bit",
+          "value": 5
+        },
+        "usage": {
+          "hex": "0003",
+          "name": "Available",
+          "value": 3
+        },
+        "length": {
+          "hex": "0004",
+          "name": "Long",
+          "value": 4
+        },
+        "id": 4,
+        "features": [
+          "5.0 V",
+          "3.3 V"
+        ]
+      },
+      {
+        "handle": 14,
+        "designation": "PCI Slot J15",
+        "slot_type": {
+          "hex": "0006",
+          "name": "PCI",
+          "value": 6
+        },
+        "bus_width": {
+          "hex": "0005",
+          "name": "32 bit",
+          "value": 5
+        },
+        "usage": {
+          "hex": "0003",
+          "name": "Available",
+          "value": 3
+        },
+        "length": {
+          "hex": "0004",
+          "name": "Long",
+          "value": 4
+        },
+        "id": 5,
+        "features": [
+          "5.0 V",
+          "3.3 V"
+        ]
+      },
+      {
+        "handle": 15,
+        "designation": "PCI Slot J16",
+        "slot_type": {
+          "hex": "0006",
+          "name": "PCI",
+          "value": 6
+        },
+        "bus_width": {
+          "hex": "0005",
+          "name": "32 bit",
+          "value": 5
+        },
+        "usage": {
+          "hex": "0003",
+          "name": "Available",
+          "value": 3
+        },
+        "length": {
+          "hex": "0004",
+          "name": "Long",
+          "value": 4
+        },
+        "id": 6,
+        "features": [
+          "5.0 V",
+          "3.3 V"
+        ]
+      }
+    ],
+    "system": {
+      "handle": 1,
+      "manufacturer": "VMware, Inc.",
+      "product": "VMware7,1",
+      "version": "None",
+      "wake_up": {
+        "hex": "0006",
+        "name": "Power Switch",
+        "value": 6
+      }
+    }
+  }
+}

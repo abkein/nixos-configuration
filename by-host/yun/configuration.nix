@@ -38,6 +38,7 @@
       secrets = config.age.secrets;
     in
     {
+      channel.enable = false;
       gc = {
         automatic = true;
         dates = "weekly";
@@ -64,9 +65,13 @@
     defaultLocale = "en_US.UTF-8";
   };
 
-  environment.systemPackages = map lib.lowPrio [
-    pkgs.curl
-    pkgs.gitMinimal
+  environment.systemPackages = with pkgs; [
+    curl
+    gitFull
+    wget
+    age
+    age-plugin-yubikey
+    git-agecrypt
   ];
 
   users.users = {

@@ -50,6 +50,10 @@ in
     openssh = {
       enable = true;
       openFirewall = true;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+      };
     };
     iperf3 = {
       enable = true;
