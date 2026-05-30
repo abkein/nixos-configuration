@@ -243,6 +243,7 @@
               system = "x86_64-linux";
               hostname = "yun";
               inherit useAgenixRekey;
+              inherit secrets;
             };
             ipkgs =
               let

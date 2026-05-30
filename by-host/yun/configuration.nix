@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  cfg,
   ...
 }:
 {
@@ -9,6 +10,19 @@
     ./hardware-configuration.nix
     ../system-modules
   ];
+
+  age = {
+    identityPaths = [ "/root/keys/actual_age_root.key" ];
+    secrets = {
+      "nix-access-tokens.conf" = {
+        file = ../../${cfg.secrets}/nix-access-tokens.conf.age;
+      };
+      "nix-netrc" = {
+        file = ../../${cfg.secrets}/nix-netrc.age;
+      };
+    };
+    ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
+  };
 
   time.timeZone = "Europe/Helsinki";
 
@@ -19,33 +33,36 @@
     };
   };
 
-  nix = {
-    gc = {
-      automatic = false;
-      dates = "weekly";
-      persistent = true;
-      randomizedDelaySec = "1m";
+  nix =
+    let
+      secrets = config.age.secrets;
+    in
+    {
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        persistent = true;
+        randomizedDelaySec = "1m";
+      };
+      settings = {
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+        netrc-file = secrets."nix-netrc".path;
+        builders-use-substitutes = true;
+        connect-timeout = 5;
+        download-attempts = 2;
+        stalled-download-timeout = 15; # instead of 300
+      };
+      extraOptions = ''
+        !include ${secrets."nix-access-tokens.conf".path}
+      '';
     };
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      netrc-file = config.age.secrets."nix-netrc".path;
-      builders-use-substitutes = true;
-      connect-timeout = 5;
-      download-attempts = 2;
-      stalled-download-timeout = 15; # instead of 300
-    };
-    extraOptions = ''
-      !include ${config.age.secrets."nix-access-tokens.conf".path}
-    '';
-  };
 
   i18n = {
     defaultLocale = "en_US.UTF-8";
   };
-
 
   environment.systemPackages = map lib.lowPrio [
     pkgs.curl
