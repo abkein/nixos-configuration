@@ -44,9 +44,35 @@
       };
     };
 
+    # flake-compat.url = "github:edolstra/flake-compat";
+
+    # gitignore = {
+    #   url = "github:hercules-ci/gitignore.nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
+    # pre-commit-hooks = {
+    #   url = "github:cachix/pre-commit-hooks.nix";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     gitignore.follows = "gitignore";
+    #     flake-compat.follows = "flake-compat";
+    #   };
+    # };
+
+    # treefmt-nix = {
+    #   url = "github:numtide/treefmt-nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
     # agenix-rekey = {
     #   url = "github:oddlama/agenix-rekey";
-    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     flake-parts.follows = "flake-parts";
+    #     pre-commit-hooks.follows = "pre-commit-hooks";
+    #     treefmt-nix.follows = "treefmt-nix";
+    #   };
     # };
 
     nur = {
@@ -79,17 +105,17 @@
       };
     };
 
-    git-hooks = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # git-hooks = {
+    #   url = "github:cachix/git-hooks.nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     ayugram-desktop = {
       url = "github:ndfined-crp/ayugram-desktop";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        git-hooks.follows = "git-hooks";
+        # flake-parts.follows = "flake-parts";
+        # git-hooks.follows = "git-hooks";
       };
       # type = "git";
       # submodules = true;
@@ -110,11 +136,11 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      ...
-    }@inputs:
+    { self, nixpkgs, ... }@inputs:
+    let
+      lib = nixpkgs.lib;
+      useAgenixRekey = false;
+    in
     {
       nixosConfigurations = {
         jeta =
@@ -122,9 +148,10 @@
             cfg = rec {
               system = "x86_64-linux";
               username = "kein";
-              userhome = "/home/kein";
+              userhome = "/home/${username}";
               flakepath = "${userhome}/nixos-configuration";
               hostname = "jeta";
+              inherit useAgenixRekey;
             };
             ipkgs =
               let
@@ -137,10 +164,13 @@
                 claude-code = claude-code.packages.${system}.default;
                 ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
                 # anyrun-pkgs = anyrun.packages.${system}.default;
-              };
-            mylib = import ./mylib.nix nixpkgs.lib;
+              }
+              // (lib.optionalAttrs cfg.useAgenixRekey {
+                agenix-rekey = agenix-rekey.packages.${system}.default;
+              });
+            mylib = import ./mylib.nix lib;
           in
-          nixpkgs.lib.nixosSystem {
+          lib.nixosSystem {
             inherit (cfg) system;
             specialArgs = {
               inherit ipkgs;
@@ -148,20 +178,23 @@
               inherit mylib;
             };
             modules =
-              (with inputs; [
-                nur.modules.nixos.default
-                agenix.nixosModules.default
-                home-manager.nixosModules.home-manager
-                disko.nixosModules.disko
-                # sops-nix.nixosModules.sops
-                # agenix-rekey.nixosModules.default
-              ])
+              (
+                with inputs;
+                [
+                  nur.modules.nixos.default
+                  home-manager.nixosModules.home-manager
+                  disko.nixosModules.disko
+                  # sops-nix.nixosModules.sops
+                  agenix.nixosModules.default
+                ]
+                ++ (lib.optionals cfg.useAgenixRekey [ agenix-rekey.nixosModules.default ])
+              )
               ++ [
                 ./configuration.nix
                 ./disko.nix
                 {
                   nixpkgs = {
-                    hostPlatform = cfg.system;
+                    # hostPlatform = cfg.system;
                     config = {
                       allowUnfree = true;
                       # permittedInsecurePackages = [
@@ -180,7 +213,7 @@
                         (import ./overlays/generic.nix)
                       ];
                   };
-                  environment.systemPackages = with ipkgs; [ agenix ];
+                  environment.systemPackages = with ipkgs; [ (if cfg.useAgenixRekey then agenix-rekey else agenix) ];
                   home-manager = {
                     useGlobalPkgs = true;
                     useUserPackages = true;
@@ -207,28 +240,52 @@
           let
             cfg = {
               system = "x86_64-linux";
+              inherit useAgenixRekey;
             };
+            ipkgs =
+              let
+                system = cfg.system;
+              in
+              with inputs;
+              {
+                agenix = agenix.packages.${system}.default;
+              }
+              // (lib.optionalAttrs cfg.useAgenixRekey {
+                agenix-rekey = agenix-rekey.packages.${system}.default;
+              });
           in
-          nixpkgs.lib.nixosSystem {
-            system = cfg.system;
+          lib.nixosSystem {
+            inherit (cfg) system;
+            specialArgs = {
+              inherit ipkgs;
+              inherit cfg;
+            };
             modules =
-              (with inputs; [
-                disko.nixosModules.disko
-              ])
+              (
+                with inputs;
+                [
+                  disko.nixosModules.disko
+                  agenix.nixosModules.default
+                ]
+                ++ (lib.optionals cfg.useAgenixRekey [ agenix-rekey.nixosModules.default ])
+              )
               ++ [
-                {
-                  nixpkgs.hostPlatform = cfg.system;
-                }
                 ./yun/configuration.nix
                 ./yun/hardware-configuration.nix
                 ./yun/disko.nix
+                {
+                  # nixpkgs.hostPlatform = cfg.system;
+                  environment.systemPackages = with ipkgs; [ (if cfg.useAgenixRekey then agenix-rekey else agenix) ];
+                }
               ];
           };
-        # agenix-rekey = agenix-rekey.configure {
-        #   userFlake = self;
-        #   nixosConfigurations = self.nixosConfigurations;
-        # };
-        # devShells.${system}.default = nixpkgs.mkShell {};
       };
-    };
+      # devShells.${system}.default = nixpkgs.mkShell {};
+    }
+    // (lib.optionalAttrs useAgenixRekey {
+      agenix-rekey = inputs.agenix-rekey.configure {
+        userFlake = self;
+        nixosConfigurations = self.nixosConfigurations;
+      };
+    });
 }
