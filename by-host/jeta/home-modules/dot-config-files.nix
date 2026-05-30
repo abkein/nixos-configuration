@@ -25,9 +25,5 @@ in
         </markup>
       '';
     };
-    # hyprland-regreet = generic // {
-    #   source = ../confs/Hyprland-regreet.conf;
-    #   target = "hypr/hyprland-regreet.conf";
-    # };
   };
 }

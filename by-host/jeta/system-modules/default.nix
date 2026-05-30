@@ -1,10 +1,8 @@
 { ... }:
 {
   imports = [
-    ./regreet.nix
+    ./wayland
     ./proxychains.nix
-    ./wayland.nix
-    ./etc.nix
     ./zram.nix
     ./networking.nix
     ./disko.nix

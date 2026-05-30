@@ -2,7 +2,7 @@
 {
   imports = [
     # ./thunderbird.nix
-    ./vscode/better-code/better-code.nix
+    ./hypr
     ./vscode/workspaces.nix
     ./gnupg.nix
     ./syncthing.nix
@@ -12,9 +12,7 @@
     ./files.nix
     ./waybar.nix
     ./zsh.nix
-    ./hypr/hypr.nix
     ./dunst.nix
-    ./zotero/zotero.nix
     ./zotero.nix
     ./ssh.nix
     ./wofi.nix

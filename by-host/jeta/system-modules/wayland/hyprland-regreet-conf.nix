@@ -1,10 +1,10 @@
-{ lib, config, ... }:
+{ config, ... }:
 {
   environment.etc = {
     hyprland-regreet = {
       enable = true;
       text = ''
-        exec-once = ${lib.getExe config.programs.regreet.package}; hyprctl dispatch exit
+        exec-once = ${config.programs.regreet.package}/bin/regreet; hyprctl dispatch exit
 
         monitor = eDP-1,    3200x2000@120,   0x0, 1.6
         monitor = DP-6, 1920x1080@74.97, 2000x0, 1

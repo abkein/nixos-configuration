@@ -9,9 +9,9 @@ in
     xwayland.enable = true;
     configType = "hyprlang";
     # --- system module integration
-    package = null;
-    portalPackage = null;
-    systemd.enable = false;
+    # package = null;
+    # portalPackage = null;
+    # systemd.enable = false;
     # --- system module integration
     settings = {
       "$SLURP_COMMAND" = "\"$(slurp -d -c f8daeeBB -b 55405044 -s 00000000)\"";
