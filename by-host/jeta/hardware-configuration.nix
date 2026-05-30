@@ -94,6 +94,7 @@
   # hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware = {
     # enableAllFirmware = true;
+    # enableAllHardware = true;
     enableRedistributableFirmware = true;
     cpu.amd.updateMicrocode = true;
   };
