@@ -140,6 +140,7 @@
     let
       lib = nixpkgs.lib;
       useAgenixRekey = false;
+      secrets = secrets/agenix/encrypted;
     in
     {
       nixosConfigurations = {
@@ -152,6 +153,7 @@
               flakepath = "${userhome}/nixos-configuration";
               hostname = "jeta";
               inherit useAgenixRekey;
+              inherit secrets;
             };
             ipkgs =
               let
@@ -190,8 +192,7 @@
                 ++ (lib.optionals cfg.useAgenixRekey [ agenix-rekey.nixosModules.default ])
               )
               ++ [
-                ./configuration.nix
-                ./disko.nix
+                ./by-host/jeta/configuration.nix
                 {
                   nixpkgs = {
                     # hostPlatform = cfg.system;
@@ -225,7 +226,7 @@
                       # sops-nix.homeManagerModules.sops
                     ];
                     users = {
-                      "${cfg.username}" = ./home-manager.nix;
+                      "${cfg.username}" = ./by-host/jeta/home-manager.nix;
                     };
                     extraSpecialArgs = {
                       inherit ipkgs;
@@ -240,6 +241,7 @@
           let
             cfg = {
               system = "x86_64-linux";
+              hostname = "yun";
               inherit useAgenixRekey;
             };
             ipkgs =
@@ -270,9 +272,7 @@
                 ++ (lib.optionals cfg.useAgenixRekey [ agenix-rekey.nixosModules.default ])
               )
               ++ [
-                ./yun/configuration.nix
-                ./yun/hardware-configuration.nix
-                ./yun/disko.nix
+                ./by-host/yun/configuration.nix
                 {
                   # nixpkgs.hostPlatform = cfg.system;
                   environment.systemPackages = with ipkgs; [ (if cfg.useAgenixRekey then agenix-rekey else agenix) ];

@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
@@ -9,11 +8,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ./hardware-modules/pstate.nix
-    ./hardware-modules/zenpower.nix
-    ./hardware-modules/redmibook-wmi.nix
-    ./hardware-modules/acpi-patch.nix
-    # ./hardware-modules/amdgpu-patch.nix
+    ./hardware-modules
   ];
 
   # services.udev = {
@@ -27,7 +22,17 @@
   #   #  157    # KEY_COMPUTER
   # };
 
+
   boot = {
+    # Use the systemd-boot EFI boot loader.
+    loader = {
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 20;
+        editor = false;
+      };
+      efi.canTouchEfiVariables = true;
+    };
     initrd = {
       availableKernelModules = [
         "nvme"
@@ -42,13 +47,13 @@
         "cryptd"
       ];
       # luks.devices."crypted".device = "/dev/nvme0n1p2";
+      luks.devices."crypted".keyFileTimeout = 5;
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
     kernel.sysctl."kernel.sysrq" = 1;
   };
 
-  boot.initrd.luks.devices.crypted.keyFileTimeout = 5;
   # fileSystems = {
   #   "/" = {
   #     device = "/dev/disk/by-uuid/d990af03-81ac-4527-bcba-81a575ffc5ce";

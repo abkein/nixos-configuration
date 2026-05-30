@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   cfg,
   ...
 }:
@@ -38,10 +37,10 @@
     #     noProxy = "127.0.0.1,localhost,internal.domain";
     #   };
     nftables = {
-      enable = lib.mkForce true;
+      enable = true;
     };
     firewall = {
-      enable = lib.mkForce true;
+      enable = true;
       allowedTCPPorts = [ 1716 ];
       allowedUDPPorts = [ 1716 ];
     };

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, cfg, ... }:
 {
   services.syncthing = {
     enable = true;
@@ -6,7 +6,7 @@
     guiPasswordFile = config.age.secrets."syncthingPass".path;
     guiAddress = "127.0.0.1:8384";  # default
     user = "kein";
-    dataDir = config.users.users.kein.home;
+    dataDir = cfg.userhome;
     settings = {
       devices = {
         "phone-A63" = {
@@ -19,12 +19,12 @@
           enable = true;
           id = "TheDocs";
           label = "My documents";
-          path = "${config.users.users.kein.home}/Documents";
+          path = "${cfg.userhome}/Documents";
           devices = [ "phone-A63" ];
           type = "sendreceive";  # default
           versioning = {
             type = "staggered";
-            fsPath = "${config.users.users.kein.home}/backup";
+            fsPath = "${cfg.userhome}/backup";
             params = {
               cleanInterval = "3600";
               maxAge = "31536000";

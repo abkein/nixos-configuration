@@ -12,52 +12,26 @@
 {
   imports = [
     ./hardware-configuration.nix
-    # ./system-modules/flatpak.nix
-    ./shadow/xray.nix
-    ./system-modules/regreet.nix
-    ./system-modules/proxychains.nix
-    ./system-modules/wayland.nix
-    ./system-modules/etc.nix
-    ./system-modules/zram.nix
-    ./system-modules/networking.nix
-    # ./system-modules/openssh.nix
-    # ./system-modules/syncthing.nix
+    ./system-modules
   ];
 
   age = {
-    # rekey = {
-    #   hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzMEb6MSQOJnLdf3EdsrsPuiRYJ3Weg00/HbJ+3JeVv";
-    #   masterIdentities = [ ./secrets/keys/yubikey-identity.pub ];
-    #   storageMode = "local";
-    #   localStorageDir = ./. + "/secrets/rekeyed/${config.networking.hostName}";
-    # };
-
     identityPaths = [
       "/root/keys/actual_age_root.key"
-      # "${cfg.flakepath}/secrets/keys/yubikey-identity.pub"
+      "${cfg.flakepath}/secrets/keys/yubikey-identity.pub"
     ];
     secrets = {
       "nix-access-tokens.conf" = {
-        file = ./secrets/agenix/encrypted/nix-access-tokens.conf.age;
+        file = ./${cfg.secrets}/nix-access-tokens.conf.age;
       };
       "nix-netrc" = {
-        file = ./secrets/agenix/encrypted/nix-netrc.age;
+        file = ./${cfg.secrets}/nix-netrc.age;
       };
       # "syncthingPass" = {
       #   file = ./secrets/agenix/encrypted/syncthingPass.age;
       # };
     };
     ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
-  };
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader = {
-    systemd-boot = {
-      enable = true;
-      configurationLimit = 20;
-      editor = false;
-    };
-    efi.canTouchEfiVariables = true;
   };
 
   # Set your time zone.
@@ -178,18 +152,6 @@
       jack.enable = true;
     };
 
-    # xserver = {
-    #   enable = true;
-    #   xkb = {
-    #     variant = "";
-    #     layout = "us";
-    #   };
-    #   displayManager.gdm = {
-    #     enable = true;
-    #     wayland = true;
-    #   };
-    # };
-
     greetd = {
       enable = true;
       settings = {
@@ -257,6 +219,7 @@
       clean.extraArgs = "--keep-since 4d --keep 3";
       flake = cfg.flakepath;
     };
+    traceroute.enable = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -291,36 +254,36 @@
     pam.p11.enable = true;
   };
 
-  xdg = {
-    autostart.enable = true;
-    menus.enable = true;
-    # portal = {
-    #   enable = true;
-    #   # xdgOpenUsePortal = true;  # breaks Github authentication in vscode
-    #   extraPortals = [
-    #     pkgs.xdg-desktop-portal
-    #     # pkgs.xdg-desktop-portal-gtk  # auto enabled by hyprland
-    #     # pkgs.xdg-desktop-portal-hyprland  # auto enabled by hyprland
-    #   ];
-    # };
-    mime = {
-      enable = true;
-      # defaultApplications = import ./confs/mimes.nix;
-      # addedAssociations = import ./confs/mimes.nix;
-      # removedAssociations = import ./confs/mimes.nix;
+  # xdg = {
+  #   autostart.enable = true;
+  #   menus.enable = true;
+  #   # portal = {
+  #   #   enable = true;
+  #   #   # xdgOpenUsePortal = true;  # breaks Github authentication in vscode
+  #   #   extraPortals = [
+  #   #     pkgs.xdg-desktop-portal
+  #   #     # pkgs.xdg-desktop-portal-gtk  # auto enabled by hyprland
+  #   #     # pkgs.xdg-desktop-portal-hyprland  # auto enabled by hyprland
+  #   #   ];
+  #   # };
+  #   mime = {
+  #     enable = true;
+  #     # defaultApplications = import ./confs/mimes.nix;
+  #     # addedAssociations = import ./confs/mimes.nix;
+  #     # removedAssociations = import ./confs/mimes.nix;
 
-    };
-    terminal-exec = {
-      enable = true;
-      settings = {
-        GNOME = [
-          "org.gnome.Terminal.desktop"
-          "com.raggesilver.BlackBox.desktop"
-        ];
-        default = [ "kitty.desktop" ];
-      };
-    };
-  };
+  #   };
+  #   terminal-exec = {
+  #     enable = true;
+  #     settings = {
+  #       GNOME = [
+  #         "org.gnome.Terminal.desktop"
+  #         "com.raggesilver.BlackBox.desktop"
+  #       ];
+  #       default = [ "kitty.desktop" ];
+  #     };
+  #   };
+  # };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

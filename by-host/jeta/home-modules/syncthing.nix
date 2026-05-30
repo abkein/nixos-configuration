@@ -6,7 +6,7 @@
     guiAddress = "127.0.0.1:8384";  # default
     guiCredentials = {
       passwordFile = config.age.secrets."syncthingPass".path;
-      username = cfg.username;
+      username = config.home.username;
     };
     # user = "kein";
     # dataDir = config.users.users.kein.home;

@@ -7,6 +7,7 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+    configType = "hyprlang";
     # --- system module integration
     package = null;
     portalPackage = null;
@@ -389,11 +390,11 @@ in
         "Alt, L, exec, ydotool key 106:1 106:0"
       ];
 
-      binde = [
-        # Window split ratio
-        "Super, Minus, splitratio, -0.1"
-        "Super, Equal, splitratio, 0.1"
-      ];
+      # binde = [
+      #   # Window split ratio
+      #   "Super, Minus, splitratio, -0.1"
+      #   "Super, Equal, splitratio, 0.1"
+      # ];
 
       bindm = [
         # Move/resize windows with Super + LMB/RMB and dragging

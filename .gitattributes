@@ -1,4 +1,4 @@
-shadow/xray.nix filter=git-agecrypt diff=git-agecrypt
-shadow/ssh.nix filter=git-agecrypt diff=git-agecrypt
-shadow/xray_yun.nix filter=git-agecrypt diff=git-agecrypt
+by-host/jeta/shadow/ssh-creds.nix filter=git-agecrypt diff=git-agecrypt
 by-host/jeta/shadow/xray-creds.nix filter=git-agecrypt diff=git-agecrypt
+by-host/yun/shadow/xray-creds.nix filter=git-agecrypt diff=git-agecrypt
+by-host/yun/shadow/network.nix filter=git-agecrypt diff=git-agecrypt

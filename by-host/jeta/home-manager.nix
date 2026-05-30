@@ -7,18 +7,17 @@
 }:
 {
   imports = [
-    ./home-modules/home-modules.nix
-    ./shadow/ssh.nix
+    ./home-modules
   ];
 
   age = {
     identityPaths = [
-      "${cfg.userhome}/Documents/private/actual_age.key"
-      # "${cfg.flakepath}/secrets/keys/yubikey-identity.pub"
+      "${config.home.homeDirectory}/Documents/private/actual_age.key"
+      "${cfg.flakepath}/secrets/keys/yubikey-identity.pub"
     ];
     secrets = {
       "syncthingPass" = {
-        file = ./secrets/agenix/encrypted/syncthingPass.age;
+        file = ./${cfg.secrets}/syncthingPass.age;
       };
     };
     # ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
@@ -32,6 +31,7 @@
     # configHome = "~/.config";  # $XDG_CONFIG_HOME
     # dataHome = "~/.local/share";  # $XDG_DATA_HOME
     # stateHome = "~/.local/state";  # $XDG_STATE_HOME
+    # binHome = "~/.local/bin"; # $XDG_BIN_HOME
 
     userDirs = {
       enable = true;
@@ -48,11 +48,35 @@
     #     # pkgs.xdg-desktop-portal-hyprland  # auto by hyprland
     #   ];
     # };
+
+    localBinInPath = true;
+
+    mime = {
+      enable = true;
+    };
+
+    autostart = {
+      enable = true;
+      readOnly = true;
+      # entries = [ ];
+    };
+
+    terminal-exec = {
+      enable = true;
+      settings = {
+        GNOME = [
+          "org.gnome.Terminal.desktop"
+          "com.raggesilver.BlackBox.desktop"
+        ];
+        default = [ "kitty.desktop" ];
+      };
+    };
   };
 
   home = {
     username = cfg.username;
     homeDirectory = cfg.userhome;
+    enableNixpkgsReleaseCheck = false;
     stateVersion = "24.11";
     packages =
       (with ipkgs; [
@@ -200,6 +224,10 @@
   programs = {
     bat.enable = true;
     btop.enable = true;
+    keepassxc = {
+      enable = true;
+      autostart = true;
+    };
     ghostty = {
       enable = true;
       enableBashIntegration = true;
@@ -236,7 +264,6 @@
       historyFile = "${config.xdg.stateHome}/bash/history";
       historySize = 999999;
     };
-    wofi = import ./home-modules/wofi.nix;
     java.enable = true;
 
     git = {
@@ -265,7 +292,7 @@
         };
         nixos = {
           command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
-          args = [];
+          args = [ ];
         };
       };
     };
