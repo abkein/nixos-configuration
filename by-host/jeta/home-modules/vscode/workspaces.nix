@@ -74,13 +74,6 @@ in
           folder = "${config.home.homeDirectory}/Documents/nucleation/lmptest";
           profile = "python";
         };
-        Quicknotebook = {
-          folder = "${config.xdg.dataHome}/quicknotebook";
-          prerun = [
-            ''kitty --app-id="kitty_info" ${config.home.homeDirectory}/execs/quicknotebook.sh''
-          ];
-          profile = "python";
-        };
         lmp = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/lmp";
           profile = "python";

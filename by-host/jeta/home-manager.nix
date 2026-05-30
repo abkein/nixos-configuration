@@ -6,7 +6,11 @@
   ...
 }:
 {
-  imports = [ ./home-modules ];
+  imports = [
+    ../../hm-modules/zotero
+    ../../hm-modules/better-code
+    ./home-modules
+  ];
 
   age = {
     identityPaths = [
@@ -47,7 +51,6 @@
     #     # pkgs.xdg-desktop-portal-hyprland  # auto by hyprland
     #   ];
     # };
-
 
     mime = {
       enable = true;
@@ -339,6 +342,22 @@
     #     '';
     #   };
     # };
+    swappy = {
+      enable = true;
+      settings.Default = {
+        save_dir = "${config.xdg.userDirs.pictures}/Screenshots";
+        save_filename_format = "swappy-%Y%m%d-%H%M%S.png";
+        show_panel = false;
+        line_size = 5;
+        text_size = 20;
+        text_font = "sans-serif";
+        paint_mode = "brush";
+        early_exit = true;
+        fill_shape = false;
+        auto_save = true;
+        custom_color = "rgba(193,125,17,1)";
+      };
+    };
     gradle.home = ".local/share/gradle";
   };
 

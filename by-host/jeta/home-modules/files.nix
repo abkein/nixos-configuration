@@ -1,12 +1,11 @@
 #TODO: change shebangs with direct path to a system's bash executable
-{ pkgs, lib, ...}:
+{ ...}:
 let
   generic = {
     enable = true;
     executable = true;
     force = true;
   };
-  gpgme-json = lib.getExe' pkgs.gpgme.dev "gpgme-json";
 in
 {
   home.file = {
@@ -58,68 +57,6 @@ in
         fi
       '';
     };
-    quicknotebook = generic // {
-      target = "./execs/quicknotebook.sh";
-      text = ''
-        #!/usr/bin/env bash
-
-        echo "Setting up environment..."
-        if [[ ! -e $XDG_DATA_HOME/quicknotebook ]]; then
-          mkdir $XDG_DATA_HOME/quicknotebook
-        fi
-        cd $XDG_DATA_HOME/quicknotebook
-        echo "    Cleaning..."
-        rm -rf *
-        echo "    Writing..."
-        echo 'use nix' > .envrc
-        cp $XDG_CONFIG_HOME/python/pyshell.nix shell.nix
-        cp $XDG_CONFIG_HOME/python/defreqs.txt requirements.txt
-        cp $XDG_CONFIG_HOME/python/simple.ipynb quick.ipynb
-        chmod 644 shell.nix
-        chmod 644 requirements.txt
-        chmod 644 quick.ipynb
-
-        echo "Setting up nix-shell..."
-        nix-shell ./shell.nix --command "exit"
-      '';
-    };
-    # keepassxc_ssh_prompt = generic // {
-    #   target = "./execs/keepassxc_ssh_prompt";
-    #   text = ''
-    #     #!/usr/bin/env bash
-
-    #     host=$1
-    #     port=$2
-
-    #     until ssh-add -l &> /dev/null
-    #     do
-    #       echo "Waiting for agent. Please unlock the database."
-    #       hyprctl notify 2 3000 0 "fontsize:35 Waiting for KeePassXC database unlock"
-    #       keepassxc &> /dev/null
-    #       sleep 1
-    #     done
-
-    #     # host=$(cat "$hostfile" | tr -d '\n')
-
-    #     nc "$host" "$port"
-    #   '';
-    #   # ''
-    #   #   #!/usr/bin/env bash
-
-    #   #   host=$1
-    #   #   port=$2
-
-    #   #   until ssh-add -l &> /dev/null
-    #   #   do
-    #   #     echo "Waiting for agent. Please unlock the database."
-    #   #     hyprctl notify 2 3000 0 "fontsize:35 Waiting for KeePassXC database unlock"
-    #   #     keepassxc &> /dev/null
-    #   #     sleep 1
-    #   #   done
-
-    #   #   nc "$host" "$port"
-    #   # ''
-    # };
     record-script = generic // {
       target = "./execs/record-script.sh";
       text = ''
@@ -154,20 +91,5 @@ in
         fi
       '';
     };
-    # gpgme-json = {
-    #   enable = true;
-    #   executable = false;
-    #   force = true;
-    #   target = "./.mozilla/native-messaging-hosts/gpgmejson.json";
-    #   text = ''
-    #   {
-    #     "name": "gpgmejson",
-    #     "description": "JavaScript binding for GnuPG",
-    #     "path": "${gpgme-json}",
-    #     "type": "stdio",
-    #     "allowed_extensions": ["jid1-AQqSMBYb0a8ADg@jetpack"]
-    #   }
-    #   '';
-    # };
   };
 }

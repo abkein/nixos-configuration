@@ -1,9 +1,8 @@
-{ config, ... }:
+{ ... }:
 # See dunst(5) for all configuration options
 {
   services.dunst = {
     enable = true;
-    configFile = "${config.xdg.configHome}/dunst/dunstrc";
     settings = {
       global = {
         ### Display ###
