@@ -381,6 +381,7 @@
   };
 
   nix = {
+    channel.enable = false;
     gc = {
       automatic = false;
       dates = "weekly";
@@ -421,7 +422,6 @@
     gpgSmartcards.enable = true;
     onlykey.enable = true;
     usb-modeswitch.enable = true;
-    enableRedistributableFirmware = true;
     sane = {
       enable = true;
       extraBackends = with pkgs; [

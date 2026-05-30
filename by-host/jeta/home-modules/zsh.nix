@@ -47,7 +47,7 @@
 
     shellAliases = {
       rb = "nh os switch ${cfg.flakepath}"; # sudo nixos-rebuild switch --flake ${flakeDir}
-      upd = "sudo nix flake update --flake ${cfg.flakepath}";
+      upd = "nix flake update --flake ${cfg.flakepath}";
       upg = "nh os switch -u ${cfg.flakepath}"; # sudo nixos-rebuild switch --upgrade --flake ${flakeDir}
 
       dg = "sudo nix-env --delete-generations +3 --profile /nix/var/nix/profiles/system";
@@ -66,9 +66,6 @@
       top = "btop";
 
       refresh = "upd && upg && destroy";
-
-      ish = "echo 'use nix' > .envrc && cp $XDG_CONFIG_HOME/defshell.nix shell.nix && chmod 644 shell.nix";
-      init_python = "echo 'use nix' > .envrc && cp $XDG_CONFIG_HOME/python/pyshell.nix shell.nix && chmod 644 shell.nix && cp $XDG_CONFIG_HOME/python/defreqs.txt requirements.txt";
     };
   };
 }

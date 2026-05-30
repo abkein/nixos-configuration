@@ -1,13 +1,8 @@
-{
-  config,
-  lib,
-  modulesPath,
-  ...
-}:
+{ ... }:
 
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
+    # (modulesPath + "/installer/scan/not-detected.nix")
     ./hardware-modules
   ];
 
@@ -21,7 +16,6 @@
   #   #  KEYBOARD_KEY_e077=211    # KEY_HP  # WMI KEYS
   #   #  157    # KEY_COMPUTER
   # };
-
 
   boot = {
     # Use the systemd-boot EFI boot loader.
@@ -97,5 +91,10 @@
     };
   };
 
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware = {
+    # enableAllFirmware = true;
+    enableRedistributableFirmware = true;
+    cpu.amd.updateMicrocode = true;
+  };
 }
