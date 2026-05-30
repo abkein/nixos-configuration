@@ -83,43 +83,43 @@ in
         nix-shell ./shell.nix --command "exit"
       '';
     };
-    keepassxc_ssh_prompt = generic // {
-      target = "./execs/keepassxc_ssh_prompt";
-      text = ''
-        #!/usr/bin/env bash
+    # keepassxc_ssh_prompt = generic // {
+    #   target = "./execs/keepassxc_ssh_prompt";
+    #   text = ''
+    #     #!/usr/bin/env bash
 
-        host=$1
-        port=$2
+    #     host=$1
+    #     port=$2
 
-        until ssh-add -l &> /dev/null
-        do
-          echo "Waiting for agent. Please unlock the database."
-          hyprctl notify 2 3000 0 "fontsize:35 Waiting for KeePassXC database unlock"
-          keepassxc &> /dev/null
-          sleep 1
-        done
+    #     until ssh-add -l &> /dev/null
+    #     do
+    #       echo "Waiting for agent. Please unlock the database."
+    #       hyprctl notify 2 3000 0 "fontsize:35 Waiting for KeePassXC database unlock"
+    #       keepassxc &> /dev/null
+    #       sleep 1
+    #     done
 
-        # host=$(cat "$hostfile" | tr -d '\n')
+    #     # host=$(cat "$hostfile" | tr -d '\n')
 
-        nc "$host" "$port"
-      '';
-      # ''
-      #   #!/usr/bin/env bash
+    #     nc "$host" "$port"
+    #   '';
+    #   # ''
+    #   #   #!/usr/bin/env bash
 
-      #   host=$1
-      #   port=$2
+    #   #   host=$1
+    #   #   port=$2
 
-      #   until ssh-add -l &> /dev/null
-      #   do
-      #     echo "Waiting for agent. Please unlock the database."
-      #     hyprctl notify 2 3000 0 "fontsize:35 Waiting for KeePassXC database unlock"
-      #     keepassxc &> /dev/null
-      #     sleep 1
-      #   done
+    #   #   until ssh-add -l &> /dev/null
+    #   #   do
+    #   #     echo "Waiting for agent. Please unlock the database."
+    #   #     hyprctl notify 2 3000 0 "fontsize:35 Waiting for KeePassXC database unlock"
+    #   #     keepassxc &> /dev/null
+    #   #     sleep 1
+    #   #   done
 
-      #   nc "$host" "$port"
-      # ''
-    };
+    #   #   nc "$host" "$port"
+    #   # ''
+    # };
     record-script = generic // {
       target = "./execs/record-script.sh";
       text = ''

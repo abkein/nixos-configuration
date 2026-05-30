@@ -721,7 +721,7 @@ in
 
   better-notes = buildZoteroXpiAddon rec {
     pname = "zotero-better-notes";
-    version = "2.0.18";
+    version = "3.0.8";
     addonId = "Knowledge4Zotero@windingwind.com";
 
     src = fetchGitHubReleaseFile {
@@ -729,7 +729,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "better-notes-for-zotero.xpi";
-      hash = "sha256-452gSKxqRC7jvEtRL6mrePXVROfyXwQfKsht72MFC1s=";
+      hash = "sha256-vefxmWpJ/uUVvd4WY3E5soFviTg5W8dOKtlq0wXjoQg=";
     };
 
     meta = with lib; {
