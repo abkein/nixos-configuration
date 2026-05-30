@@ -140,7 +140,7 @@
     let
       lib = nixpkgs.lib;
       useAgenixRekey = false;
-      secrets = secrets/agenix/encrypted;
+      secrets = "secrets/agenix/encrypted";
     in
     {
       nixosConfigurations = {

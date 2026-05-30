@@ -6,9 +6,7 @@
   ...
 }:
 {
-  imports = [
-    ./home-modules
-  ];
+  imports = [ ./home-modules ];
 
   age = {
     identityPaths = [
@@ -17,7 +15,7 @@
     ];
     secrets = {
       "syncthingPass" = {
-        file = ./${cfg.secrets}/syncthingPass.age;
+        file = ../../${cfg.secrets}/syncthingPass.age;
       };
     };
     # ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
@@ -32,6 +30,7 @@
     # dataHome = "~/.local/share";  # $XDG_DATA_HOME
     # stateHome = "~/.local/state";  # $XDG_STATE_HOME
     # binHome = "~/.local/bin"; # $XDG_BIN_HOME
+    localBinInPath = true;
 
     userDirs = {
       enable = true;
@@ -49,7 +48,6 @@
     #   ];
     # };
 
-    localBinInPath = true;
 
     mime = {
       enable = true;
@@ -121,12 +119,10 @@
         slurp
         grim
         grimblast
-        waybar
 
         networkmanager_dmenu
         networkmanagerapplet
         qpwgraph
-        # zotero
 
         # text
         nixfmt # now same as nixfmt-rfc-style
@@ -136,7 +132,7 @@
         # aider-chat
 
         libreoffice-fresh
-        crow-translate
+        # crow-translate
 
         (hunspell.withDicts (
           d: with d; [
@@ -149,7 +145,6 @@
         bleachbit
 
         # security
-        keepassxc
         gpgme
         gpgme.dev
 
@@ -168,7 +163,7 @@
         tor-browser
         zip
         unzip
-        # veusz  # <-- Uncomment
+        veusz
 
         ffmpeg-full
 
@@ -190,7 +185,6 @@
           ]
         ))
       ]);
-    # file = import ./home-modules/files.nix;
     sessionVariables = {
       # QT_QPA_PLATFORMTHEME = "qt6ct";
       # QT_STYLE_OVERRIDE = "";

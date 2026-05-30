@@ -22,19 +22,18 @@
     ];
     secrets = {
       "nix-access-tokens.conf" = {
-        file = ./${cfg.secrets}/nix-access-tokens.conf.age;
+        file = ../../${cfg.secrets}/nix-access-tokens.conf.age;
       };
       "nix-netrc" = {
-        file = ./${cfg.secrets}/nix-netrc.age;
+        file = ../../${cfg.secrets}/nix-netrc.age;
       };
       # "syncthingPass" = {
-      #   file = ./secrets/agenix/encrypted/syncthingPass.age;
+      #   file = ../../${cfg.secrets}/syncthingPass.age;
       # };
     };
     ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
   };
 
-  # Set your time zone.
   time.timeZone = "Europe/Moscow";
 
   # Select internationalisation properties.
@@ -254,37 +253,6 @@
     pam.p11.enable = true;
   };
 
-  # xdg = {
-  #   autostart.enable = true;
-  #   menus.enable = true;
-  #   # portal = {
-  #   #   enable = true;
-  #   #   # xdgOpenUsePortal = true;  # breaks Github authentication in vscode
-  #   #   extraPortals = [
-  #   #     pkgs.xdg-desktop-portal
-  #   #     # pkgs.xdg-desktop-portal-gtk  # auto enabled by hyprland
-  #   #     # pkgs.xdg-desktop-portal-hyprland  # auto enabled by hyprland
-  #   #   ];
-  #   # };
-  #   mime = {
-  #     enable = true;
-  #     # defaultApplications = import ./confs/mimes.nix;
-  #     # addedAssociations = import ./confs/mimes.nix;
-  #     # removedAssociations = import ./confs/mimes.nix;
-
-  #   };
-  #   terminal-exec = {
-  #     enable = true;
-  #     settings = {
-  #       GNOME = [
-  #         "org.gnome.Terminal.desktop"
-  #         "com.raggesilver.BlackBox.desktop"
-  #       ];
-  #       default = [ "kitty.desktop" ];
-  #     };
-  #   };
-  # };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment = {
@@ -309,9 +277,6 @@
       ydotool
       wl-clipboard
       hyprland-protocols
-      # xdg-desktop-portal
-      # xdg-desktop-portal-hyprland
-      # xdg-desktop-portal-gtk
       xdg-utils
       xdg-user-dirs
       xdg-ninja
@@ -504,21 +469,9 @@
       };
     };
   };
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
