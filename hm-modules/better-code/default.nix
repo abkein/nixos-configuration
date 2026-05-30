@@ -6,11 +6,7 @@
 }@args:
 
 let
-  inherit (lib)
-    mkOption
-    mkIf
-    types
-    ;
+  inherit (lib) mkOption mkIf types;
   cfg = config.better-code;
   wtypes = import ./wtypes.nix args;
   # Ensures generated profile name is unique across workspaces and the generated profile name is the same
@@ -23,7 +19,7 @@ in
     better-code = {
       enable = mkOption {
         type = types.bool;
-        default = false;    
+        default = false;
         description = "Enable the automated VSCode configuration.";
       };
 
@@ -336,12 +332,8 @@ in
 
   config = mkIf cfg.enable (
     lib.mkMerge [
-      {
-        programs.vscode.enable = true;
-      }
-      (mkIf (cfg.code-package != null) {
-        programs.vscode.package = cfg.code-package;
-      })
+      { programs.vscode.enable = true; }
+      (mkIf (cfg.code-package != null) { programs.vscode.package = cfg.code-package; })
       (mkIf (cfg.mutableExtensionsDir != null) {
         programs.vscode.mutableExtensionsDir = cfg.mutableExtensionsDir;
       })
@@ -375,9 +367,7 @@ in
               value = mkProfile4Workspace name spec;
             }) (lib.filterAttrs (_name: spec: (spec.extensions != [ ])) cfg.workspaces));
         in
-        mkIf (finalProfiles != { }) {
-          programs.vscode.profiles = finalProfiles;
-        }
+        mkIf (finalProfiles != { }) { programs.vscode.profiles = finalProfiles; }
       )
       (
         let
@@ -475,11 +465,7 @@ in
                 # which leads to a frustration (is it stuck or something?) and in the case of errors (e.g. nix
                 # couldn't download smth or the env file contains errors) there's no way to know it.
                 preinitWrap = lib.concatStringsSep " " (
-                  [
-                    (lib.getExe cfg.terminal-emulator)
-                  ]
-                  ++ cfg.terminal-args
-                  ++ [ (environmentLaunchCommand "exit") ]
+                  [ (lib.getExe cfg.terminal-emulator) ] ++ cfg.terminal-args ++ [ (environmentLaunchCommand "exit") ]
                 );
                 # Determine the profile name. If there are extensions specified for current workspace,
                 # a new profile will be generated using the base profile. Now we need just its name
@@ -564,9 +550,7 @@ in
             })
           ];
         in
-        mkIf (finalDesktopEntries != { }) {
-          xdg.desktopEntries = finalDesktopEntries;
-        }
+        mkIf (finalDesktopEntries != { }) { xdg.desktopEntries = finalDesktopEntries; }
       ))
     ]
   );
