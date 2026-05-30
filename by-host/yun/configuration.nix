@@ -8,7 +8,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../system-modules
+    ./system-modules
   ];
 
   age = {
