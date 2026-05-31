@@ -10,6 +10,7 @@ let
 in
 {
   imports = [
+    ../../universal/home-modules/home.nix
     ../../universal/home-modules/shell.nix
     ../../universal/home-modules/fix-python-history.nix
     ./home-modules
@@ -38,15 +39,6 @@ in
         WALLPAPERS = "${config.xdg.userDirs.pictures}/Wallpapers";
       };
     };
-    # portal = {
-    #   enable = true;
-    #   # xdgOpenUsePortal = true;  # breaks Github authentication in vscode
-    #   extraPortals = [
-    #     pkgs.xdg-desktop-portal
-    #     # pkgs.xdg-desktop-portal-gtk  # auto by hyprland
-    #     # pkgs.xdg-desktop-portal-hyprland  # auto by hyprland
-    #   ];
-    # };
     mime = {
       enable = true;
     };
@@ -68,10 +60,6 @@ in
   };
 
   home = {
-    username = cfg.username;
-    homeDirectory = cfg.userhome;
-    enableNixpkgsReleaseCheck = false;
-    preferXdgDirectories = true;
     stateVersion = "24.11";
     packages =
       (with ipkgs; [ ayugram-desktop ])
@@ -169,14 +157,7 @@ in
         ))
       ]);
     sessionVariables = {
-      # QT_STYLE_OVERRIDE = "";
-
-      # NIXOS_OZONE_WL = "1";
-      # "QT_QPA_PLATFORM, wayland"
       # "GLFW_IM_MODULE, ibus"
-      # "SDL_VIDEODRIVER, wayland"
-
-      # "SSH_AUTH_SOCK, $XDG_RUNTIME_DIR/ssh-agent"
 
       # For apps to prevent spamming home directory with .trash
       SONARLINT_USER_HOME = "${config.xdg.dataHome}/sonarlint";
@@ -201,10 +182,6 @@ in
     kdeconnect = {
       enable = true;
       # indicator = true;
-    };
-    cliphist = {
-      enable = true;
-      allowImages = true;
     };
   };
 
@@ -348,34 +325,5 @@ in
       };
     };
     gradle.home = ".local/share/gradle";
-  };
-
-  gtk =
-    let
-      theme = {
-        name = "adw-gtk3-dark";
-        package = pkgs.adw-gtk3;
-      };
-    in
-    {
-      enable = true;
-      iconTheme = {
-        name = "Adwaita";
-        package = pkgs.adwaita-icon-theme;
-      };
-      theme = theme;
-      gtk4.theme = theme;
-      gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-    };
-
-  qt = {
-    enable = true;
-    # style = {
-    #   name = "adwaita-dark";
-    # };
-    platformTheme = {
-      # name = "gtk3";
-      name = "qt6ct";
-    };
   };
 }

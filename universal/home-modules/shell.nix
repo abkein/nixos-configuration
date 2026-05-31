@@ -121,7 +121,7 @@
         _cat = "${pkgs.coreutils-full}/bin/coreutils --coreutils-prog=cat";
         cat = "bat"; # "${config.programs.bat.package}/bin/bat";
         _tree = "${pkgs.tree}/bin/tree";
-        tree = "eza--tree"; # "${config.programs.eza.package}/bin/eza --tree";
+        tree = "eza --tree"; # "${config.programs.eza.package}/bin/eza --tree";
         rm = "rm -i";
         cp = "cp -i";
         mv = "mv -i";

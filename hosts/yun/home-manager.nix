@@ -1,21 +1,17 @@
 {
   # config,
   pkgs,
-  cfg,
   ...
 }:
 {
   imports = [
+    ../../universal/home-modules/home.nix
     ../../universal/home-modules/shell.nix
     ../../universal/home-modules/fix-python-history.nix
     ./home-modules
   ];
 
   home = {
-    username = cfg.username;
-    homeDirectory = cfg.userhome;
-    enableNixpkgsReleaseCheck = false;
-    preferXdgDirectories = true;
     stateVersion = "25.11";
     packages = with pkgs; [
       (python3.withPackages (

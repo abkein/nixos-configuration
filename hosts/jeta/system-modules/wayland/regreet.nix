@@ -3,6 +3,9 @@
   programs.regreet = {
     enable = true;
     settings = {
+      # Whether to skip asking for username and session, and use the last used ones.
+      skip_selection = false;
+
       background = {
         # Path to the background image
         path = "${cfg.userhome}/Pictures/Wallpapers/rocket.png";
@@ -24,16 +27,16 @@
         application_prefer_dark_theme = true;
 
         # Cursor theme name
-        cursor_theme_name = "Adwaita";
+        # cursor_theme_name = "Adwaita";
 
         # Font name and size
-        font_name = "Cantarell 16";
+        # font_name = "Cantarell 16";
 
         # Icon theme name
-        icon_theme_name = "Adwaita";
+        # icon_theme_name = "Adwaita";
 
         # GTK theme name
-        theme_name = "Adwaita";
+        # theme_name = "Adwaita";
       };
 
       commands = {
@@ -71,7 +74,7 @@
 
         # Override system timezone (IANA Time Zone Database name, aka /etc/zoneinfo path)
         # Remove to use the system time zone.
-        timezone = "Europe/Moscow";
+        # timezone = "Europe/Moscow";
 
         # Ask GTK to make the label at least this wide. This helps keeps the parent element layout and width consistent.
         # Experiment with different widths, the interpretation of this value is entirely up to GTK.

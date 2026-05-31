@@ -151,6 +151,7 @@
               hostname = "jeta";
               username = "kein";
               userhome = "/home/${username}";
+              uid = 1000;
               flakepath = "${userhome}/nixos-configuration";
               inherit useAgenixRekey;
               inherit secrets;
@@ -240,6 +241,7 @@
               hostname = "yun";
               username = "kein";
               userhome = "/home/${username}";
+              uid = 1000;
               flakepath = "${userhome}/nixos-configuration";
               inherit useAgenixRekey;
               inherit secrets;

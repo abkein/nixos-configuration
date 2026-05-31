@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   cfg,
   ...
@@ -29,13 +30,22 @@
       # };
     };
   };
+  environment = {
+    # From https://wiki.hypr.land/Nix/
+    # Optional, hint electron apps to use wayland:
+    sessionVariables.NIXOS_OZONE_WL = "1";
+    systemPackages = with pkgs; [ kitty ];
+  };
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${config.programs.hyprland.package}/bin/Hyprland --config /etc/${config.environment.etc.hyprland-regreet.target}";
-        user = "greeter";
+  services = {
+    displayManager.defaultSession = "hyprland-uwsm";
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${config.programs.hyprland.package}/bin/Hyprland --config /etc/${config.environment.etc.hyprland-regreet.target}";
+          user = "greeter";
+        };
       };
     };
   };

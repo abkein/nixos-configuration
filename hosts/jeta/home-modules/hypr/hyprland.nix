@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 let
   hex2hypr = color: "rgba(${builtins.substring 1 (-1) color})";
 in
@@ -11,7 +11,10 @@ in
     # --- system module integration
     # package = null;
     # portalPackage = null;
-    # systemd.enable = false;
+    systemd = {
+      enable = lib.mkDefault true;
+      enableXdgAutostart = true;
+    };
     # --- system module integration
     settings = {
       # "$SLURP_COMMAND" = "\"$(slurp -d -c f8daeeBB -b 55405044 -s 00000000)\"";
@@ -26,6 +29,11 @@ in
       # env = [
 
       # ];
+
+      exec-once = [
+        # "hyprctl setcursor Bibata-Modern-Classic 24"
+        "hyprctl setcursor Vanilla-DMZ 24"
+      ];
 
       general = {
         # Gaps and border
@@ -199,12 +207,6 @@ in
           ];
         };
       };
-
-      exec-once = [
-        "wl-paste --type text --watch cliphist store"
-        "wl-paste --type image --watch cliphist store"
-        # "hyprctl setcursor Bibata-Modern-Classic 24"
-      ];
 
       bind = [
         # ################################### System ###################################

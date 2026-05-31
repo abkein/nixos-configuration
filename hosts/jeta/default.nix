@@ -10,6 +10,7 @@
 }:
 {
   imports = [
+    ../../universal/system-modules/user.nix
     ./hardware-configuration.nix
     ./system-modules
     ../../universal/system-modules/core.nix
@@ -203,20 +204,12 @@
   users = {
     users = {
       "${cfg.username}" = {
-        home = cfg.userhome;
-        uid = 1000;
-        isNormalUser = true;
-        description = "C2H5OH";
-        createHome = true;
         extraGroups = [
           "networkmanager"
-          "wheel"
-          "input"
           "scanner"
           "lp"
         ];
         # packages = with pkgs; [ ];
-        shell = pkgs.zsh;
       };
     };
   };
