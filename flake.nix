@@ -194,7 +194,7 @@
                 ./by-host/jeta
                 {
                   nixpkgs = {
-                    flake.source = self.outPath;
+                    # flake.source = self.outPath;
                     config = {
                       allowUnfree = true;
                     };
@@ -274,7 +274,7 @@
                 ./by-host/yun
                 {
                   nixpkgs = {
-                    flake.source = self.outPath;
+                    # flake.source = self.outPath;
                   };
                   environment.systemPackages = with ipkgs; [ (if cfg.useAgenixRekey then agenix-rekey else agenix) ];
                   home-manager = {
@@ -282,9 +282,7 @@
                     useUserPackages = true;
                     backupFileExtension = "hm-backup";
                     overwriteBackup = true;
-                    sharedModules = with inputs; [
-                      agenix.homeManagerModules.default
-                    ];
+                    sharedModules = with inputs; [ agenix.homeManagerModules.default ];
                     users = {
                       "${cfg.username}" = ./by-host/yun/home-manager.nix;
                     };

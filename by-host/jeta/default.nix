@@ -12,8 +12,8 @@
   imports = [
     ./hardware-configuration.nix
     ./system-modules
-    ../../../universal/system-modules/core.nix
-    ../../../universal/system-modules/zram.nix
+    ../../universal/system-modules/core.nix
+    ../../universal/system-modules/zram.nix
   ];
 
   age = {

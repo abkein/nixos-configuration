@@ -1,4 +1,9 @@
-{ config, pkgs, cfg, ... }:
+{
+  config,
+  pkgs,
+  cfg,
+  ...
+}:
 {
   i18n = {
     defaultLocale = "en_US.UTF-8";

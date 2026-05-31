@@ -3,9 +3,7 @@ let
   network-creds = import ../shadow/network.nix;
 in
 {
-  imports = [
-    ../../../universal/system-modules/networking.nix
-  ];
+  imports = [ ../../../universal/system-modules/networking.nix ];
 
   networking = {
     useDHCP = false;

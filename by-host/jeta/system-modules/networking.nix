@@ -1,8 +1,6 @@
 { pkgs, ... }:
 {
-  imports = [
-    ../../../universal/system-modules/networking.nix
-  ];
+  imports = [ ../../../universal/system-modules/networking.nix ];
 
   networking = {
     networkmanager = {

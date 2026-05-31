@@ -10,17 +10,15 @@ let
 in
 {
   imports = [
-    ../../../universal/home-modules/shell.nix
-    ../../../universal/home-modules/fix-python-history.nix
+    ../../universal/home-modules/shell.nix
+    ../../universal/home-modules/fix-python-history.nix
     ./home-modules
     ../../hm-modules/zotero
     ../../hm-modules/better-code
   ];
 
   age = {
-    identityPaths = [
-      "${config.home.homeDirectory}/Documents/private/actual_age.key"
-    ];
+    identityPaths = [ "${config.home.homeDirectory}/Documents/private/actual_age.key" ];
     secrets = {
       "syncthingPass" = {
         file = ../../${cfg.secrets}/syncthingPass.age;
@@ -72,9 +70,7 @@ in
     preferXdgDirectories = true;
     stateVersion = "24.11";
     packages =
-      (with ipkgs; [
-        ayugram-desktop
-      ])
+      (with ipkgs; [ ayugram-desktop ])
       ++ (with pkgs; [
         ocrmypdf
         thunderbird-latest
@@ -183,7 +179,7 @@ in
       NPM_CONFIG_CACHE = "${config.xdg.cacheHome}/npm";
       NPM_CONFIG_TMP = "${runtimeDir}/npm";
       RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
-      ELECTRUMDIR="${config.xdg.dataHome}/electrum";
+      ELECTRUMDIR = "${config.xdg.dataHome}/electrum";
     };
   };
 
@@ -315,13 +311,13 @@ in
           auto-select = true;
         };
         colors = {
-          background="282a36fa";
-          selection="3d4474fa";
-          border="fffffffa";
+          background = "282a36fa";
+          selection = "3d4474fa";
+          border = "fffffffa";
         };
 
         border = {
-          radius=20;
+          radius = 20;
         };
       };
     };

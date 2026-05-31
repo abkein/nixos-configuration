@@ -6,8 +6,8 @@
 }:
 {
   imports = [
-    ../../../universal/home-modules/shell.nix
-    ../../../universal/home-modules/fix-python-history.nix
+    ../../universal/home-modules/shell.nix
+    ../../universal/home-modules/fix-python-history.nix
     ./home-modules
   ];
 
