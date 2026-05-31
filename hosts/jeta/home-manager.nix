@@ -13,8 +13,8 @@ in
     ../../universal/home-modules/shell.nix
     ../../universal/home-modules/fix-python-history.nix
     ./home-modules
-    ../../options/home-meneger/zotero
-    ../../options/home-meneger/better-code
+    ../../options/home-manager/zotero
+    ../../options/home-manager/better-code
   ];
 
   age = {
@@ -33,6 +33,10 @@ in
       enable = true;
       createDirectories = true;
       setSessionVariables = true;
+      extraConfig = {
+        SCREENSHOTS = "${config.xdg.userDirs.pictures}/Screenshots";
+        WALLPAPERS = "${config.xdg.userDirs.pictures}/Wallpapers";
+      };
     };
     # portal = {
     #   enable = true;
@@ -165,14 +169,17 @@ in
         ))
       ]);
     sessionVariables = {
-      # QT_QPA_PLATFORMTHEME = "qt6ct";
       # QT_STYLE_OVERRIDE = "";
-      # SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
-      NIXOS_OZONE_WL = "1";
-      XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
+
+      # NIXOS_OZONE_WL = "1";
+      # "QT_QPA_PLATFORM, wayland"
+      # "GLFW_IM_MODULE, ibus"
+      # "SDL_VIDEODRIVER, wayland"
+
+      # "SSH_AUTH_SOCK, $XDG_RUNTIME_DIR/ssh-agent"
+
       # For apps to prevent spamming home directory with .trash
       SONARLINT_USER_HOME = "${config.xdg.dataHome}/sonarlint";
-
       DOTNET_CLI_HOME = "${config.xdg.dataHome}/dotnet";
       CARGO_HOME = "${config.xdg.dataHome}/cargo";
       NPM_CONFIG_INIT_MODULE = "${config.xdg.configHome}/npm/config/npm-init.js";
@@ -202,6 +209,9 @@ in
   };
 
   programs = {
+    npm.settings = {
+      prefix = "${config.xdg.cacheHome}/npm";
+    };
     keepassxc = {
       enable = true;
       autostart = true;
@@ -324,7 +334,7 @@ in
     swappy = {
       enable = true;
       settings.Default = {
-        save_dir = "${config.xdg.userDirs.pictures}/Screenshots";
+        save_dir = config.xdg.userDirs.extraConfig.SCREENSHOTS;
         save_filename_format = "swappy-%Y%m%d-%H%M%S.png";
         show_panel = false;
         line_size = 5;

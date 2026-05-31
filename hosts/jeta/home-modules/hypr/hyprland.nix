@@ -14,7 +14,7 @@ in
     # systemd.enable = false;
     # --- system module integration
     settings = {
-      "$SLURP_COMMAND" = "\"$(slurp -d -c f8daeeBB -b 55405044 -s 00000000)\"";
+      # "$SLURP_COMMAND" = "\"$(slurp -d -c f8daeeBB -b 55405044 -s 00000000)\"";
 
       monitor = [
         "eDP-1,    3200x2000@120,   0x0, 1.6, bitdepth, 10, cm, srgb, vrr, 1"
@@ -23,18 +23,9 @@ in
         ", preferred, auto, 1"
       ];
 
-      env = [
-        "QT_QPA_PLATFORM, wayland"
-        "GLFW_IM_MODULE, ibus"
-        "XDG_CURRENT_DESKTOP,Hyprland"
-        "XDG_SESSION_TYPE,wayland"
-        "XDG_SESSION_DESKTOP,Hyprland"
-        #"SSH_AUTH_SOCK, $XDG_RUNTIME_DIR/ssh-agent"
-        # "MOZ_ENABLE_WAYLAND, 1"
-        "SDL_VIDEODRIVER, wayland"
-        # "_JAVA_AWT_WM_NONREPARENTING,1"
-        # "XDG_SCREENSHOTS_DIR,~/screens"
-      ];
+      # env = [
+
+      # ];
 
       general = {
         # Gaps and border

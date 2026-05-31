@@ -253,8 +253,6 @@
   };
 
   environment = {
-    pathsToLink = [ "/share/zsh" ]; # for ZSH autocompletion for system packages
-    sessionVariables.NIXOS_OZONE_WL = "1";
     systemPackages = with pkgs; [
       clinfo
       vulkan-tools

@@ -17,12 +17,14 @@ let
     };
   };
   L2A = func: lst: builtins.listToAttrs (map func lst);
+  moz_home = "${config.xdg.configHome}/mozilla";
 in
 {
+  home.sessionVariables.MOZ_HOME = moz_home;
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
-    configPath = "${config.xdg.configHome}/mozilla/firefox";
+    configPath = "${moz_home}/firefox";
     # preferences = {
     #   "security.sandbox.content.read_path_whitelist" = "/nix/store/";
     #   "gfx.font_rendering.fontconfig.max_generic_substitutions" = 127;

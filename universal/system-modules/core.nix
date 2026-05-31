@@ -63,23 +63,29 @@
 
   nix = {
     channel.enable = false;
+    optimise = {
+      automatic = true;
+      dates = "weekly";
+    };
     gc = {
       automatic = true;
       dates = "weekly";
-      persistent = true;
-      randomizedDelaySec = "1m";
     };
     settings = {
       netrc-file = config.age.secrets."nix-netrc".path;
+      use-xdg-base-directories = true;
+      pure-eval = true;
+      fallback = true;
+      builders-use-substitutes = true;
+      always-allow-substitutes = true;
+      # http2 = false;
+      connect-timeout = 5;
+      download-attempts = 2;
+      stalled-download-timeout = 15; # instead of 300
       experimental-features = [
         "nix-command"
         "flakes"
       ];
-      # http2 = false;
-      builders-use-substitutes = true;
-      connect-timeout = 5;
-      download-attempts = 2;
-      stalled-download-timeout = 15; # instead of 300
     };
     extraOptions = ''
       !include ${config.age.secrets."nix-access-tokens.conf".path}

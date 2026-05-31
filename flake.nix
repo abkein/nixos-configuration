@@ -197,6 +197,8 @@
                     # flake.source = self.outPath;
                     config = {
                       allowUnfree = true;
+                      # rocmSupport = true;
+                      warnUndeclaredOptions = true;
                     };
                     overlays =
                       (with inputs; [

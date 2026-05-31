@@ -2,4 +2,5 @@ Hello!
 
 TODO:
 
-1.
+1. Loki?
+2. Grafana?
