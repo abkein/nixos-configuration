@@ -210,12 +210,8 @@ in
       };
 
       exec-once = [
-        # Bar, wallpaper
-        # "waybar"
-        # "keepassxc"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
-        # Cursor
         # "hyprctl setcursor Bibata-Modern-Classic 24"
       ];
 
@@ -223,7 +219,8 @@ in
         # ################################### System ###################################
         "Super, XF86MyComputer, exec, hyprshutdown --post-cmd 'systemctl shutdown'"
         "Alt, XF86MyComputer, exec, hyprshutdown --post-cmd 'systemctl reboot'"
-        "Super, Super_L, exec, pgrep wofi >/dev/null 2>&1 && pkill wofi || wofi"
+        # "Super, Super_L, exec, pgrep wofi >/dev/null 2>&1 && pkill wofi || wofi"
+        "Super, Super_L, exec, pgrep fuzzel >/dev/null 2>&1 && pkill fuzzel || fuzzel"
         "Super, P, togglefloating,"
         # ################################### Applications ###################################
         # Apps: just normal apps
@@ -259,7 +256,7 @@ in
         "Super+Shift+Ctrl, R, exec, ~/execs/record-script.sh --fullscreen"
         "Super+Shift+Alt, R, exec, ~/execs/record-script.sh --fullscreen-sound"
         "Super+Shift, C, exec, hyprpicker -a"
-        # "Super, V, exec, pkill fuzzel || cliphist list | fuzzel --no-fuzzy --dmenu | cliphist decode | wl-copy"
+        "Super, V, exec, pkill fuzzel || cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"
         # Text-to-image
         # Normal
         "Control+Super+Shift,S,exec,grim -g \"$(slurp $SLURP_ARGS)\" \"tmp.png\" && tesseract \"tmp.png\" - | wl-copy && rm \"tmp.png\""

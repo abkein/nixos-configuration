@@ -3,7 +3,6 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
-  config,
   lib,
   pkgs,
   cfg,
@@ -13,6 +12,8 @@
   imports = [
     ./hardware-configuration.nix
     ./system-modules
+    ../../../universal/system-modules/core.nix
+    ../../../universal/system-modules/zram.nix
   ];
 
   age = {
@@ -37,25 +38,24 @@
   time.timeZone = "Europe/Moscow";
 
   # Select internationalisation properties.
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    # inputMethod = {
-    #   enable = true;
-    #   enableGtk3 = true;
-    #   type = "ibus";
-    #   ibus = {
-    #     engines = with pkgs.ibus-engines; [
-    #       (typing-booster.override {
-    #         langs = [
-    #           "ru-ru"
-    #           "en-us-large"
-    #         ];
-    #       })
-    #     ];
-    #     waylandFrontend = true;
-    #   };
-    # };
-  };
+  # i18n = {
+  #   inputMethod = {
+  #     enable = true;
+  #     enableGtk3 = true;
+  #     type = "ibus";
+  #     ibus = {
+  #       engines = with pkgs.ibus-engines; [
+  #         (typing-booster.override {
+  #           langs = [
+  #             "ru-ru"
+  #             "en-us-large"
+  #           ];
+  #         })
+  #       ];
+  #       waylandFrontend = true;
+  #     };
+  #   };
+  # };
   # console = {
   #   font = "Lat2-Terminus16";
   #   keyMap = "us";
@@ -164,10 +164,6 @@
       ];
     };
     gvfs.enable = true;
-    locate = {
-      enable = true;
-      package = pkgs.mlocate;
-    };
   };
 
   programs = {
@@ -178,7 +174,6 @@
     # nix-ld = {
     #   enable = true;
     # };
-    zsh.enable = true;
     thunar = {
       enable = true;
       plugins = with pkgs; [
@@ -189,10 +184,6 @@
       ];
     };
     evince.enable = true;
-    # firefox = import ./system-modules/firefox.nix {
-    #   pkgs = pkgs;
-    #   lib = lib;
-    # };
     ssh = {
       startAgent = false;
     };
@@ -206,19 +197,13 @@
         # settings
       };
     };
-    nh = {
-      enable = true;
-      clean.enable = true;
-      clean.extraArgs = "--keep-since 4d --keep 3";
-      flake = cfg.flakepath;
-    };
-    traceroute.enable = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
     users = {
       "${cfg.username}" = {
+        home = cfg.userhome;
         uid = 1000;
         isNormalUser = true;
         description = "C2H5OH";
@@ -232,7 +217,6 @@
         ];
         # packages = with pkgs; [ ];
         shell = pkgs.zsh;
-        home = cfg.userhome;
       };
     };
   };
@@ -247,8 +231,6 @@
     pam.p11.enable = true;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment = {
     pathsToLink = [ "/share/zsh" ]; # for ZSH autocompletion for system packages
     sessionVariables.NIXOS_OZONE_WL = "1";
@@ -279,10 +261,6 @@
       hyprland-workspaces
       hyprland-activewindow
 
-      inetutils
-      nmap
-      dig
-      openvpn
       # syncthingtray
 
       drm_info
@@ -290,12 +268,8 @@
       rocmPackages.rocminfo
 
       # utilities
-      killall
-      wget
-      file
       pinentry-all
       usbutils
-      hw-probe
       gucharmap
 
       evtest
@@ -304,16 +278,10 @@
       libinput
       brightnessctl
 
-      # code
-      git
-
-      age
       age-plugin-yubikey
-      git-agecrypt
 
       # onlykey-rebuilt
       # onlykey
-      system-config-printer
       simple-scan
 
       pcsc-tools
@@ -324,9 +292,6 @@
       yubico-piv-tool
       yubioath-flutter
       # yubikey-personalization  # probably not needed, as `yubikey-personalization` is marked as deprecated and suggests using `yubioath-flutter`
-
-      jq
-      ripgrep
     ];
   };
 
@@ -385,25 +350,7 @@
   };
 
   nix = {
-    channel.enable = false;
-    gc = {
-      automatic = false;
-      dates = "weekly";
-      persistent = true;
-      randomizedDelaySec = "1m";
-    };
     settings = {
-      netrc-file = config.age.secrets."nix-netrc".path;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      # http2 = false;
-      builders-use-substitutes = true;
-      cores = 8;
-      connect-timeout = 5;
-      download-attempts = 2;
-      stalled-download-timeout = 15; # instead of 300
       substituters = [
         "https://mirror.yandex.ru/nixos?priority=30"
         "https://cache.nixos.org?priority=50"
@@ -417,9 +364,6 @@
         # "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       ];
     };
-    extraOptions = ''
-      !include ${config.age.secrets."nix-access-tokens.conf".path}
-    '';
   };
 
   hardware = {
@@ -456,9 +400,6 @@
       };
     };
   };
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

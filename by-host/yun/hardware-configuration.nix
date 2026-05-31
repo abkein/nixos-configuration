@@ -5,7 +5,7 @@
 
 {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
+    # (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
@@ -26,5 +26,11 @@
       efiSupport = true;
       efiInstallAsRemovable = true;
     };
+  };
+
+  hardware = {
+    # enableAllFirmware = true;
+    # enableAllHardware = true;
+    enableRedistributableFirmware = true;
   };
 }

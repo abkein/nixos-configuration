@@ -10,15 +10,16 @@ let
 in
 {
   imports = [
+    ../../../universal/home-modules/shell.nix
+    ../../../universal/home-modules/fix-python-history.nix
+    ./home-modules
     ../../hm-modules/zotero
     ../../hm-modules/better-code
-    ./home-modules
   ];
 
   age = {
     identityPaths = [
       "${config.home.homeDirectory}/Documents/private/actual_age.key"
-      "${cfg.flakepath}/secrets/keys/yubikey-identity.pub"
     ];
     secrets = {
       "syncthingPass" = {
@@ -30,21 +31,11 @@ in
   };
 
   xdg = {
-    enable = true;
-    # defaults:
-    # cacheHome = "~/.cache";  # $XDG_CACHE_HOME
-    # configHome = "~/.config";  # $XDG_CONFIG_HOME
-    # dataHome = "~/.local/share";  # $XDG_DATA_HOME
-    # stateHome = "~/.local/state";  # $XDG_STATE_HOME
-    # binHome = "~/.local/bin"; # $XDG_BIN_HOME
-    localBinInPath = true;
-
     userDirs = {
       enable = true;
       createDirectories = true;
       setSessionVariables = true;
     };
-
     # portal = {
     #   enable = true;
     #   # xdgOpenUsePortal = true;  # breaks Github authentication in vscode
@@ -54,25 +45,22 @@ in
     #     # pkgs.xdg-desktop-portal-hyprland  # auto by hyprland
     #   ];
     # };
-
     mime = {
       enable = true;
     };
-
     autostart = {
       enable = true;
       readOnly = true;
       # entries = [ ];
     };
-
     terminal-exec = {
       enable = true;
       settings = {
-        GNOME = [
-          "org.gnome.Terminal.desktop"
-          "com.raggesilver.BlackBox.desktop"
-        ];
-        default = [ "kitty.desktop" ];
+        # GNOME = [
+        #   "org.gnome.Terminal.desktop"
+        #   "com.raggesilver.BlackBox.desktop"
+        # ];
+        default = [ "ghostty.desktop" ];
       };
     };
   };
@@ -100,11 +88,6 @@ in
         #chatbox
         chromium
         element-desktop
-        pstree
-        fastfetch
-        speedtest-cli
-        ooniprobe-cli
-        iperf
         tor-browser
         # quickemu
         adwaita-qt
@@ -116,10 +99,8 @@ in
         graphviz
         swappy
         wf-recorder
-        ripgrep-all
 
         nix-tree
-        cliphist
         wev
         slurp
         grim
@@ -130,7 +111,6 @@ in
         qpwgraph
 
         # text
-        nixfmt # now same as nixfmt-rfc-style
         xed-editor
         obsidian
         prettier
@@ -166,8 +146,6 @@ in
         libnotify
 
         tor-browser
-        zip
-        unzip
         veusz
 
         ffmpeg-full
@@ -198,10 +176,6 @@ in
       XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/Screenshots";
       # For apps to prevent spamming home directory with .trash
       SONARLINT_USER_HOME = "${config.xdg.dataHome}/sonarlint";
-      JUPYTER_CONFIG_DIR = "${config.xdg.configHome}/jupyter";
-      IPYTHONDIR = "${config.xdg.configHome}/ipython";
-      PYTHONSTARTUP = "${config.xdg.configHome}/python/pythonrc";
-      PYTHON_HISTORY = "${config.xdg.stateHome}/python_history";
 
       DOTNET_CLI_HOME = "${config.xdg.dataHome}/dotnet";
       CARGO_HOME = "${config.xdg.dataHome}/cargo";
@@ -225,11 +199,13 @@ in
       enable = true;
       # indicator = true;
     };
+    cliphist = {
+      enable = true;
+      allowImages = true;
+    };
   };
 
   programs = {
-    bat.enable = true;
-    btop.enable = true;
     keepassxc = {
       enable = true;
       autostart = true;
@@ -254,40 +230,9 @@ in
         clipboard-trim-trailing-spaces = true;
       };
     };
-    htop = {
-      enable = true;
-      # settings = {};
-    };
-    direnv = {
-      enable = true;
-      silent = false;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      nix-direnv.enable = true;
-    };
-    eza = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      git = true;
-      icons = "always";
-    };
-    bash = {
-      enable = true;
-      enableCompletion = true;
-      enableVteIntegration = true;
-      historyFile = "${config.xdg.stateHome}/bash/history";
-      historySize = 999999;
-    };
     java.enable = true;
 
     git = {
-      enable = true;
-      package = pkgs.gitFull;
-      settings.user = {
-        name = "abkein";
-        email = "rickbatra0z@gmail.com";
-      };
       signing = {
         signByDefault = true;
         key = "17027FA2CDE289D5D1613C3994A84F22E630CA42";
@@ -360,6 +305,26 @@ in
     #     '';
     #   };
     # };
+    fuzzel = {
+      enable = true;
+      settings = {
+        main = {
+          show-actions = true;
+          terminal = "${pkgs.ghostty}/bin/ghostty";
+          keyboard-focus = "on-demand"; # exclusive
+          auto-select = true;
+        };
+        colors = {
+          background="282a36fa";
+          selection="3d4474fa";
+          border="fffffffa";
+        };
+
+        border = {
+          radius=20;
+        };
+      };
+    };
     swappy = {
       enable = true;
       settings.Default = {

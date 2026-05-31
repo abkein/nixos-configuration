@@ -11,7 +11,6 @@
     ./dot-config-files.nix
     ./files.nix
     ./waybar.nix
-    ./zsh.nix
     ./dunst.nix
     ./zotero.nix
     ./ssh.nix

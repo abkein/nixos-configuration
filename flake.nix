@@ -148,10 +148,10 @@
           let
             cfg = rec {
               system = "x86_64-linux";
+              hostname = "jeta";
               username = "kein";
               userhome = "/home/${username}";
               flakepath = "${userhome}/nixos-configuration";
-              hostname = "jeta";
               inherit useAgenixRekey;
               inherit secrets;
             };
@@ -186,28 +186,23 @@
                   nur.modules.nixos.default
                   home-manager.nixosModules.home-manager
                   disko.nixosModules.disko
-                  # sops-nix.nixosModules.sops
                   agenix.nixosModules.default
                 ]
                 ++ (lib.optionals cfg.useAgenixRekey [ agenix-rekey.nixosModules.default ])
               )
               ++ [
-                ./by-host/jeta/configuration.nix
+                ./by-host/jeta
                 {
                   nixpkgs = {
-                    # hostPlatform = cfg.system;
+                    flake.source = self.outPath;
                     config = {
                       allowUnfree = true;
-                      # permittedInsecurePackages = [
-                      #   "python3.12-ecdsa-0.19.1"
-                      # ];
                     };
                     overlays =
                       (with inputs; [
                         nix4vscode.overlays.forVscode
                         nur.overlays.default
                         # nix-vscode-extensions.overlays.default
-                        # agenix-rekey.overlays.default
                       ])
                       ++ [
                         (import ./overlays/pypackages.nix)
@@ -223,7 +218,6 @@
                     sharedModules = with inputs; [
                       agenix.homeManagerModules.default
                       zen-browser.homeModules.beta
-                      # sops-nix.homeManagerModules.sops
                     ];
                     users = {
                       "${cfg.username}" = ./by-host/jeta/home-manager.nix;
@@ -239,9 +233,12 @@
           };
         yun =
           let
-            cfg = {
+            cfg = rec {
               system = "x86_64-linux";
               hostname = "yun";
+              username = "kein";
+              userhome = "/home/${username}";
+              flakepath = "${userhome}/nixos-configuration";
               inherit useAgenixRekey;
               inherit secrets;
             };
@@ -267,16 +264,35 @@
               (
                 with inputs;
                 [
+                  home-manager.nixosModules.home-manager
                   disko.nixosModules.disko
                   agenix.nixosModules.default
                 ]
                 ++ (lib.optionals cfg.useAgenixRekey [ agenix-rekey.nixosModules.default ])
               )
               ++ [
-                ./by-host/yun/configuration.nix
+                ./by-host/yun
                 {
-                  # nixpkgs.hostPlatform = cfg.system;
+                  nixpkgs = {
+                    flake.source = self.outPath;
+                  };
                   environment.systemPackages = with ipkgs; [ (if cfg.useAgenixRekey then agenix-rekey else agenix) ];
+                  home-manager = {
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
+                    backupFileExtension = "hm-backup";
+                    overwriteBackup = true;
+                    sharedModules = with inputs; [
+                      agenix.homeManagerModules.default
+                    ];
+                    users = {
+                      "${cfg.username}" = ./by-host/yun/home-manager.nix;
+                    };
+                    extraSpecialArgs = {
+                      inherit ipkgs;
+                      inherit cfg;
+                    };
+                  };
                 }
               ];
           };

@@ -17,6 +17,8 @@
     };
   };
 
+  programs.system-config-printer.enable = true;
+
   # Scanning
   hardware = {
     sane = {

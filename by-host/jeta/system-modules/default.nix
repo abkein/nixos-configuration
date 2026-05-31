@@ -3,7 +3,6 @@
   imports = [
     ./wayland
     ./proxychains.nix
-    ./zram.nix
     ./networking.nix
     ./disko.nix
     ./xray.nix
