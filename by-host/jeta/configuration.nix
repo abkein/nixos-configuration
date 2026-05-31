@@ -426,14 +426,6 @@
     gpgSmartcards.enable = true;
     onlykey.enable = true;
     usb-modeswitch.enable = true;
-    sane = {
-      enable = true;
-      netConf = "192.168.0.71";
-      extraBackends = with pkgs; [
-        # hplipWithPlugin
-        sane-airscan
-      ];
-    };
     graphics = {
       extraPackages = [ pkgs.rocmPackages.clr.icd ];
     };

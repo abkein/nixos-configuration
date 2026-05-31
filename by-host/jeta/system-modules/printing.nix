@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  # Printing
   services = {
     ipp-usb.enable = true;
     printing = {
@@ -12,6 +13,19 @@
         cups-filters
         cups-browsed
         # hplipWithPlugin
+      ];
+    };
+  };
+
+  # Scanning
+  hardware = {
+    sane = {
+      enable = true;
+      # netConf = "192.168.0.71";
+      openFirewall = true;
+      extraBackends = with pkgs; [
+        # hplipWithPlugin
+        sane-airscan
       ];
     };
   };
