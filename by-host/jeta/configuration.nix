@@ -63,11 +63,21 @@
   # };
 
   services = {
-    ipp-usb.enable = true;
     avahi = {
+      # For printing, but it's here because it's network-related
+      # and putting it in networking module would've been amigious
       enable = true;
       nssmdns4 = true;
       openFirewall = true;
+      allowInterfaces = [ "eth0" ];
+      publish = {
+        addresses = true;
+        domain = true;
+        enable = true;
+        hinfo = false;
+        userServices = true;
+        workstation = true;
+      };
     };
     tlp = {
       enable = true;
@@ -103,18 +113,12 @@
       };
       pd.enable = true;
     };
-    printing = {
-      enable = true;
-      drivers = with pkgs; [
-        cups-filters
-        cups-browsed
-        hplipWithPlugin
-      ];
-    };
-    acpid = {
-      enable = true;
-      logEvents = true;
-    };
+    # acpid = {
+    #   # Register commands for events, e.g.
+    #   # "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"
+    #   enable = true;
+    #   # logEvents = true;
+    # };
     blueman.enable = true;
     upower.enable = true;
     thermald.enable = true;
@@ -424,8 +428,9 @@
     usb-modeswitch.enable = true;
     sane = {
       enable = true;
+      netConf = "192.168.0.71";
       extraBackends = with pkgs; [
-        hplipWithPlugin
+        # hplipWithPlugin
         sane-airscan
       ];
     };

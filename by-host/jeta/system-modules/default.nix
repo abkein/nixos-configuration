@@ -10,5 +10,6 @@
     # ./openssh.nix
     # ./syncthing.nix
     # ./flatpak.nix
+    ./printing.nix
   ];
 }
