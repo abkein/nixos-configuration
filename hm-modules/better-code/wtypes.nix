@@ -73,7 +73,7 @@ in
 
           # https://code.visualstudio.com/docs/getstarted/keybindings#_command-arguments
           args = mkOption {
-            type = types.nullOr (jsontype);
+            type = types.nullOr jsontype;
             default = null;
             example = {
               direction = "up";

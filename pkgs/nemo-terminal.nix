@@ -55,6 +55,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/linuxmint/nemo-extensions/tree/master/nemo-terminal";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = [ ];
   };
 }

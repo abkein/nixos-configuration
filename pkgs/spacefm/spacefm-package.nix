@@ -15,7 +15,7 @@
   xfce,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "spacefm-thermitegod";
   version = "2.1.0";
 
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "SpaceFM file manager";
     homepage = "https://github.com/thermitegod/spacefm";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = [ ];
     platforms = platforms.linux;
   };
 }

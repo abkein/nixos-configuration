@@ -3,12 +3,6 @@ nix4vscodeAlways: needed_extensions:
 let
   inherit (lib) isDerivation isString;
   flat_extensions = lib.flatten needed_extensions;
-  bad_extensions = builtins.filter (ext: !(isString ext) && !(isDerivation ext)) flat_extensions;
-  _ =
-    if bad_extensions == [ ] then
-      null
-    else
-      throw "Invalid extension type(s): ${builtins.toJSON bad_extensions}";
 
   string_extensions = builtins.filter isString flat_extensions;
   raw_extensions = builtins.filter isDerivation flat_extensions;
@@ -38,7 +32,7 @@ let
   presentExtensions = builtins.filter has_extension parsed_extensions;
   not_presentExtensions = builtins.filter (ext: !has_extension ext) parsed_extensions;
 
-  market_extensions = builtins.map get_extension presentExtensions;
+  market_extensions = map get_extension presentExtensions;
   nix4vscode_extensions = builtins.map unparse_extension not_presentExtensions;
 in
 if nix4vscodeAlways then

@@ -16,7 +16,7 @@ let
       default_area = "navbar";
     };
   };
-  L2A = func: lst: builtins.listToAttrs (builtins.map func lst);
+  L2A = func: lst: builtins.listToAttrs (map func lst);
 in
 {
   programs.firefox = {

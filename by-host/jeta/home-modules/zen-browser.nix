@@ -21,14 +21,7 @@ let
       default_area = "navbar";
     };
   };
-  L2A = func: lst: builtins.listToAttrs (builtins.map func lst);
-
-  mkLockedAttrs = builtins.mapAttrs (
-    _: value: {
-      Value = value;
-      Status = "locked";
-    }
-  );
+  L2A = func: lst: builtins.listToAttrs (map func lst);
 
   policy-templates = import ./policy-templates.nix;
   cfg = config.programs.zen-browser;

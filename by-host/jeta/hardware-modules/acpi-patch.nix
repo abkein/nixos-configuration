@@ -1,10 +1,5 @@
 # configuration.nix (or a module)
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, ... }:
 
 let
   acpiOverride =

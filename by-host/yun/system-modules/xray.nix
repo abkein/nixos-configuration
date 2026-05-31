@@ -179,7 +179,7 @@ in
             port = 443;
             protocol = "vless";
             settings = {
-              clients = builtins.map mkClient xray-creds.clients;
+              clients = map mkClient xray-creds.clients;
               decryption = xray-creds.decryption;
               # fallbacks = [
               #   {

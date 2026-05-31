@@ -1,4 +1,4 @@
-{ pkgs, lib }:
+{ pkgs, ... }:
 {
   enable = true;
   preferences = {
@@ -54,7 +54,7 @@
         # "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
       }
       // builtins.listToAttrs (
-        builtins.map makeExtNav [
+        map makeExtNav [
           "easyscreenshot@mozillaonline.com" # Easy Screenshot
           "simple-tab-groups@drive4ik" # Simple Tab Groups
           "@testpilot-containers" # Firefox Multi-Account Containers

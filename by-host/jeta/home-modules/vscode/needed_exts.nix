@@ -12,6 +12,7 @@ pkgs: {
     "anthropic.claude-code"
     "yzhang.markdown-all-in-one"
     "trond-snekvik.simple-rst"
+    "editorConfig.editorConfig"
     # "shd101wyy.markdown-preview-enhanced"
     # "esbenp.prettier-vscode"
     # "github.copilot"  # so annoying

@@ -100,7 +100,7 @@ buildNpmPackage {
     description = "OnlyKey App built with vendored node dependencies";
     homepage = "https://github.com/trustcrypto/OnlyKey-App";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = [ ];
     platforms = platforms.linux;
   };
 }

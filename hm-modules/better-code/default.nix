@@ -349,8 +349,7 @@ in
           # Also filter out `disable_envstr` attr from specification, because we're
           # using programs.vscode.profile like specification, wich does not contains it
           mkProfile =
-            name: spec:
-            rebuildExtensions (deepMerge cfg.general (builtins.removeAttrs spec [ "disable_envstr" ]));
+            name: spec: rebuildExtensions (deepMerge cfg.general (removeAttrs spec [ "disable_envstr" ]));
           # Merge extension list specified for workspace with base profile's
           mkProfile4Workspace =
             name: spec:
