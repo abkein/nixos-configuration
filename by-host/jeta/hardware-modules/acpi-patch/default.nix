@@ -1,4 +1,3 @@
-# configuration.nix (or a module)
 { pkgs, ... }:
 
 let
@@ -10,8 +9,8 @@ let
           pkgs.cpio
           pkgs.gnupatch
         ];
-        srcAml = ./acpi-patch/dsdt.aml;
-        srcDiff = ./acpi-patch/dsdt.dsl.diff;
+        srcAml = ./dsdt.aml;
+        srcDiff = ./dsdt.dsl.diff;
       }
       ''
         set -euo pipefail

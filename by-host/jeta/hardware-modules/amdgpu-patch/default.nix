@@ -1,5 +1,4 @@
 { ... }:
-
 {
   # pick a kernel to patch
   # boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -8,7 +7,7 @@
   boot.kernelPatches = [
     {
       name = "amdgpu-VRR-MST-patch";
-      patch = ./amdgpu-patch/amdgpu_dm.c.diff;
+      patch = ./amdgpu_dm.c.diff;
     }
   ];
 }
