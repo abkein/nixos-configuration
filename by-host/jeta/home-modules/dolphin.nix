@@ -13,7 +13,7 @@
     kdePackages.plasma-integration
     kdePackages.kdegraphics-thumbnailers
     kdePackages.breeze-icons
-    kdePackages.qtsvg #https://www.reddit.com/r/hyprland/comments/18ecoo3/dolphin_doesnt_work_properly_in_nixos_hyprland/
+    kdePackages.qtsvg # https://www.reddit.com/r/hyprland/comments/18ecoo3/dolphin_doesnt_work_properly_in_nixos_hyprland/
     kdePackages.kservice
     shared-mime-info
   ];

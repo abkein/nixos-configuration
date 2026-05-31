@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.services.flatpak;
   # We point directly to 'gnugrep' instead of 'grep'
@@ -29,9 +34,7 @@ lib.mkMerge [
 
         # 4. Remove any Flatpaks that are NOT in the desired list
         for installed in $installedFlatpaks; do
-          if ! echo ${
-            toString desiredFlatpaks
-          } | ${grep}/bin/grep -q $installed; then
+          if ! echo ${toString desiredFlatpaks} | ${grep}/bin/grep -q $installed; then
             echo "Removing $installed because it's not in the desiredFlatpaks list."
             ${pkgs.flatpak}/bin/flatpak uninstall -y --noninteractive $installed
           fi

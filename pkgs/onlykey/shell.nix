@@ -1,9 +1,11 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 let
   fhs_env = pkgs.buildFHSEnv {
     name = "nwjs-env";
-    targetPkgs = pkgs:
-      with pkgs; [
+    targetPkgs =
+      pkgs: with pkgs; [
         glib
         gdk-pixbuf
         nspr
@@ -40,10 +42,17 @@ let
       ];
     runScript = "npx nw build/";
   };
-in pkgs.mkShell {
+in
+pkgs.mkShell {
   name = "onlykey-dev-shell";
 
-  nativeBuildInputs = with pkgs; [ nodejs_20 git gcc python3 nwjs ];
+  nativeBuildInputs = with pkgs; [
+    nodejs_20
+    git
+    gcc
+    python3
+    nwjs
+  ];
 
   shellHook = ''
     export PATH="$PWD/node_modules/.bin:$PATH"

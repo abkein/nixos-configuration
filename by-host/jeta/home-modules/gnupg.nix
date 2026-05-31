@@ -31,13 +31,37 @@
       # https://github.com/drduh/YubiKey-Guide/blob/master/config/gpg.conf
       # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Options.html
       # Use AES256, 192, or 128 as cipher
-      personal-cipher-preferences = ["AES256" "AES192" "AES"];
+      personal-cipher-preferences = [
+        "AES256"
+        "AES192"
+        "AES"
+      ];
       # Use SHA512, 384, or 256 as digest
-      personal-digest-preferences = ["SHA512" "SHA384" "SHA256"];
+      personal-digest-preferences = [
+        "SHA512"
+        "SHA384"
+        "SHA256"
+      ];
       # Use ZLIB, BZIP2, ZIP, or no compression
-      personal-compress-preferences = ["ZLIB" "BZIP2" "ZIP" "Uncompressed"];
+      personal-compress-preferences = [
+        "ZLIB"
+        "BZIP2"
+        "ZIP"
+        "Uncompressed"
+      ];
       # Default preferences for new keys
-      default-preference-list = ["SHA512" "SHA384" "SHA256" "AES256" "AES192" "AES" "ZLIB" "BZIP2" "ZIP" "Uncompressed"];
+      default-preference-list = [
+        "SHA512"
+        "SHA384"
+        "SHA256"
+        "AES256"
+        "AES192"
+        "AES"
+        "ZLIB"
+        "BZIP2"
+        "ZIP"
+        "Uncompressed"
+      ];
       # SHA512 as digest to sign keys
       cert-digest-algo = "SHA512";
       # SHA512 as digest for symmetric ops

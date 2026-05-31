@@ -1,4 +1,11 @@
-{pkgs, lib, fetchFromGitHub, buildNpmPackage, nodejs, buildFHSEnv}:
+{
+  pkgs,
+  lib,
+  fetchFromGitHub,
+  buildNpmPackage,
+  nodejs,
+  buildFHSEnv,
+}:
 
 let
   pname = "onlykey-app";
@@ -13,8 +20,8 @@ let
 
   fhsEnv = buildFHSEnv {
     name = "nwjs-env";
-    targetPkgs = pkgs:
-      with pkgs; [
+    targetPkgs =
+      pkgs: with pkgs; [
         glib
         gdk-pixbuf
         nspr
@@ -52,12 +59,17 @@ let
     # runScript = '' "$@"'';
   };
 
-in buildNpmPackage {
+in
+buildNpmPackage {
   inherit pname version src;
 
   npmDepsHash = "sha256-UOj2Witdl1cZRobZVozXqaE9LTM6juD8q4ASO4vu+zc=";
 
-  nativeBuildInputs = [ nodejs pkgs.nodePackages.gulp pkgs.nwjs ];
+  nativeBuildInputs = [
+    nodejs
+    pkgs.nodePackages.gulp
+    pkgs.nwjs
+  ];
 
   npmFlags = [ "--ignore-scripts" ];
 

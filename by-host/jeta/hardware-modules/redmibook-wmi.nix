@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}:
+{ config, ... }:
 
 let
   redmibookWmi = config.boot.kernelPackages.callPackage (

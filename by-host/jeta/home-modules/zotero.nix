@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}:
+{ config, pkgs, ... }:
 # Copied from https://github.com/somasis/nixos/blob/665bf28a1a36246c57b50cc10eb7afce6fc70de2/users/somasis/desktop/study/citation.nix#L122
 # Copied from https://github.com/crisbour/nix-hm-config/blob/7de8636c67c65b42e66ba244dbdfaf5ced991a14/home/features/productivity/zotero/default.nix#L19
 # let

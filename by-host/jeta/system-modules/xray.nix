@@ -228,43 +228,44 @@ in
         ];
       outbounds =
         let
-          mkYun_vless-reality-xhttp = postfix: address:
-          let
-            inherit (xray-creds) yun;
-          in
-          {
-            tag = "yun-vless-reality-xhttp-${postfix}";
-            sendThrough = "0.0.0.0";
-            protocol = "vless";
-            settings = {
-              address = address;
-              port = yun.port;
-              id = yun.id;
-              flow = "xtls-rprx-vision";
-              encryption = yun.encryption;
-              level = 0;
-            };
-            streamSettings = {
-              network = "xhttp";
-              security = "reality";
-              realitySettings = {
-                show = false;
-                fingerprint = "chrome";
-                serverName = "www.microsoft.com";
-                password = yun.password;
-                shortId = yun.shortId;
-                mldsa65Verify = yun.mldsa65Verify;
-                spiderX = "/fi-fi";
+          mkYun_vless-reality-xhttp =
+            postfix: address:
+            let
+              inherit (xray-creds) yun;
+            in
+            {
+              tag = "yun-vless-reality-xhttp-${postfix}";
+              sendThrough = "0.0.0.0";
+              protocol = "vless";
+              settings = {
+                address = address;
+                port = yun.port;
+                id = yun.id;
+                flow = "xtls-rprx-vision";
+                encryption = yun.encryption;
+                level = 0;
               };
-              xhttpSettings = {
-                path = "/api/v1/data";
-                mode = "stream-one"; # "auto";
-                extra = {
-                  xPaddingBytes = "100-1000";
+              streamSettings = {
+                network = "xhttp";
+                security = "reality";
+                realitySettings = {
+                  show = false;
+                  fingerprint = "chrome";
+                  serverName = "www.microsoft.com";
+                  password = yun.password;
+                  shortId = yun.shortId;
+                  mldsa65Verify = yun.mldsa65Verify;
+                  spiderX = "/fi-fi";
+                };
+                xhttpSettings = {
+                  path = "/api/v1/data";
+                  mode = "stream-one"; # "auto";
+                  extra = {
+                    xPaddingBytes = "100-1000";
+                  };
                 };
               };
             };
-          };
           mkRegnetVLESS3 =
             postfix: addrress:
             let

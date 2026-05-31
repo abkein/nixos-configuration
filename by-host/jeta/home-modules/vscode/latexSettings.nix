@@ -26,33 +26,23 @@
   "latex-workshop.latex.recipes" = [
     {
       "name" = "latexmk";
-      "tools" = [
-        "latexmk"
-      ];
+      "tools" = [ "latexmk" ];
     }
     {
       "name" = "latexmk (latexmkrc)";
-      "tools" = [
-        "latexmk_rconly"
-      ];
+      "tools" = [ "latexmk_rconly" ];
     }
     {
       "name" = "latexmk (lualatex)";
-      "tools" = [
-        "lualatexmk"
-      ];
+      "tools" = [ "lualatexmk" ];
     }
     {
       "name" = "latexmk (xelatex)";
-      "tools" = [
-        "xelatexmk"
-      ];
+      "tools" = [ "xelatexmk" ];
     }
     {
       "name" = "pdflatex";
-      "tools" = [
-        "pdflatex"
-      ];
+      "tools" = [ "pdflatex" ];
     }
     {
       "name" = "pdflatex * 2";
@@ -93,15 +83,11 @@
     }
     {
       "name" = "tectonic";
-      "tools" = [
-        "tectonic"
-      ];
+      "tools" = [ "tectonic" ];
     }
     {
       "name" = "lualatex";
-      "tools" = [
-        "lualatex"
-      ];
+      "tools" = [ "lualatex" ];
     }
     {
       "name" = "lualatex * 2";
@@ -153,17 +139,13 @@
     {
       "name" = "latexmk_rconly";
       "command" = "latexmk";
-      "args" = [
-        "%DOC%"
-      ];
+      "args" = [ "%DOC%" ];
       "env" = { };
     }
     {
       "name" = "bibtex";
       "command" = "bibtex";
-      "args" = [
-        "%DOCFILE%"
-      ];
+      "args" = [ "%DOCFILE%" ];
       "env" = { };
     }
     {
@@ -239,9 +221,7 @@
     {
       "name" = "biber";
       "command" = "biber";
-      "args" = [
-        "%DOCFILE%"
-      ];
+      "args" = [ "%DOCFILE%" ];
     }
     {
       "name" = "latexmk";

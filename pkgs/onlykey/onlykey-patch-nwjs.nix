@@ -1,5 +1,12 @@
-{ lib, fetchFromGitHub, buildNpmPackage, nodejs, jq, buildFHSEnv
-, pkgs ? import <nixpkgs> { } }:
+{
+  lib,
+  fetchFromGitHub,
+  buildNpmPackage,
+  nodejs,
+  jq,
+  buildFHSEnv,
+  pkgs ? import <nixpkgs> { },
+}:
 
 let
   pname = "onlykey-app";
@@ -15,9 +22,16 @@ let
   patchedSrc = pkgs.stdenv.mkDerivation {
     name = "patched-onlykey-src";
     src = upstreamSrc;
-    nativeBuildInputs = [ jq nodejs ];
+    nativeBuildInputs = [
+      jq
+      nodejs
+    ];
 
-    phases = [ "unpackPhase" "patchPhase" "installPhase" ];
+    phases = [
+      "unpackPhase"
+      "patchPhase"
+      "installPhase"
+    ];
 
     patchPhase = ''
             echo "Injecting dummy nw package"
@@ -46,8 +60,8 @@ let
 
   fhsEnv = buildFHSEnv {
     name = "nwjs-env";
-    targetPkgs = pkgs:
-      with pkgs; [
+    targetPkgs =
+      pkgs: with pkgs; [
         glib
         gdk-pixbuf
         nspr
@@ -84,13 +98,17 @@ let
     runScript = ''nw "$@"'';
   };
 
-in buildNpmPackage {
+in
+buildNpmPackage {
   inherit pname version;
   src = patchedSrc;
 
   npmDepsHash = "sha256-R5g4hO1s4K6EAfYpebxlYz4nogBk4TY4dNT2jZpEF8w=";
 
-  nativeBuildInputs = [ nodejs pkgs.nodePackages.gulp ];
+  nativeBuildInputs = [
+    nodejs
+    pkgs.nodePackages.gulp
+  ];
 
   buildPhase = ''
     gulp build
@@ -117,4 +135,3 @@ in buildNpmPackage {
     platforms = platforms.linux;
   };
 }
-

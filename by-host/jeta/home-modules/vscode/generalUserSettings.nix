@@ -223,12 +223,8 @@ lib.mkMerge (
         };
       };
 
-      "[cpp]" = mylib.literal {
-        "editor.tabSize" = 2;
-      };
-      "[nix]" = mylib.literal {
-        "editor.tabSize" = 2;
-      };
+      "[cpp]" = mylib.literal { "editor.tabSize" = 2; };
+      "[nix]" = mylib.literal { "editor.tabSize" = 2; };
 
       nixEnvSelector = {
         # suggestion = false;
@@ -369,9 +365,7 @@ lib.mkMerge (
             };
             # Control the diagnostic system
             diagnostic = {
-              suppress = [
-                "sema-extra-with"
-              ];
+              suppress = [ "sema-extra-with" ];
             };
           };
 

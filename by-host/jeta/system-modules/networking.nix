@@ -1,8 +1,4 @@
-{
-  pkgs,
-  cfg,
-  ...
-}:
+{ pkgs, cfg, ... }:
 {
   networking = {
     hostName = cfg.hostname;

@@ -139,19 +139,10 @@
     { self, nixpkgs, ... }@inputs:
     let
       lib = nixpkgs.lib;
-      eachSystem = inputs.flake-utils.lib.eachSystem;
-      treefmtEval = eachSystem (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
       useAgenixRekey = false;
       secrets = "secrets/agenix/encrypted";
     in
     {
-      # for `nix fmt`
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
-      # for `nix flake check`
-      checks = eachSystem (pkgs: {
-        formatting = treefmtEval.${pkgs.system}.config.build.check self;
-      });
-
       nixosConfigurations = {
         jeta =
           let
@@ -297,5 +288,20 @@
         userFlake = self;
         nixosConfigurations = self.nixosConfigurations;
       };
-    });
+    })
+    // (inputs.flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+        treefmtEval = (inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix).config.build;
+      in
+      {
+        # for `nix fmt`
+        formatter = treefmtEval.wrapper;
+        # for `nix flake check`
+        checks = {
+          formatting = treefmtEval.check self;
+        };
+      }
+    ));
 }

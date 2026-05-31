@@ -3,7 +3,7 @@
   services.syncthing = {
     enable = true;
     # openDefaultPorts = true;
-    guiAddress = "127.0.0.1:8384";  # default
+    guiAddress = "127.0.0.1:8384"; # default
     guiCredentials = {
       passwordFile = config.age.secrets."syncthingPass".path;
       username = config.home.username;
@@ -24,7 +24,7 @@
           label = "My documents";
           path = "${config.home.homeDirectory}/Documents";
           devices = [ "phone-A63" ];
-          type = "sendreceive";  # default
+          type = "sendreceive"; # default
           versioning = {
             type = "staggered";
             fsPath = "${config.home.homeDirectory}/backup";

@@ -4,7 +4,7 @@
     enable = true;
     openDefaultPorts = true;
     guiPasswordFile = config.age.secrets."syncthingPass".path;
-    guiAddress = "127.0.0.1:8384";  # default
+    guiAddress = "127.0.0.1:8384"; # default
     user = "kein";
     dataDir = cfg.userhome;
     settings = {
@@ -21,7 +21,7 @@
           label = "My documents";
           path = "${cfg.userhome}/Documents";
           devices = [ "phone-A63" ];
-          type = "sendreceive";  # default
+          type = "sendreceive"; # default
           versioning = {
             type = "staggered";
             fsPath = "${cfg.userhome}/backup";

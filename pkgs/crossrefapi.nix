@@ -12,7 +12,7 @@
   pytestCheckHook,
 
   # build-system
-  poetry-core
+  poetry-core,
 }:
 buildPythonPackage (finalAttrs: {
   pname = "crossrefapi";
@@ -26,9 +26,7 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-yMw6EkeG59ub82yMoJ+o2/hZOAxF8vGLWStyiCE1k1o=";
   };
 
-  build-system = [
-    poetry-core
-  ];
+  build-system = [ poetry-core ];
 
   dependencies = [
     requests
@@ -42,9 +40,7 @@ buildPythonPackage (finalAttrs: {
       --replace-fail 'ipython = "^8.20.0"' 'ipython = "^9.0.0"'
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # These tests require network access
   disabledTests = [

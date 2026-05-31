@@ -1,18 +1,18 @@
 {
-  lib
-  , stdenv
-  , fetchFromGitHub
-  , meson
-  , ninja
-  , pkg-config
-  , cmake
-  , udev
-  , botan3
-  , libsigcxx30
-  , pugixml
-  , gtkmm3
-  , gtkmm4
-  , xfce
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  meson,
+  ninja,
+  pkg-config,
+  cmake,
+  udev,
+  botan3,
+  libsigcxx30,
+  pugixml,
+  gtkmm3,
+  gtkmm4,
+  xfce,
 }:
 
 stdenv.mkDerivation rec {
@@ -72,4 +72,3 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
   };
 }
-

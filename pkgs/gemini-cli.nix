@@ -1,4 +1,10 @@
-{ lib, nodejs_20, buildNpmPackage, fetchFromGitHub, nix-update-script, }:
+{
+  lib,
+  nodejs_20,
+  buildNpmPackage,
+  fetchFromGitHub,
+  nix-update-script,
+}:
 
 buildNpmPackage (finalAttrs: {
   pname = "gemini-cli";
@@ -54,11 +60,13 @@ buildNpmPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description =
-      "AI agent that brings the power of Gemini directly into your terminal";
+    description = "AI agent that brings the power of Gemini directly into your terminal";
     homepage = "https://github.com/google-gemini/gemini-cli";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ FlameFlag taranarmo ];
+    maintainers = with lib.maintainers; [
+      FlameFlag
+      taranarmo
+    ];
     platforms = lib.platforms.all;
     mainProgram = "gemini";
   };

@@ -20,9 +20,7 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-yRsuVnaJOfkiGGXRvPi60Va/PJoagn5dYRfREUXV+uE=";
   };
 
-  nativeBuildInputs = [
-    setuptools
-  ];
+  nativeBuildInputs = [ setuptools ];
 
   pythonImportsCheck = [ "jsonc_parser" ];
 

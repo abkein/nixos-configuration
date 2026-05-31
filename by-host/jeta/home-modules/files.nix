@@ -1,5 +1,5 @@
 #TODO: change shebangs with direct path to a system's bash executable
-{ ...}:
+{ ... }:
 let
   generic = {
     enable = true;

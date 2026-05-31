@@ -6,7 +6,7 @@ self: super: {
       rev = "v2.1.0";
       sha256 = "sha256-L2WIDvrn1TfZicf6xnZdqgwx0OCvuHRD5h3henSh1jc=";
     };
-    patches = [];
+    patches = [ ];
     # patches = [
     #   # fix compilation error due to missing include
     #   ./confs/glibc-fix.patch

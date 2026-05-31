@@ -1,5 +1,12 @@
-{ stdenv, lib, fetchFromGitHub, nautilus-python, python3Packages, pkg-config
-, glib }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  nautilus-python,
+  python3Packages,
+  pkg-config,
+  glib,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "nautilus-terminal";
@@ -12,10 +19,16 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-sOt43RPES+5gEC7XGVzeQyyolrsJnJfjMydhKRZ5qtM=";
   };
 
-  nativeBuildInputs = [ pkg-config glib ];
+  nativeBuildInputs = [
+    pkg-config
+    glib
+  ];
 
-  propagatedBuildInputs =
-    [ python3Packages.psutil python3Packages.dbus-python nautilus-python ];
+  propagatedBuildInputs = [
+    python3Packages.psutil
+    python3Packages.dbus-python
+    nautilus-python
+  ];
 
   # upstream has no tests
   doCheck = false;

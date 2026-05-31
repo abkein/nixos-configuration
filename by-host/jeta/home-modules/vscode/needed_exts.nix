@@ -1,5 +1,4 @@
-pkgs:
-{
+pkgs: {
   global = [
     # "arrterian.nix-env-selector"  # weird flakes support
     "jnoortheen.nix-ide"
@@ -105,9 +104,7 @@ pkgs:
     "sonarsource.sonarlint-vscode" # requires jre
   ];
 
-  ts = [
-    "dbaeumer.vscode-eslint"
-  ];
+  ts = [ "dbaeumer.vscode-eslint" ];
 
   # "seunlanlege.action-buttons"
   # "trunk.io"

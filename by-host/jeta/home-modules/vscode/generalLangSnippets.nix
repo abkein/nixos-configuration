@@ -43,9 +43,7 @@
     };
     ignore_type = {
       prefix = "# t";
-      body = [
-        "# type: ignore"
-      ];
+      body = [ "# type: ignore" ];
       description = "Inserts type ignore instruction";
     };
     passifmain = {
@@ -61,32 +59,24 @@
   cpp = {
     print = {
       prefix = "std::c";
-      body = [
-        "std::cout << $1 << std::endl;"
-      ];
+      body = [ "std::cout << $1 << std::endl;" ];
       description = "Output to console";
     };
   };
   latex = {
     text = {
       prefix = "\\t";
-      body = [
-        "\\text{$1}"
-      ];
+      body = [ "\\text{$1}" ];
       description = "\\text{}";
     };
     limit = {
       prefix = "\\lim";
-      body = [
-        "\\lim\\limits_{\\substack{\${1:a} \\to -\${2:\\infty} \${3:b} \\to \${4:\\infty}}}"
-      ];
+      body = [ "\\lim\\limits_{\\substack{\${1:a} \\to -\${2:\\infty} \${3:b} \\to \${4:\\infty}}}" ];
       description = "Double limits";
     };
     therm_deriv = {
       prefix = "\\lfp";
-      body = [
-        "\\left(\\frac{\\partial $1}{\\partial $2}\\right)_{$3}"
-      ];
+      body = [ "\\left(\\frac{\\partial $1}{\\partial $2}\\right)_{$3}" ];
       description = "Thermodynamic derivative";
     };
   };

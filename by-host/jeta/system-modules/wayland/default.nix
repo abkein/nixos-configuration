@@ -1,4 +1,9 @@
-{ config, lib, cfg, ... }:
+{
+  config,
+  lib,
+  cfg,
+  ...
+}:
 {
   imports = [
     ./hyprland-regreet-conf.nix

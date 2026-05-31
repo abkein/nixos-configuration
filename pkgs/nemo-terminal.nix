@@ -1,5 +1,15 @@
-{ lib, python3Packages, fetchFromGitHub, vte, gtk3, nemo-python, dconf
-, pkg-config, gettext, gobject-introspection }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  vte,
+  gtk3,
+  nemo-python,
+  dconf,
+  pkg-config,
+  gettext,
+  gobject-introspection,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "nemo-terminal";
@@ -21,9 +31,18 @@ python3Packages.buildPythonPackage rec {
   '';
 
   # buildPythonPackage will pick up setup.py automatically
-  propagatedBuildInputs = [ vte gtk3 nemo-python dconf gettext ];
+  propagatedBuildInputs = [
+    vte
+    gtk3
+    nemo-python
+    dconf
+    gettext
+  ];
 
-  nativeBuildInputs = [ pkg-config gobject-introspection ];
+  nativeBuildInputs = [
+    pkg-config
+    gobject-introspection
+  ];
 
   # After the normal Python install, we need to compile the GSettings schema
   postInstall = ''
@@ -33,8 +52,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "Embedded terminal window for the Nemo file manager";
-    homepage =
-      "https://github.com/linuxmint/nemo-extensions/tree/master/nemo-terminal";
+    homepage = "https://github.com/linuxmint/nemo-extensions/tree/master/nemo-terminal";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ];

@@ -8,14 +8,28 @@ let
   };
 in
 {
-  python3Packages = super.python3Packages.overrideScope (pySelf: pySuper: {
-    # pyzotero = import ../pkgs/pyzotero.nix { pkgs=self; python3Packages=pySelf; };  # now in nixpkgs
-    jsonc-parser = import ../pkgs/jsonc-parser.nix { pkgs=self; python3Packages=pySelf; };
-    pyalex = import ../pkgs/pyalex.nix { pkgs=self; python3Packages=pySelf; };
-    crossrefapi = import ../pkgs/crossrefapi.nix { pkgs=self; python3Packages=pySelf; };
-    keepassxc-proxy-client = import ../pkgs/keepassxc-proxy-client.nix { pkgs=self; python3Packages=pySelf; };
-    solo1-cli = super.callPackage "${solo1-cli}/solo.nix" {};
-  });
+  python3Packages = super.python3Packages.overrideScope (
+    pySelf: pySuper: {
+      # pyzotero = import ../pkgs/pyzotero.nix { pkgs=self; python3Packages=pySelf; };  # now in nixpkgs
+      jsonc-parser = import ../pkgs/jsonc-parser.nix {
+        pkgs = self;
+        python3Packages = pySelf;
+      };
+      pyalex = import ../pkgs/pyalex.nix {
+        pkgs = self;
+        python3Packages = pySelf;
+      };
+      crossrefapi = import ../pkgs/crossrefapi.nix {
+        pkgs = self;
+        python3Packages = pySelf;
+      };
+      keepassxc-proxy-client = import ../pkgs/keepassxc-proxy-client.nix {
+        pkgs = self;
+        python3Packages = pySelf;
+      };
+      solo1-cli = super.callPackage "${solo1-cli}/solo.nix" { };
+    }
+  );
 
   solo1-cli = self.python3Packages.solo1-cli;
   keepassxc-proxy-client = self.python3Packages.keepassxc-proxy-client;

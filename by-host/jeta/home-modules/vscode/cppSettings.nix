@@ -38,24 +38,16 @@
 
   "c-cpp-flylint.debug" = true;
   "c-cpp-flylint.run" = "onBuild";
-  "c-cpp-flylint.standard" = [
-    "c++20"
-  ];
+  "c-cpp-flylint.standard" = [ "c++20" ];
   "c-cpp-flylint.flexelint.enable" = false;
   "c-cpp-flylint.cppcheck.enable" = false;
-  "c-cpp-flylint.cppcheck.extraArgs" = [
-    "--check-level=exhaustive"
-  ];
+  "c-cpp-flylint.cppcheck.extraArgs" = [ "--check-level=exhaustive" ];
   "c-cpp-flylint.cppcheck.force" = true;
   "c-cpp-flylint.clang.enable" = false;
-  "c-cpp-flylint.clang.extraArgs" = [
-    "-Qunused-arguments"
-  ];
+  "c-cpp-flylint.clang.extraArgs" = [ "-Qunused-arguments" ];
   "c-cpp-flylint.lizard.enable" = false;
 
-  "clangd.fallbackFlags" = [
-    "--compile-commands-dir=build"
-  ];
+  "clangd.fallbackFlags" = [ "--compile-commands-dir=build" ];
   "clangd.arguments" = [
     # "--query-driver=/nix/store/*/bin/clang++,/nix/store/*/bin/mpicxx"
     "--query-driver=/nix/store/*/bin/g++,/nix/store/*-gcc-wrapper-*/bin/g++,/nix/store/*/bin/c++,/nix/store/*/bin/clang++,/nix/store/*/bin/mpicxx"
@@ -69,9 +61,7 @@
   "c-cpp-linter.general.runOnSave" = false;
   "c-cpp-linter.general.showInformationDialog" = true;
   "c-cpp-linter.general.showOutputFromLinters" = true;
-  "c-cpp-linter.compiler.additionalFlags" = [
-    "-Qunused-arguments"
-  ];
+  "c-cpp-linter.compiler.additionalFlags" = [ "-Qunused-arguments" ];
   "c-cpp-linter.cppCheck.additionalFlags" = [
     "--std=c++20"
     "--platform=native"

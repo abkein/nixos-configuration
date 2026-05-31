@@ -1,4 +1,4 @@
-{...}:
+{ ... }:
 let
   generic = {
     enable = true;

@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }@args:
+{ lib, pkgs, ... }:
 let
   inherit (lib) mkOption types literalExpression;
   jsontype = (pkgs.formats.json { }).type;
