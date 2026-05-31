@@ -5,6 +5,9 @@
   cfg,
   ...
 }:
+let
+  runtimeDir = "/run/user/1000";
+in
 {
   imports = [
     ../../hm-modules/zotero
@@ -23,7 +26,7 @@
       };
     };
     # ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
-    secretsDir = "/run/user/1000/agenix";
+    secretsDir = "${runtimeDir}/agenix";
   };
 
   xdg = {
@@ -78,12 +81,11 @@
     username = cfg.username;
     homeDirectory = cfg.userhome;
     enableNixpkgsReleaseCheck = false;
+    preferXdgDirectories = true;
     stateVersion = "24.11";
     packages =
       (with ipkgs; [
         ayugram-desktop
-        codex-cli
-        claude-code
       ])
       ++ (with pkgs; [
         ocrmypdf
@@ -198,9 +200,16 @@
       SONARLINT_USER_HOME = "${config.xdg.dataHome}/sonarlint";
       JUPYTER_CONFIG_DIR = "${config.xdg.configHome}/jupyter";
       IPYTHONDIR = "${config.xdg.configHome}/ipython";
+      PYTHONSTARTUP = "${config.xdg.configHome}/python/pythonrc";
+      PYTHON_HISTORY = "${config.xdg.stateHome}/python_history";
+
       DOTNET_CLI_HOME = "${config.xdg.dataHome}/dotnet";
       CARGO_HOME = "${config.xdg.dataHome}/cargo";
-      PYTHONSTARTUP = "${config.xdg.configHome}/python/pythonrc";
+      NPM_CONFIG_INIT_MODULE = "${config.xdg.configHome}/npm/config/npm-init.js";
+      NPM_CONFIG_CACHE = "${config.xdg.cacheHome}/npm";
+      NPM_CONFIG_TMP = "${runtimeDir}/npm";
+      RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
+      ELECTRUMDIR="${config.xdg.dataHome}/electrum";
     };
   };
 
@@ -224,6 +233,15 @@
     keepassxc = {
       enable = true;
       autostart = true;
+    };
+    codex = {
+      enable = true;
+      package = ipkgs.codex-cli;
+    };
+    claude-code = {
+      enable = true;
+      package = ipkgs.claude-code;
+      configDir = "${config.xdg.configHome}/claude";
     };
     ghostty = {
       enable = true;

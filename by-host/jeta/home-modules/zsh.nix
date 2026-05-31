@@ -54,6 +54,7 @@
       cg = "sudo nix-collect-garbage -d";
       os = "sudo nix-store --optimise";
       destroy = "dg && cg && os";
+      wget="wget --hsts-file=${config.xdg.dataHome}/wget-hsts";
 
       # _cat = "$(which cat)";
       cat = "bat";

@@ -18,25 +18,6 @@
     hyprland-qt-support
   ];
 
-  xdg.configFile = {
-    hyprlock-te = {
-      enable = true;
-      executable = false;
-      force = true;
-      target = "hyprlock/te.markup";
-      text = ''
-        <markup>
-          <span color="#E2E2E2" bgcolor="#2980B9" bgalpha="50%" face="Gabarito" size="20pt">
-            Alles muss sich veraendern
-          </span>
-          <span color="#E2E2E2" bgcolor="#2980B9" bgalpha="50%" face="Gabarito" size="20pt">
-            or no
-          </span>
-        </markup>
-      '';
-    };
-  };
-
   #TODO: change shebangs with direct path to a system's bash executable
   home.file =
     let
