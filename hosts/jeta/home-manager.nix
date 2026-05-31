@@ -13,8 +13,8 @@ in
     ../../universal/home-modules/shell.nix
     ../../universal/home-modules/fix-python-history.nix
     ./home-modules
-    ../../hm-modules/zotero
-    ../../hm-modules/better-code
+    ../../options/home-meneger/zotero
+    ../../options/home-meneger/better-code
   ];
 
   age = {

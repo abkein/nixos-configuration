@@ -16,7 +16,7 @@
 
   services = {
     vnstat.enable = true;
-    resolved.enable = true;
+    # resolved.enable = true;
     dnscrypt-proxy = {
       enable = true;
       settings = {

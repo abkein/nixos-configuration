@@ -66,30 +66,12 @@
 
   # swapDevices = [ { device = "/dev/disk/by-uuid/94513675-0e3a-4fc6-95f5-b28663fe1aa9"; } ];
   # boot.resumeDevice = "/dev/disk/by-uuid/94513675-0e3a-4fc6-95f5-b28663fe1aa9";
-  systemd = {
-    # sleep.extraConfig = ''
-    #   HibernateDelaySec=1h
-    #   SuspendState=mem
-    # '';
-
-    oomd = {
-      enable = true;
-      enableUserSlices = true;
-      enableSystemSlice = true;
-      enableRootSlice = false;
-    };
-
-    slices = {
-      "-".sliceConfig = {
-        ManagedOOMSwap = "kill";
-      };
-
-      "user".sliceConfig = {
-        ManagedOOMMemoryPressureLimit = "50%";
-        ManagedOOMMemoryPressureDurationSec = "10s";
-      };
-    };
-  };
+  # systemd = {
+  #   sleep.extraConfig = ''
+  #     HibernateDelaySec=1h
+  #     SuspendState=mem
+  #   '';
+  # };
 
   # hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware = {

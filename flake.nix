@@ -191,7 +191,7 @@
                 ++ (lib.optionals cfg.useAgenixRekey [ agenix-rekey.nixosModules.default ])
               )
               ++ [
-                ./by-host/jeta
+                ./hosts/jeta
                 {
                   nixpkgs = {
                     # flake.source = self.outPath;
@@ -220,7 +220,7 @@
                       zen-browser.homeModules.beta
                     ];
                     users = {
-                      "${cfg.username}" = ./by-host/jeta/home-manager.nix;
+                      "${cfg.username}" = ./hosts/jeta/home-manager.nix;
                     };
                     extraSpecialArgs = {
                       inherit ipkgs;
@@ -271,7 +271,7 @@
                 ++ (lib.optionals cfg.useAgenixRekey [ agenix-rekey.nixosModules.default ])
               )
               ++ [
-                ./by-host/yun
+                ./hosts/yun
                 {
                   nixpkgs = {
                     # flake.source = self.outPath;
@@ -284,7 +284,7 @@
                     overwriteBackup = true;
                     sharedModules = with inputs; [ agenix.homeManagerModules.default ];
                     users = {
-                      "${cfg.username}" = ./by-host/yun/home-manager.nix;
+                      "${cfg.username}" = ./hosts/yun/home-manager.nix;
                     };
                     extraSpecialArgs = {
                       inherit ipkgs;

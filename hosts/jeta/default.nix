@@ -231,6 +231,27 @@
     pam.p11.enable = true;
   };
 
+  systemd = {
+    enableStrictShellChecks = true;
+    oomd = {
+      enable = true;
+      enableUserSlices = true;
+      enableSystemSlice = true;
+      enableRootSlice = false;
+    };
+
+    slices = {
+      "-".sliceConfig = {
+        ManagedOOMSwap = "kill";
+      };
+
+      "user".sliceConfig = {
+        ManagedOOMMemoryPressureLimit = "50%";
+        ManagedOOMMemoryPressureDurationSec = "10s";
+      };
+    };
+  };
+
   environment = {
     pathsToLink = [ "/share/zsh" ]; # for ZSH autocompletion for system packages
     sessionVariables.NIXOS_OZONE_WL = "1";
@@ -419,5 +440,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }
