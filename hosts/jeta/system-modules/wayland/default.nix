@@ -1,5 +1,5 @@
 {
-  config,
+  # config,
   pkgs,
   lib,
   cfg,
@@ -7,7 +7,7 @@
 }:
 {
   imports = [
-    ./hyprland-regreet-conf.nix
+    # ./hyprland-regreet-conf.nix
     ./regreet.nix
     ./stylix.nix
   ];
@@ -26,11 +26,10 @@
     };
     uwsm = {
       enable = true;
-      # waylandCompositors = {
-
-      # };
+      # waylandCompositors = { };
     };
   };
+
   environment = {
     # From https://wiki.hypr.land/Nix/
     # Optional, hint electron apps to use wayland:
@@ -39,15 +38,16 @@
   };
 
   services = {
+    # Pre-select the "right" entry
     displayManager.defaultSession = "hyprland-uwsm";
-    greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${config.programs.hyprland.package}/bin/Hyprland --config /etc/${config.environment.etc.hyprland-regreet.target}";
-          user = "greeter";
-        };
-      };
-    };
+    # greetd = {
+    #   enable = true;
+    #   settings = {
+    #     default_session = {
+    #       command = "${config.programs.hyprland.package}/bin/Hyprland --config /etc/${config.environment.etc.hyprland-regreet.target}";
+    #       user = "greeter";
+    #     };
+    #   };
+    # };
   };
 }

@@ -1,35 +1,65 @@
-{ config, cfg, ... }:
+{ pkgs, cfg, ... }:
 let
   hex2hypr = color: "rgba(${builtins.substring 1 (-1) color})";
+  te-markup = pkgs.writeText "hyprlock-te.markup" ''
+    <markup>
+      <span color="#E2E2E2" bgcolor="#2980B9" bgalpha="50%" face="Gabarito" size="20pt">
+        Alles muss sich veraendern
+      </span>
+      <span color="#E2E2E2" bgcolor="#2980B9" bgalpha="50%" face="Gabarito" size="20pt">
+        or no
+      </span>
+    </markup>
+  '';
+  hyprlock-battery-status = pkgs.writeShellScript "hyprlock-battery-status.sh" ''
+    ############ Variables ############
+    enable_battery=false
+    battery_charging=false
+
+    ####### Check availability ########
+    for battery in /sys/class/power_supply/*BAT*; do
+      if [[ -f "$battery/uevent" ]]; then
+        enable_battery=true
+        if [[ $(cat /sys/class/power_supply/*/status | head -1) == "Charging" ]]; then
+          battery_charging=true
+        fi
+        break
+      fi
+    done
+
+    ############# Output #############
+    if [[ $enable_battery == true ]]; then
+      if [[ $battery_charging == true ]]; then
+        echo -n "(+) "
+      fi
+      echo -n "$(cat /sys/class/power_supply/*/capacity | head -1)"%
+      if [[ $battery_charging == false ]]; then
+        echo -n " remaining"
+      fi
+    fi
+
+    echo \'\'
+  '';
+  hyprlock-label = pkgs.writeShellScript "hyprlabel.sh" ''
+    if [ "$1" -eq 0 ]; then
+      echo ""
+    else
+      echo "There were failed attempts: $1"
+      printf "\n"
+      echo "Last fail reason: $2"
+    fi
+  '';
 in
 {
-  xdg.configFile = {
-    hyprlock-te = {
-      enable = true;
-      executable = false;
-      force = true;
-      target = "hyprlock/te.markup";
-      text = ''
-        <markup>
-          <span color="#E2E2E2" bgcolor="#2980B9" bgalpha="50%" face="Gabarito" size="20pt">
-            Alles muss sich veraendern
-          </span>
-          <span color="#E2E2E2" bgcolor="#2980B9" bgalpha="50%" face="Gabarito" size="20pt">
-            or no
-          </span>
-        </markup>
-      '';
-    };
-  };
-
   programs.hyprlock = {
     enable = true;
     settings =
       let
         text_color = hex2hypr "#E2E2E2FF";
-        entry_background_color = hex2hypr "#13131311";
-        entry_border_color = hex2hypr "#91919155";
-        entry_color = hex2hypr "#C6C6C6FF";
+        # entry_background_color = hex2hypr "#13131311";
+        # entry_border_color = hex2hypr "#91919155";
+        # entry_color = hex2hypr "#C6C6C6FF";
+        # background_color = hex2hypr "#13131377";
         font_family = "Gabarito";
         font_family_clock = "Gabarito";
         # font_material_symbols = "Material Symbols Outlined";
@@ -87,7 +117,7 @@ in
           {
             # Info
             monitor = "";
-            text = "cmd[update:1000] echo $(~/execs/hyprlock/label.sh \"$ATTEMPTS\" \"$FAIL\")";
+            text = "cmd[update:1000] echo $(${hyprlock-label} \"$ATTEMPTS\" \"$FAIL\")";
             shadow_passes = 1;
             shadow_boost = 0.5;
             color = text_color;
@@ -115,7 +145,7 @@ in
           {
             # Greeting
             monitor = "";
-            text = "cmd[update:0:true] echo $(cat ${config.xdg.stateHome}/hyprlock/te.markup)";
+            text = "cmd[update:0:true] echo $(cat ${te-markup})";
             shadow_passes = 1;
             shadow_boost = 0.5;
             color = text_color;
@@ -159,7 +189,7 @@ in
           {
             # Status
             monitor = "";
-            text = "cmd[update:5000] ~/execs/hyprlock/status.sh";
+            text = "cmd[update:5000] ${hyprlock-battery-status}";
             shadow_passes = 1;
             shadow_boost = 0.5;
             color = text_color;

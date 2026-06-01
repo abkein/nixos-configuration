@@ -103,7 +103,7 @@ lib.mkMerge (
       };
 
       workbench = {
-        colorTheme = "Dark Modern";  # stylix
+        colorTheme = "Dark Modern"; # stylix
         layoutControl.enabled = false;
         secondarySideBar.defaultVisibility = "hidden";
         # editorAssociations = builtins.toJSON {

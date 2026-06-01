@@ -1,14 +1,14 @@
 { cfg, ... }:
 {
-  stylix.targets.regreet = {
-    # image = {
-    #   enable = true;
-    #   override = "${cfg.userhome}/Pictures/Wallpapers/rocket.png";
-    # };
-    # imageScalingMode.override = ;
-  };
   programs.regreet = {
     enable = true;
+    cageArgs = [
+      "-s"
+      "-d"
+      "-m"
+      "last"
+      "-D"
+    ]; # TODO: remove "-D" (debug) after ensuring everything works
     settings = {
       # Whether to skip asking for username and session, and use the last used ones.
       skip_selection = false;

@@ -1,14 +1,30 @@
 { config, pkgs, ... }:
 {
   stylix.targets.ghostty.enable = false;
+  stylix.targets.fuzzel.fonts.override = {
+    sizes = {
+      # applications = 14;
+      # desktop = 14;
+      popups = 14;
+      # terminal = 14;
+    };
+  };
   programs = {
+    swayimg = {
+      enable = true;
+      # settings = {}; # https://github.com/artemsen/swayimg/blob/master/extra/swayimgrc
+    };
+    wayprompt = {
+      enable = true;
+      # settings = {}; # `man 5 wayprompt`
+    };
     ghostty = {
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
       installBatSyntax = true;
       settings = {
-        # font-size = 10; # stylix
+        font-size = 10; # stylix
         term = "xterm";
         clipboard-trim-trailing-spaces = true;
       };
@@ -18,9 +34,13 @@
       settings = {
         main = {
           show-actions = true;
-          terminal = "${pkgs.ghostty}/bin/ghostty";
+          terminal = "${pkgs.ghostty}/bin/ghostty -e {cmd}";
           keyboard-focus = "on-demand"; # exclusive
           auto-select = true;
+          message-mode = "wrap";
+          width = 90;
+          line-height = 30;
+          tabs = 4;
         };
         # stylix
         # colors = {

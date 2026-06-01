@@ -209,7 +209,7 @@
                     # flake.source = self.outPath;
                     config = {
                       allowUnfree = true;
-                      # rocmSupport = true;
+                      rocmSupport = true;
                       warnUndeclaredOptions = true;
                     };
                     overlays =

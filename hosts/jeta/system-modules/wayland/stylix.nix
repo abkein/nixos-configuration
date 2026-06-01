@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   stylix = {
     enable = true;
@@ -8,10 +8,7 @@
       autoImport = true;
       followSystem = true;
     };
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     polarity = "dark";
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml";
-    # base16Scheme = "${pkgs.base16-schemes}/share/themes/da-one-gray.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/katy.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/espresso.yaml";
     base16Scheme = ./dark-modern.yaml;
@@ -31,7 +28,7 @@
     opacity = {
       applications = 1.0;
       desktop = 1.0;
-      popups = 1.0;
+      popups = 0.7;
       terminal = 1.0;
     };
     fonts =
@@ -50,22 +47,18 @@
           package = fts.p;
           name = "${fts.s} Serif";
         };
-
         sansSerif = {
           package = fts.p;
           name = "${fts.s} Sans";
         };
-
         monospace = {
           package = fts.p;
           name = "${fts.s} Sans Mono";
         };
-
         emoji = {
           package = pkgs.noto-fonts-color-emoji;
           name = "Noto Color Emoji";
         };
-
         sizes = {
           applications = 10;
           desktop = 10;

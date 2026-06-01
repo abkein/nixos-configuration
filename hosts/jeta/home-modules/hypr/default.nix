@@ -1,12 +1,4 @@
 { config, pkgs, ... }:
-let
-  cursor = {
-    theme = "Vimix-cursors";
-    # theme = "Adwaita";
-    size = 48;
-    pkg = pkgs.vimix-cursors;
-  };
-in
 {
   imports = [
     ./hyprland.nix
@@ -80,23 +72,7 @@ in
     };
   };
 
-  # qt = {
-  #   enable = true;
-  #   # style = {
-  #   #   name = "adwaita-dark";
-  #   # };
-  #   platformTheme = {
-  #     # name = "gtk3";
-  #     name = "qt6ct";
-  #   };
-  # };
-
-  wayland.windowManager.hyprland.settings = {
-    exec-once = [
-      # "hyprctl setcursor Bibata-Modern-Classic 24"
-      "hyprctl setcursor ${cursor.theme} ${builtins.toJSON cursor.size}"
-    ];
-  };
+  qt.enable = true;
 
   home = {
     pointerCursor = {
@@ -115,11 +91,6 @@ in
       # size = cursor.size; # stylix
     };
     sessionVariables = {
-      # HYPRCURSOR_THEME = cursor.theme;
-      # HYPRCURSOR_SIZE = cursor.size;
-      # XCURSOR_THEME = cursor.theme;
-      # XCURSOR_SIZE = cursor.size;
-
       QT_QPA_PLATFORM = "wayland;xcb";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
@@ -131,7 +102,7 @@ in
     };
     packages = with pkgs; [
       dmenu
-      polkit_gnome  # exclusively here
+      polkit_gnome # exclusively here
       wlr-randr
       ydotool
       wl-clipboard
@@ -154,64 +125,5 @@ in
       hyprsysteminfo
       hyprland-qt-support
     ];
-    #TODO: change shebangs with direct path to a system's bash executable
-    file =
-      let
-        generic = {
-          enable = true;
-          executable = true;
-          force = true;
-        };
-      in
-      {
-        hyprlock-status = generic // {
-          target = "./execs/hyprlock/status.sh";
-          text = ''
-            #!/usr/bin/env bash
-
-            ############ Variables ############
-            enable_battery=false
-            battery_charging=false
-
-            ####### Check availability ########
-            for battery in /sys/class/power_supply/*BAT*; do
-              if [[ -f "$battery/uevent" ]]; then
-                enable_battery=true
-                if [[ $(cat /sys/class/power_supply/*/status | head -1) == "Charging" ]]; then
-                  battery_charging=true
-                fi
-                break
-              fi
-            done
-
-            ############# Output #############
-            if [[ $enable_battery == true ]]; then
-              if [[ $battery_charging == true ]]; then
-                echo -n "(+) "
-              fi
-              echo -n "$(cat /sys/class/power_supply/*/capacity | head -1)"%
-              if [[ $battery_charging == false ]]; then
-                echo -n " remaining"
-              fi
-            fi
-
-            echo \'\'
-          '';
-        };
-        hyprlock-label = generic // {
-          target = "./execs/hyprlock/label.sh";
-          text = ''
-            #!/usr/bin/env bash
-
-            if [ "$1" -eq 0 ]; then
-              echo ""
-            else
-              echo "There were failed attempts: $1"
-              printf "\n"
-              echo "Last fail reason: $2"
-            fi
-          '';
-        };
-      };
   };
 }
