@@ -81,6 +81,16 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        systems.follows = "systems";
+        nur.follows = "nur";
+      };
+    };
+
     # anyrun = {
     #   url = "github:anyrun-org/anyrun";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -188,6 +198,7 @@
                   home-manager.nixosModules.home-manager
                   disko.nixosModules.disko
                   agenix.nixosModules.default
+                  stylix.nixosModules.stylix
                 ]
                 ++ (lib.optionals cfg.useAgenixRekey [ agenix-rekey.nixosModules.default ])
               )
@@ -221,6 +232,7 @@
                     sharedModules = with inputs; [
                       agenix.homeManagerModules.default
                       zen-browser.homeModules.beta
+                      # stylix.homeModules.stylix
                     ];
                     users = {
                       "${cfg.username}" = ./hosts/jeta/home-manager.nix;

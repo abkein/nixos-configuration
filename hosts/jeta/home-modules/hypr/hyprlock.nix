@@ -1,4 +1,7 @@
 { config, cfg, ... }:
+let
+  hex2hypr = color: "rgba(${builtins.substring 1 (-1) color})";
+in
 {
   xdg.configFile = {
     hyprlock-te = {
@@ -23,22 +26,23 @@
     enable = true;
     settings =
       let
-        text_color = "rgba(E2E2E2FF)";
-        entry_background_color = "rgba(13131311)";
-        entry_border_color = "rgba(91919155)";
-        entry_color = "rgba(C6C6C6FF)";
+        text_color = hex2hypr "#E2E2E2FF";
+        entry_background_color = hex2hypr "#13131311";
+        entry_border_color = hex2hypr "#91919155";
+        entry_color = hex2hypr "#C6C6C6FF";
         font_family = "Gabarito";
         font_family_clock = "Gabarito";
         # font_material_symbols = "Material Symbols Outlined";
         font_material_symbols = "Material Symbols Rounded";
-        background_color = "rgba(13131377)";
+
         main_mon = "eDP-1";
       in
       {
         background = {
-          color = background_color;
           # path = "{{ SWWW_WALL }}";
           # path = "${cfg.userhome}/Pictures/Wallpapers/oxvp59.png";
+
+          # color = background_color; # stylix
           path = "${cfg.userhome}/Pictures/Wallpapers/memorize.jpg";
           blur_size = 1; # 5
           blur_passes = 1; # 4
@@ -51,10 +55,14 @@
           outline_thickness = 2;
           dots_size = 0.1;
           dots_spacing = 0.3;
-          outer_color = entry_border_color;
-          inner_color = entry_background_color;
-          font_color = entry_color;
           # fade_on_empty = true;
+
+          # stylix
+          # outer_color = entry_border_color;
+          # inner_color = entry_background_color;
+          # font_color = entry_color;
+          # fail_color
+          # check_color
 
           position = "0, 20";
           halign = "center";

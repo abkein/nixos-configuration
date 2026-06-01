@@ -14,6 +14,6 @@
     ./dunst.nix
     ./zotero.nix
     ./ssh.nix
-    ./wofi.nix
+    # ./wofi.nix
   ];
 }

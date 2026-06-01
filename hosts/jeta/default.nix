@@ -259,20 +259,6 @@
 
       nix-output-monitor
 
-      # system
-      polkit_gnome
-      wlr-randr
-      ydotool
-      wl-clipboard
-      hyprland-protocols
-      xdg-utils
-      xdg-user-dirs
-      xdg-ninja
-      xdg-launch
-      xdg-terminal-exec
-      hyprland-workspaces
-      hyprland-activewindow
-
       # syncthingtray
 
       drm_info
@@ -313,14 +299,12 @@
       nerd-fonts.jetbrains-mono
       nerd-fonts.symbols-only
       noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-color-emoji
-      lmodern
-      # noto-fonts
-      # noto-fonts-color-emoji
-      # noto-fonts-lgc-plus
+      noto-fonts-lgc-plus
+      # noto-fonts-cjk-sans
       # noto-fonts-cjk-sans
       # noto-fonts-cjk-serif
+      noto-fonts-color-emoji
+      lmodern
       # powerline-fonts
       # powerline-symbols
       corefonts
@@ -338,23 +322,21 @@
       enable = true;
       useEmbeddedBitmaps = true;
       defaultFonts = {
-        monospace = [
-          "JetBrainsMono Nerd Font"
+        serif = [
+          "Noto Serif"
           "Symbols Nerd Font"
-          # "DejaVu Sans Mono"
-          # "Noto Color Emoji"
+          # "DejaVu Serif"
         ];
         sansSerif = [
           "Noto Sans"
           "Symbols Nerd Font"
           # "DejaVu Sans"
-          # "Noto Color Emoji"
         ];
-        serif = [
-          "Noto Serif"
+        monospace = [
+          "Noto Sans Mono"
           "Symbols Nerd Font"
-          # "DejaVu Serif"
-          # "Noto Color Emoji"
+          # "DejaVu Sans Mono"
+          # "JetBrainsMono Nerd Font"
         ];
         emoji = [ "Noto Color Emoji" ];
       };

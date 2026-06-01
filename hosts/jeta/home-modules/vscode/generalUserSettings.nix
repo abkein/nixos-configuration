@@ -45,7 +45,7 @@ lib.mkMerge (
 
       window = {
         titleBarStyle = "custom";
-        customTitleBarVisibility = "hidden";
+        customTitleBarVisibility = "never";
         dialogStyle = "custom";
         menuBarVisibility = "hidden";
       };
@@ -103,12 +103,13 @@ lib.mkMerge (
       };
 
       workbench = {
-        colorTheme = "Dark Modern";
+        colorTheme = "Dark Modern";  # stylix
         layoutControl.enabled = false;
         secondarySideBar.defaultVisibility = "hidden";
         # editorAssociations = builtins.toJSON {
         #   "*.pdf" = "pdf.preview";
         # };
+        navigationControl.enabled = false;
       };
 
       "keyboard.dispatch" = "keyCode";

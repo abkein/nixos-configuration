@@ -9,6 +9,7 @@
   imports = [
     ./hyprland-regreet-conf.nix
     ./regreet.nix
+    ./stylix.nix
   ];
 
   home-manager.users.${cfg.username}.wayland.windowManager.hyprland = {

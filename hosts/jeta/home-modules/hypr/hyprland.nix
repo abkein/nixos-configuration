@@ -30,11 +30,6 @@ in
 
       # ];
 
-      exec-once = [
-        # "hyprctl setcursor Bibata-Modern-Classic 24"
-        "hyprctl setcursor Vanilla-DMZ 24"
-      ];
-
       general = {
         # Gaps and border
         border_size = 1;
@@ -43,8 +38,8 @@ in
         float_gaps = 5;
         gaps_workspaces = 50;
 
-        "col.active_border" = hex2hypr "#0DB7D4FF"; # hex2hypr "#eae0e445"
-        "col.inactive_border" = hex2hypr "#00000000"; # hex2hypr "#9a8d9533";
+        # "col.active_border" = hex2hypr "#0DB7D4FF"; # hex2hypr "#eae0e445"  # stylix
+        # "col.inactive_border" = hex2hypr "#00000000"; # hex2hypr "#9a8d9533";  # stylix
 
         layout = "dwindle";
         no_focus_fallback = true;
@@ -76,7 +71,7 @@ in
           enabled = true;
           range = 10;
           render_power = 3;
-          color = hex2hypr "#0DB7D4FF"; # hex2hypr "#ee1a1a1a";
+          # color = hex2hypr "#0DB7D4FF"; # hex2hypr "#ee1a1a1a";  # stylix
           color_inactive = hex2hypr "#0000001A";
           offset = "0 2";
         };

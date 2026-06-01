@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 # See dunst(5) for all configuration options
 {
   services.dunst = {
@@ -129,7 +129,7 @@
         #  * foreground: use the same color as the foreground;
         #  * frame: use the same color as the frame;
         #  * anything else will be interpreted as a X color.
-        separator_color = "frame";
+        # separator_color = "frame";  # stylix
 
         # Sort type.
         # possible values are:
@@ -148,7 +148,7 @@
 
         ### Text ###
 
-        font = "Monospace 8";
+        # font = "Monospace 8";  # stylix
 
         # The spacing between lines.  If the height is smaller than the
         # font height, it will get raised to the font height.
@@ -301,10 +301,10 @@
         ### Misc/Advanced ###
 
         # dmenu path.
-        dmenu = "/usr/bin/dmenu -p dunst:";
+        dmenu = "${pkgs.dmenu}/bin/dmenu -p dunst:";
 
         # Browser for opening urls in context menu.
-        browser = "/usr/bin/xdg-open";
+        browser = "${pkgs.xdg-utils}/bin/xdg-open";
 
         # Always run rule-defined scripts, even if the notification is suppressed
         always_run_script = true;
@@ -391,16 +391,20 @@
       urgency_low = {
         # IMPORTANT: colors have to be defined in quotation marks.
         # Otherwise the "#" and following would be interpreted as a comment.
-        background = "#222222";
-        foreground = "#888888";
+        # background = "#222222"; # stylix
+        # foreground = "#888888"; # stylix
+        # frame_color = ""; # stylix
+        # highlight = ""; # stylix
         timeout = 10;
         # Icon for notifications with low urgency
         default_icon = "dialog-information";
       };
 
       urgency_normal = {
-        background = "#285577";
-        foreground = "#ffffff";
+        # background = "#285577"; # stylix
+        # foreground = "#ffffff"; # stylix
+        # frame_color = ""; # stylix
+        # highlight = ""; # stylix
         timeout = 10;
         override_pause_level = 30;
         # Icon for notifications with normal urgency
@@ -408,9 +412,10 @@
       };
 
       urgency_critical = {
-        background = "#900000";
-        foreground = "#ffffff";
-        frame_color = "#ff0000";
+        # background = "#900000";  # stylix
+        # foreground = "#ffffff";  # stylix
+        # frame_color = "#ff0000";  # stylix
+        # highlight = ""; # stylix
         timeout = 0;
         override_pause_level = 60;
         # Icon for notifications with critical urgency

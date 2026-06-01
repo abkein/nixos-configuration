@@ -3,6 +3,22 @@ let
   needed_extensions = import ./needed_exts.nix pkgs;
 in
 {
+  stylix.targets.vscode = {
+    enable = false;
+    fonts.enable = false;
+    # https://github.com/technosophos/vscode-base16
+    # https://github.com/mk12/base16-modern-scheme
+    colors.enable = false;
+    profileNames = [
+      "default"
+      "nix"
+      "LaTeX"
+      "python"
+      "cpp"
+      "ts"
+      "remote"
+    ];
+  };
   better-code = {
     enable = true;
     code-package = pkgs.vscode;

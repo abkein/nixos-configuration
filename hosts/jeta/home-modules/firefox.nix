@@ -20,6 +20,7 @@ let
   moz_home = "${config.xdg.configHome}/mozilla";
 in
 {
+  stylix.targets.firefox.profileNames = [ "default" ];
   home.sessionVariables.MOZ_HOME = moz_home;
   programs.firefox = {
     enable = true;

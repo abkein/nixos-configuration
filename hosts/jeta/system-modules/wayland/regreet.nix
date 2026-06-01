@@ -1,5 +1,12 @@
 { cfg, ... }:
 {
+  stylix.targets.regreet = {
+    # image = {
+    #   enable = true;
+    #   override = "${cfg.userhome}/Pictures/Wallpapers/rocket.png";
+    # };
+    # imageScalingMode.override = ;
+  };
   programs.regreet = {
     enable = true;
     settings = {
@@ -14,7 +21,7 @@
         # Available values: "Fill", "Contain", "Cover", "ScaleDown"
         # Refer to: https://docs.gtk.org/gtk4/enum.ContentFit.html
         # NOTE: This is ignored if ReGreet isn't compiled with GTK v4.8 support.
-        fit = "Contain";
+        # fit = "Contain";  # stylix
       };
 
       # The entries defined in this section will be passed to the session as environment variables when it is started
