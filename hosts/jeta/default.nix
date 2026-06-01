@@ -216,7 +216,7 @@
 
   security = {
     virtualisation.flushL1DataCache = "always";
-    soteria.enable = true;
+    # soteria.enable = true;
     # protectKernelImage = true; # test
 
     rtkit.enable = true; # At least needed by PipeWire
