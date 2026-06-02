@@ -14,6 +14,7 @@
     ./dunst.nix
     ./zotero.nix
     ./ssh.nix
+    ./networkmanager_dmenu.nix
     # ./wofi.nix
   ];
 }

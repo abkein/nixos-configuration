@@ -90,7 +90,6 @@ in
         grim
         grimblast
 
-        networkmanager_dmenu
         networkmanagerapplet
         qpwgraph
 
