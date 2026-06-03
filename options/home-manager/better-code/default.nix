@@ -424,7 +424,7 @@ in
           basic_code_CMD =
             profile: disable_envstr:
             let
-              envstr = lib.optionalString (cfg.envstr != "" && !disable_envstr) (
+              envstr = lib.optionalString (!disable_envstr) (
                 builtins.replaceStrings [ "$" ] [ "\\$" ] cfg.envstr
               );
             in

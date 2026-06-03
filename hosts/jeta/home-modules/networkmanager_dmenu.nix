@@ -6,7 +6,7 @@
       enable = true;
       executable = false;
       force = true;
-      text = lib.generators.toINI {
+      text = lib.generators.toINI { } {
         dmenu = {
           dmenu_command = "fuzzel";
           # Note that dmenu_command can contain arguments as well like:
@@ -16,7 +16,7 @@
           # `dmenu_command = fuzzel`
           active_chars = "==";
           # Use highlighting instead of active_chars (only applicable to Rofi / Wofi)
-          highlight = true;
+          highlight = false;
           # Foreground color of active connection (only applicable to Wofi)
           highlight_fg = "#5E35B1";
           # Background color of active connection (only applicable to Wofi)
@@ -65,8 +65,8 @@
         };
 
         editor = {
-          terminal = "xterm";
-          gui_if_available = false;
+          terminal = "ghostty";
+          gui_if_available = true;
           gui = "nm-connection-editor";
         };
 

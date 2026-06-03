@@ -1,7 +1,6 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 {
   lib,
   pkgs,
@@ -299,8 +298,8 @@
       nerd-fonts.jetbrains-mono
       nerd-fonts.symbols-only
       noto-fonts
-      noto-fonts-lgc-plus
-      # noto-fonts-cjk-sans
+      # noto-fonts-lgc-plus
+      noto-fonts-cjk-sans
       # noto-fonts-cjk-sans
       # noto-fonts-cjk-serif
       noto-fonts-color-emoji
@@ -336,9 +335,12 @@
           "Noto Sans Mono"
           "Symbols Nerd Font"
           # "DejaVu Sans Mono"
-          # "JetBrainsMono Nerd Font"
+          "JetBrainsMono Nerd Font"
         ];
-        emoji = [ "Noto Color Emoji" ];
+        emoji = [
+          "Noto Color Emoji"
+          "Symbols Nerd Font"
+        ];
       };
     };
   };

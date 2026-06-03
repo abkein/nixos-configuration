@@ -106,7 +106,7 @@ lib.mkMerge (
         colorTheme = "Dark Modern"; # stylix
         layoutControl.enabled = false;
         secondarySideBar.defaultVisibility = "hidden";
-        # editorAssociations = builtins.toJSON {
+        # editorAssociations = mylib.literal {
         #   "*.pdf" = "pdf.preview";
         # };
         navigationControl.enabled = false;
@@ -188,9 +188,9 @@ lib.mkMerge (
       sonarlint = {
         "connectedMode.connections.sonarcloud" = [
           {
-            "organizationKey" = "abkein";
-            "connectionId" = "abkein";
-            "region" = "EU";
+            organizationKey = "abkein";
+            connectionId = "abkein";
+            region = "EU";
           }
         ];
         rules = mylib.literal {
@@ -227,10 +227,10 @@ lib.mkMerge (
       "[cpp]" = mylib.literal { "editor.tabSize" = 2; };
       "[nix]" = mylib.literal { "editor.tabSize" = 2; };
 
-      nixEnvSelector = {
-        # suggestion = false;
-        # useFlakes = true;
-      };
+      # nixEnvSelector = {
+      #   suggestion = false;
+      #   useFlakes = true;
+      # };
 
       nix = {
         enableLanguageServer = true;

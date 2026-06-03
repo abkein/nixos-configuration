@@ -162,7 +162,7 @@ in
       RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
       ELECTRUMDIR = "${config.xdg.dataHome}/electrum";
       # export TEXMFVAR="${root}/.texmf-var"
-            # export TEXMFCONFIG="${root}/.texmf-config"
+      # export TEXMFCONFIG="${root}/.texmf-config"
       TEXMFCACHE = "${config.xdg.cacheHome}/texmf-var";
       TEXMFVAR = "${config.xdg.cacheHome}/texmf-var";
       TEXMFCONFIG = "${config.xdg.configHome}/texmf-config";
@@ -187,10 +187,6 @@ in
   programs = {
     npm.settings = {
       prefix = "${config.xdg.cacheHome}/npm";
-    };
-    keepassxc = {
-      enable = true;
-      autostart = true;
     };
     codex = {
       enable = true;

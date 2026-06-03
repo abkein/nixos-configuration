@@ -8,13 +8,13 @@
     ./syncthing.nix
     ./dolphin.nix
     ./firefox.nix
-    ./dot-config-files.nix
     ./files.nix
     ./waybar.nix
     ./dunst.nix
     ./zotero.nix
     ./ssh.nix
     ./networkmanager_dmenu.nix
+    ./keepassxc.nix
     # ./wofi.nix
   ];
 }
