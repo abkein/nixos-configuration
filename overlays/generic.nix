@@ -4,4 +4,5 @@ self: super: {
   ibus-engines = super.ibus-engines // {
     typing-booster-unwrapped = super.callPackage ../pkgs/ibus-typing-booster { };
   };
+  vimix-icon-theme = super.callPackage ../pkgs/vimix-icon-theme.nix { };
 }
