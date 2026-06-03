@@ -19,6 +19,14 @@ in
       "remote"
     ];
   };
+  home.packages = [
+    (pkgs.runCommand "vscode-icon-fix" { } ''
+      mkdir -p $out/share/icons/hicolor/256x256/apps
+
+      ln -s ${config.programs.vscode.package}/share/icons/hicolor/1024x1024/apps/vscode.png \
+        $out/share/icons/hicolor/256x256/apps/vscode.png
+    '')
+  ];
   better-code = {
     enable = true;
     code-package = pkgs.vscode;

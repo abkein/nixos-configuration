@@ -8,7 +8,7 @@
       force = true;
       text = lib.generators.toINI { } {
         dmenu = {
-          dmenu_command = "fuzzel";
+          dmenu_command = "wofi";
           # Note that dmenu_command can contain arguments as well like:
           # `dmenu_command = rofi -i -theme nmdm`
           # `dmenu_command = rofi -width 30 -i`
@@ -16,7 +16,7 @@
           # `dmenu_command = fuzzel`
           active_chars = "==";
           # Use highlighting instead of active_chars (only applicable to Rofi / Wofi)
-          highlight = false;
+          highlight = true;
           # Foreground color of active connection (only applicable to Wofi)
           highlight_fg = "#5E35B1";
           # Background color of active connection (only applicable to Wofi)
@@ -51,7 +51,7 @@
           # Uses the -password flag for Rofi, -x for bemenu. For dmenu, sets -nb and
           # -nf to the same color or uses -P if the dmenu password patch is applied
           # https://tools.suckless.org/dmenu/patches/password/
-          obscure = false;
+          obscure = true;
           obscure_color = "#222222";
           # show_pass is the complete CLI command to show current WiFi password in a new terminal window.
           # Typically `<terminal --hold -e nmcli device wifi show-password>`

@@ -1,14 +1,33 @@
 { config, pkgs, ... }:
 {
-  stylix.targets.ghostty.enable = false;
-  stylix.targets.fuzzel.fonts.override = {
-    sizes = {
-      # applications = 14;
-      # desktop = 14;
-      popups = 14;
-      # terminal = 14;
+  imports = [
+    ./networkmanager_dmenu.nix
+    ./waybar.nix
+    ./wofi.nix
+  ];
+
+  services = {
+    cliphist = {
+      enable = true;
+      allowImages = true;
     };
   };
+
+  home.packages = with pkgs; [
+    dmenu
+    polkit_gnome # exclusively here
+    wlr-randr
+    ydotool
+    wl-clipboard
+    
+    xdg-utils
+    xdg-user-dirs
+    xdg-launch
+    xdg-terminal-exec
+    xdg-ninja
+  ];
+
+  stylix.targets.ghostty.enable = false;
   programs = {
     swayimg = {
       enable = true;
@@ -27,31 +46,6 @@
         font-size = 10; # stylix
         term = "xterm";
         clipboard-trim-trailing-spaces = true;
-      };
-    };
-    fuzzel = {
-      enable = true;
-      settings = {
-        main = {
-          show-actions = true;
-          terminal = "${pkgs.ghostty}/bin/ghostty -e {cmd}";
-          keyboard-focus = "on-demand"; # exclusive
-          auto-select = true;
-          message-mode = "wrap";
-          width = 90;
-          line-height = 30;
-          tabs = 4;
-        };
-        # stylix
-        # colors = {
-        #   background = "282a36fa";
-        #   selection = "3d4474fa";
-        #   border = "fffffffa";
-        # };
-
-        border = {
-          radius = 20;
-        };
       };
     };
     swappy = {
