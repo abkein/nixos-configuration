@@ -24,9 +24,11 @@
     };
     icons = {
       enable = true;
-      dark = "Adwaita";
+      # dark = "Adwaita";
+      dark = "mint-x";
       light = null;
-      package = pkgs.adwaita-icon-theme;
+      # package = pkgs.adwaita-icon-theme;
+      package = pkgs.mint-x-icons;
     };
     opacity = {
       applications = 1.0;

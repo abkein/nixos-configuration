@@ -3,7 +3,8 @@
   imports = [
     ./networkmanager_dmenu.nix
     ./waybar.nix
-    ./wofi.nix
+    ./fuzzel.nix
+    # ./wofi.nix
   ];
 
   services = {
@@ -19,7 +20,7 @@
     wlr-randr
     ydotool
     wl-clipboard
-    
+
     xdg-utils
     xdg-user-dirs
     xdg-launch

@@ -8,7 +8,7 @@
       # terminal = 14;
     };
   };
-  fuzzel = {
+  programs.fuzzel = {
     enable = true;
     settings = {
       main = {

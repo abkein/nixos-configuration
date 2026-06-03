@@ -2,14 +2,15 @@
 {
   programs = {
     wofi = {
-      enable = true;
+      enable = false;
       settings = {
         mode = "drun";
         filter_rate = 100;
         matching = "contains";
         insensitive = true;
         term = "ghostty";
-        password = "*";
+        # password = "*";
+        print_line_num = true;
         gtk_dark = true;
         line_wrap = "word";
         layer = "overlay";
