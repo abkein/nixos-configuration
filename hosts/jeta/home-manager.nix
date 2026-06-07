@@ -7,6 +7,7 @@
 }:
 let
   runtimeDir = "/run/user/1000";
+  vimixPkg = (pkgs.vimix-icon-theme.override { colorVariants = [ "standard" ]; });
 in
 {
   imports = [
@@ -90,7 +91,6 @@ in
         grim
         grimblast
 
-        networkmanagerapplet
         qpwgraph
 
         # text
@@ -112,10 +112,6 @@ in
         baobab
         bleachbit
 
-        # security
-        gpgme
-        gpgme.dev
-
         # image/audio/video
         vlc
         gimp
@@ -124,6 +120,33 @@ in
         # inkscape-extensions.textext
 
         zoom-us
+        (runCommand "zoom-icon-fix" { } ''
+          mkdir -p $out/share/icons/hicolor/256x256
+
+          ln -s ${pkgs.zoom-us}/share/pixmaps \
+            $out/share/icons/hicolor/256x256/apps
+        '')
+
+        gucharmap
+        (runCommand "gucharmap-icon-fix" { } ''
+          mkdir -p $out/share/icons/hicolor/scalable/apps
+
+          ln -s ${vimixPkg}/share/icons/Vimix/scalable/apps/accessories-character-map.svg \
+            $out/share/icons/hicolor/scalable/apps/accessories-character-map.svg
+        '')
+        networkmanagerapplet
+        (runCommand "networkmanaerapplet-icon-fix" { } ''
+          mkdir -p $out/share/icons/hicolor/scalable/apps
+
+          ln -s ${vimixPkg}/share/icons/Vimix/scalable/preferences/preferences-system-network.svg \
+            $out/share/icons/hicolor/scalable/apps/preferences-system-network.svg
+        '')
+
+
+        ipfetch
+        cpufetch
+        ramfetch
+
         qrencode
         libnotify
 

@@ -2,8 +2,8 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
-  lib,
   pkgs,
+  lib,
   cfg,
   ...
 }:
@@ -246,6 +246,15 @@
 
   environment = {
     systemPackages = with pkgs; [
+      (runCommand "blueman-icon-fix" { } ''
+        mkdir -p $out/share/icons/hicolor/scalable/apps
+        ln -s ${blueman}/share/icons/hicolor/scalable/devices/blueman-device.svg \
+          $out/share/icons/hicolor/scalable/apps/blueman-device.svg
+
+        mkdir -p $out/share/icons/hicolor/16x16/apps
+        ln -s ${blueman}/share/icons/hicolor/16x16/devices/blueman-device.png \
+          $out/share/icons/hicolor/16x16/apps/blueman-device.png
+      '')
       clinfo
       vulkan-tools
 
@@ -267,7 +276,6 @@
       # utilities
       pinentry-all
       usbutils
-      gucharmap
 
       evtest
       acpi

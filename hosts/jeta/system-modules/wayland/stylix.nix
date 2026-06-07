@@ -25,10 +25,14 @@
     icons = {
       enable = true;
       # dark = "Adwaita";
-      dark = "mint-x";
-      light = null;
+      # light = "Adwaita";
+      # dark = "Vimix-amethyst";
+      # light = "Vimix-amethyst";
+      dark = "hicolor";
+      light = "hicolor";
+      # package = pkgs.vimix-icon-theme;
       # package = pkgs.adwaita-icon-theme;
-      package = pkgs.mint-x-icons;
+      package = pkgs.hicolor-icon-theme;
     };
     opacity = {
       applications = 1.0;
