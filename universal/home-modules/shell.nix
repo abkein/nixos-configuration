@@ -17,7 +17,6 @@
   };
 
   programs = {
-    fastfetch.enable = true;
     ripgrep.enable = true;
     ripgrep-all.enable = true;
     bat.enable = true;
