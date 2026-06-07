@@ -49,6 +49,12 @@ in
         Port = 22;
         ProxyCommand = "${keepassxc_ssh_prompt} %h %p";
       };
+      yun6 = with ssh-creds.yun; {
+        HostName = host6;
+        User = user;
+        Port = 22;
+        ProxyCommand = "${keepassxc_ssh_prompt} %h %p";
+      };
       github = {
         HostName = "github.com";
         User = "git";

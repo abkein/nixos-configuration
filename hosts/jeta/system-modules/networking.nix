@@ -30,8 +30,29 @@
     #     noProxy = "127.0.0.1,localhost,internal.domain";
     #   };
     firewall = {
-      allowedTCPPorts = [ 1716 ];
-      allowedUDPPorts = [ 1716 ];
+      allowedTCPPorts = [ 1716 ]; # KDEconnect
+      allowedUDPPorts = [ 1716 ]; # KDEconnect
+    };
+  };
+
+  services = {
+    dnscrypt-proxy.settings = {
+      monitoring_ui = {
+        enabled = true;
+        listen_address = "127.0.0.1:8181";
+        username = "admin";
+        password = "admin";
+        # tls_certificate = "";
+        # tls_key = "";
+        enable_query_log = true;
+        privacy_level = 0;
+      };
+      local_doh = {
+        listen_addresses = [ "127.0.0.1:3000" ];
+        path = "/dns-query";
+        cert_file = ./localhost.pem;
+        cert_key_file = ./localhost.pem;
+      };
     };
   };
 
