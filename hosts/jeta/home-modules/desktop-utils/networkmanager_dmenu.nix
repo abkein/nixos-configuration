@@ -8,7 +8,7 @@
       force = true;
       text = lib.generators.toINI { } {
         dmenu = {
-          dmenu_command = "wofi";
+          dmenu_command = "fuzzel";
           # Note that dmenu_command can contain arguments as well like:
           # `dmenu_command = rofi -i -theme nmdm`
           # `dmenu_command = rofi -width 30 -i`
