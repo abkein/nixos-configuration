@@ -128,16 +128,16 @@ in
     policies = {
       AutofillCreditCardEnabled = false;
       CaptivePortal = true;
-      DNSOverHTTPS = {
-        Enabled = true;
-        ProviderURL = "https://8.8.8.8/dns-query"; # 8.8.8.8, 8.8.4.4
-        # ProviderURL = "https://mozilla.cloudflare-dns.com/dns-query";  # 162.159.61.4 172.64.41.4
-        # ProviderURL = "https://dns.cloudflare.com/dns-query";  # 162.159.61.4 172.64.41.4
-        # ProviderURL = "https://dns.quad9.net/dns-query";  # 9.9.9.9, 149.112.112.112
-        Locked = true;
-        ExcludedDomains = [ ];
-        Fallback = false;
-      };
+      # DNSOverHTTPS = {
+      #   Enabled = true;
+      #   ProviderURL = "https://8.8.8.8/dns-query"; # 8.8.8.8, 8.8.4.4
+      #   # ProviderURL = "https://mozilla.cloudflare-dns.com/dns-query";  # 162.159.61.4 172.64.41.4
+      #   # ProviderURL = "https://dns.cloudflare.com/dns-query";  # 162.159.61.4 172.64.41.4
+      #   # ProviderURL = "https://dns.quad9.net/dns-query";  # 9.9.9.9, 149.112.112.112
+      #   Locked = true;
+      #   ExcludedDomains = [ ];
+      #   Fallback = false;
+      # };
       DisableAppUpdate = true;
       DisableSetDesktopBackground = true;
       EnableTrackingProtection = {
@@ -181,6 +181,7 @@ in
         "{0e10f3d7-07f6-4f12-97b9-9b27e07139a5}" # Netcraft Extension
       ]
       // L2A makeExt [
+        "{74145f27-f039-47ce-a470-a662b129930a}" # CleanURLs
         "en-US-Extended@averymiller.org" # English (US) Dictionary Extended
         "ruspell-wiktionary-eyo@addons.mozilla.org" # Словарь русской орфогр. из Викисловаря (ё,е)
         "ruspell-wiktionary@addons.mozilla.org" # Словарь русской орфографии из Викисловаря
