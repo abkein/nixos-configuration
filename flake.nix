@@ -206,10 +206,9 @@
                 ./hosts/jeta
                 {
                   nixpkgs = {
-                    # flake.source = self.outPath;
                     config = {
                       allowUnfree = true;
-                      rocmSupport = true;
+                      # rocmSupport = true;
                       warnUndeclaredOptions = true;
                     };
                     overlays =
@@ -289,9 +288,7 @@
               ++ [
                 ./hosts/yun
                 {
-                  nixpkgs = {
-                    # flake.source = self.outPath;
-                  };
+                  # nixpkgs = { };
                   environment.systemPackages = with ipkgs; [ (if cfg.useAgenixRekey then agenix-rekey else agenix) ];
                   home-manager = {
                     useGlobalPkgs = true;
