@@ -54,4 +54,8 @@
       };
     };
   };
+
+  programs = {
+    traceroute.enable = true;
+  };
 }
