@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   cfg,
   ...
 }:
@@ -11,7 +12,6 @@
 
   programs = {
     zsh.enable = true;
-    traceroute.enable = true;
     git = {
       enable = true;
       package = pkgs.gitFull;
@@ -33,33 +33,44 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    curl
-    inetutils
-    nmap
-    dig
-    openvpn
-    wget
-    iperf
+  environment = {
+    systemPackages = with pkgs; [
+      curl
+      inetutils
+      nmap
+      dig
+      openvpn
+      wget
+      iperf
 
-    speedtest-cli
-    ooniprobe-cli
+      speedtest-cli
+      ooniprobe-cli
 
-    jq
-    pstree
-    killall
-    file
-    hw-probe
-    zip
-    unzip
+      jq
+      pstree
+      killall
+      file
+      hw-probe
+      zip
+      unzip
 
-    nixfmt
-    age
-    git-agecrypt
+      nixfmt
+      age
+      git-agecrypt
 
-    ripgrep
-    ripgrep-all
-  ];
+      ripgrep
+      ripgrep-all
+    ];
+
+    profiles = lib.mkForce [
+      # "$HOME/.nix-profile"
+      # "\${XDG_STATE_HOME}/nix/profile"
+      "$HOME/.local/state/nix/profile"
+      # "/etc/profiles/per-user/$USER"
+      # "/nix/var/nix/profiles/default"  # ?????
+      "/run/current-system/sw"
+    ];
+  };
 
   nix = {
     channel.enable = false;
