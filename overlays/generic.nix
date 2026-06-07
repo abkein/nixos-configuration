@@ -1,8 +1,8 @@
 self: super: {
-  vscode-extensions.vscode-clang-tidy = import ../pkgs/vscode-clang-tidy/vscode-clang-tidy.nix super;
-  zotero-addons = super.callPackage ../pkgs/zotero-addons.nix { };
+  vscode-extensions.vscode-clang-tidy = import ../pkgs/vscode-clang-tidy/vscode-clang-tidy.nix self;
+  zotero-addons = self.callPackage ../pkgs/zotero-addons.nix { };
   ibus-engines = super.ibus-engines // {
-    typing-booster-unwrapped = super.callPackage ../pkgs/ibus-typing-booster { };
+    typing-booster-unwrapped = self.callPackage ../pkgs/ibus-typing-booster { };
   };
-  vimix-icon-theme = super.callPackage ../pkgs/vimix-icon-theme.nix { };
+  vimix-icon-theme = self.callPackage ../pkgs/vimix-icon-theme.nix { };
 }
