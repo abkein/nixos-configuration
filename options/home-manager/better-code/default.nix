@@ -587,7 +587,7 @@ in
                   exec
                   spec.run.post
                 ];
-              nix-args = builtins.concatStringsSep " " spec.nix-args;
+              nix-args = builtins.concatStringsSep " " flakeSpec.nix-args;
               flakeCMD = command: "nix flake ${command} ${resolvedFlake} ${nix-args}";
 
               environment-exec = command: "nix develop ${resolvedFlake} ${nix-args} --command ${command}";
@@ -595,7 +595,10 @@ in
                 cmd:
                 lib.concatStringsSep " " ([ (lib.getExe cfg.terminal-emulator) ] ++ cfg.terminal-args ++ [ cmd ]);
               workspaceNF =
-                if spec.workspaceFile.enable then config.xdg.configFile.${name}.target else "${spec.folder}";
+                if isWorkspace then
+                  (if spec.workspaceFile.enable then config.xdg.configFile.${name}.target else "${spec.folder}")
+                else
+                  null;
               workspaceF =
                 if flakeSpec.producesWorkspace then
                   "\\\\$BETTER_CODE_VSCODE_WORKSPACE_FILE"
@@ -603,6 +606,7 @@ in
                   workspaceNF
                 else
                   null;
+
               innerExec = mkLauncher "inner" flakeSpec (mkCodeCMD workspaceF);
 
               flake-commands = shellGen "better-code-${name}-${kind}-starter-flake-init" [
