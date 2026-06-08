@@ -287,7 +287,6 @@
 
       # onlykey-rebuilt
       # onlykey
-      simple-scan
 
       pcsc-tools
       pcsclite

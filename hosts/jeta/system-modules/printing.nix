@@ -18,6 +18,10 @@
   };
 
   programs.system-config-printer.enable = true;
+  environment.systemPackages = with pkgs; [
+    simple-scan
+    naps2
+  ];
 
   # Scanning
   hardware = {
