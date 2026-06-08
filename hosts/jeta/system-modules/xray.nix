@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
   xray-creds = import ../shadow/xray-creds.nix;
-  universal-xray = import ../../universal/system-modules/xray_conf.nix { inherit lib; };
+  universal-xray = import ../../../universal/system-modules/xray_conf.nix { inherit lib; };
 in
 {
   services.xray = {

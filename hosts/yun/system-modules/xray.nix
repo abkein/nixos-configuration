@@ -2,7 +2,7 @@
 let
   xray-creds = import ../shadow/xray-creds.nix;
   network-creds = import ../shadow/network.nix;
-  universal-xray = import ../../universal/system-modules/xray_conf.nix { inherit lib; };
+  universal-xray = import ../../../universal/system-modules/xray_conf.nix { inherit lib; };
 in
 {
   services.xray = {
