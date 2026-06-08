@@ -3,16 +3,138 @@
   config,
   pkgs,
   ...
-}@args:
+}@moduleArgs:
 
 let
   inherit (lib) mkOption mkIf types;
   cfg = config.better-code;
-  wtypes = import ./wtypes.nix args;
+  wtypes = import ./wtypes.nix moduleArgs;
   # Ensures generated profile name is unique across workspaces and the generated profile name is the same
   # for a workspace, based on its hash
   generateProfileName4Workspace =
     name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
+
+  run = {
+    pre = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "Commands to run before starting VSCode/flake.";
+      example = lib.literalExpression ''
+        [
+          "echo 'VSCode is going to be started!'"
+        ]
+      '';
+    };
+    post = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "Commands to run after VSCode/flake exited.";
+      example = lib.literalExpression ''
+        [
+          "echo 'VSCode is exited!'"
+        ]
+      '';
+    };
+  };
+
+  env = mkOption {
+    type = types.attrsOf types.str;
+    default = { };
+    description = "Environment to export.";
+    example = lib.literalExpression ''
+      {
+        http_proxy="http://127.0.0.1:1080";
+        https_proxy="http://127.0.0.1:1080";
+        no_proxy="localhost,127.0.0.0/8";
+      }
+    '';
+  };
+
+  mkFlakeOpt =
+    isWorkspace:
+    mkOption {
+      default = {
+        enable = false;
+        producesWorkspace = false;
+        run = {
+          pre = [ ];
+          post = [ ];
+        };
+        nix-args = [ ];
+      }
+      // (lib.optionalAttrs isWorkspace {
+        flake = null;
+        name = "default";
+      });
+      description = "Allows to launch code in nix development shell.";
+      type = types.submodule {
+        options = {
+          inherit run env;
+          enable = mkOption {
+            type = types.bool;
+            description = "Whether the environment is managed by a flake or unmanaged.";
+            default = false;
+            example = true;
+          };
+
+          producesWorkspace = mkOption {
+            type = types.bool;
+            description = ''
+              Whether the environment is producing a `*.code-workspace` file.
+              If so, the environment variable `$BETTER_CODE_VSCODE_WORKSPACE_FILE` must be exported, pointing to this file.
+            '';
+            default = false;
+            example = true;
+          };
+
+          commands = mkOption {
+            type = types.listOf (
+              types.enum [
+                "lock"
+                "update"
+                "prefetch"
+                "prefetch-inputs"
+              ]
+            );
+            description = "Whether to execute `nix flake $command` for each $command before starting.";
+            default = [ ];
+            example = lib.literalExpression ''
+              [ "update" "prefetch" ]
+            '';
+          };
+
+          nix-args = mkOption {
+            type = types.listOf types.str;
+            default = [ ];
+            description = "CLI arguments appended after `nix develop flake-uri[#name]` before `--command`.";
+            example = lib.literalExpression ''
+              [ "--override-input nixpkgs nixpkgs-unstable" ]
+            '';
+          };
+        }
+        // (lib.optionalAttrs isWorkspace {
+          flake = mkOption {
+            type = types.nullOr types.str;
+            description = "flake-uri[#name] or `null` (uses the workspace folder).";
+            default = null;
+            example = "~/devShells#myShell";
+          };
+          name = mkOption {
+            type = types.nullOr types.str;
+            description = "Name of flake if the workspace folder is used as its uri.";
+            default = "default";
+            example = "myShell";
+          };
+        })
+        // (lib.optionalAttrs (!isWorkspace) {
+          flake = mkOption {
+            type = types.str;
+            description = "flake-uri[#name] or `null` (uses the workspace folder).";
+            example = "~/devShells#myShell";
+          };
+        });
+      };
+    };
 in
 {
   options = {
@@ -23,17 +145,48 @@ in
         description = "Enable the automated VSCode configuration.";
       };
 
+      variant = mkOption {
+        type = types.str;
+        default = "vscode";
+        description = ''
+          Variant of VSCode, according to Home Manager's (`programs.''${variant}`).
+          Currently only `vscode` or `vscodium`, but you can set any*.
+
+          *Note that the option `programs.''${variant}` should exist and be compatible with Home Manager's `programs.vscode`.
+        '';
+      };
+
+      package = mkOption {
+        type = types.nullOr types.package;
+        default = null;
+        description = "The VSCode package to use.";
+        example = pkgs.vscodium;
+      };
+
       mutableExtensionsDir = mkOption {
         type = types.nullOr types.bool;
         default = null;
         description = "Whether extensions can be installed or updated manually or by Visual Studio Code.";
       };
 
-      code-package = mkOption {
-        type = types.nullOr types.package;
+      enableUpdateCheck = mkOption {
+        type = types.nullOr types.bool;
         default = null;
-        description = "The VSCode package to use.";
-        example = pkgs.vscodium;
+        description = ''
+          Whether to enable update checks/notifications.
+          Can only be set for the default profile, but
+          applies to all profiles.
+        '';
+      };
+
+      enableExtensionUpdateCheck = mkOption {
+        type = types.nullOr types.bool;
+        default = null;
+        description = ''
+          Whether to enable update notifications for extensions.
+          Can only be set for the default profile, but
+          applies to all profiles.
+        '';
       };
 
       nix4vscodeAlways = mkOption {
@@ -53,27 +206,30 @@ in
           workspaceSelectorIcon = "vscode";
           profileSelectorIcon = "vscode";
         };
-        description = "Configuration of generation of desktop entries for workspaces and profiles.";
+        description = ''
+          Configuration of generation of desktop entries for workspaces and profiles.
+          Note that your application launcher should display actions, otherwise it's useless.
+        '';
         type = types.submodule {
           options = {
             enable = mkOption {
               type = types.bool;
-              description = "Whether to create desktop entries.";
+              description = "Whether to enable creation of desktop entries.";
               default = false;
               example = true;
             };
 
             workspaceSelectorIcon = mkOption {
               type = types.str;
-              description = "Workspace selector entry icon.";
-              default = "vscode";
+              description = "Workspace selector entry icon. Would be set to `Icon=` field in the generated .desktop file.";
+              default = cfg.variant;
               example = "vscodium";
             };
 
             profileSelectorIcon = mkOption {
               type = types.str;
-              description = "Profile selector entry icon.";
-              default = "vscode";
+              description = "Workspace selector entry icon. Would be set to `Icon=` field in the generated .desktop file.";
+              default = cfg.variant;
               example = "vscodium";
             };
           };
@@ -90,16 +246,16 @@ in
       terminal-args = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = "Additional CLI arguments provided to teminal emulator instance";
+        description = "Additional CLI arguments provided to teminal emulator instance. Commands are added last.";
         example = lib.literalExpression ''
-          [ "--app-id=kitty_info" ]
+          [ "--app-id=vscode-launch-status" ]
         '';
       };
 
       args = mkOption {
         type = types.listOf types.str;
         default = [ ];
-        description = "Additional CLI arguments provided to every VSCode instance";
+        description = "Additional CLI arguments provided to every VSCode instance.";
         example = lib.literalExpression ''
           [
             "--password-store=gnome-libsecret"
@@ -108,20 +264,18 @@ in
         '';
       };
 
-      envstr = mkOption {
-        type = types.str;
-        description = "Environment string to place before every VSCode instance.";
-        default = "";
-        example = "http_proxy=http://127.0.0.1:1080 https_proxy=$http_proxy no_proxy=localhost,127.0.0.0/8";
-      };
-
       general = {
-        userSettings = wtypes.userSettings;
-        userTasks = wtypes.userTasks;
-        keybindings = wtypes.keybindings;
-        extensions = wtypes.extensions;
-        languageSnippets = wtypes.languageSnippets;
-        globalSnippets = wtypes.globalSnippets;
+        inherit env run;
+        inherit (wtypes)
+          userSettings
+          userTasks
+          keybindings
+          extensions
+          languageSnippets
+          globalSnippets
+          enableMcpIntegration
+          userMcp
+          ;
       };
 
       profiles = mkOption {
@@ -130,38 +284,18 @@ in
         type = types.attrsOf (
           types.submodule {
             options = {
-              userSettings = wtypes.userSettings;
-              userTasks = wtypes.userTasks;
-              keybindings = wtypes.keybindings;
-              extensions = wtypes.extensions;
-              languageSnippets = wtypes.languageSnippets;
-              globalSnippets = wtypes.globalSnippets;
-
-              disable_envstr = mkOption {
-                type = types.bool;
-                description = "Whether to disable `envstr` addition.";
-                default = false;
-              };
-
-              enableUpdateCheck = mkOption {
-                type = types.nullOr types.bool;
-                default = null;
-                description = ''
-                  Whether to enable update checks/notifications.
-                  Can only be set for the default profile, but
-                  it applies to all profiles.
-                '';
-              };
-
-              enableExtensionUpdateCheck = mkOption {
-                type = types.nullOr types.bool;
-                default = null;
-                description = ''
-                  Whether to enable update notifications for extensions.
-                  Can only be set for the default profile, but
-                  it applies to all profiles.
-                '';
-              };
+              inherit env run;
+              flake = mkFlakeOpt false;
+              inherit (wtypes)
+                userSettings
+                userTasks
+                keybindings
+                extensions
+                languageSnippets
+                globalSnippets
+                enableMcpIntegration
+                userMcp
+                ;
             };
           }
         );
@@ -173,40 +307,14 @@ in
         type = types.attrsOf (
           types.submodule {
             options = {
-              folder = mkOption {
-                type = types.str;
-                description = "Absolute path to the workspace folder.";
-                example = "/home/user/Projects/MyApp";
-              };
-
+              inherit env run;
+              flake = mkFlakeOpt true;
               extensions = wtypes.extensions;
 
-              prerun = mkOption {
-                type = types.listOf types.str;
-                default = [ ];
-                description = "Commands to run before opening VSCode.";
-                example = lib.literalExpression ''
-                  [
-                    "echo 'VSCode is going to be opened!'"
-                  ]
-                '';
-              };
-
-              postrun = mkOption {
-                type = types.listOf types.str;
-                default = [ ];
-                description = "Commands to run after VSCode is closed.";
-                example = lib.literalExpression ''
-                  [
-                    "echo 'VSCode is closed!'"
-                  ]
-                '';
-              };
-
-              disable_envstr = mkOption {
-                type = types.bool;
-                description = "Whether to disable `envstr` addition.";
-                default = false;
+              folder = mkOption {
+                type = types.path;
+                description = "Absolute path to the workspace folder.";
+                example = "/home/user/Projects/MyApp";
               };
 
               profile = mkOption {
@@ -219,10 +327,11 @@ in
               workspaceFile = mkOption {
                 default = {
                   enable = false;
+                  folders = [ ];
+                  addDefaultDir = true;
                   settings = { };
-                  addNixEnvSelect = false;
                 };
-                description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
+                description = "Creates `.code-workspace` file. See https://code.visualstudio.com/docs/editing/workspaces/multi-root-workspaces";
                 type = types.submodule {
                   options = {
                     enable = mkOption {
@@ -234,11 +343,46 @@ in
 
                     settings = wtypes.userSettings;
 
-                    addNixEnvSelect = mkOption {
+                    folders = mkOption {
+                      description = ''
+                        Folders to add into workspace.
+
+                        Note the folder specified in `better-code.workspaces.<name>.folder` is added automatically
+                        with the name of workspace. To disable this behavior set `addDefaultDir = false`.
+                      '';
+                      default = [ ];
+                      example = lib.literalExpression ''
+                        [
+                          {
+                            name = "My cool project";
+                            path = "/home/user/my-cool-project";
+                          }
+                        ]
+                      '';
+                      type = types.listOf (
+                        types.submodule {
+                          options = {
+                            name = mkOption {
+                              type = types.nullOr types.str;
+                              description = "Name of the folder added.";
+                              default = null;
+                              example = "My cool project";
+                            };
+                            path = mkOption {
+                              type = types.path;
+                              description = "Path to the folder added.";
+                              example = "/home/user/Documents/my-cool-project";
+                            };
+                          };
+                        }
+                      );
+                    };
+
+                    addDefaultDir = mkOption {
                       type = types.bool;
-                      description = "Whether to add settings for Nix Environment Selector extension.";
-                      default = false;
-                      example = true;
+                      default = true;
+                      example = false;
+                      description = "Whether to add the folder specified in `better-code.workspaces.<name>.folder` into workspace folders.";
                     };
                   };
                 };
@@ -250,79 +394,6 @@ in
                 default = null;
                 example = "use flake .";
               };
-
-              nix = mkOption {
-                default = {
-                  method = null;
-                  flakePath = null;
-                  launchInside = false;
-                  producesWorkspace = false;
-                  preinit = false;
-                  updateLock = false;
-                  overrideInputs = { };
-                };
-                description = "Attribute-set of VSCode workspace specs, keyed by workspace name.";
-                type = types.submodule {
-                  options = {
-                    method = mkOption {
-                      type = types.nullOr types.str;
-                      description = "Whether the environment is managed by shell, flake or unmanaged. Possible respective values are `shell`, `flake`, `null` (default).";
-                      default = null;
-                      example = "shell";
-                    };
-
-                    flakePath = mkOption {
-                      type = types.nullOr types.str;
-                      description = "Path to the flake (relative to the workspace folder, can include output name) or `null` (uses the workspace folder).";
-                      default = null;
-                      example = "~/devShells#myCPPShell";
-                    };
-
-                    launchInside = mkOption {
-                      type = types.bool;
-                      description = "Whether to launch vscode from the inside of the environment.";
-                      default = false;
-                      example = true;
-                    };
-
-                    producesWorkspace = mkOption {
-                      type = types.bool;
-                      description = ''
-                        Whether the environment is producing a `*.code-workspace` file.
-                        If so, the environment variable `$BETTER_CODE_VSCODE_WORKSPACE_FILE` must be present, pointing to this file.
-                        Makes sense only if `launchInside` option is true.
-                      '';
-                      default = false;
-                      example = true;
-                    };
-
-                    preinit = mkOption {
-                      type = types.bool;
-                      description = "Whether to initialize the environment before opening VSCode.";
-                      default = true;
-                      example = false;
-                    };
-
-                    updateLock = mkOption {
-                      type = types.bool;
-                      description = "Whether to regenerate `flake.lock` file during `preinit`.";
-                      default = false;
-                      example = true;
-                    };
-
-                    overrideInputs = mkOption {
-                      type = types.attrsOf types.str;
-                      description = "Overrides flake inputs via `--override-input \${name} \${source}`. Applies both to `preinit` and `launchInside`.";
-                      default = { };
-                      example = lib.literalExpression ''
-                        {
-                          nixpkgs="github:NixOS/nixpkgs/bfc1b8a4574108ceef22f02bafcf6611380c100d";
-                        }
-                      '';
-                    };
-                  };
-                };
-              };
             };
           }
         );
@@ -332,83 +403,124 @@ in
 
   config = mkIf cfg.enable (
     lib.mkMerge [
-      { programs.vscode.enable = true; }
-      (mkIf (cfg.code-package != null) { programs.vscode.package = cfg.code-package; })
+      (mkIf (cfg.workspaces != { }) {
+        assertions = lib.mapAttrsToList (
+          workspaceName: workspaceSpec: with workspaceSpec; {
+            assertion = workspaceFile.addDefaultDir || (workspaceFile.folders != [ ]);
+            message = "Better-code: workspaces: '${workspaceName}.workspaceFile': either enable `addDefaultDir` or specify `folders`. Otherwise the workspace will be empty!";
+          }
+        ) cfg.workspaces;
+      })
+      (mkIf (cfg.profiles != { }) {
+        assertions = lib.mapAttrsToList (
+          profileName: profileSpec: with profileSpec; {
+            assertion = (!flake.enable) || (flake.flake != null); # if flake.enable then (flake.flake != null) else true;
+            message = "Better-code: profiles: '${profileName}.flake': if flake is enabled for a profile, it must specify flake-uri.";
+          }
+        ) cfg.profiles;
+      })
+      { programs.${cfg.variant}.enable = true; }
+      (mkIf (cfg.package != null) { programs.${cfg.variant}.package = cfg.package; })
       (mkIf (cfg.mutableExtensionsDir != null) {
-        programs.vscode.mutableExtensionsDir = cfg.mutableExtensionsDir;
+        programs.${cfg.variant}.mutableExtensionsDir = cfg.mutableExtensionsDir;
       })
       (
         let
           deepMerge = (import ./deepMerge.nix).deepMerge;
-          # Performs automatic search for an extension in pkgs.vscode-extensions
-          # and uses pkgs.nix4vscode.forVscode if not found and produces derivation list
-          mkExtList = import ./mkExtList.nix { inherit pkgs lib; } cfg.nix4vscodeAlways;
-          # Replace extension names with actual derivations
-          rebuildExtensions = spec: spec // { extensions = mkExtList spec.extensions; };
-          # Merges profile specification with general one to produce actual profile
-          # Also filter out `disable_envstr` attr from specification, because we're
-          # using programs.vscode.profile like specification, wich does not contains it
+          mkExtList = import ./mkExtList.nix moduleArgs cfg.nix4vscodeAlways;
+          attrsToMerge = [
+            "userSettings"
+            "userTasks"
+            "keybindings"
+            "languageSnippets"
+            "globalSnippets"
+            "enableMcpIntegration"
+            "userMcp"
+          ];
           mkProfile =
-            name: spec: rebuildExtensions (deepMerge cfg.general (removeAttrs spec [ "disable_envstr" ]));
+            let
+              general = cfg.general;
+            in
+            profileName: profileSpec:
+            (builtins.listToAttrs (
+              builtins.map (attrName: {
+                name = attrName;
+                value = deepMerge general.${attrName} profileSpec.${attrName};
+              }) attrsToMerge
+            ))
+            // {
+              extensions = mkExtList (general.extensions ++ profileSpec.extensions);
+            }
+            // (lib.optionalAttrs ((profileName == "default") && (cfg.enableUpdateCheck != null)) {
+              enableUpdateCheck = cfg.enableUpdateCheck;
+            })
+            // (lib.optionalAttrs ((profileName == "default") && (cfg.enableExtensionUpdateCheck != null)) {
+              enableExtensionUpdateCheck = cfg.enableExtensionUpdateCheck;
+            });
           # Merge extension list specified for workspace with base profile's
           mkProfile4Workspace =
-            name: spec:
-            mkProfile name (
-              deepMerge (if spec.profile == "" then cfg.profiles.default else cfg.profiles."${spec.profile}") {
-                extensions = spec.extensions;
-              }
-            );
+            workspaceName: workspaceSpec:
+            let
+              baseProfileSpec =
+                if (workspaceSpec.profile == "" || workspaceSpec.profile == null) then
+                  cfg.profiles.default
+                else
+                  cfg.profiles.${workspaceSpec.profile};
+              profileSpec = baseProfileSpec // {
+                extensions = baseProfileSpec.extensions ++ workspaceSpec.extensions;
+              };
+              profileName = generateProfileName4Workspace workspaceName workspaceSpec;
+            in
+            mkProfile profileName profileSpec;
+          workspacesWithExtensions = lib.filterAttrs (
+            _: workspaceSpec: (workspaceSpec.extensions != [ ])
+          ) cfg.workspaces;
           # Merge profiles with profiles, generated for workspaces with requested extensions
           finalProfiles =
             (builtins.mapAttrs mkProfile cfg.profiles)
-            // (lib.mapAttrs' (name: spec: {
-              name = generateProfileName4Workspace name spec;
-              value = mkProfile4Workspace name spec;
-            }) (lib.filterAttrs (_name: spec: (spec.extensions != [ ])) cfg.workspaces));
+            // (lib.mapAttrs' (workspaceName: workspaceSpec: {
+              name = generateProfileName4Workspace workspaceName workspaceSpec;
+              value = mkProfile4Workspace workspaceName workspaceSpec;
+            }) workspacesWithExtensions);
         in
-        mkIf (finalProfiles != { }) { programs.vscode.profiles = finalProfiles; }
+        mkIf (finalProfiles != { }) { programs.${cfg.variant}.profiles = finalProfiles; }
       )
       (
         let
-          mkWorkspaceConfigFile = name: spec: {
-            name = name;
-            value = {
-              enable = spec.workspaceFile.enable;
+          mkWorkspaceConfigFile =
+            workspaceName: workspaceSpec: with workspaceSpec.workspaceFile; {
+              enable = enable;
               executable = false;
               force = true;
-              target = "vscode_workspaces/${name}.code-workspace";
               text = builtins.toJSON {
-                folders = [ { path = spec.folder; } ];
-                settings =
-                  (
-                    if spec.workspaceFile.addNixEnvSelect && (spec.nix.method != null) then
-                      {
-                        "nixEnvSelector.suggestion" = false;
-                        "nixEnvSelector.nixFile" = "\${workspaceFolder}/${spec.nix.method}.nix";
-                      }
-                    else
-                      { }
-                  )
-                  // spec.workspaceFile.settings;
+                folders =
+                  folders
+                  ++ (lib.optionals addDefaultDir [
+                    {
+                      name = workspaceName;
+                      path = workspaceSpec.folder;
+                    }
+                  ]);
+                settings = settings;
               };
+              target = "vscode_workspaces/${workspaceName}.code-workspace";
             };
-          };
-          mkWorkspaceEnvrcFile = name: spec: {
-            name = "${name}-envrc";
+          mkWorkspaceEnvrcFile = workspaceName: workspaceSpec: {
+            name = "${workspaceName}-envrc";
             value = {
-              enable = spec.envrc != null;
+              enable = workspaceSpec.envrc != null;
               executable = false;
               force = true;
-              target = "${spec.folder}/.envrc";
-              text = spec.envrc;
+              target = "${workspaceSpec.folder}/.envrc";
+              text = workspaceSpec.envrc;
             };
           };
           finalConfigFiles =
-            lib.mapAttrs' mkWorkspaceConfigFile (
-              lib.filterAttrs (_name: spec: spec.workspaceFile.enable) cfg.workspaces
+            lib.mapAttrs mkWorkspaceConfigFile (
+              lib.filterAttrs (_: workspaceSpec: workspaceSpec.workspaceFile.enable) cfg.workspaces
             )
             // lib.mapAttrs' mkWorkspaceEnvrcFile (
-              lib.filterAttrs (_name: spec: spec.envrc != null) cfg.workspaces
+              lib.filterAttrs (_: workspaceSpec: workspaceSpec.envrc != null) cfg.workspaces
             );
         in
         mkIf (finalConfigFiles != { }) {
@@ -421,102 +533,99 @@ in
           # Generate the general command to launch VSCode prepending environment string (env variables like
           # http_proxy=http://127.0.0.1:1080 and others that go before executable, sometimes called "args before"),
           # specifying profile and other user-specified arguments
-          basic_code_CMD =
-            profile: disable_envstr:
+
+          mkAction =
+            isWorkspace: name: spec:
             let
-              envstr = lib.optionalString (!disable_envstr) (
-                builtins.replaceStrings [ "$" ] [ "\\$" ] cfg.envstr
+              profile =
+                if (!isWorkspace) then
+                  name
+                else if spec.profile == null then
+                  "default"
+                else if (spec.extensions == [ ]) then
+                  spec.profile
+                else
+                  (generateProfileName4Workspace name spec);
+              mkCodeCMD =
+                workspace:
+                lib.concatStringsSep " " (
+                  [
+                    (lib.getExe config.programs.${cfg.variant}.package)
+                    "--profile ${profile}"
+                  ]
+                  ++ cfg.args
+                  ++ (lib.optionals (workspace != null) [ workspace ])
+                );
+              kind = if isWorkspace then "workspace" else "profile";
+              flakeSpec = spec.flake;
+              resolvedFlake =
+                if (flakeSpec.flake != null) then
+                  flakeSpec.flake
+                else
+                  (
+                    if isWorkspace then
+                      (spec.folder + "#${flakeSpec.name}")
+                    else
+                      throw "Better-code: you should specify a flake for profile."
+                  );
+              genEnvList = env: lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") env;
+              shellGen =
+                name: cmds:
+                pkgs.writeShellScript name (
+                  builtins.concatStringsSep "\n" (
+                    lib.flatten [
+                      "set -euo pipefail"
+                      cmds
+                    ]
+                  )
+                );
+              mkLauncher =
+                what: spec: exec:
+                shellGen "better-code-${name}-${kind}-starter-${what}" [
+                  (genEnvList spec.env)
+                  spec.run.pre
+                  exec
+                  spec.run.post
+                ];
+              nix-args = builtins.concatStringsSep " " spec.nix-args;
+              flakeCMD = command: "nix flake ${command} ${resolvedFlake} ${nix-args}";
+
+              environment-exec = command: "nix develop ${resolvedFlake} ${nix-args} --command ${command}";
+              terminal-exec =
+                cmd:
+                lib.concatStringsSep " " ([ (lib.getExe cfg.terminal-emulator) ] ++ cfg.terminal-args ++ [ cmd ]);
+              workspaceNF =
+                if spec.workspaceFile.enable then config.xdg.configFile.${name}.target else "${spec.folder}";
+              workspaceF =
+                if flakeSpec.producesWorkspace then
+                  "\\\\$BETTER_CODE_VSCODE_WORKSPACE_FILE"
+                else if isWorkspace then
+                  workspaceNF
+                else
+                  null;
+              innerExec = mkLauncher "inner" flakeSpec (mkCodeCMD workspaceF);
+
+              flake-commands = shellGen "better-code-${name}-${kind}-starter-flake-init" [
+                (builtins.map flakeCMD flakeSpec.commands)
+                (environment-exec "exit")
+              ];
+
+              innerCmds = [
+                (terminal-exec flake-commands)
+                (environment-exec innerExec)
+              ];
+              finalLauncher = mkLauncher "outer" spec (
+                if flakeSpec.enable then innerCmds else (mkCodeCMD workspaceNF)
               );
             in
-            lib.concatStringsSep " " (
-              [
-                envstr
-                (lib.getExe config.programs.vscode.package)
-                "--profile ${profile}"
-              ]
-              ++ cfg.args
-            );
-          mkProfileAction = profileName: profileSpec: {
-            name = profileName;
-            exec = "bash -c \"${basic_code_CMD profileName profileSpec.disable_envstr}\"";
-          };
-          mkWorkspaceAction = name: spec: {
-            name = name;
-            value =
-              let
-                nixSpec = spec.nix;
-                inputOverrides = builtins.concatStringsSep " " (
-                  lib.mapAttrsToList (name: value: "--override-input ${name} ${value}") nixSpec.overrideInputs
-                );
-                regenLockCmd = "nix flake lock ${spec.folder} ${inputOverrides}";
-                # Helper to run specified command inside the user-specified environment (inside nix-shell or nix develop).
-                # If the environment wasn't specified (nixSpec.method is null) then it isn't used
-                environmentLaunchCommand =
-                  command:
-                  let
-                    resolvedFlakePath = if nixSpec.flakePath != null then nixSpec.flakePath else spec.folder;
-                  in
-                  "nix develop ${resolvedFlakePath} ${inputOverrides} --command bash -c '${command}'";
-                # Execute command 'exit' inside the environment launched inside the terminal emulator.
-                # I think it's useful so if the environment needs to be set-up, e.g. nix needs to download
-                # packages. If so in the terminal emulator the user will see the progress (and errors if the are)
-                # and at the end VSCode will be launched immediately. Otherwise the output from nixisn't visible
-                # which leads to a frustration (is it stuck or something?) and in the case of errors (e.g. nix
-                # couldn't download smth or the env file contains errors) there's no way to know it.
-                preinitWrap = lib.concatStringsSep " " (
-                  [ (lib.getExe cfg.terminal-emulator) ] ++ cfg.terminal-args ++ [ (environmentLaunchCommand "exit") ]
-                );
-                # Determine the profile name. If there are extensions specified for current workspace,
-                # a new profile will be generated using the base profile. Now we need just its name
-                # which is ensured to be similar to the name of the actually generated profile.
-                profile =
-                  if spec.profile == null then
-                    "default"
-                  else if (spec.extensions == [ ]) then
-                    spec.profile
-                  else
-                    (generateProfileName4Workspace name spec);
-                # Determine the workspace. If the user's environment generates its own workspace file and
-                # VSCode is intended to be launched inside this environment, then workspace file should be
-                # specified inside $BETTER_CODE_VSCODE_WORKSPACE_FILE environment variable. If the leading
-                # is false, but this module generates the workspace file, then use it. Otherwuise just
-                # the target folder.
-                workspace =
-                  if ((nixSpec.method != null) && nixSpec.launchInside && nixSpec.producesWorkspace) then
-                    "\\\\$BETTER_CODE_VSCODE_WORKSPACE_FILE"
-                  else if spec.workspaceFile.enable then
-                    "${config.xdg.configHome}/vscode_workspaces/${name}.code-workspace"
-                  else
-                    "${spec.folder}";
-                codeCmd = "${basic_code_CMD profile spec.disable_envstr} ${workspace}";
-                # If needed wrap the command to launch VSCode inside the environment
-                codeCmdWrapped =
-                  if ((nixSpec.method != null) && nixSpec.launchInside) then
-                    environmentLaunchCommand codeCmd
-                  else
-                    codeCmd;
-                cmdChain =
-                  # Commands to be launched before launching VSCode
-                  spec.prerun
-                  # Update flake.lock file, possible updating inputs
-                  ++ (if nixSpec.updateLock then [ regenLockCmd ] else [ ])
-                  # Preinitialize environment in terminal (fetch packages)
-                  ++ (if ((nixSpec.method != null) && nixSpec.preinit) then [ preinitWrap ] else [ ])
-                  # Command to launch VSCode
-                  ++ [ codeCmdWrapped ]
-                  # Commands to be launched after VSCode is closed
-                  ++ spec.postrun;
-              in
-              {
-                name = name;
-                exec = "bash -c \"${builtins.concatStringsSep " && " cmdChain}\"";
-              };
-          };
-          finalWorkspaceActions = lib.mapAttrs' mkWorkspaceAction cfg.workspaces;
-          finalProfileActions = lib.mapAttrs mkProfileAction cfg.profiles;
+            {
+              name = name;
+              exec = "${finalLauncher}";
+            };
+          finalWorkspaceActions = lib.mapAttrs (mkAction true) cfg.workspaces;
+          finalProfileActions = lib.mapAttrs (mkAction false) cfg.profiles;
           finalDesktopEntries = lib.mkMerge [
             (mkIf (finalWorkspaceActions != { }) {
-              # Desktop entry for selector and per-workspace actions
               CodeWorkspaceSelector = {
                 name = "Workspace Selector";
                 genericName = "VSCode Workspace Selector";
@@ -532,7 +641,6 @@ in
               };
             })
             (mkIf (finalProfileActions != { }) {
-              # Desktop entry for selector and per-profile actions
               CodeProfileSelector = {
                 name = "Profile Selector";
                 genericName = "VSCode Profile Selector";

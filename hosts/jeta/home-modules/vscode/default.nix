@@ -29,30 +29,45 @@ in
   ];
   better-code = {
     enable = true;
-    code-package = pkgs.vscode;
-    desktopEntries.enable = true;
+    package = pkgs.vscode;
+    enableUpdateCheck = false;
+    enableExtensionUpdateCheck = false;
     nix4vscodeAlways = true;
+
+    desktopEntries.enable = true;
+    terminal-emulator = pkgs.kitty;
+    terminal-args = [ "--app-id=kitty_info" ];
+
+    args = [
+      "--password-store=gnome-libsecret"
+      "--ozone-platform=wayland"
+    ];
 
     general = {
       userSettings = import ./generalUserSettings.nix args;
       globalSnippets = import ./generalGlobalSnippets.nix;
       languageSnippets = import ./generalLangSnippets.nix;
       extensions = needed_extensions.global;
+      env =
+        let
+          proxy = "http://127.0.0.1:1080";
+          no_proxy = "localhost,127.0.0.0/8";
+        in
+        {
+          http_proxy = proxy;
+          HTTP_PROXY = proxy;
+          https_proxy = proxy;
+          HTTPS_PROXY = proxy;
+          no_proxy = no_proxy;
+          NO_PROXY = no_proxy;
+        };
     };
 
-    terminal-emulator = pkgs.kitty;
-    terminal-args = [ "--app-id=kitty_info" ];
-    args = [
-      "--password-store=gnome-libsecret"
-      "--ozone-platform=wayland"
-    ];
-    envstr = "http_proxy=http://127.0.0.1:1081 https_proxy=http://127.0.0.1:1081 no_proxy=localhost,127.0.0.0/8";
+    # envstr = "http_proxy=http://127.0.0.1:1081 https_proxy=http://127.0.0.1:1081 no_proxy=localhost,127.0.0.0/8";
 
     profiles = {
       default = {
         extensions = builtins.concatLists (builtins.attrValues needed_extensions);
-        enableUpdateCheck = false;
-        enableExtensionUpdateCheck = false;
       };
       nix = {
         extensions = needed_extensions.dev;
@@ -79,9 +94,9 @@ in
 
     workspaces =
       let
-        basicNix = {
-          method = "flake";
-          launchInside = true;
+        flakeConf = flake: {
+          inherit flake;
+          enable = true;
           producesWorkspace = true;
         };
       in
@@ -92,6 +107,14 @@ in
         };
         devShells = {
           folder = "${config.home.homeDirectory}/devShells";
+          profile = "nix";
+        };
+        nixpkgs = {
+          folder = "${config.home.homeDirectory}/repos/nixpkgs";
+          profile = "nix";
+        };
+        home-manager = {
+          folder = "${config.home.homeDirectory}/repos/home-manager";
           profile = "nix";
         };
         lmptest = {
@@ -155,66 +178,44 @@ in
           folder = "${config.home.homeDirectory}/repos/yap";
           profile = "python";
         };
-        gpg-tests = {
-          folder = "${config.home.homeDirectory}/repos/gpg-python-yubikey";
-          profile = "python";
-        };
-        onlykey-python = {
-          folder = "${config.home.homeDirectory}/repos/onlykey-python";
-          profile = "python";
-        };
+        # gpg-tests = {
+        #   folder = "${config.home.homeDirectory}/repos/gpg-python-yubikey";
+        #   profile = "python";
+        # };
+        # onlykey-python = {
+        #   folder = "${config.home.homeDirectory}/repos/onlykey-python";
+        #   profile = "python";
+        # };
         # onlykey-solo = {
         #   folder   = "${config.home.homeDirectory}/repos/onlykey-solo";
         #   profile  = "python";
         # };
-        monography = {
-          folder = "${config.home.homeDirectory}/Documents/aspa/monography";
-          profile = "python";
-        };
-        solo-python = {
-          folder = "${config.home.homeDirectory}/repos/solo-python";
-          profile = "python";
-        };
-        locp-article = {
-          folder = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/LOCP";
-          profile = "LaTeX";
-        };
+        # solo-python = {
+        #   folder = "${config.home.homeDirectory}/repos/solo-python";
+        #   profile = "python";
+        # };
         cf = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/CF";
-          profile = "LaTeX";
-        };
-        referat = {
-          folder = "${config.home.homeDirectory}/Documents/aspa/Referat/";
           profile = "LaTeX";
         };
         aspa-plan = {
           folder = "${config.home.homeDirectory}/Documents/aspa/plan";
           profile = "LaTeX";
         };
-        # magdiss = {
-        #   folder  = "${config.home.homeDirectory}/Documents/nucleation/LaTeX/magdiss/";
-        #   profile = "LaTeX";
-        # };
         LAMMPS = {
           folder = "${config.home.homeDirectory}/repos/mylammps";
           profile = "cpp";
-          nix = basicNix // {
-            flakePath = "/home/kein/devShells/lammps";
-          };
+          flake = flakeConf "/home/kein/devShells/lammps";
         };
         MDcraft = {
           folder = "${config.home.homeDirectory}/repos/MDcraft";
           profile = "cpp";
-          nix = basicNix // {
-            flakePath = "/home/kein/devShells/MDcraft";
-          };
+          flake = flakeConf "/home/kein/devShells/MDcraft";
         };
         cfproc = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/python/cfproc";
           profile = "python";
-          nix = basicNix // {
-            flakePath = "/home/kein/devShells/cfproc";
-          };
+          flake = flakeConf "/home/kein/devShells/cfproc";
         };
         # vscode-clang-tidy = {
         #   folder = "${config.home.homeDirectory}/repos/vscode-clang-tidy";
@@ -224,16 +225,17 @@ in
         articles = {
           folder = "${config.home.homeDirectory}/repos/articles";
           profile = "python";
-          nix = basicNix // {
-            flakePath = "${config.home.homeDirectory}/repos/articles";
-          };
+          flake = flakeConf "${config.home.homeDirectory}/repos/articles";
         };
         scidownl = {
           folder = "${config.home.homeDirectory}/repos/articles/nix-wiring/SciDownl";
           profile = "python";
-          nix = basicNix // {
-            flakePath = "${config.home.homeDirectory}/repos/articles/nix-wiring/SciDownl";
-          };
+          flake = flakeConf "${config.home.homeDirectory}/repos/articles/nix-wiring/SciDownl";
+        };
+        themegen = {
+          folder = "${config.home.homeDirectory}/repos/themegen";
+          profile = "python";
+          flake = flakeConf "${config.home.homeDirectory}/devShells/themegen";
         };
       };
   };

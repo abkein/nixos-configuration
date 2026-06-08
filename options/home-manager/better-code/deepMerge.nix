@@ -8,7 +8,7 @@ let
     a: b:
     let
       keys = builtins.attrNames a ++ builtins.attrNames b;
-      uniqKeys = removeAttrs (builtins.listToAttrs (
+      uniqKeys = builtins.removeAttrs (builtins.listToAttrs (
         builtins.map (k: {
           name = k;
           value = null;
@@ -37,5 +37,12 @@ let
     ) uniqKeys;
 in
 {
-  deepMerge = deepMerge;
+  deepMerge =
+    va: vb:
+    if builtins.isAttrs va && builtins.isAttrs vb then
+      deepMerge va vb
+    else if builtins.isList va && builtins.isList vb then
+      va ++ vb
+    else
+      vb;
 }

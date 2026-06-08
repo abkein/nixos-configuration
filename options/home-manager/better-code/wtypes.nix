@@ -1,11 +1,11 @@
 { lib, pkgs, ... }:
 let
   inherit (lib) mkOption types literalExpression;
-  jsontype = (pkgs.formats.json { }).type;
+  jsonFormat = pkgs.formats.json { };
 in
 {
   userSettings = mkOption {
-    type = jsontype;
+    type = types.json;
     default = { };
     example = literalExpression ''
       {
@@ -21,7 +21,7 @@ in
   };
 
   userTasks = mkOption {
-    type = jsontype;
+    type = types.json;
     default = { };
     example = literalExpression ''
       {
@@ -73,7 +73,7 @@ in
 
           # https://code.visualstudio.com/docs/getstarted/keybindings#_command-arguments
           args = mkOption {
-            type = types.nullOr jsontype;
+            type = types.nullOr types.json;
             default = null;
             example = {
               direction = "up";
@@ -115,7 +115,7 @@ in
   };
 
   languageSnippets = mkOption {
-    type = jsontype;
+    type = types.json;
     default = { };
     example = {
       haskell = {
@@ -130,7 +130,7 @@ in
   };
 
   globalSnippets = mkOption {
-    type = jsontype;
+    type = types.json;
     default = { };
     example = {
       fixme = {
@@ -140,5 +140,34 @@ in
       };
     };
     description = "Defines global user snippets.";
+  };
+
+  enableMcpIntegration = mkOption {
+    type = types.bool;
+    default = false;
+    description = ''
+      Whether to integrate the MCP servers config from
+      `programs.mcp.servers` into
+      `profiles.<name>.userMcp`.
+
+      Note: Settings defined in `programs.mcp.servers` are merged
+      with `profiles.<name>.userMcp`, with profile
+      settings taking precedence.
+    '';
+  };
+
+  userMcp = mkOption {
+    type = jsonFormat.type;
+    default = { };
+    example = lib.literalExpression ''
+      {
+        "servers": {
+          "Github": {
+            "url": "https://api.githubcopilot.com/mcp/"
+          }
+        }
+      }
+    '';
+    description = "Configuration written to `mcp.json`.";
   };
 }

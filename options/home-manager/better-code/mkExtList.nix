@@ -18,7 +18,7 @@ let
         name = builtins.elemAt parts 2;
       }
     else
-      throw "Invalid extension format: ${extension}";
+      throw "Better-code: Invalid extension format: ${extension}";
   unparse_extension = { publisher, name }: "${publisher}.${name}";
 
   has_extension =
@@ -32,7 +32,7 @@ let
   presentExtensions = builtins.filter has_extension parsed_extensions;
   not_presentExtensions = builtins.filter (ext: !has_extension ext) parsed_extensions;
 
-  market_extensions = map get_extension presentExtensions;
+  market_extensions = builtins.map get_extension presentExtensions;
   nix4vscode_extensions = builtins.map unparse_extension not_presentExtensions;
 in
 if nix4vscodeAlways then
