@@ -176,9 +176,7 @@ in
       ];
       routing =
         let
-          mainInbounds = [
-            "vless-reality-xhttp"
-          ];
+          mainInbounds = [ "vless-reality-xhttp" ];
         in
         {
           domainStrategy = "IPOnDemand";

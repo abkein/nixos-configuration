@@ -39,9 +39,7 @@ lib.checkListOfEnum "vimix-icon-theme: color variants"
       jdupes
     ];
 
-    propagatedBuildInputs = [
-      hicolor-icon-theme
-    ];
+    propagatedBuildInputs = [ hicolor-icon-theme ];
 
     dontDropIconThemeCache = true;
 

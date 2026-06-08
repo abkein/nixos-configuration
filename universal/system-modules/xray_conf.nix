@@ -53,20 +53,22 @@
         enableCloudFlare ? false,
         enableLocalhost ? false,
       }:
-      [
+      (lib.optionals enableGoogle [
         {
           address = "https://dns.google/dns-query";
           skipFallback = true;
           finalQuery = false;
           tag = "google-dns";
         }
+      ])
+      ++ (lib.optionals enableQuad9 [
         {
           address = "https://dns.quad9.net/dns-query";
           skipFallback = true;
           finalQuery = false;
           tag = "quad9-dns";
         }
-      ]
+      ])
       ++ (lib.optionals enableCloudFlare [
         {
           address = "https://mozilla.cloudflare-dns.com/dns-query";

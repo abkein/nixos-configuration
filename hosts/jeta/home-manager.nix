@@ -142,7 +142,6 @@ in
             $out/share/icons/hicolor/scalable/apps/preferences-system-network.svg
         '')
 
-
         ipfetch
         cpufetch
         ramfetch
