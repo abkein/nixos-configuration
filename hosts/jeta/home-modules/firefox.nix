@@ -16,7 +16,7 @@ let
       default_area = "navbar";
     };
   };
-  L2A = func: lst: builtins.listToAttrs (map func lst);
+  L2A = func: lst: builtins.listToAttrs (builtins.map func lst);
   moz_home = "${config.xdg.configHome}/mozilla";
 in
 {
@@ -188,7 +188,7 @@ in
         "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}" # Auto Tab Discard
         "jid1-BoFifL9Vbdl2zQ@jetpack" # Decentraleyes
         # "firefox.container-shortcuts@strategery.io" # Easy Container Shortcuts
-        "{1018e4d6-728f-4b20-ad56-37578a4de76b}" # Flagfox
+        # "{1018e4d6-728f-4b20-ad56-37578a4de76b}" # Flagfox
         "jid1-AQqSMBYb0a8ADg@jetpack" # Mailvelope
         "jid1-MnnxcxisBPnSXQ@jetpack" # Privacy Badger
         "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}" # Search by Image
@@ -205,7 +205,7 @@ in
         # "2.0@disconnect.me"  # Disconnect  # Breaks certain websites
         # "jid1-ZAdIEUB7XOzOJw@jetpack"  # DuckDuckGo Privacy Essentials  # Breaks certain websites
         # "{73a6fe31-595d-460b-a920-fcc0f8843232}" # NoScript
-        # "suziwen1@gmail.com" # Proxy SwitchyOmega 3 (ZeroOmega)
+        "suziwen1@gmail.com" # Proxy SwitchyOmega 3 (ZeroOmega)
         "{cb08faed-9460-474a-ba0b-d98b13b5e001}" # Regex Search
         # "{e662576a-2f73-4069-bcca-ddf440fea62b}" # Web Apps by 123apps
       ];
@@ -271,6 +271,115 @@ in
         };
       };
       Preferences = {
+        "app.shield.optoutstudies.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "experiments.supported" = {
+          Value = false;
+          Status = "locked";
+        };
+        "experiments.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "experiments.manifest.uri" = {
+          Value = "";
+          Status = "locked";
+        };
+        "app.normandy.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "app.normandy.api_url" = {
+          Value = "";
+          Status = "locked";
+        };
+        "datareporting.healthreport.uploadEnabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "datareporting.healthreport.service.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "datareporting.policy.dataSubmissionEnabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "datareporting.policy.dataSubmissionPolicyAcceptedVersion" = {
+          Value = 2;
+          Status = "locked";
+        };
+        "toolkit.telemetry.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "toolkit.telemetry.unified" = {
+          Value = false;
+          Status = "locked";
+        };
+        "toolkit.telemetry.server" = {
+          Value = "data:,";
+          Status = "locked";
+        };
+        "toolkit.telemetry.archive.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "toolkit.telemetry.newProfilePing.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "toolkit.telemetry.shutdownPingSender.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "toolkit.telemetry.updatePing.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "toolkit.telemetry.bhrPing.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "toolkit.telemetry.firstShutdownPing.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "toolkit.telemetry.coverage.opt-out" = {
+          Value = true;
+          Status = "locked";
+        };
+        "toolkit.coverage.opt-out" = {
+          Value = true;
+          Status = "locked";
+        };
+        "toolkit.coverage.endpoint.base" = {
+          Value = "";
+          Status = "locked";
+        };
+        "browser.newtabpage.activity-stream.telemetry" = {
+          Value = false;
+          Status = "locked";
+        };
+        "browser.ping-centre.telemetry" = {
+          Value = false;
+          Status = "locked";
+        };
+        "breakpad.reportURL" = {
+          Value = "";
+          Status = "locked";
+        };
+        "browser.tabs.crashReporting.sendReport" = {
+          Value = false;
+          Status = "locked";
+        };
+        "browser.crashReports.unsubmittedCheck.autoSubmit2" = {
+          Value = false;
+          Status = "locked";
+        };
+
         "browser.contentblocking.category" = {
           Value = "strict";
           Status = "locked";

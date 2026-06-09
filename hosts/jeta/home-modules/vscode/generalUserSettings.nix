@@ -8,6 +8,8 @@
 lib.mkMerge (
   lib.map mylib.flattenAttrsDot' [
     {
+      "telemetry.telemetryLevel" = "off";
+
       editor = {
         formatOnSave = true;
         multiCursorModifier = "ctrlCmd";

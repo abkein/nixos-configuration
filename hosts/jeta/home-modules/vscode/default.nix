@@ -3,7 +3,7 @@ let
   needed_extensions = import ./needed_exts.nix pkgs;
 in
 {
-  stylix.targets.vscode = {
+  stylix.targets.vscodium = {
     enable = false;
     fonts.enable = false;
     # https://github.com/technosophos/vscode-base16
@@ -29,7 +29,8 @@ in
   ];
   better-code = {
     enable = true;
-    package = pkgs.vscode;
+    package = pkgs.vscodium;
+    variant = "vscodium";
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
     nix4vscodeAlways = true;
