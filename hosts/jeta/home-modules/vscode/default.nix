@@ -35,8 +35,10 @@ in
     nix4vscodeAlways = true;
 
     desktopEntries.enable = true;
-    terminal-emulator = pkgs.kitty;
-    terminal-args = [ "--app-id=kitty_info" ];
+    terminal = {
+      package = pkgs.kitty;
+      args = [ "--app-id=kitty_info" ];
+    };
 
     args = [
       "--password-store=gnome-libsecret"

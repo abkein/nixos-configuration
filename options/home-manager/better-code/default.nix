@@ -201,7 +201,7 @@ in
         type = types.bool;
         default = false;
         description = ''
-          By default extensions present in nixpkgs will be fetched from nixpkgs,
+          By default emkActionExec isWorkspace name specxtensions present in nixpkgs will be fetched from nixpkgs,
           extensions not present in nixpkgs will be fetched using pkgs.nix4vscode.forVscode.
           Enabling it will force to get all the extensions using pkgs.nix4vscode.forVscode.
         '';
@@ -325,6 +325,8 @@ in
                 # example = "default";
               };
 
+              icon = mkIconOption cfg.desktopEntries.workspaceSelectorIcon;
+
               workspaceFile = mkOption {
                 default = {
                   enable = false;
@@ -343,7 +345,6 @@ in
                     };
 
                     settings = wtypes.userSettings;
-                    icon = mkIconOption cfg.desktopEntries.workspaceSelectorIcon;
 
                     folders = mkOption {
                       description = ''
@@ -681,7 +682,7 @@ in
           mkAction = isWorkspace: name: spec: {
             name = if isWorkspace then "Workspace: ${name}" else "Profile: ${name}";
             icon = spec.icon;
-            exec = mkActionExec isWorkspace name spec;
+            exec = builtins.toString (mkActionExec isWorkspace name spec);
           };
           finalWorkspaceActions = lib.mapAttrs (mkAction true) cfg.workspaces;
           finalProfileActions = lib.mapAttrs (mkAction false) cfg.profiles;
@@ -690,7 +691,7 @@ in
               CodeWorkspaceSelector = {
                 name = "Workspace Selector";
                 genericName = "VSCode Workspace Selector";
-                exec = "${pkgs.libnotify}/bin/notify-send --app-icon=${cfg.desktopEntries.workspaceSelectorIcon} 'Code workspace selector does nothing itself, select an action'";
+                exec = ''${pkgs.libnotify}/bin/notify-send --app-icon=${cfg.desktopEntries.workspaceSelectorIcon} "Code workspace selector does nothing itself, select an action"'';
                 icon = cfg.desktopEntries.workspaceSelectorIcon;
                 type = "Application";
                 categories = [
@@ -705,7 +706,7 @@ in
               CodeProfileSelector = {
                 name = "Profile Selector";
                 genericName = "VSCode Profile Selector";
-                exec = "${pkgs.libnotify}/bin/notify-send --app-icon=${cfg.desktopEntries.profileSelectorIcon} 'VSCodeProfileSelector does nothing itself, select an action";
+                exec = ''${pkgs.libnotify}/bin/notify-send --app-icon=${cfg.desktopEntries.profileSelectorIcon} "VSCodeProfileSelector does nothing itself, select an action"'';
                 icon = cfg.desktopEntries.profileSelectorIcon;
                 type = "Application";
                 categories = [

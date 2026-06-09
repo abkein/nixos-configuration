@@ -142,7 +142,7 @@ in
                 security = "reality";
                 realitySettings = {
                   show = false;
-                  fingerprint = "chrome";
+                  fingerprint = "firefox";
                   serverName = "www.microsoft.com";
                   password = yun.password;
                   shortId = yun.shortId;
