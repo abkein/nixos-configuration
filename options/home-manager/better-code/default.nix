@@ -559,7 +559,7 @@ in
           mkCommand = command-args: lib.concatStringsSep " " (lib.flatten command-args);
           genEnvList = env: lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") env;
 
-          mkAction =
+          mkActionExec =
             isWorkspace: name: spec:
             let
               profileName =
@@ -672,17 +672,17 @@ in
                 (flake-exec innerExec)
               ];
 
-              finalLauncher = mkLauncher {
-                launcherName = "outer";
-                inFlake = false;
-                commandList = if flakeSpec.enable then innerCmds else [ (mkCodeCMD workspace) ];
-              };
             in
-            {
-              name = if isWorkspace then "Workspace: ${name}" else "Profile: ${name}";
-              icon = spec.icon;
-              exec = "${finalLauncher}";
+            mkLauncher {
+              launcherName = "outer";
+              inFlake = false;
+              commandList = if flakeSpec.enable then innerCmds else [ (mkCodeCMD workspace) ];
             };
+          mkAction = isWorkspace: name: spec: {
+            name = if isWorkspace then "Workspace: ${name}" else "Profile: ${name}";
+            icon = spec.icon;
+            exec = mkActionExec isWorkspace name spec;
+          };
           finalWorkspaceActions = lib.mapAttrs (mkAction true) cfg.workspaces;
           finalProfileActions = lib.mapAttrs (mkAction false) cfg.profiles;
           finalDesktopEntries = lib.mkMerge [
