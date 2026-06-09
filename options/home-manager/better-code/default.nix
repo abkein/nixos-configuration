@@ -9,10 +9,10 @@ let
   inherit (lib) mkOption mkIf types;
   cfg = config.better-code;
   wtypes = import ./wtypes.nix moduleArgs;
-  # Ensures generated profile name is unique across workspaces and the generated profile name is the same
-  # for a workspace, based on its hash
+  # # Ensures generated profile name is unique across workspaces and the generated profile name is the same
+  # # for a workspace, based on its hash
   generateProfileName4Workspace =
-    name: spec: "${name}-${builtins.hashString "sha256" (builtins.toJSON spec)}";
+    workspaceName: workspaceSpec: "${workspaceSpec.profile}-${workspaceName}";
 
   run = {
     pre = mkOption {
@@ -121,8 +121,8 @@ let
           };
           name = mkOption {
             type = types.nullOr types.str;
-            description = "Name of flake if the workspace folder is used as its uri.";
-            default = "default";
+            description = "Name of flake if the workspace folder is used as its uri. null means 'default'.";
+            default = null;
             example = "myShell";
           };
         })
@@ -318,10 +318,10 @@ in
               };
 
               profile = mkOption {
-                type = types.nullOr types.str;
-                description = "Profile used for this workspace. Written to workspace setting \"workbench.profile\". Nothing written if empty.";
-                default = null;
-                example = "default";
+                type = types.str;
+                description = "Profile used for this workspace. Written to workspace setting \"workbench.profile\".";
+                default = "default";
+                # example = "default";
               };
 
               workspaceFile = mkOption {
@@ -402,23 +402,51 @@ in
   };
 
   config = mkIf cfg.enable (
+    let
+      extractAttrFromList =
+        attr: list:
+        lib.flatten (builtins.map (attrs: lib.optional (builtins.hasAttr attr attrs) attrs.${attr}) list);
+      mergeAssertWarn = list: {
+        assertions = lib.flatten (extractAttrFromList "assertions" list);
+        warnings = lib.flatten (extractAttrFromList "warnings" list);
+      };
+      mergeAssertWarn' = func: attrs: mergeAssertWarn (lib.mapAttrsToList func attrs);
+      workspaceAssertWarn =
+        workspaceName: workspaceSpec:
+        let
+          msgStart = "Better-code: workspace ${workspaceName}: ";
+        in
+        with workspaceSpec;
+        {
+          assertions = [
+            {
+              assertion = workspaceFile.addDefaultDir || (workspaceFile.folders != [ ]);
+              message =
+                msgStart
+                + "`workspaceFile`: either enable `addDefaultDir` or specify `folders`. Otherwise the workspace will be empty!";
+            }
+          ];
+          warnings = [
+            (lib.optional (flake.enable && (flake.flake != null) && (flake.name != null)) ''
+              ${msgStart}`flake`: both `flake` and `name` are specified — only `flake` is used.
+              Option `name` is used only if `flake=null`.
+              If you wanted to specify flake name for that in `flake`, specify it there as `flake=flake-uri#name`.
+            '')
+          ];
+        };
+      profileAssertWarn =
+        profileName: profileSpec: with profileSpec; {
+          assertions = [
+            {
+              assertion = (!flake.enable) || (flake.flake != null); # if flake.enable then (flake.flake != null) else true;
+              message = "Better-code: profiles: '${profileName}.flake': if flake is enabled for a profile, it must specify flake-uri.";
+            }
+          ];
+        };
+    in
     lib.mkMerge [
-      (mkIf (cfg.workspaces != { }) {
-        assertions = lib.mapAttrsToList (
-          workspaceName: workspaceSpec: with workspaceSpec; {
-            assertion = workspaceFile.addDefaultDir || (workspaceFile.folders != [ ]);
-            message = "Better-code: workspaces: '${workspaceName}.workspaceFile': either enable `addDefaultDir` or specify `folders`. Otherwise the workspace will be empty!";
-          }
-        ) cfg.workspaces;
-      })
-      (mkIf (cfg.profiles != { }) {
-        assertions = lib.mapAttrsToList (
-          profileName: profileSpec: with profileSpec; {
-            assertion = (!flake.enable) || (flake.flake != null); # if flake.enable then (flake.flake != null) else true;
-            message = "Better-code: profiles: '${profileName}.flake': if flake is enabled for a profile, it must specify flake-uri.";
-          }
-        ) cfg.profiles;
-      })
+      (mkIf (cfg.workspaces != { }) (mergeAssertWarn' workspaceAssertWarn cfg.workspaces))
+      (mkIf (cfg.profiles != { }) (mergeAssertWarn' profileAssertWarn cfg.profiles))
       { programs.${cfg.variant}.enable = true; }
       (mkIf (cfg.package != null) { programs.${cfg.variant}.package = cfg.package; })
       (mkIf (cfg.mutableExtensionsDir != null) {
@@ -461,15 +489,11 @@ in
           mkProfile4Workspace =
             workspaceName: workspaceSpec:
             let
-              baseProfileSpec =
-                if (workspaceSpec.profile == "" || workspaceSpec.profile == null) then
-                  cfg.profiles.default
-                else
-                  cfg.profiles.${workspaceSpec.profile};
+              baseProfileSpec = cfg.profiles.${workspaceSpec.profile};
               profileSpec = baseProfileSpec // {
                 extensions = baseProfileSpec.extensions ++ workspaceSpec.extensions;
               };
-              profileName = generateProfileName4Workspace workspaceName workspaceSpec;
+              profileName = "${workspaceSpec.profile}-${workspaceName}";
             in
             mkProfile profileName profileSpec;
           workspacesWithExtensions = lib.filterAttrs (
@@ -530,70 +554,91 @@ in
       )
       (mkIf cfg.desktopEntries.enable (
         let
-          # Generate the general command to launch VSCode prepending environment string (env variables like
-          # http_proxy=http://127.0.0.1:1080 and others that go before executable, sometimes called "args before"),
-          # specifying profile and other user-specified arguments
-
           mkAction =
             isWorkspace: name: spec:
             let
-              profile =
-                if (!isWorkspace) then
-                  name
-                else if spec.profile == null then
-                  "default"
-                else if (spec.extensions == [ ]) then
-                  spec.profile
-                else
-                  (generateProfileName4Workspace name spec);
+              mkCommand = command-args: lib.concatStringsSep " " (lib.flatten command-args);
               mkCodeCMD =
-                workspace:
-                lib.concatStringsSep " " (
-                  [
-                    (lib.getExe config.programs.${cfg.variant}.package)
-                    "--profile ${profile}"
-                  ]
-                  ++ cfg.args
-                  ++ (lib.optionals (workspace != null) [ workspace ])
-                );
-              kind = if isWorkspace then "workspace" else "profile";
-              flakeSpec = spec.flake;
-              resolvedFlake =
-                if (flakeSpec.flake != null) then
-                  flakeSpec.flake
-                else
-                  (
-                    if isWorkspace then
-                      (spec.folder + "#${flakeSpec.name}")
+                workspaceName:
+                let
+                  profileName =
+                    if (!isWorkspace) then
+                      name
+                    else if (spec.extensions == [ ]) then
+                      spec.profile
                     else
-                      throw "Better-code: you should specify a flake for profile."
-                  );
-              genEnvList = env: lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") env;
-              shellGen =
-                name: cmds:
-                pkgs.writeShellScript name (
-                  builtins.concatStringsSep "\n" (
-                    lib.flatten [
-                      "set -euo pipefail"
-                      cmds
-                    ]
-                  )
-                );
-              mkLauncher =
-                what: spec: exec:
-                shellGen "better-code-${name}-${kind}-starter-${what}" [
-                  (genEnvList spec.env)
-                  spec.run.pre
-                  exec
-                  spec.run.post
+                      (generateProfileName4Workspace name spec);
+                in
+                mkCommand [
+                  (lib.getExe config.programs.${cfg.variant}.package)
+                  "--profile"
+                  profileName
+                  cfg.args
+                  (lib.optional (workspaceName != null) workspaceName)
                 ];
-              nix-args = builtins.concatStringsSep " " flakeSpec.nix-args;
-              flakeCMD = command: "nix flake ${command} ${resolvedFlake} ${nix-args}";
+              flakeSpec = spec.flake;
+              genEnvList = env: lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") env;
+              mkScript =
+                scriptName: commandList:
+                pkgs.writeShellScript scriptName (
+                  builtins.concatStringsSep "\n" ([ "set -euo pipefail" ] ++ (lib.flatten commandList))
+                );
+              scriptNamePrefix =
+                let
+                  kind = if isWorkspace then "workspace" else "profile";
+                in
+                "better-code-${kind}-starter-${name}-";
+              mkLauncher =
+                {
+                  launcherName,
+                  inFlake ? false,
+                  commandList,
+                }:
+                let
+                  profileSpec = cfg.profiles.${spec.profile};
+                  mergedEnv =
+                    cfg.general.env
+                    // (lib.optionalAttrs isWorkspace profileSpec.env)
+                    // spec.env
+                    // (lib.optionalAttrs inFlake flakeSpec.env);
+                  mkRunSeq =
+                    which:
+                    cfg.general.run.${which}
+                    ++ (lib.optionals isWorkspace profileSpec.run.${which})
+                    ++ spec.run.${which}
+                    ++ (lib.optionals inFlake flakeSpec.run.${which});
+                in
+                mkScript (scriptNamePrefix + launcherName) (
+                  (genEnvList mergedEnv) ++ (mkRunSeq "pre") ++ commandList ++ (mkRunSeq "post")
+                );
 
-              environment-exec = command: "nix develop ${resolvedFlake} ${nix-args} --command ${command}";
+              nix-command =
+                command: args:
+                let
+                  resolvedFlake =
+                    if (flakeSpec.flake != null) then
+                      flakeSpec.flake
+                    else if isWorkspace then
+                      (spec.folder + "#" + (if (flakeSpec.name != null) then flakeSpec.name else "default"))
+                    else
+                      null;
+                in
+                mkCommand [
+                  "nix"
+                  command
+                  resolvedFlake
+                  flakeSpec.nix-args
+                  args
+                ];
+
               terminal-exec =
-                cmd:
-                lib.concatStringsSep " " ([ (lib.getExe cfg.terminal-emulator) ] ++ cfg.terminal-args ++ [ cmd ]);
+                command:
+                mkCommand [
+                  (lib.getExe cfg.terminal-emulator)
+                  cfg.terminal-args
+                  command
+                ];
+
               workspaceNF =
                 if isWorkspace then
                   (if spec.workspaceFile.enable then config.xdg.configFile.${name}.target else "${spec.folder}")
@@ -601,26 +646,41 @@ in
                   null;
               workspaceF =
                 if flakeSpec.producesWorkspace then
-                  "\\\\$BETTER_CODE_VSCODE_WORKSPACE_FILE"
+                  "$BETTER_CODE_VSCODE_WORKSPACE_FILE"
                 else if isWorkspace then
                   workspaceNF
                 else
                   null;
 
-              innerExec = mkLauncher "inner" flakeSpec (mkCodeCMD workspaceF);
+              innerExec = mkLauncher {
+                launcherName = "inner";
+                inFlake = true;
+                commandList = [ (mkCodeCMD workspaceF) ];
+              };
 
-              flake-commands = shellGen "better-code-${name}-${kind}-starter-flake-init" [
-                (builtins.map flakeCMD flakeSpec.commands)
-                (environment-exec "exit")
+              flake-exec =
+                command:
+                nix-command "develop" [
+                  "--command"
+                  command
+                ];
+
+              nix-flake-command = command: nix-command [ "flake" command ] [ ];
+              flake-commands = mkScript (scriptNamePrefix + "flake-init") [
+                (builtins.map nix-flake-command flakeSpec.commands)
+                (flake-exec "exit")
               ];
 
               innerCmds = [
                 (terminal-exec flake-commands)
-                (environment-exec innerExec)
+                (flake-exec innerExec)
               ];
-              finalLauncher = mkLauncher "outer" spec (
-                if flakeSpec.enable then innerCmds else (mkCodeCMD workspaceNF)
-              );
+
+              finalLauncher = mkLauncher {
+                launcherName = "outer";
+                inFlake = false;
+                commandList = if flakeSpec.enable then innerCmds else [ (mkCodeCMD workspaceNF) ];
+              };
             in
             {
               name = name;
