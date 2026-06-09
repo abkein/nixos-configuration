@@ -1,5 +1,4 @@
-{ cfg, ... }:
-{
+{ cfg, ... }: {
   imports = [
     ../../universal/system-modules/user.nix
     ./hardware-configuration.nix

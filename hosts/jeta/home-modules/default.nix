@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   imports = [
     # ./thunderbird.nix
     ./hypr

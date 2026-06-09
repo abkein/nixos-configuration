@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   stylix.targets.fuzzel = {
     # icons.enable = false;
     fonts.override = {

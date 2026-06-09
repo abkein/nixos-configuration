@@ -1,5 +1,4 @@
-{ pkgs, cfg, ... }:
-{
+{ pkgs, cfg, ... }: {
   users.users.${cfg.username} = {
     home = cfg.userhome;
     uid = cfg.uid;

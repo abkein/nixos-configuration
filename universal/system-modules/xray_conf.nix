@@ -7,8 +7,7 @@
 #   services.xray.settings.dns.hosts = basic-xray.dns.hosts
 # ```
 
-{ lib, ... }:
-{
+{ lib, ... }: {
   dns = {
     hosts = {
       "connectivitycheck.gstatic.com" = [

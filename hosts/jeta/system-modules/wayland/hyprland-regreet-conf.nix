@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   environment.etc = {
     hyprland-regreet = {
       enable = true;

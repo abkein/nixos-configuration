@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   # Printing
   services = {
     ipp-usb.enable = true;
