@@ -25,7 +25,7 @@
         show_age_threshold = 10;
         show_indicators = true;
 
-        format = "<b>%a:%s</b>\\n%b";
+        format = "<b>%a: %s</b>\\n%b";
         markup = "full";
         ellipsize = "end";
 
@@ -34,7 +34,7 @@
         sticky_history = "yes";
         history_length = 20;
 
-        dmenu = "${pkgs.fuzzel}/bin/fuzzel -p 'dunst:'";
+        dmenu = "${pkgs.fuzzel}/bin/fuzzel --dmenu -p 'dunst: '";
         browser = "${pkgs.xdg-utils}/bin/xdg-open";
 
         mouse_left_click = "context";
