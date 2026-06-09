@@ -135,6 +135,14 @@ let
         });
       };
     };
+  mkIconOption =
+    default:
+    mkOption {
+      type = types.str;
+      description = "Icon name. Would be set to `Icon=` field in the generated .desktop file.";
+      default = default;
+      example = "vscodium";
+    };
 in
 {
   options = {
@@ -203,8 +211,8 @@ in
       desktopEntries = mkOption {
         default = {
           enable = false;
-          workspaceSelectorIcon = "vscode";
-          profileSelectorIcon = "vscode";
+          workspaceSelectorIcon = cfg.variant;
+          profileSelectorIcon = cfg.variant;
         };
         description = ''
           Configuration of generation of desktop entries for workspaces and profiles.
@@ -219,37 +227,29 @@ in
               example = true;
             };
 
-            workspaceSelectorIcon = mkOption {
-              type = types.str;
-              description = "Workspace selector entry icon. Would be set to `Icon=` field in the generated .desktop file.";
-              default = cfg.variant;
-              example = "vscodium";
-            };
+            workspaceSelectorIcon = mkIconOption cfg.variant;
 
-            profileSelectorIcon = mkOption {
-              type = types.str;
-              description = "Workspace selector entry icon. Would be set to `Icon=` field in the generated .desktop file.";
-              default = cfg.variant;
-              example = "vscodium";
-            };
+            profileSelectorIcon = mkIconOption cfg.variant;
           };
         };
       };
 
-      terminal-emulator = mkOption {
-        type = types.package;
-        default = pkgs.xterm;
-        description = "Preferred terminal emulator app for `preinit` and `prerun`.";
-        example = pkgs.kitty;
-      };
+      terminal = {
+        package = mkOption {
+          type = types.package;
+          default = pkgs.xterm;
+          description = "Preferred terminal emulator app for `preinit` and `prerun`.";
+          example = "pkgs.kitty";
+        };
 
-      terminal-args = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        description = "Additional CLI arguments provided to teminal emulator instance. Commands are added last.";
-        example = lib.literalExpression ''
-          [ "--app-id=vscode-launch-status" ]
-        '';
+        args = mkOption {
+          type = types.listOf types.str;
+          default = [ ];
+          description = "Additional CLI arguments provided to teminal emulator instance. Commands are added last.";
+          example = lib.literalExpression ''
+            [ "--app-id=vscode-launch-status" ]
+          '';
+        };
       };
 
       args = mkOption {
@@ -286,6 +286,7 @@ in
             options = {
               inherit env run;
               flake = mkFlakeOpt false;
+              icon = mkIconOption cfg.desktopEntries.profileSelectorIcon;
               inherit (wtypes)
                 userSettings
                 userTasks
@@ -342,6 +343,7 @@ in
                     };
 
                     settings = wtypes.userSettings;
+                    icon = mkIconOption cfg.desktopEntries.workspaceSelectorIcon;
 
                     folders = mkOption {
                       description = ''
@@ -554,21 +556,21 @@ in
       )
       (mkIf cfg.desktopEntries.enable (
         let
+          mkCommand = command-args: lib.concatStringsSep " " (lib.flatten command-args);
+          genEnvList = env: lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") env;
+
           mkAction =
             isWorkspace: name: spec:
             let
-              mkCommand = command-args: lib.concatStringsSep " " (lib.flatten command-args);
+              profileName =
+                if (!isWorkspace) then
+                  name
+                else if (spec.extensions == [ ]) then
+                  spec.profile
+                else
+                  (generateProfileName4Workspace name spec);
               mkCodeCMD =
                 workspaceName:
-                let
-                  profileName =
-                    if (!isWorkspace) then
-                      name
-                    else if (spec.extensions == [ ]) then
-                      spec.profile
-                    else
-                      (generateProfileName4Workspace name spec);
-                in
                 mkCommand [
                   (lib.getExe config.programs.${cfg.variant}.package)
                   "--profile"
@@ -577,7 +579,6 @@ in
                   (lib.optional (workspaceName != null) workspaceName)
                 ];
               flakeSpec = spec.flake;
-              genEnvList = env: lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") env;
               mkScript =
                 scriptName: commandList:
                 pkgs.writeShellScript scriptName (
@@ -634,28 +635,23 @@ in
               terminal-exec =
                 command:
                 mkCommand [
-                  (lib.getExe cfg.terminal-emulator)
-                  cfg.terminal-args
+                  (lib.getExe cfg.terminal.package)
+                  cfg.terminal.args
                   command
                 ];
 
-              workspaceNF =
-                if isWorkspace then
-                  (if spec.workspaceFile.enable then config.xdg.configFile.${name}.target else "${spec.folder}")
-                else
-                  null;
-              workspaceF =
+              workspace =
                 if flakeSpec.producesWorkspace then
                   "$BETTER_CODE_VSCODE_WORKSPACE_FILE"
                 else if isWorkspace then
-                  workspaceNF
+                  (if spec.workspaceFile.enable then config.xdg.configFile.${name}.target else spec.folder)
                 else
                   null;
 
               innerExec = mkLauncher {
                 launcherName = "inner";
                 inFlake = true;
-                commandList = [ (mkCodeCMD workspaceF) ];
+                commandList = [ (mkCodeCMD workspace) ];
               };
 
               flake-exec =
@@ -679,11 +675,12 @@ in
               finalLauncher = mkLauncher {
                 launcherName = "outer";
                 inFlake = false;
-                commandList = if flakeSpec.enable then innerCmds else [ (mkCodeCMD workspaceNF) ];
+                commandList = if flakeSpec.enable then innerCmds else [ (mkCodeCMD workspace) ];
               };
             in
             {
-              name = name;
+              name = if isWorkspace then "Workspace: ${name}" else "Profile: ${name}";
+              icon = spec.icon;
               exec = "${finalLauncher}";
             };
           finalWorkspaceActions = lib.mapAttrs (mkAction true) cfg.workspaces;
@@ -693,7 +690,7 @@ in
               CodeWorkspaceSelector = {
                 name = "Workspace Selector";
                 genericName = "VSCode Workspace Selector";
-                exec = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeWorkspaceSelector does nothing itself, select an action"'';
+                exec = "${pkgs.libnotify}/bin/notify-send --app-icon=${cfg.desktopEntries.workspaceSelectorIcon} 'Code workspace selector does nothing itself, select an action'";
                 icon = cfg.desktopEntries.workspaceSelectorIcon;
                 type = "Application";
                 categories = [
@@ -708,7 +705,7 @@ in
               CodeProfileSelector = {
                 name = "Profile Selector";
                 genericName = "VSCode Profile Selector";
-                exec = ''hyprctl notify 2 3000 0 "fontsize:35 VSCodeProfileSelector does nothing itself, select an action"'';
+                exec = "${pkgs.libnotify}/bin/notify-send --app-icon=${cfg.desktopEntries.profileSelectorIcon} 'VSCodeProfileSelector does nothing itself, select an action";
                 icon = cfg.desktopEntries.profileSelectorIcon;
                 type = "Application";
                 categories = [
