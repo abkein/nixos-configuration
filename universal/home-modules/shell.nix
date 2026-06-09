@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  cfg,
   ...
 }:
 {
@@ -107,14 +106,8 @@
       };
 
       shellAliases = {
-        rb = "nh os switch ${cfg.flakepath}"; # sudo nixos-rebuild switch --flake ${flakeDir}
-        upd = "nix flake update --flake ${cfg.flakepath}";
-        upg = "nh os switch -u ${cfg.flakepath}"; # sudo nixos-rebuild switch --upgrade --flake ${flakeDir}
-
-        dg = "sudo nix-env --delete-generations +3 --profile /nix/var/nix/profiles/system";
-        cg = "sudo nix-collect-garbage -d";
-        os = "sudo nix-store --optimise";
-        destroy = "dg && cg && os";
+        delete-generations = "sudo nix-env --delete-generations +3 --profile /nix/var/nix/profiles/system";
+        system-cleaning = "delete-generations && nix store gc && nix store optimise";
         wget = "wget --hsts-file=${config.xdg.dataHome}/wget-hsts";
 
         _cat = "${pkgs.coreutils-full}/bin/coreutils --coreutils-prog=cat";
@@ -126,8 +119,6 @@
         mv = "mv -i";
         _top = "${pkgs.procps}/bin/top";
         top = "btop"; # "${config.programs.btop.package}/bin/btop";
-
-        refresh = "upd && upg && destroy";
       };
     };
   };
