@@ -214,11 +214,11 @@ in
       enable = true;
       package = ipkgs.codex-cli;
     };
-    claude-code = {
-      enable = true;
-      package = ipkgs.claude-code;
-      configDir = "${config.xdg.configHome}/claude";
-    };
+    # claude-code = {
+    #   enable = true;
+    #   package = ipkgs.claude-code;
+    #   configDir = "${config.xdg.configHome}/claude";
+    # };
     java.enable = true;
 
     git = {
@@ -239,10 +239,10 @@ in
           command = "${pkgs.github-mcp-server}/bin/github-mcp-server";
           args = [ "stdio" ];
         };
-        nixos = {
-          command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
-          args = [ ];
-        };
+        # nixos = {
+        #   command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+        #   args = [ ];
+        # };
       };
     };
     gradle.home = ".local/share/gradle";

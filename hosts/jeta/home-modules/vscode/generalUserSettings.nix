@@ -3,6 +3,7 @@
   pkgs,
   mylib,
   cfg,
+  ipkgs,
   ...
 }@args:
 lib.mkMerge (
@@ -30,6 +31,7 @@ lib.mkMerge (
         composerEnterBehavior = "cmdIfMultiline";
         followUpQueueMode = "steer";
         reviewDelivery = "detached";
+        cliExecutable = "${ipkgs.codex-cli}/bin/codex";
       };
       claudeCode = {
         disableLoginPrompt = true;

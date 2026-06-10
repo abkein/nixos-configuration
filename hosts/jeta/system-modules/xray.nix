@@ -157,6 +157,12 @@ in
                   };
                 };
               };
+              mux = {
+                enabled = true;
+                concurrency = 8;
+                xudpConcurrency = 16;
+                xudpProxyUDP443 = "allow";
+              };
             };
           mkRegnetVLESS3 =
             postfix: addrress:
