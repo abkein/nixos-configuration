@@ -151,18 +151,18 @@ in
                 };
                 xhttpSettings = {
                   path = "/api/v1/data";
-                  mode = "stream-one"; # "auto";
+                  mode = "auto";  # "stream-one";
                   extra = {
                     xPaddingBytes = "100-1000";
                   };
                 };
               };
-              mux = {
-                enabled = true;
-                concurrency = 8;
-                xudpConcurrency = 16;
-                xudpProxyUDP443 = "allow";
-              };
+              # mux = {
+              #   enabled = true;
+              #   concurrency = 8;
+              #   xudpConcurrency = 16;
+              #   xudpProxyUDP443 = "allow";
+              # };
             };
           mkRegnetVLESS3 =
             postfix: addrress:
