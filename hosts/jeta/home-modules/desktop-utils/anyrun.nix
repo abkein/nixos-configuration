@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   programs.anyrun = {
     enable = false;
     config = {

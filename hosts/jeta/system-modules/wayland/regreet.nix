@@ -1,4 +1,5 @@
-{ cfg, ... }: {
+{ cfg, ... }:
+{
   programs.regreet = {
     enable = true;
     cageArgs = [

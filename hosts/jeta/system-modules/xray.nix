@@ -151,7 +151,7 @@ in
                 };
                 xhttpSettings = {
                   path = "/api/v1/data";
-                  mode = "auto";  # "stream-one";
+                  mode = "auto"; # "stream-one";
                   extra = {
                     xPaddingBytes = "100-1000";
                   };

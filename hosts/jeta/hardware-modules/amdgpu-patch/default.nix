@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   # pick a kernel to patch
   # boot.kernelPackages = pkgs.linuxPackages_latest;
 

@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   home.packages = [ pkgs.networkmanager_dmenu ];
   xdg.configFile = {
     networkmanager_dmenu = {

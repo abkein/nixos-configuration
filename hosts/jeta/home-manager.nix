@@ -78,7 +78,6 @@ in
         chromium
         element-desktop
         tor-browser
-        # quickemu
 
         file-roller
         xdot
@@ -198,7 +197,6 @@ in
   ];
 
   services = {
-    # blueman-applet.enable = true;
     ssh-agent.enable = true;
     kdeconnect = {
       enable = true;
@@ -234,7 +232,6 @@ in
     mcp = {
       enable = true;
       servers = {
-        # Start the MCP client with GITHUB_PERSONAL_ACCESS_TOKEN set.
         github = {
           command = "${pkgs.github-mcp-server}/bin/github-mcp-server";
           args = [ "stdio" ];

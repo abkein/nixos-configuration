@@ -1,4 +1,5 @@
-{ mylib, ... }: {
+{ mylib, ... }:
+{
   evenBetterToml = {
     # Even Better TOML
     # The maximum amount of keys in a dotted key to display during completion, 0 effectively disables key completions.

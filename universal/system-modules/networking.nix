@@ -1,4 +1,5 @@
-{ cfg, ... }: {
+{ cfg, ... }:
+{
   networking = {
     hostName = cfg.hostname;
     nameservers = [

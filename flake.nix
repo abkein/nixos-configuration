@@ -2,8 +2,8 @@
   description = "My NixOS configuration with integrated home-manager";
 
   inputs = {
-    # nixpkgs.url = "github:NixOS/nixpkgs/6c9a78c09ff4d6c21d0319114873508a6ec01655";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/bd721586f271985a4329f1be49e3581ccfbb696a";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # nixpkgs.url = "git+file:///home/kein/repos/nixpkgs?rev=279a3747bfd34ed75bb864d190d2ada5afa99bc9";
     # nixpkgs.url = "github:SandaruKasa/nixpkgs/14403d56305e7592b7c9f7f08ae06439bdffd466";
 
@@ -84,7 +84,7 @@
     };
 
     stylix = {
-      url = "github:nix-community/stylix";
+      url = "github:nix-community/stylix/525965744b770af79c985ae5c43c65e441dc8b29";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -111,7 +111,6 @@
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake/beta";
       inputs = {
-        # IMPORTANT: To ensure compatibility with the latest Firefox version, use nixpkgs-unstable.
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
       };
@@ -153,6 +152,15 @@
       lib = nixpkgs.lib;
       useAgenixRekey = false;
       secrets = "secrets/agenix/encrypted";
+      _ipkgs =
+        system: with inputs; {
+          agenix = agenix.packages.${system}.default;
+          codex-cli = codex-cli.packages.${system}.default;
+          # claude-code = claude-code.packages.${system}.default;
+          ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
+          # anyrun-pkgs = anyrun.packages.${system}.default;
+          agenix-rekey = agenix-rekey.packages.${system}.default;
+        };
     in
     {
       nixosConfigurations = {
@@ -168,21 +176,7 @@
               inherit useAgenixRekey;
               inherit secrets;
             };
-            ipkgs =
-              let
-                system = cfg.system;
-              in
-              with inputs;
-              {
-                agenix = agenix.packages.${system}.default;
-                codex-cli = codex-cli.packages.${system}.default;
-                # claude-code = claude-code.packages.${system}.default;
-                ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
-                # anyrun-pkgs = anyrun.packages.${system}.default;
-              }
-              // (lib.optionalAttrs cfg.useAgenixRekey {
-                agenix-rekey = agenix-rekey.packages.${system}.default;
-              });
+            ipkgs = _ipkgs cfg.system;
             mylib = import ./mylib.nix lib;
           in
           lib.nixosSystem {
@@ -212,10 +206,6 @@
                       allowUnfree = true;
                       # rocmSupport = true;
                       warnUndeclaredOptions = true;
-                      # permittedInsecurePackages = [
-                      #   "pypy2.7-setuptools-44.0.0"
-                      #   "pypy2.7-pip-20.3.4"
-                      # ];
                     };
                     overlays =
                       (with inputs; [
@@ -263,17 +253,7 @@
               inherit useAgenixRekey;
               inherit secrets;
             };
-            ipkgs =
-              let
-                system = cfg.system;
-              in
-              with inputs;
-              {
-                agenix = agenix.packages.${system}.default;
-              }
-              // (lib.optionalAttrs cfg.useAgenixRekey {
-                agenix-rekey = agenix-rekey.packages.${system}.default;
-              });
+            ipkgs = _ipkgs cfg.system;
           in
           lib.nixosSystem {
             inherit (cfg) system;
@@ -322,34 +302,20 @@
         nixosConfigurations = self.nixosConfigurations;
       };
     })
-    // (
+    // (inputs.flake-utils.lib.eachDefaultSystem (
+      system:
       let
-        system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
         treefmtEval = (inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix).config.build;
       in
       {
         # for `nix fmt`
-        formatter.${system} = treefmtEval.wrapper;
+        formatter = treefmtEval.wrapper;
         # for `nix flake check`
-        checks.${system} = {
-          formatting = treefmtEval.check self;
-        };
+        # checks = {
+        #   formatting = treefmtEval.check self;
+        # };
+        packages = _ipkgs system;
       }
-    );
-  # // (inputs.flake-utils.lib.eachDefaultSystem (
-  #   system:
-  #   let
-  #     pkgs = nixpkgs.legacyPackages.${system};
-  #     treefmtEval = (inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix).config.build;
-  #   in
-  #   {
-  #     # for `nix fmt`
-  #     formatter = treefmtEval.wrapper;
-  #     # for `nix flake check`
-  #     checks = {
-  #       formatting = treefmtEval.check self;
-  #     };
-  #   }
-  # ));
+    ));
 }

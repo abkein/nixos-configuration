@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.proxychains = {
     enable = true;
     package = pkgs.proxychains-ng;

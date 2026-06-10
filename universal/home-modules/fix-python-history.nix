@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   home.sessionVariables = {
     JUPYTER_CONFIG_DIR = "${config.xdg.configHome}/jupyter";
     IPYTHONDIR = "${config.xdg.configHome}/ipython";

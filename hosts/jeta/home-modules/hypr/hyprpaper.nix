@@ -1,4 +1,5 @@
-{ cfg, ... }: {
+{ cfg, ... }:
+{
   services.hyprpaper = {
     enable = true;
     settings = {
