@@ -46,36 +46,36 @@
       };
     };
 
-    # flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.url = "github:edolstra/flake-compat";
 
-    # gitignore = {
-    #   url = "github:hercules-ci/gitignore.nix";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    gitignore = {
+      url = "github:hercules-ci/gitignore.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # pre-commit-hooks = {
-    #   url = "github:cachix/pre-commit-hooks.nix";
-    #   inputs = {
-    #     nixpkgs.follows = "nixpkgs";
-    #     gitignore.follows = "gitignore";
-    #     flake-compat.follows = "flake-compat";
-    #   };
-    # };
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        gitignore.follows = "gitignore";
+        flake-compat.follows = "flake-compat";
+      };
+    };
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # agenix-rekey = {
-    #   url = "github:oddlama/agenix-rekey";
-    #   inputs = {
-    #     nixpkgs.follows = "nixpkgs";
-    #     flake-parts.follows = "flake-parts";
-    #     pre-commit-hooks.follows = "pre-commit-hooks";
-    #     treefmt-nix.follows = "treefmt-nix";
-    #   };
-    # };
+    agenix-rekey = {
+      url = "github:oddlama/agenix-rekey";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
 
     nur = {
       url = "github:nix-community/NUR";
