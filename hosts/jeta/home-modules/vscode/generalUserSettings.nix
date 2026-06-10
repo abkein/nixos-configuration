@@ -7,8 +7,8 @@
   ...
 }@args:
 let
-  monofont = "'Noto Sans Serif', 'Symbols Nerd Font'";
-  # seriffont = "'Noto Serif', 'Symbols Nerd Font'";
+  monofont = "'Noto Sans Mono', 'Symbols Nerd Font'";
+  seriffont = "'Noto Sans Serif', 'Symbols Nerd Font'";
   fontsize = 14;
 in
 lib.mkMerge (
@@ -114,8 +114,8 @@ lib.mkMerge (
       };
 
       markdown.preview = {
-        # fontFamily = seriffont;
-        # fontSize = 14;
+        fontFamily = seriffont;
+        fontSize = fontsize;
       };
 
       screencastMode.fontSize = 48;

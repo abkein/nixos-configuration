@@ -1,6 +1,6 @@
 { config, pkgs, ... }@args:
 let
-  needed_extensions = import ./needed_exts.nix pkgs;
+  needed_extensions = import ./needed-exts.nix pkgs;
 in
 {
   stylix.targets.vscodium = {
