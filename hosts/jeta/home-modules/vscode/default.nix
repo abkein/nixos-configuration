@@ -5,10 +5,8 @@ in
 {
   stylix.targets.vscodium = {
     enable = false;
-    fonts.enable = false;
     # https://github.com/technosophos/vscode-base16
     # https://github.com/mk12/base16-modern-scheme
-    colors.enable = false;
     profileNames = [
       "default"
       "nix"
@@ -24,7 +22,7 @@ in
       mkdir -p $out/share/icons/hicolor/256x256/apps
 
       ln -s ${config.programs.vscodium.package}/share/icons/hicolor/1024x1024/apps/vscodium.png \
-        $out/share/icons/hicolor/256x256/apps/vscode.png
+        $out/share/icons/hicolor/256x256/apps/vscodium.png
     '')
   ];
   better-code = {

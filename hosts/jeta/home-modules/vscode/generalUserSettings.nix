@@ -6,6 +6,11 @@
   ipkgs,
   ...
 }@args:
+let
+  monofont = "'Noto Sans Serif', 'Symbols Nerd Font'";
+  # seriffont = "'Noto Serif', 'Symbols Nerd Font'";
+  fontsize = 14;
+in
 lib.mkMerge (
   lib.map mylib.flattenAttrsDot' [
     {
@@ -16,16 +21,26 @@ lib.mkMerge (
         multiCursorModifier = "ctrlCmd";
         formatOnPaste = true;
         formatOnType = true;
-        fontLigatures = false;
         autoIndentOnPaste = true;
         unicodeHighlight.ambiguousCharacters = false;
         renderWhitespace = "all";
         # defaultFormatter = "trunk.io";
+        fontFamily = monofont;
+        fontSize = fontsize;
+        fontLigatures = true;
+        inlineSuggest.fontFamily = monofont;
+        codeLensFontFamily = monofont;
+        # minimap.sectionHeaderFontSize = 10.285714285714286; # ?????
       };
 
       chat = {
         disableAIFeatures = true;
         mcp.gallery.enabled = true;
+        # fontFamily = seriffont;
+        # editor = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
       };
       chatgpt = {
         composerEnterBehavior = "cmdIfMultiline";
@@ -44,8 +59,11 @@ lib.mkMerge (
       #   project = "someimportantproject";
       # };
 
-      "terminal.integrated.sendKeybindingsToShell" = true;
-      "terminal.integrated.enableMultiLinePasteWarning" = "never";
+      terminal.integrated = {
+        sendKeybindingsToShell = true;
+        enableMultiLinePasteWarning = "never";
+        fontLigatures.enabled = true;
+      };
 
       window = {
         titleBarStyle = "custom";
@@ -90,11 +108,27 @@ lib.mkMerge (
         ignoreTrimWhitespace = false;
       };
 
-      "notebook.lineNumbers" = "on";
+      notebook = {
+        lineNumbers = "on";
+        # markup.fontFamily = seriffont;
+      };
+
+      markdown.preview = {
+        # fontFamily = seriffont;
+        # fontSize = 14;
+      };
+
+      screencastMode.fontSize = 48;
 
       "security.workspace.trust.untrustedFiles" = "open";
 
-      "debug.onTaskErrors" = "abort";
+      debug = {
+        onTaskErrors = "abort";
+        # console = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
+      };
       "extensions.ignoreRecommendations" = true;
 
       "direnv.watchForChanges" = false;
@@ -113,7 +147,27 @@ lib.mkMerge (
         # editorAssociations = mylib.literal {
         #   "*.pdf" = "pdf.preview";
         # };
-        navigationControl.enabled = false;
+        # experimental = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
+        # navigationControl.enabled = false;
+        # activityBar.experimental = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
+        # bottomPane.experimental = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
+        # sideBar.experimental = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
+        # tabs.experimental = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
       };
 
       "keyboard.dispatch" = "keyCode";
@@ -127,6 +181,7 @@ lib.mkMerge (
         alwaysShowActions = true;
         alwaysShowRepositories = true;
         defaultViewMode = "tree";
+        # inputFontSize = fontsize;
       };
 
       "randomNameGen.DefaultCasing" = "PascalCase";
