@@ -63,6 +63,8 @@
   # };
 
   services = {
+    blueman.enable = true;
+    gvfs.enable = true;
     avahi = {
       # For printing, but it's here because it's network-related
       # and putting it in networking module would've been amigious
@@ -79,14 +81,6 @@
         workstation = true;
       };
     };
-    blueman.enable = true;
-    udev = {
-      enable = true;
-      packages = with pkgs; [
-        sane-airscan
-      ];
-    }; # hardware.glasgow — plugdev
-    libinput.enable = true;
     pipewire = {
       enable = true;
       audio.enable = true;
@@ -100,16 +94,6 @@
       };
       jack.enable = true;
     };
-
-    dbus = {
-      enable = true;
-      packages = with pkgs; [
-        xdg-desktop-portal
-        xdg-desktop-portal-hyprland
-        xdg-desktop-portal-gtk
-      ];
-    };
-    gvfs.enable = true;
   };
 
   programs = {
@@ -204,9 +188,11 @@
       '')
       clinfo
       vulkan-tools
+      drm_info
+      v4l-utils # edid-decode
+      rocmPackages.rocminfo
 
-      p7zip # 7z
-      cdrtools # mkisofs
+      # cdrtools # mkisofs
 
       nix-prefetch
       nix-prefetch-git
@@ -215,10 +201,6 @@
       nix-output-monitor
 
       # syncthingtray
-
-      drm_info
-      v4l-utils # edid-decode
-      rocmPackages.rocminfo
 
       # utilities
       pinentry-all
@@ -237,9 +219,8 @@
       # onlykey
 
       pcsc-tools
-      pcsclite
       opensc
-      yubikey-manager
+
       yubico-piv-tool
       yubioath-flutter
     ];

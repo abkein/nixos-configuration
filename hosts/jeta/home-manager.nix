@@ -148,6 +148,8 @@ in
         qrencode
         libnotify
 
+        p7zip # 7z
+
         veusz
 
         ffmpeg-full

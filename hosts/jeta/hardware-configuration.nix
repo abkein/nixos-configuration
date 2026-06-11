@@ -110,7 +110,7 @@
   # hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware = {
     amdgpu = {
-      initrd.enable = true;
+      # initrd.enable = true;  # looks weird
       opencl.enable = true;
       overdrive = {
         enable = true;
@@ -120,7 +120,7 @@
     graphics = {
       enable = true; # actually enabled by other modules
       enable32Bit = true;
-      extraPackages = [ pkgs.rocmPackages.clr.icd ];
+      extraPackages = with pkgs; [ rocmPackages.clr.icd ];
     };
     mcelog.enable = true;
     # enableAllFirmware = true;
