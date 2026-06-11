@@ -65,6 +65,7 @@
   services = {
     blueman.enable = true;
     gvfs.enable = true;
+    homed.enable = true;
     avahi = {
       # For printing, but it's here because it's network-related
       # and putting it in networking module would've been amigious
