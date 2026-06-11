@@ -1,5 +1,16 @@
 { config, ... }:
 {
+  services = {
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${config.programs.hyprland.package}/bin/Hyprland --config /etc/${config.environment.etc.hyprland-regreet.target}";
+          user = "greeter";
+        };
+      };
+    };
+  };
   environment.etc = {
     hyprland-regreet = {
       enable = true;

@@ -2,13 +2,13 @@
 {
   imports = [
     ./wayland
-    ./proxychains.nix
-    ./networking.nix
     ./disko.nix
+    ./networking.nix
     ./xray.nix
+    ./proxychains.nix
+    ./printing.nix
     # ./openssh.nix
     # ./syncthing.nix
     # ./flatpak.nix
-    ./printing.nix
   ];
 }
