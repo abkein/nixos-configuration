@@ -123,7 +123,6 @@
       extraPackages = [ pkgs.rocmPackages.clr.icd ];
     };
     mcelog.enable = true;
-    opengl.driSupport32Bit = true;
     # enableAllFirmware = true;
     # enableAllHardware = true;
     enableRedistributableFirmware = true;
