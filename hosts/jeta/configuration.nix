@@ -83,15 +83,9 @@
     udev = {
       enable = true;
       packages = with pkgs; [
-        yubikey-personalization
-        # onlykey-cli  # insecure because of ecdsa package
         sane-airscan
       ];
     }; # hardware.glasgow — plugdev
-    pcscd = {
-      enable = true;
-      # plugins = [ pkgs.ccid ];
-    };
     libinput.enable = true;
     pipewire = {
       enable = true;
@@ -123,6 +117,7 @@
       enable = true;
       # verbose = true;
     };
+    yubikey-manager.enable = true;
     # nix-ld = {
     #   enable = true;
     # };
