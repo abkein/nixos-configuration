@@ -86,7 +86,7 @@
       auto-optimise-store = true;
       netrc-file = config.age.secrets."nix-netrc".path;
       use-xdg-base-directories = true;
-      pure-eval = true;
+      # pure-eval = true;  # breaks certain nix-related programs, that use e.g. nix-env -f <nixpkgs> --nix-path nixpkgs=/path/to/worktree ...
       fallback = true;
       builders-use-substitutes = true;
       always-allow-substitutes = true;

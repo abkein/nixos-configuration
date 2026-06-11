@@ -144,6 +144,7 @@ lib.mkMerge (
         colorTheme = "Dark Modern"; # stylix
         layoutControl.enabled = false;
         secondarySideBar.defaultVisibility = "hidden";
+        editor.enablePreview = false;
         # editorAssociations = mylib.literal {
         #   "*.pdf" = "pdf.preview";
         # };
