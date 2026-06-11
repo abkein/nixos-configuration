@@ -92,6 +92,9 @@ in
 
         qpwgraph
 
+        nixpkgs-review
+        gh
+
         # text
         xed-editor
         obsidian
