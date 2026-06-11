@@ -8,7 +8,6 @@
   };
 
   home.packages = with pkgs; [
-    polkit_gnome
     wlr-randr
     ydotool
     wl-clipboard
