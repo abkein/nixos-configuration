@@ -129,12 +129,6 @@
         # onlykey-cli  # insecure because of ecdsa package
         sane-airscan
       ];
-      extraRules = ''
-        ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", ENV{ID_MM_DEVICE_IGNORE}="1"
-        ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", ENV{MTP_NO_PROBE}="1"
-        SUBSYSTEMS=="usb", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0666"
-        KERNEL=="ttyACM*", ATTRS{idVendor}=="1d50", ATTRS{idProduct}=="60fc", MODE:="0666"
-      '';
     };
     pcscd = {
       enable = true;
@@ -285,17 +279,16 @@
 
       age-plugin-yubikey
 
+      # onlykey-cli  # insecure because of ecdsa package
       # onlykey-rebuilt
       # onlykey
 
       pcsc-tools
       pcsclite
       opensc
-      # onlykey-cli  # insecure because of ecdsa package
       yubikey-manager
       yubico-piv-tool
       yubioath-flutter
-      # yubikey-personalization  # probably not needed, as `yubikey-personalization` is marked as deprecated and suggests using `yubioath-flutter`
     ];
   };
 

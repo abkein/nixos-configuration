@@ -48,24 +48,6 @@
     kernel.sysctl."kernel.sysrq" = 1;
   };
 
-  # fileSystems = {
-  #   "/" = {
-  #     device = "/dev/disk/by-uuid/d990af03-81ac-4527-bcba-81a575ffc5ce";
-  #     fsType = "ext4";
-  #   };
-
-  #   "/boot" = {
-  #     device = "/dev/disk/by-uuid/6F70-6DF3";
-  #     fsType = "vfat";
-  #     options = [
-  #       "fmask=0077"
-  #       "dmask=0077"
-  #     ];
-  #   };
-  # };
-
-  # swapDevices = [ { device = "/dev/disk/by-uuid/94513675-0e3a-4fc6-95f5-b28663fe1aa9"; } ];
-  # boot.resumeDevice = "/dev/disk/by-uuid/94513675-0e3a-4fc6-95f5-b28663fe1aa9";
   # systemd = {
   #   sleep.extraConfig = ''
   #     HibernateDelaySec=1h
