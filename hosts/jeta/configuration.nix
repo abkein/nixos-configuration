@@ -324,20 +324,21 @@
     gpgSmartcards.enable = true;
     onlykey.enable = true;
     usb-modeswitch.enable = true;
-    graphics = {
-      extraPackages = [ pkgs.rocmPackages.clr.icd ];
-    };
     bluetooth = {
       enable = true;
       powerOnBoot = false;
       settings = {
         General = {
+          PairableTimeout = 30;
+          FastConnectable = true;
           JustWorksRepairing = "confirm";
           Experimental = true;
-          FastConnectable = true;
+          Testing = true;
+          KernelExperimental = true;
         };
         Policy = {
           AutoEnable = false;
+          ReconnectAttempts = 3;
         };
       };
     };
