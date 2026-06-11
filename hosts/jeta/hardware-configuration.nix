@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -54,6 +54,10 @@
       percentageCritical = 7;
       percentageAction = 5;
     };
+    lact = {
+      enable = true;
+      # settings = {};
+    };
     # acpid = {
     #   # Register commands for events, e.g.
     #   # "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"
@@ -105,10 +109,21 @@
 
   # hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware = {
-    # amdgpu = {
-    #   initrd.enable = true;
-    #   opencl.enable = true;
-    # };
+    amdgpu = {
+      initrd.enable = true;
+      opencl.enable = true;
+      overdrive = {
+        enable = true;
+        # ppfeaturemask = "";  # Default: "0xfffd7fff", example: "0xffffffff".
+      };
+    };
+    graphics = {
+      enable = true; # actually enabled by other modules
+      enable32Bit = true;
+      extraPackages = [ pkgs.rocmPackages.clr.icd ];
+    };
+    mcelog.enable = true;
+    opengl.driSupport32Bit = true;
     # enableAllFirmware = true;
     # enableAllHardware = true;
     enableRedistributableFirmware = true;
