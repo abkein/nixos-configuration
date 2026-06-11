@@ -29,6 +29,10 @@
       # dark = "Vimix-amethyst";
       # light = "Vimix-amethyst";
       dark = "hicolor";
+      # dsd = "#1d1f21";
+      # sadsd = "#282c3469";
+      # /org/gnome/tweaks/show-extensions-notice
+      # false
       light = "hicolor";
       # package = pkgs.vimix-icon-theme;
       # package = pkgs.adwaita-icon-theme;
