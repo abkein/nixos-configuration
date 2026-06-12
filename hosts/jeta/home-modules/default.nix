@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    # ./thunderbird.nix
     ./hypr
     ./desktop-utils
     ./vscode
@@ -12,5 +11,7 @@
     ./zotero.nix
     ./syncthing.nix
     ./files.nix
+    ./fixes.nix
+    # ./thunderbird.nix
   ];
 }

@@ -172,6 +172,7 @@
               username = "kein";
               userhome = "/home/${username}";
               uid = 1000;
+              xdg.runtimeDir="\${XDG_RUNTIME_DIR:-/run/user/${uid}}";
               flakepath = "${userhome}/nixos-configuration";
               inherit useAgenixRekey;
               inherit secrets;
@@ -249,6 +250,7 @@
               username = "kein";
               userhome = "/home/${username}";
               uid = 1000;
+              xdg.runtimeDir="\${XDG_RUNTIME_DIR:-/run/user/${uid}}";
               flakepath = "${userhome}/nixos-configuration";
               inherit useAgenixRekey;
               inherit secrets;

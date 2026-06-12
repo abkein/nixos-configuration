@@ -1,7 +1,7 @@
-.trash
-.trash.*
+.*
 
-.codex
-.agents
+!.editorconfig
+!.gitattributes
+!.gitignore
 
 temporary
