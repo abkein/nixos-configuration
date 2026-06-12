@@ -1,7 +1,7 @@
 { config, cfg, ... }:
 {
   services.syncthing = {
-    enable = true;
+    enable = false;
     openDefaultPorts = true;
     guiPasswordFile = config.age.secrets."syncthingPass".path;
     guiAddress = "127.0.0.1:8384"; # default
