@@ -13,7 +13,7 @@
         networkmanager-openvpn
         networkmanager-ssh
       ];
-      dns = "none";
+      # dns = "none";
       # dhcp = "dhcpd";
     };
     # modemmanager.enable = true;

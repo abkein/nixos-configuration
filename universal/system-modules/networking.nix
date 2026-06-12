@@ -8,15 +8,35 @@
     ];
     nftables = {
       enable = true;
+      tables = {
+        filter = {
+          enable = true;
+          name = "output";
+          family = "inet";
+          content = ''
+            chain output {
+              type filter hook output priority filter;
+              tcp dport 53 counter drop
+              udp dport 53 counter drop
+            }
+          '';
+        };
+      };
     };
     firewall = {
       enable = true;
+      backend = "nftables";
+      allowPing = true;
+      checkReversePath = true;
+      logRefusedConnections = true;
+      logRefusedPackets = true;
+      logReversePathDrops = true;
     };
   };
 
   services = {
     vnstat.enable = true;
-    # resolved.enable = true;
+    resolved.enable = true;
     dnscrypt-proxy = {
       enable = true;
       settings = {
