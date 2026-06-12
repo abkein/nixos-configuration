@@ -9,7 +9,7 @@
     ./ghostty.nix
     ./swappy.nix
     ./dolphin.nix
-    ./networkmanager_dmenu.nix
+    ./networkmanager-dmenu.nix
     # ./wofi.nix
   ];
 
