@@ -16,8 +16,8 @@
           content = ''
             chain output {
               type filter hook output priority filter;
-              tcp dport 53 counter drop
-              udp dport 53 counter drop
+              oifname != "lo" tcp dport 53 counter drop
+              oifname != "lo" udp dport 53 counter drop
             }
           '';
         };
