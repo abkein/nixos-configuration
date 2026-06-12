@@ -46,36 +46,36 @@
       };
     };
 
-    flake-compat.url = "github:edolstra/flake-compat";
+    # flake-compat.url = "github:edolstra/flake-compat";
 
     gitignore = {
       url = "github:hercules-ci/gitignore.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        gitignore.follows = "gitignore";
-        flake-compat.follows = "flake-compat";
-      };
-    };
+    # pre-commit-hooks = {
+    #   url = "github:cachix/pre-commit-hooks.nix";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     gitignore.follows = "gitignore";
+    #     flake-compat.follows = "flake-compat";
+    #   };
+    # };
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agenix-rekey = {
-      url = "github:oddlama/agenix-rekey";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-    };
+    # agenix-rekey = {
+    #   url = "github:oddlama/agenix-rekey";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     flake-parts.follows = "flake-parts";
+    #     pre-commit-hooks.follows = "pre-commit-hooks";
+    #     treefmt-nix.follows = "treefmt-nix";
+    #   };
+    # };
 
     nur = {
       url = "github:nix-community/NUR";
@@ -153,14 +153,16 @@
       useAgenixRekey = false;
       secrets = "secrets/agenix/encrypted";
       _ipkgs =
-        system: with inputs; {
+        system:
+        with inputs;
+        {
           agenix = agenix.packages.${system}.default;
           codex-cli = codex-cli.packages.${system}.default;
           # claude-code = claude-code.packages.${system}.default;
           ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
           # anyrun-pkgs = anyrun.packages.${system}.default;
-          agenix-rekey = agenix-rekey.packages.${system}.default;
-        };
+        }
+        // (lib.optionalAttrs useAgenixRekey { agenix-rekey = agenix-rekey.packages.${system}.default; });
     in
     {
       nixosConfigurations = {
@@ -172,7 +174,7 @@
               username = "kein";
               userhome = "/home/${username}";
               uid = 1000;
-              xdg.runtimeDir="\${XDG_RUNTIME_DIR:-/run/user/${uid}}";
+              xdg.runtimeDir = "\${XDG_RUNTIME_DIR:-/run/user/${builtins.toString uid}}";
               flakepath = "${userhome}/nixos-configuration";
               inherit useAgenixRekey;
               inherit secrets;
@@ -250,7 +252,7 @@
               username = "kein";
               userhome = "/home/${username}";
               uid = 1000;
-              xdg.runtimeDir="\${XDG_RUNTIME_DIR:-/run/user/${uid}}";
+              xdg.runtimeDir = "\${XDG_RUNTIME_DIR:-/run/user/${builtins.toString uid}}";
               flakepath = "${userhome}/nixos-configuration";
               inherit useAgenixRekey;
               inherit secrets;
