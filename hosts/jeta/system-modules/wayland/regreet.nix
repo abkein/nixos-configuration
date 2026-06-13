@@ -1,21 +1,27 @@
-{ cfg, ... }:
+{ config, lib, ... }:
+let
+regreetCfg = config.programs.regreet;
+in
 {
+  users.users.greeter.home =
+    if lib.versionAtLeast regreetCfg.package.version "0.2.0" then
+      "/var/lib/regreet"
+    else
+      "/var/cache/regreet";
+
   programs.regreet = {
     enable = true;
-    # TODO: remove "-D" (debug) after ensuring everything works correctly
     cageArgs = [
       "-s"
       "-d"
       "-m"
       "last"
-      "-D"
     ];
     settings = {
       skip_selection = false;
 
       background = {
-        # FIXME: seems the "greeter" user can't read files in /home/kein/
-        path = "${cfg.userhome}/Pictures/Wallpapers/rocket.png";
+        path = ../../../../resources/rocket.png;
 
         # fit = "Contain";  # stylix
       };
@@ -23,10 +29,6 @@
       # env = {
       #   # ENV_VARIABLE = "value";
       # };
-
-      GTK = {
-        application_prefer_dark_theme = true;
-      };
 
       commands = {
         reboot = [
