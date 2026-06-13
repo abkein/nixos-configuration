@@ -53,6 +53,8 @@
       hw-probe
       zip
       unzip
+      procs
+      procfd
 
       nixfmt
       age
