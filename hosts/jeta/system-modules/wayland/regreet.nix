@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-regreetCfg = config.programs.regreet;
+  regreetCfg = config.programs.regreet;
 in
 {
   users.users.greeter.home =

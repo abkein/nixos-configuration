@@ -1,15 +1,9 @@
 { config, ... }:
 {
-  services = {
-    greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${config.programs.hyprland.package}/bin/Hyprland --config /etc/${config.environment.etc.hyprland-regreet.target}";
-          user = "greeter";
-        };
-      };
-    };
+  # TODO: start with dbus-run-session + systemd-cat
+  services.greetd = {
+    enable = true;
+    settings.default_session.command = "${config.programs.hyprland.package}/bin/Hyprland --config /etc/${config.environment.etc.hyprland-regreet.target}";
   };
   environment.etc = {
     hyprland-regreet = {
