@@ -1,4 +1,9 @@
-{ pkgs, lib, cfg, ... }:
+{
+  pkgs,
+  lib,
+  cfg,
+  ...
+}:
 {
   home-manager.users.${cfg.username}.wayland.windowManager.hyprland = {
     package = lib.mkForce null;
