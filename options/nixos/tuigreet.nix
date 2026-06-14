@@ -8,26 +8,20 @@ let
   inherit (lib) mkOption types optionals;
   cfg = config.programs.tuigreet;
 
-  theme = builtins.concatStringsSep ";" (
-    lib.flatten (
-      lib.mapAttrsToList (
-        name: value: lib.optional (value != null) "${name}=${value}"
-      ) cfg.theme
-    )
-  );
-
+  stateDir = "/var/cache/tuigreet";
+  logDir = "/var/log/tuigreet";
   sessionsDir = "${config.services.displayManager.sessionData.desktops}/share";
+
+  mkKVList = attrs: lib.mapAttrsToList (name: value: lib.optional (value != null) "${name}=${value}") attrs;
+
+  theme = builtins.concatStringsSep ";" (lib.flatten (mkKVList cfg.theme));
 
   ifNotNull = flag: value: optionals (value != null) [ flag value ];
   ifTrue = flag: value: optionals value [ flag ];
-  # (lib.flatten (
-  #   lib.mapAttrsToList (name: value: [ "--env" "${name}=${value}" ]) cfg.env
-  # ))
+
   args =
-    (optionals cfg.debug.enable (
-      [ "--debug" ]
-      ++ (optionals (cfg.debug.file != null) [ cfg.debug.file ])
-    ))
+    (lib.flatten (map (elem: [ "--env" ] ++ elem) (mkKVList cfg.env)))
+    ++ (optionals cfg.debug.enable ([ "--debug" ] ++ (optionals (cfg.debug.file != null) [ cfg.debug.file ])))
     ++ (optionals cfg.session.enable (
       [ "--sessions" "${sessionsDir}/wayland-sessions" ]
       ++ (ifNotNull "--session-wrapper" cfg.session.wrapper)
@@ -65,24 +59,15 @@ let
     ++ (ifTrue "--user-menu" cfg.userMenu.enable)
     ++ (ifTrue "--asterisks" cfg.asterisks.enable)
     ++ (ifTrue "--power-no-setsid" cfg.power.noSetSid)
-    ++ (optionals (theme != "") ["--theme" theme]);
+    ++ (optionals (theme != "") [ "--theme" theme ]);
 
   finalArgs = lib.escapeShellArgs args;
-
-  stateDir = "/var/cache/tuigreet";
-  logDir = "/var/log/tuigreet";
 in
 {
   options.programs.tuigreet = {
-    enable = mkOption {
-      type = types.bool;
-      default = false;
-      example = true;
-      description = ''
-        Whether to enable tuigreet as your greeter.
-        Homepage: https://github.com/apognu/tuigreet
-      '';
-    };
+    enable = lib.mkEnableOption "tuigreet as a greetd greeter";
+
+    package = lib.mkPackageOption pkgs "tuigreet";
 
     session = {
       enable = mkOption {
@@ -146,16 +131,16 @@ in
       };
     };
 
-    # env = mkOption {
-    #   type = types.attrsOf types.str;
-    #   default = { };
-    #   description = "Environment variables to run the default session with";
-    #   example = lib.literalExpression ''
-    #     {
-    #       XDG_SESSION_TYPE="wayland";
-    #     }
-    #   '';
-    # };
+    env = mkOption {
+      type = types.attrsOf types.str;
+      default = { };
+      description = "Environment variables to run the default session with";
+      example = lib.literalExpression ''
+        {
+          XDG_SESSION_TYPE="wayland";
+        }
+      '';
+    };
 
     command = mkOption {
       type = types.nullOr types.str;
@@ -452,8 +437,10 @@ in
     services.greetd = {
       enable = true;
       useTextGreeter = true;
-      settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet ${finalArgs}";
+      settings.default_session.command = "${cfg.package}/bin/tuigreet ${finalArgs}";
     };
+
+    environment.systemPackages = [ cfg.package ];
 
     systemd.tmpfiles.settings."10-tuigreet" =
       let
