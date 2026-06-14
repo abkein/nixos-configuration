@@ -12,54 +12,49 @@ let
   logDir = "/var/log/tuigreet";
   sessionsDir = "${config.services.displayManager.sessionData.desktops}/share";
 
-  mkKVList = attrs: lib.mapAttrsToList (name: value: lib.optional (value != null) "${name}=${value}") attrs;
+  mkKVList = attrs: lib.mapAttrsToList (k: v: lib.optional (v != null) "${k}=${v}") attrs;
 
   theme = builtins.concatStringsSep ";" (lib.flatten (mkKVList cfg.theme));
 
-  ifNotNull = flag: value: optionals (value != null) [ flag value ];
-  ifTrue = flag: value: optionals value [ flag ];
+  ifN = s: v: lib.optionals (v != null) ((lib.optional (s != null) s) ++ [ v ]);
 
   args =
     (lib.flatten (map (elem: [ "--env" ] ++ elem) (mkKVList cfg.env)))
-    ++ (optionals cfg.debug.enable ([ "--debug" ] ++ (optionals (cfg.debug.file != null) [ cfg.debug.file ])))
+    ++ (with cfg.debug; optionals enable ([ "--debug" ] ++ (ifN null file)))
     ++ (optionals cfg.session.enable (
-      [ "--sessions" "${sessionsDir}/wayland-sessions" ]
-      ++ (ifNotNull "--session-wrapper" cfg.session.wrapper)
+      (ifN "--sessions" "${sessionsDir}/wayland-sessions")
+      ++ (ifN "--session-wrapper" cfg.session.wrapper)
     ))
     ++ (optionals cfg.xsession.enable (
-      [ "--xsessions" "${sessionsDir}/xsessions" ]
-      ++ (
-        if (!cfg.xsession.wrap) then
-          [ "--no-xsession-wrapper" ]
-        else
-          ifNotNull "--xsession-wrapper" cfg.xsession.wrapper
-      )
+      (ifN "--xsessions" "${sessionsDir}/xsessions")
+      ++ (optionals (!cfg.xsession.wrap) "--no-xsession-wrapper")
+      ++ (optionals cfg.xsession.wrap (ifN "--xsession-wrapper" cfg.xsession.wrapper))
     ))
-    ++ (ifNotNull "--cmd" cfg.command)
-    ++ (ifNotNull "--width" cfg.width)
-    ++ (ifNotNull "--greeting" cfg.greeting)
-    ++ (ifNotNull "--time-format" cfg.time.format)
-    ++ (ifNotNull "--user-menu-min-uid" cfg.userMenu.minUID)
-    ++ (ifNotNull "--user-menu-max-uid" cfg.userMenu.maxUID)
-    ++ (ifNotNull "--asterisks-char" cfg.asterisks.char)
-    ++ (ifNotNull "--window-padding" cfg.padding.window)
-    ++ (ifNotNull "--container-padding" cfg.padding.container)
-    ++ (ifNotNull "--prompt-padding" cfg.padding.prompt)
-    ++ (ifNotNull "--greet-align" cfg.align)
-    ++ (ifNotNull "--power-shutdown" cfg.power.shutdown)
-    ++ (ifNotNull "--power-reboot" cfg.power.reboot)
-    ++ (ifNotNull "--kb-command" cfg.kb.command)
-    ++ (ifNotNull "--kb-sessions" cfg.kb.sessions)
-    ++ (ifNotNull "--kb-power" cfg.kb.power)
-    ++ (ifTrue "--issue" cfg.issue)
-    ++ (ifTrue "--time" cfg.time.enable)
-    ++ (ifTrue "--remember" cfg.remember.user)
-    ++ (ifTrue "--remember-session" cfg.remember.session)
-    ++ (ifTrue "--remember-user-session" cfg.remember.userSession)
-    ++ (ifTrue "--user-menu" cfg.userMenu.enable)
-    ++ (ifTrue "--asterisks" cfg.asterisks.enable)
-    ++ (ifTrue "--power-no-setsid" cfg.power.noSetSid)
-    ++ (optionals (theme != "") [ "--theme" theme ]);
+    ++ (ifN "--cmd" cfg.command)
+    ++ (ifN "--width" cfg.width)
+    ++ (ifN "--greeting" cfg.greeting)
+    ++ (ifN "--greet-align" cfg.align)
+    ++ (ifN "--kb-power" cfg.kb.power)
+    ++ (ifN "--kb-command" cfg.kb.command)
+    ++ (ifN "--kb-sessions" cfg.kb.sessions)
+    ++ (ifN "--time-format" cfg.time.format)
+    ++ (ifN "--power-reboot" cfg.power.reboot)
+    ++ (ifN "--power-shutdown" cfg.power.shutdown)
+    ++ (ifN "--asterisks-char" cfg.asterisks.char)
+    ++ (ifN "--window-padding" cfg.padding.window)
+    ++ (ifN "--prompt-padding" cfg.padding.prompt)
+    ++ (ifN "--container-padding" cfg.padding.container)
+    ++ (ifN "--user-menu-min-uid" cfg.userMenu.minUID)
+    ++ (ifN "--user-menu-max-uid" cfg.userMenu.maxUID)
+    ++ (ifN "--theme" (if (theme != "") then theme else null))
+    ++ (lib.optional cfg.issue "--issue")
+    ++ (lib.optional cfg.time.enable "--time")
+    ++ (lib.optional cfg.userMenu.enable "--user-menu")
+    ++ (lib.optional cfg.asterisks.enable "--asterisks")
+    ++ (lib.optional cfg.power.noSetSid "--power-no-setsid")
+    ++ (lib.optional (cfg.remember != null) "--remember")
+    ++ (lib.optional (cfg.remember == "user+session") "--remember-session")
+    ++ (lib.optional (cfg.remember == "session/user") "--remember-user-session");
 
   finalArgs = lib.escapeShellArgs args;
 in
@@ -188,27 +183,23 @@ in
       };
     };
 
-    remember = {
-      user = mkOption {
-        type = types.bool;
-        default = false;
-        example = true;
-        description = "Whether to remember last logged-in username.";
-      };
-
-      session = mkOption {
-        type = types.bool;
-        default = false;
-        example = true;
-        description = "Whether to remember last selected session.";
-      };
-
-      userSession = mkOption {
-        type = types.bool;
-        default = false;
-        example = true;
-        description = "Whether to  remember last selected session for each user.";
-      };
+    remember = mkOption {
+      type = types.nullOr (
+        types.enum [
+          "user"
+          "user+session"
+          "session/user"
+        ]
+      );
+      default = null;
+      example = "user+session";
+      description = ''
+        Whether to remember parameters of the last login:
+        `user` — remember only the last logged-in user.
+        `user+session` — remember last logged-in user and its session.
+        `session/user` — remember last session for each user.
+        Nothing is remembered if unset.
+      '';
     };
 
     userMenu = {
