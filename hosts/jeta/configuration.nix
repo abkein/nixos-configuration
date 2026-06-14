@@ -96,7 +96,21 @@
       # };
       jack.enable = true;
     };
+    xserver.xkb = {
+      model = "pc105";
+      layout = "us";
+      options = "grp:alt_shift_toggle, compose:ralt, lv3:menu_switch";
+    };
+    kmscon = {
+      enable = true;
+      useXkbConfig = true;
+      config = {
+        hwaccel = true;
+      };
+    };
   };
+  # Probably `Ctrl,+`, `Ctrl,-` would work.
+  stylix.targets.kmscon.fonts.override.sizes.terminal = 14;
 
   programs = {
     yubikey-touch-detector = {
