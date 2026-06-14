@@ -8,81 +8,57 @@ let
   inherit (lib) mkOption types optionals;
   cfg = config.programs.tuigreet;
 
-  appendIf =
-    both: func: list:
-    builtins.foldl' (
-      acc: innerList:
-      let
-        elem = builtins.elemAt innerList 1;
-      in
-      acc ++ (lib.optionals (func elem) (if both then innerList else [ elem ]))
-    ) [ ] list;
-  appendFlagValueIf = appendIf true;
-  appendFlagIf = appendIf false;
-
-  nullableArgs = appendFlagValueIf (elem: elem != null) [
-    ["--cmd" cfg.command]
-    ["--width" cfg.width]
-    ["--greeting" cfg.greeting]
-    ["--time-format" cfg.timeFormat]
-    ["--user-menu-min-uid" cfg.userMenu.minUID]
-    ["--user-menu-max-uid" cfg.userMenu.maxUID]
-    ["--asterisks-char" cfg.asterisks.char]
-    ["--window-padding" cfg.padding.window]
-    ["--container-padding" cfg.padding.container]
-    ["--prompt-padding" cfg.padding.prompt]
-    ["--greet-align" cfg.align]
-    ["--power-shutdown" cfg.power.shutdown]
-    ["--power-reboot" cfg.power.reboot]
-    ["--kb-command" cfg.kb.command]
-    ["--kb-sessions" cfg.kb.sessions]
-    ["--kb-power" cfg.kb.power]
-  ];
-
-  simpleSwitches = appendFlagIf (elem: elem /*== true*/) [
-    ["--issue" cfg.issue]
-    ["--time" cfg.displayTime]
-    ["--remember" cfg.remember.user]
-    ["--remember-session" cfg.remember.session]
-    ["--remember-user-session" cfg.remember.userSession]
-    ["--user-menu" cfg.userMenu.enable]
-    ["--asterisks" cfg.asterisks]
-    ["--power-no-setsid" cfg.power.noSetSid]
-  ];
-
   theme = builtins.concatStringsSep ";" (lib.mapAttrsToList (name: value: lib.optionalString (value != null) "${name}=${value}") cfg.theme);
 
-  sessionData = config.services.displayManager.sessionData;
-  ifNotNull = flag: value:
-    optionals value != null [ flag value ];
+  sessionsDir = "${config.services.displayManager.sessionData.desktops}/share";
+
+  ifNotNull = flag: value: optionals (value != null) [ flag value ];
+  ifTrue = flag: value: optionals value [ flag ];
   args =
     (lib.flatten (lib.mapAttrsToList (name: value: ["--env" "${name}=${value}" ]) cfg.env))
     ++ (optionals cfg.debug.enable ([ "--debug" ] ++ (optionals (cfg.debug.file != null) [ cfg.debug.file ])))
     ++ (optionals cfg.session.enable (
-      [ "--sessions" "${sessionData.desktops}/share/wayland-sessions" ]
+      [ "--sessions" "${sessionsDir}/wayland-sessions" ]
       ++ (ifNotNull "--session-wrapper" cfg.session.wrapper)
     ))
     ++ (optionals cfg.xsession.enable (
-      [ "--xsessions" "${sessionData.desktops}/share/xsessions" ]
-      ++ (ifNotNull "--xsession-wrapper" cfg.xsession.wrapper)
-      ++ (lib.optional (!cfg.xsession.wrap) "--no-xsession-wrapper")
+      [ "--xsessions" "${sessionsDir}/xsessions" ]
+      ++ (if (!cfg.xsession.wrap) then [ "--no-xsession-wrapper" ]
+          else ifNotNull "--xsession-wrapper" cfg.xsession.wrapper)
     ))
     ++ (optionals (theme != "") ["--theme" theme])
-    ++ nullableArgs
-    ++ simpleSwitches;
+    ++ (ifNotNull "--cmd" cfg.command)
+    ++ (ifNotNull "--width" cfg.width)
+    ++ (ifNotNull "--greeting" cfg.greeting)
+    ++ (ifNotNull "--time-format" cfg.timeFormat)
+    ++ (ifNotNull "--user-menu-min-uid" cfg.userMenu.minUID)
+    ++ (ifNotNull "--user-menu-max-uid" cfg.userMenu.maxUID)
+    ++ (ifNotNull "--asterisks-char" cfg.asterisks.char)
+    ++ (ifNotNull "--window-padding" cfg.padding.window)
+    ++ (ifNotNull "--container-padding" cfg.padding.container)
+    ++ (ifNotNull "--prompt-padding" cfg.padding.prompt)
+    ++ (ifNotNull "--greet-align" cfg.align)
+    ++ (ifNotNull "--power-shutdown" cfg.power.shutdown)
+    ++ (ifNotNull "--power-reboot" cfg.power.reboot)
+    ++ (ifNotNull "--kb-command" cfg.kb.command)
+    ++ (ifNotNull "--kb-sessions" cfg.kb.sessions)
+    ++ (ifNotNull "--kb-power" cfg.kb.power)
+    ++ (ifTrue "--issue" cfg.issue)
+    ++ (ifTrue "--time" cfg.displayTime)
+    ++ (ifTrue "--remember" cfg.remember.user)
+    ++ (ifTrue "--remember-session" cfg.remember.session)
+    ++ (ifTrue "--remember-user-session" cfg.remember.userSession)
+    ++ (ifTrue "--user-menu" cfg.userMenu.enable)
+    ++ (ifTrue "--asterisks" cfg.asterisks)
+    ++ (ifTrue "--power-no-setsid" cfg.power.noSetSid);
 
   finalArgs = lib.escapeShellArgs args;
-  innnerWrapper = pkgs.writeShellScript "tuigreet-inner-wrapper" ''
+  wrapper = pkgs.writeShellScript "tuigreet-inner-wrapper" ''
     exec ${pkgs.tuigreet}/bin/tuigreet ${finalArgs}
   '';
 
   stateDir = "/var/cache/tuigreet";
   logDir = "/var/log/tuigreet";
-
-  outerWrapper =
-    pkgs.writeShellScript "tuigreet-outer-wrapper" "exec ${innnerWrapper} 2>&1"
-    + (lib.optionalString config.services.displayManager.logToFile " | tee -a ${logDir}/tuigreet.log")
-    + (lib.optionalString config.services.displayManager.logToJournal " | ${pkgs.systemd}/bin/systemd-cat --identifier='tuigreet'");
 in
 {
   options.programs.tuigreet = {
@@ -99,7 +75,7 @@ in
     session = {
       enable = mkOption {
         type = types.bool;
-        default = true;
+        default = config.services.displayManager.enable;
         example = false;
         description = "Whether to use session files for non-X11 sessions.";
       };
@@ -117,7 +93,7 @@ in
     xsession = {
       enable = mkOption {
         type = types.bool;
-        default = true;
+        default = with config.services; xserver.enable && displayManager.enable;
         example = false;
         description = "Whether to use session files for X11 sessions.";
       };
@@ -131,7 +107,7 @@ in
 
       wrapper = mkOption {
         type = types.nullOr types.str;
-        default = null;
+        default = config.services.displayManager.sessionData.wrapper;
         example = lib.literalExpression ''
           ''${pkgs.sx}/bin/startx /usr/bin/env
         '';
@@ -151,10 +127,10 @@ in
       };
 
       file = mkOption {
-        type = types.nullOr types.path;
-        default = "${logDir}/tuigreet-debug.log";
-        example = "/var/log/tuigreet/tuigreet-debug.log";
-        description = "File to log to. Will be `/tmp/tuigreet.log` if unset.";
+        type = types.path;
+        default = "${logDir}/tuigreet.log";
+        example = "/var/log/tuigreet/tuigreet.log";
+        description = "File to log into.";
       };
     };
 
@@ -462,7 +438,7 @@ in
     services.greetd = {
       enable = true;
       useTextGreeter = true;
-      settings.default_session.command = "exec ${outerWrapper}";
+      settings.default_session.command = wrapper;
     };
 
     systemd.tmpfiles.settings."10-tuigreet" =
