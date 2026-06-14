@@ -35,6 +35,7 @@
   };
 
   services = {
+    resolved.settings.Resolve.MulticastDNS = false;
     dnscrypt-proxy.settings = {
       monitoring_ui = {
         enabled = true;
