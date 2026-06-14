@@ -119,7 +119,7 @@
     };
     graphics = {
       enable = true; # actually enabled by other modules
-      enable32Bit = true;
+      # enable32Bit = true;
       extraPackages = with pkgs; [ rocmPackages.clr.icd ];
     };
     mcelog.enable = true;

@@ -229,12 +229,8 @@ lib.mkMerge (
 
       "todo-tree.general.tags" = [
         "BUG"
-        "HACK"
         "FIXME"
         "TODO"
-        "XXX"
-        "[ ]"
-        "[x]"
         "type= ignore"
       ];
 

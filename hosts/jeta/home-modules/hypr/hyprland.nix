@@ -6,7 +6,7 @@ in
   wayland.systemd.target = "graphical-session.target";
   wayland.windowManager.hyprland = {
     enable = true;
-    xwayland.enable = true;
+    # xwayland.enable = true;
     configType = "hyprlang";
     # --- system module integration
     # package = null;

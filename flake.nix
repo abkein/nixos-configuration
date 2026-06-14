@@ -2,8 +2,7 @@
   description = "My NixOS configuration with integrated home-manager";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/bd721586f271985a4329f1be49e3581ccfbb696a";
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # nixpkgs.url = "git+file:///home/kein/repos/nixpkgs?rev=279a3747bfd34ed75bb864d190d2ada5afa99bc9";
     # nixpkgs.url = "github:SandaruKasa/nixpkgs/14403d56305e7592b7c9f7f08ae06439bdffd466";
 
@@ -84,7 +83,7 @@
     };
 
     stylix = {
-      url = "github:nix-community/stylix/525965744b770af79c985ae5c43c65e441dc8b29";
+      url = "github:nix-community/stylix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -209,6 +208,10 @@
                       allowUnfree = true;
                       # rocmSupport = true;
                       warnUndeclaredOptions = true;
+                      permittedInsecurePackages = [
+                        "pypy2.7-setuptools-44.0.0"
+                        "pypy2.7-pip-20.3.4"
+                      ];
                     };
                     overlays =
                       (with inputs; [

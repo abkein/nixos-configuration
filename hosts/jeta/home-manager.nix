@@ -67,8 +67,8 @@
         poppler-utils
         texlive.combined.scheme-full
         ghostscript
-        backintime-common
-        backintime-qt
+        # backintime-common
+        # backintime-qt
         tesseract
         #chatbox
         chromium
