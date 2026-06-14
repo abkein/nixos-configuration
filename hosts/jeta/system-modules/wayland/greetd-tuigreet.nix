@@ -1,25 +1,49 @@
 { config, pkgs, ... }:
-let
-  sessionData = config.services.displayManager.sessionData;
-  #   log=/var/log/tuigreet/tuigreet.log
-  #   {
-  runTuigreet = pkgs.writeShellScript "run-tuigreet" ''
-    exec ${pkgs.tuigreet}/bin/tuigreet \
-      --time --user-menu       \
-      --debug /var/log/tuigreet/tuigreet-debug.log    \
-      --sessions "${sessionData.desktops}/share/wayland-sessions" \
-      --power-shutdown '${pkgs.systemd}/bin/poweroff' \
-      --power-reboot '${pkgs.systemd}/bin/reboot'
-  '';
-  #    --kb-command 1 --kb-sessions 2 --kb-power 3
-  #'';
-  #   } > "$log" 2>&1
-in
+# let
+#   sessions = config.services.displayManager.sessionData.desktops;
+#   runTuigreet = pkgs.writeShellScript "run-tuigreet" ''
+#     exec ${pkgs.tuigreet}/bin/tuigreet \
+#       --time --user-menu       \
+#       --debug /var/log/tuigreet/tuigreet-debug.log    \
+#       --sessions "${sessions}/share/wayland-sessions" \
+#       --power-shutdown '${pkgs.systemd}/bin/poweroff' \
+#       --power-reboot '${pkgs.systemd}/bin/reboot'
+#   '';
+# in
 {
-  services.greetd = {
+  imports = [ ../../../../options/nixos/tuigreet.nix ];
+
+  # services.greetd = {
+  #   enable = true;
+  #   useTextGreeter = true;
+  #   settings.default_session.command = runTuigreet;
+  # };
+  # environment.systemPackages = with pkgs; [ tuigreet ];
+
+  programs.tuigreet = {
     enable = true;
-    useTextGreeter = true;
-    settings.default_session.command = runTuigreet;
+    session.enable = true;
+    greeting = "Hello!";
+    time.enable = true;
+    remember = {
+      user = true;
+      session = true;
+      userSession = true;
+    };
+    userMenu.enable = true;
+    power = {
+      shutdown = "${pkgs.systemd}/bin/poweroff";
+      reboot = "${pkgs.systemd}/bin/reboot";
+    };
+    theme = {
+      border="magenta";
+      text="cyan";
+      prompt="green";
+      time="red";
+      action="blue";
+      button="yellow";
+      container="black";
+      input="red";
+    };
   };
-  environment.systemPackages = with pkgs; [ tuigreet ];
 }

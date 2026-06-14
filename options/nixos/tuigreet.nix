@@ -9,20 +9,22 @@ let
   cfg = config.programs.tuigreet;
 
   theme = builtins.concatStringsSep ";" (
-    lib.mapAttrsToList (
-      name: value: lib.optionalString (value != null) "${name}=${value}"
-    ) cfg.theme
+    lib.flatten (
+      lib.mapAttrsToList (
+        name: value: lib.optional (value != null) "${name}=${value}"
+      ) cfg.theme
+    )
   );
 
   sessionsDir = "${config.services.displayManager.sessionData.desktops}/share";
 
   ifNotNull = flag: value: optionals (value != null) [ flag value ];
   ifTrue = flag: value: optionals value [ flag ];
+  # (lib.flatten (
+  #   lib.mapAttrsToList (name: value: [ "--env" "${name}=${value}" ]) cfg.env
+  # ))
   args =
-    (lib.flatten (
-      lib.mapAttrsToList (name: value: [ "--env" "${name}=${value}" ]) cfg.env
-    ))
-    ++ (optionals cfg.debug.enable (
+    (optionals cfg.debug.enable (
       [ "--debug" ]
       ++ (optionals (cfg.debug.file != null) [ cfg.debug.file ])
     ))
@@ -39,11 +41,10 @@ let
           ifNotNull "--xsession-wrapper" cfg.xsession.wrapper
       )
     ))
-    ++ (optionals (theme != "") ["--theme" theme])
     ++ (ifNotNull "--cmd" cfg.command)
     ++ (ifNotNull "--width" cfg.width)
     ++ (ifNotNull "--greeting" cfg.greeting)
-    ++ (ifNotNull "--time-format" cfg.timeFormat)
+    ++ (ifNotNull "--time-format" cfg.time.format)
     ++ (ifNotNull "--user-menu-min-uid" cfg.userMenu.minUID)
     ++ (ifNotNull "--user-menu-max-uid" cfg.userMenu.maxUID)
     ++ (ifNotNull "--asterisks-char" cfg.asterisks.char)
@@ -57,18 +58,16 @@ let
     ++ (ifNotNull "--kb-sessions" cfg.kb.sessions)
     ++ (ifNotNull "--kb-power" cfg.kb.power)
     ++ (ifTrue "--issue" cfg.issue)
-    ++ (ifTrue "--time" cfg.displayTime)
+    ++ (ifTrue "--time" cfg.time.enable)
     ++ (ifTrue "--remember" cfg.remember.user)
     ++ (ifTrue "--remember-session" cfg.remember.session)
     ++ (ifTrue "--remember-user-session" cfg.remember.userSession)
     ++ (ifTrue "--user-menu" cfg.userMenu.enable)
-    ++ (ifTrue "--asterisks" cfg.asterisks)
-    ++ (ifTrue "--power-no-setsid" cfg.power.noSetSid);
+    ++ (ifTrue "--asterisks" cfg.asterisks.enable)
+    ++ (ifTrue "--power-no-setsid" cfg.power.noSetSid)
+    ++ (optionals (theme != "") ["--theme" theme]);
 
   finalArgs = lib.escapeShellArgs args;
-  wrapper = pkgs.writeShellScript "tuigreet-inner-wrapper" ''
-    exec ${pkgs.tuigreet}/bin/tuigreet ${finalArgs}
-  '';
 
   stateDir = "/var/cache/tuigreet";
   logDir = "/var/log/tuigreet";
@@ -81,7 +80,7 @@ in
       example = true;
       description = ''
         Whether to enable tuigreet as your greeter.
-        https://github.com/apognu/tuigreet
+        Homepage: https://github.com/apognu/tuigreet
       '';
     };
 
@@ -147,16 +146,16 @@ in
       };
     };
 
-    env = mkOption {
-      type = types.attrOf types.str;
-      default = { };
-      description = "Environment variables to run the default session with";
-      example = lib.literalExpression ''
-        {
-          XDG_SESSION_TYPE="wayland";
-        }
-      '';
-    };
+    # env = mkOption {
+    #   type = types.attrsOf types.str;
+    #   default = { };
+    #   description = "Environment variables to run the default session with";
+    #   example = lib.literalExpression ''
+    #     {
+    #       XDG_SESSION_TYPE="wayland";
+    #     }
+    #   '';
+    # };
 
     command = mkOption {
       type = types.nullOr types.str;
@@ -168,7 +167,7 @@ in
     };
 
     width = mkOption {
-      type = types.nullOr types.unsigned;
+      type = types.nullOr types.ints.unsigned;
       default = null;
       example = 120;
       description = "Width of the main prompt. tuigreet's default will be used if unset.";
@@ -188,18 +187,20 @@ in
       description = "Show custom text above login prompt";
     };
 
-    displayTime = mkOption {
-      type = types.bool;
-      default = false;
-      example = true;
-      description = "Whether to display the current date and time.";
-    };
+    time = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
+        example = true;
+        description = "Whether to display the current date and time.";
+      };
 
-    timeFormat = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      example = "";
-      description = "Custom strftime format for displaying date and time.";
+      format = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        example = "";
+        description = "Custom strftime format for displaying date and time.";
+      };
     };
 
     remember = {
@@ -234,14 +235,14 @@ in
       };
 
       minUID = mkOption {
-        type = types.nullOr types.unsigned;
+        type = types.nullOr types.ints.unsigned;
         default = null;
         example = 1000;
         description = "Minimum UID to display in the user selection menu.";
       };
 
       maxUID = mkOption {
-        type = types.nullOr types.unsigned;
+        type = types.nullOr types.ints.unsigned;
         default = null;
         example = 1005;
         description = "Maximum UID to display in the user selection menu.";
@@ -251,8 +252,8 @@ in
     asterisks = {
       enable = mkOption {
         type = types.bool;
-        default = true;
-        example = false;
+        default = false;
+        example = true;
         description = "Whether to display asterisks when a secret is typed.";
       };
 
@@ -266,21 +267,21 @@ in
 
     padding = {
       window = mkOption {
-        type = types.nullOr types.unsigned;
+        type = types.nullOr types.ints.unsigned;
         default = null;
         example = 10;
         description = "Padding inside the terminal area. Defaults to 0 if unset.";
       };
 
       container = mkOption {
-        type = types.nullOr types.unsigned;
+        type = types.nullOr types.ints.unsigned;
         default = null;
         example = 10;
         description = "Padding inside the main prompt container. Defaults to 1 if unset.";
       };
 
       prompt = mkOption {
-        type = types.nullOr types.unsigned;
+        type = types.nullOr types.ints.unsigned;
         default = null;
         example = 10;
         description = "Padding between prompt rows. Defaults to 1 if unset.";
@@ -451,16 +452,15 @@ in
     services.greetd = {
       enable = true;
       useTextGreeter = true;
-      settings.default_session.command = wrapper;
+      settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet ${finalArgs}";
     };
 
     systemd.tmpfiles.settings."10-tuigreet" =
       let
         userName = config.services.greetd.settings.default_session.user;
-        user = config.users.users.${userName}.group;
         defaultConfig = {
           user = userName;
-          group = user.group;
+          group = config.users.users.${userName}.group;
           mode = "0755";
         };
       in
