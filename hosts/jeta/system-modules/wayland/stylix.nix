@@ -13,7 +13,7 @@
     # VSCode dark modern
     # https://github.com/technosophos/vscode-base16
     # https://github.com/mk12/base16-modern-scheme
-    base16Scheme = ./dark-modern.yaml;
+    base16Scheme = ../../../../resources/themes/dark-modern.yaml;
     cursor = {
       # package = pkgs.vimix-cursors;
       # name = "Vimix-cursors";
