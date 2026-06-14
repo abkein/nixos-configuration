@@ -67,7 +67,7 @@ in
   options.programs.tuigreet = {
     enable = lib.mkEnableOption "tuigreet as a greetd greeter";
 
-    package = lib.mkPackageOption pkgs "tuigreet";
+    package = lib.mkPackageOption pkgs "tuigreet" { };
 
     session = {
       enable = mkOption {
