@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   services.syncthing = {
     enable = false;
     # openDefaultPorts = true;

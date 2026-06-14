@@ -85,8 +85,7 @@ in
     profiles = mkOption {
       type = types.attrsOf (
         types.submodule (
-          { config, name, ... }:
-          {
+          { config, name, ... }: {
             options = {
               name = mkOption {
                 type = types.str;

@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   imports = [
     ./disko.nix
     ./networking.nix

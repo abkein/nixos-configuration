@@ -1,5 +1,4 @@
-{ cfg, ... }:
-{
+{ cfg, ... }: {
   imports = [
     ../../universal/system-modules/user.nix
     ../../universal/system-modules/core.nix

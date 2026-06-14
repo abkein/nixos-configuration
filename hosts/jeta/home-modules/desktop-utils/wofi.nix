@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   programs = {
     wofi = {
       enable = false;

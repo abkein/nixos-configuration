@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   programs = {
     ripgrep.enable = true;
     ripgrep-all.enable = true;

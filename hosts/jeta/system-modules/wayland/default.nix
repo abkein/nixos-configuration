@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   imports = [
     ./main-hyprland.nix
     ./stylix.nix

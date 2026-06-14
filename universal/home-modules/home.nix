@@ -1,5 +1,4 @@
-{ cfg, ... }:
-{
+{ cfg, ... }: {
   home = {
     username = cfg.username;
     homeDirectory = cfg.userhome;

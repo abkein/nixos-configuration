@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   # TODO: start with dbus-run-session + systemd-cat
   services.greetd = {
     enable = true;

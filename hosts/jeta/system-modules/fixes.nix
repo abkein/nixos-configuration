@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   # See [notes/dbus.md]
   systemd = {
     services.dbus-broker.serviceConfig.LogFilterPatterns = [

@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   services.hyprpolkitagent.enable = true;
 
   xdg.configFile."uwsm/env".source =

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   "workbench.editorAssociations" = {
     "*.pdf" = "latex-workshop-pdf-hook";
   };

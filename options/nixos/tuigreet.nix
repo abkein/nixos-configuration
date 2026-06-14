@@ -8,23 +8,36 @@ let
   inherit (lib) mkOption types optionals;
   cfg = config.programs.tuigreet;
 
-  theme = builtins.concatStringsSep ";" (lib.mapAttrsToList (name: value: lib.optionalString (value != null) "${name}=${value}") cfg.theme);
+  theme = builtins.concatStringsSep ";" (
+    lib.mapAttrsToList (
+      name: value: lib.optionalString (value != null) "${name}=${value}"
+    ) cfg.theme
+  );
 
   sessionsDir = "${config.services.displayManager.sessionData.desktops}/share";
 
   ifNotNull = flag: value: optionals (value != null) [ flag value ];
   ifTrue = flag: value: optionals value [ flag ];
   args =
-    (lib.flatten (lib.mapAttrsToList (name: value: ["--env" "${name}=${value}" ]) cfg.env))
-    ++ (optionals cfg.debug.enable ([ "--debug" ] ++ (optionals (cfg.debug.file != null) [ cfg.debug.file ])))
+    (lib.flatten (
+      lib.mapAttrsToList (name: value: [ "--env" "${name}=${value}" ]) cfg.env
+    ))
+    ++ (optionals cfg.debug.enable (
+      [ "--debug" ]
+      ++ (optionals (cfg.debug.file != null) [ cfg.debug.file ])
+    ))
     ++ (optionals cfg.session.enable (
       [ "--sessions" "${sessionsDir}/wayland-sessions" ]
       ++ (ifNotNull "--session-wrapper" cfg.session.wrapper)
     ))
     ++ (optionals cfg.xsession.enable (
       [ "--xsessions" "${sessionsDir}/xsessions" ]
-      ++ (if (!cfg.xsession.wrap) then [ "--no-xsession-wrapper" ]
-          else ifNotNull "--xsession-wrapper" cfg.xsession.wrapper)
+      ++ (
+        if (!cfg.xsession.wrap) then
+          [ "--no-xsession-wrapper" ]
+        else
+          ifNotNull "--xsession-wrapper" cfg.xsession.wrapper
+      )
     ))
     ++ (optionals (theme != "") ["--theme" theme])
     ++ (ifNotNull "--cmd" cfg.command)

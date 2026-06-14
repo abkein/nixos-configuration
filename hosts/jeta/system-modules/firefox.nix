@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   enable = true;
   preferences = {
     "security.sandbox.content.read_path_whitelist" = "/nix/store/";
