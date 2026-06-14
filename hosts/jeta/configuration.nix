@@ -73,15 +73,6 @@
       enable = true;
       nssmdns4 = true;
       openFirewall = true;
-      allowInterfaces = [ "eth0" ];
-      publish = {
-        addresses = true;
-        domain = true;
-        enable = true;
-        hinfo = false;
-        userServices = true;
-        workstation = true;
-      };
     };
     pipewire = {
       enable = true;
@@ -90,10 +81,7 @@
         enable = true;
       };
       pulse.enable = true;
-      # alsa = {
-      #   enable = true;
-      #   support32Bit = true;
-      # };
+      alsa.enable = true;
       jack.enable = true;
     };
     xserver.xkb = {
@@ -109,6 +97,7 @@
       };
     };
   };
+
   # Probably `Ctrl,+`, `Ctrl,-` would work.
   stylix.targets.kmscon.fonts.override.sizes.terminal = 14;
 
@@ -147,7 +136,12 @@
   };
 
   users = {
-    groups.plugdev = { };
+    groups = {
+      # Avahi's upstream DBus policy references this group. Keeping it empty
+      # avoids dbus-broker warnings without granting extra SetHostName access.
+      netdev = { };
+      plugdev = { };
+    };
     users = {
       "${cfg.username}" = {
         extraGroups = [
