@@ -175,19 +175,17 @@
               uid = 1000;
               xdg.runtimeDir = "\${XDG_RUNTIME_DIR:-/run/user/${builtins.toString uid}}";
               flakepath = "${userhome}/nixos-configuration";
-              inherit useAgenixRekey;
-              inherit secrets;
+              inherit secrets useAgenixRekey;
             };
             ipkgs = _ipkgs cfg.system;
             mylib = import ./mylib.nix lib;
+            specialArgs = {
+              inherit ipkgs cfg mylib;
+            };
           in
           lib.nixosSystem {
             inherit (cfg) system;
-            specialArgs = {
-              inherit ipkgs;
-              inherit cfg;
-              inherit mylib;
-            };
+            inherit specialArgs;
             modules =
               (
                 with inputs;
@@ -238,11 +236,7 @@
                     users = {
                       "${cfg.username}" = ./hosts/jeta/home-manager.nix;
                     };
-                    extraSpecialArgs = {
-                      inherit ipkgs;
-                      inherit cfg;
-                      inherit mylib;
-                    };
+                    extraSpecialArgs = specialArgs;
                   };
                 }
               ];
@@ -257,17 +251,14 @@
               uid = 1000;
               xdg.runtimeDir = "\${XDG_RUNTIME_DIR:-/run/user/${builtins.toString uid}}";
               flakepath = "${userhome}/nixos-configuration";
-              inherit useAgenixRekey;
-              inherit secrets;
+              inherit secrets useAgenixRekey;
             };
             ipkgs = _ipkgs cfg.system;
+            specialArgs = { inherit ipkgs cfg; };
           in
           lib.nixosSystem {
             inherit (cfg) system;
-            specialArgs = {
-              inherit ipkgs;
-              inherit cfg;
-            };
+            inherit specialArgs;
             modules =
               (
                 with inputs;
@@ -292,10 +283,7 @@
                     users = {
                       "${cfg.username}" = ./hosts/yun/home-manager.nix;
                     };
-                    extraSpecialArgs = {
-                      inherit ipkgs;
-                      inherit cfg;
-                    };
+                    extraSpecialArgs = specialArgs;
                   };
                 }
               ];
