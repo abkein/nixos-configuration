@@ -100,6 +100,10 @@
     };
   };
 
+  # WirePlumber asks UPower for Bluetooth battery state during session startup.
+  # Start it eagerly instead of waiting for DBus activation from a user service.
+  systemd.services.upower.wantedBy = [ "multi-user.target" ];
+
   # systemd = {
   #   sleep.extraConfig = ''
   #     HibernateDelaySec=1h

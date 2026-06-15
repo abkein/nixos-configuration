@@ -5,6 +5,18 @@
   cfg,
   ...
 }:
+let
+  kdeconnectAutostartMask = pkgs.writeTextFile {
+    name = "org.kde.kdeconnect.daemon.desktop";
+    destination = "/share/applications/org.kde.kdeconnect.daemon.desktop";
+    text = ''
+      [Desktop Entry]
+      Type=Application
+      Name=KDE Connect
+      Hidden=true
+    '';
+  };
+in
 {
   imports = [
     ../../universal/home-modules/home.nix
@@ -42,7 +54,7 @@
     autostart = {
       enable = true;
       readOnly = true;
-      # entries = [ ];
+      entries = [ "${kdeconnectAutostartMask}/share/applications/org.kde.kdeconnect.daemon.desktop" ];
     };
     terminal-exec = {
       enable = true;
@@ -55,6 +67,12 @@
       };
     };
   };
+
+  dconf.settings."org/blueman/general".plugin-list = [
+    "!GameControllerWakelock"
+    "!PPPSupport"
+    "!DhcpClient"
+  ];
 
   home = {
     stateVersion = "24.11";
