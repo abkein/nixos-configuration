@@ -6,7 +6,7 @@ let
     name: entries.${name} == "regular" && name != "default.nix" && lib.hasSuffix ".nix" name
   ) (lib.attrNames entries);
 
-  importFile = self: file: import (./. + "/${file}") { inherit lib self; };
+  importFile = mylib: file: import (./. + "/${file}") { inherit mylib lib; };
 
   mkFunctor = name: func: rec {
     inherit name;

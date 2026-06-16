@@ -82,18 +82,18 @@ lib.mkMerge (
         hotExit = "onExitAndWindowClose";
         autoSave = "afterDelay";
         trimTrailingWhitespace = true;
-        associations = mylib.literal {
+        associations = mylib.flattenAttrsDot'.literal {
           "*.gpi" = "gnuplot";
           "*.in" = "lmps";
         };
-        exclude = mylib.literal {
+        exclude = mylib.flattenAttrsDot'.literal {
           "**/.trunk/*actions/" = true;
           "**/.trunk/*logs/" = true;
           "**/.trunk/*notifications/" = true;
           "**/.trunk/*out/" = true;
           "**/.trunk/*plugins/" = true;
         };
-        watcherExclude = mylib.literal {
+        watcherExclude = mylib.flattenAttrsDot'.literal {
           "**/.trunk/*actions/" = true;
           "**/.trunk/*logs/" = true;
           "**/.trunk/*notifications/" = true;
@@ -145,7 +145,7 @@ lib.mkMerge (
         layoutControl.enabled = false;
         secondarySideBar.defaultVisibility = "hidden";
         editor.enablePreview = false;
-        # editorAssociations = mylib.literal {
+        # editorAssociations = mylib.flattenAttrsDot'.literal {
         #   "*.pdf" = "pdf.preview";
         # };
         # experimental = {
@@ -194,7 +194,7 @@ lib.mkMerge (
       "remote.SSH.configFile" = "/home/kein/.ssh/config";
       "remote.SSH.enableRemoteCommand" = true;
 
-      actionButtons = mylib.literal {
+      actionButtons = mylib.flattenAttrsDot'.literal {
         defaultColor = "#ff0034"; # Can also use string color names.
         loadNpmCommands = false; # Disables automatic generation of actions for npm commands.
         reloadButton = "♻️"; # Custom reload button text or icon (default ↻). null value enables automatic reload on configuration change
@@ -249,7 +249,7 @@ lib.mkMerge (
             region = "EU";
           }
         ];
-        rules = mylib.literal {
+        rules = mylib.flattenAttrsDot'.literal {
           "cpp=S134" = {
             "level" = "off";
           };
@@ -280,8 +280,8 @@ lib.mkMerge (
         };
       };
 
-      "[cpp]" = mylib.literal { "editor.tabSize" = 2; };
-      "[nix]" = mylib.literal { "editor.tabSize" = 2; };
+      "[cpp]" = mylib.flattenAttrsDot'.literal { "editor.tabSize" = 2; };
+      "[nix]" = mylib.flattenAttrsDot'.literal { "editor.tabSize" = 2; };
 
       # nixEnvSelector = {
       #   suggestion = false;
@@ -292,7 +292,7 @@ lib.mkMerge (
         enableLanguageServer = true;
         serverPath = "${pkgs.nil}/bin/nil"; # or "nixd"
         # LSP config can be passed via the ``nix.serverSettings.{lsp}`` as shown below.
-        serverSettings = mylib.literal {
+        serverSettings = mylib.flattenAttrsDot'.literal {
           # check https://github.com/oxalica/nil/blob/main/docs/configuration.md for all options available
           nil = {
             diagnostics = {

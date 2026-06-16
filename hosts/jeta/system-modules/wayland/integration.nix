@@ -44,14 +44,14 @@
       remember = "user+session";
       userMenu.enable = true;
       theme = {
-        border="magenta";
-        text="cyan";
-        prompt="green";
-        time="red";
-        action="blue";
-        button="yellow";
-        container="black";
-        input="red";
+        border = "magenta";
+        text = "cyan";
+        prompt = "green";
+        time = "red";
+        action = "blue";
+        button = "yellow";
+        container = "black";
+        input = "red";
       };
       power = {
         shutdown = "${pkgs.systemd}/bin/poweroff";

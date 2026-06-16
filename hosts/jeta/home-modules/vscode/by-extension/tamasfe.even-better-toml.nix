@@ -50,7 +50,7 @@
       #  The key must be a regular expression, this pattern is used to associate schemas with absolute document URIs. Overlapping patterns result in undefined behaviour and either matching schema can be used.
       #
       #  The value must be an absolute URI to the JSON schema, for supported values and more information [read here](https://taplo.tamasfe.dev/configuration#visual-studio-code).
-      # associations = mylib.literal { };
+      # associations = mylib.flattenAttrsDot'.literal { };
       # The amount of seconds after which cached catalogs and schemas expire and will be attempted to be fetched again.
       # cache.diskExpiration = 1800;
       # The amount of seconds after which schemas will be invalidated from memory.
@@ -77,7 +77,7 @@
       # An absolute, or workspace relative path to the Taplo configuration file.
       # configFile.path = null;
       # Environment variables for Taplo.
-      environment = mylib.literal { };
+      environment = mylib.flattenAttrsDot'.literal { };
       # Additional arguments for Taplo. Has no effect for the bundled LSP.
       extraArgs = [ ];
       # An absolute path to the `taplo` executable. `taplo.bundled` needs to be set to `false` for this to have any effect.
