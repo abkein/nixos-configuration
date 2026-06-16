@@ -178,10 +178,8 @@
               inherit secrets useAgenixRekey;
             };
             ipkgs = _ipkgs cfg.system;
-            mylib = import ./mylib.nix lib;
-            specialArgs = {
-              inherit ipkgs cfg mylib;
-            };
+            mylib = import ./mylib { inherit lib; };
+            specialArgs = { inherit ipkgs cfg mylib; };
           in
           lib.nixosSystem {
             inherit (cfg) system;
