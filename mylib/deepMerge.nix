@@ -52,7 +52,7 @@ let
 
   _deepMergeList =
     self: list:
-    lib.foldl (acc: value: if acc == null then value else deepMergeGuard self acc value) null list;
+    lib.foldl' (acc: value: if acc == null then value else deepMergeGuard self acc value) null list;
 
   mkFunctor' = mylib.mkFunctor "deepMerge";
 in
