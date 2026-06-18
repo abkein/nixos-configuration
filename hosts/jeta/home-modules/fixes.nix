@@ -13,6 +13,12 @@
         vimixPkg = (pkgs.vimix-icon-theme.override { colorVariants = [ "standard" ]; });
       in
       [
+        (pkgs.runCommand "vscodium-icon-fix" { } ''
+          mkdir -p $out/share/icons/hicolor/256x256/apps
+
+          ln -s ${config.programs.vscodium.package}/share/icons/hicolor/1024x1024/apps/vscodium.png \
+            $out/share/icons/hicolor/256x256/apps/vscodium.png
+        '')
         (runCommand "zoom-icon-fix" { } ''
           mkdir -p $out/share/icons/hicolor/256x256
 
@@ -25,7 +31,7 @@
           ln -s ${vimixPkg}/share/icons/Vimix/scalable/apps/accessories-character-map.svg \
             $out/share/icons/hicolor/scalable/apps/accessories-character-map.svg
         '')
-        (runCommand "networkmanaerapplet-icon-fix" { } ''
+        (runCommand "networkmanager_applet-icon-fix" { } ''
           mkdir -p $out/share/icons/hicolor/scalable/apps
 
           ln -s ${vimixPkg}/share/icons/Vimix/scalable/preferences/preferences-system-network.svg \

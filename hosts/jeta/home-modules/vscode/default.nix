@@ -17,14 +17,7 @@ in
       "remote"
     ];
   };
-  home.packages = [
-    (pkgs.runCommand "vscode-icon-fix" { } ''
-      mkdir -p $out/share/icons/hicolor/256x256/apps
 
-      ln -s ${config.programs.vscodium.package}/share/icons/hicolor/1024x1024/apps/vscodium.png \
-        $out/share/icons/hicolor/256x256/apps/vscodium.png
-    '')
-  ];
   better-code = {
     enable = true;
     package = pkgs.vscodium;
