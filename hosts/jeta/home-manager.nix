@@ -90,7 +90,7 @@ in
         tesseract
         #chatbox
         chromium # configurable
-        element-desktop  # configurable
+        element-desktop # configurable
         tor-browser
 
         file-roller
@@ -105,7 +105,7 @@ in
 
         # text
         xed-editor
-        obsidian  # configurable
+        obsidian # configurable
         prettier
         # aider-chat
 

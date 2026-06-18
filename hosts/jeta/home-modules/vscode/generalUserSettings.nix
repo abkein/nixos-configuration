@@ -298,7 +298,7 @@ lib.mkMerge (
               #   # "unused_binding"
               #   # "unused_with"
               # ];
-              excludedFiles = [ ];  # Globs are not supported
+              excludedFiles = [ ]; # Globs are not supported
             };
             formatting = {
               command = [
