@@ -10,12 +10,17 @@
     wlr-randr
     ydotool
     wl-clipboard
+    wev
 
     xdg-utils
     xdg-user-dirs
     xdg-launch
     xdg-terminal-exec
     xdg-ninja
+
+    slurp
+    grim
+    grimblast
   ];
 
   programs = {

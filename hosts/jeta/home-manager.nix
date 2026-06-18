@@ -89,29 +89,23 @@ in
         # backintime-qt
         tesseract
         #chatbox
-        chromium
-        element-desktop
+        chromium # configurable
+        element-desktop  # configurable
         tor-browser
 
         file-roller
         xdot
         graphviz
-        wf-recorder
 
         nix-tree
-        wev
-        slurp
-        grim
-        grimblast
 
         qpwgraph
 
         nixpkgs-review
-        gh
 
         # text
         xed-editor
-        obsidian
+        obsidian  # configurable
         prettier
         # aider-chat
 
@@ -187,9 +181,6 @@ in
   };
 
   programs = {
-    npm.settings = {
-      prefix = "${config.xdg.cacheHome}/npm";
-    };
     codex = {
       enable = true;
       package = ipkgs.codex-cli;
@@ -199,17 +190,21 @@ in
     #   package = ipkgs.claude-code;
     #   configDir = "${config.xdg.configHome}/claude";
     # };
-    java.enable = true;
-
+    gh = {
+      enable = true;
+      hosts = {
+        "github.com" = {
+          user = "abkein";
+        };
+      };
+      settings.git_protocol = "ssh";
+    };
     git = {
       signing = {
         signByDefault = true;
         key = "17027FA2CDE289D5D1613C3994A84F22E630CA42";
         format = "openpgp";
       };
-    };
-    git-credential-oauth = {
-      enable = false;
     };
     mcp = {
       enable = true;
@@ -224,10 +219,14 @@ in
         # };
       };
     };
-    gradle.home = ".local/share/gradle";
     # texlive = {
     #   enable = true;
     #   packageSet = pkgs.;
     # };
+    # java.enable = true;
+    npm.settings = {
+      prefix = "${config.xdg.cacheHome}/npm";
+    };
+    gradle.home = ".local/share/gradle";
   };
 }
