@@ -290,6 +290,7 @@ lib.mkMerge (
       nix = {
         enableLanguageServer = true;
         serverPath = "${pkgs.nixd}/bin/nixd"; # or "nil"
+        formatterPath = "${pkgs.nixfmt}/bin/nixfmt --strict --verify";
         serverSettings = mylib.flattenAttrsDot'.literal {
           # check https://github.com/oxalica/nil/blob/main/docs/configuration.md for all options available
           nil = {
@@ -339,11 +340,13 @@ lib.mkMerge (
             let
               flake = ''(builtins.getFlake "${cfg.flakepath}")'';
               host = "jeta";
-              hostOptions = "${flake}.nixosConfigurations.${host}.options";
+              hostConfiguration = "${flake}.nixosConfigurations.${host}";
+              hostOptions = "${hostConfiguration}.options";
             in
             {
               "nixpkgs" = {
-                expr = "import ${flake}.inputs.nixpkgs { }";
+                # expr = "import ${flake}.inputs.nixpkgs { }";
+                expr = "${hostConfiguration}.pkgs";
               };
               formatting = {
                 command = [
