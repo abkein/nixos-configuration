@@ -1,12 +1,16 @@
 { config, pkgs, ... }: {
   programs = {
-    ripgrep.enable = true;
-    ripgrep-all.enable = true;
+    eza.enable = true;
     bat.enable = true;
     btop.enable = true;
-    htop = {
+    htop.enable = true;
+    ripgrep.enable = true;
+    ripgrep-all.enable = true;
+    command-not-found.enable = true;
+    nix-index = {
       enable = true;
-      # settings = {};
+      enableBashIntegration = true;
+      enableZshIntegration = true;
     };
     git = {
       enable = true;
@@ -30,45 +34,22 @@
         strict_env = true;
       };
     };
-    eza = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      git = true;
-      icons = "always";
-    };
     bash = {
       enable = true;
       enableCompletion = true;
-      # enableVteIntegration = true;
+      enableVteIntegration = true;
       historyFile = "${config.xdg.stateHome}/bash/history";
       historySize = 999999;
+      historyControl = [
+        "ignoredups"
+        "ignorespace"
+      ];
     };
     zsh = {
       enable = true;
       autocd = false;
+      enableVteIntegration = true;
       enableCompletion = true;
-      autosuggestion = {
-        enable = true;
-        strategy = [
-          "history"
-          "completion"
-        ];
-      };
-      # enableVteIntegration = true;
-      syntaxHighlighting = {
-        enable = true;
-        highlighters = [
-          "main"
-          "brackets"
-          "pattern" # add conf
-          "regexp" # add conf
-          "cursor"
-          "root"
-          "line"
-        ];
-      };
-
       dotDir = "${config.xdg.configHome}/zsh";
       history = {
         append = true;
@@ -77,32 +58,51 @@
         save = 9999999;
         path = "${config.xdg.stateHome}/.zsh_history";
         expireDuplicatesFirst = true;
+        ignoreDups = true;
         ignoreAllDups = true;
-      };
+        saveNoDups = true;
 
+        share = false;
+      };
+      autosuggestion = {
+        enable = true;
+        highlight = "fg=magenta";
+        strategy = [
+          "history"
+          "completion"
+        ];
+      };
+      syntaxHighlighting = {
+        enable = true;
+        highlighters = [
+          "main"
+          "brackets"
+          "pattern"
+          "regexp"
+          "cursor"
+          "root"
+          "line"
+        ];
+        styles = {
+          alias = "fg=green,bold";
+          builtin = "fg=blue";
+          function = "fg=blue,bold";
+          comment = "none";
+        };
+      };
       oh-my-zsh = {
         enable = true;
         plugins = [
-          "git"
-          "sudo"
+          # "git"
+          # "sudo"
+          "thefuck" # double escape
+          "extract"
+          "universalarchive"
+          "command-not-found"
+          "gh"
+          "ipfs"
         ];
-        theme = "agnoster"; # blinks is also really nice
-      };
-
-      shellAliases = {
-        delete-generations = "sudo nix-env --delete-generations +3 --profile /nix/var/nix/profiles/system";
-        system-cleaning = "delete-generations && nix store gc && nix store optimise";
-        wget = "wget --hsts-file=${config.xdg.dataHome}/wget-hsts";
-
-        _cat = "${pkgs.coreutils-full}/bin/coreutils --coreutils-prog=cat";
-        cat = "bat"; # "${config.programs.bat.package}/bin/bat";
-        _tree = "${pkgs.tree}/bin/tree";
-        tree = "eza --tree"; # "${config.programs.eza.package}/bin/eza --tree";
-        rm = "rm -i";
-        cp = "cp -i";
-        mv = "mv -i";
-        _top = "${pkgs.procps}/bin/top";
-        top = "btop"; # "${config.programs.btop.package}/bin/btop";
+        theme = "agnoster";
       };
     };
   };

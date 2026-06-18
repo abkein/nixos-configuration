@@ -29,7 +29,7 @@
       linux-cgroup = "always";
       keybind = "global:ctrl+q=toggle_quick_terminal";
       quick-terminal-size = "40%,60%";
-      # term = "xterm";
+      term = "xterm";
     };
     systemd.enable = true;
   };
