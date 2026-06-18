@@ -49,13 +49,15 @@ let
       else
         _flattenAttrsSep self prefix sep attrs;
 
-  _flattenAttrsSep' = self: sep: attrs: flattenAttrsSepGuard self [ ] sep attrs;
+  _flattenAttrsSep' =
+    self: sep: attrs:
+    flattenAttrsSepGuard self [ ] sep attrs;
 
   mkFunctor' = mylib.mkFunctor "flattenAttrs";
 in
-rec {
-  flattenAttrsSep = mkFunctor' flattenAttrsSepGuard;
-  flattenAttrsSep' = mkFunctor' _flattenAttrsSep';
-  flattenAttrsDot = flattenAttrsSep ".";
-  flattenAttrsDot' = flattenAttrsSep' ".";
+lib.mapAttrs (_: value: mkFunctor' value) {
+  flattenAttrsSep = flattenAttrsSepGuard;
+  flattenAttrsSep' = _flattenAttrsSep';
+  flattenAttrsDot = self: flattenAttrsSepGuard self ".";
+  flattenAttrsDot' = self: _flattenAttrsSep' self ".";
 }
