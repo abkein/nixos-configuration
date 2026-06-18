@@ -6,7 +6,6 @@
     htop.enable = true;
     ripgrep.enable = true;
     ripgrep-all.enable = true;
-    command-not-found.enable = true;
     nix-index = {
       enable = true;
       enableBashIntegration = true;
@@ -84,9 +83,9 @@
           "line"
         ];
         styles = {
-          alias = "fg=green,bold";
+          alias = "fg=green,underline";
           builtin = "fg=blue";
-          function = "fg=blue,bold";
+          function = "fg=blue,underline";
           comment = "none";
         };
       };
@@ -95,7 +94,7 @@
         plugins = [
           # "git"
           # "sudo"
-          "thefuck" # double escape
+          # "thefuck" # binary needs to be installed
           "extract"
           "universalarchive"
           "command-not-found"
