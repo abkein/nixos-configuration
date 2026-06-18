@@ -3,6 +3,8 @@
     "*.pdf" = "latex-workshop-pdf-hook";
   };
 
+  "vscodeGoogleTranslate.preferredLanguage" = "Russian";
+
   "ltex.additionalRules.languageModel" = "/home/kein/repos/languagetool/";
   "ltex.additionalRules.motherTongue" = "ru-RU";
   "ltex.language" = "ru-RU";

@@ -19,11 +19,11 @@ in
   # "python.analysis.downloadStubs" = true; # Does not exists
   # "python.editor.formatOnType" = true; # Does not exists
 
-  "autopep8.showNotifications" = showNotifications;
-  "black-formatter.showNotifications" = showNotifications;
-  "flake8.showNotifications" = showNotifications;
+  # "autopep8.showNotifications" = showNotifications;
+  # "black-formatter.showNotifications" = showNotifications;
+  # "flake8.showNotifications" = showNotifications;
+  # "isort.showNotifications" = showNotifications;
   "mypy-type-checker.showNotifications" = showNotifications;
-  "isort.showNotifications" = showNotifications;
 
   "jupyter.askForKernelRestart" = false;
   "jupyter.disableJupyterAutoStart" = true;

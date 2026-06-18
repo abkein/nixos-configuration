@@ -175,7 +175,6 @@ lib.mkMerge (
       "atomKeymap.promptV3Features" = true;
       "redhat.telemetry.enabled" = true;
       "githubPullRequests.createOnPublishBranch" = "never";
-      "vscodeGoogleTranslate.preferredLanguage" = "Russian";
       "dart.previewFlutterUiGuides" = true;
 
       scm = {
@@ -290,33 +289,18 @@ lib.mkMerge (
 
       nix = {
         enableLanguageServer = true;
-        serverPath = "${pkgs.nil}/bin/nil"; # or "nixd"
-        # LSP config can be passed via the ``nix.serverSettings.{lsp}`` as shown below.
+        serverPath = "${pkgs.nixd}/bin/nixd"; # or "nil"
         serverSettings = mylib.flattenAttrsDot'.literal {
           # check https://github.com/oxalica/nil/blob/main/docs/configuration.md for all options available
           nil = {
             diagnostics = {
-              # Ignored diagnostic kinds.
-              # The kind identifier is a snake_cased_string usually shown together
-              # with the diagnostic message.
-              # Type: [string]
-              # Example: ["unused_binding", "unused_with"]
-              ignored = [
-                # "unused_binding"
-                # "unused_with"
-              ];
-              # Files to exclude from showing diagnostics. Useful for generated files.
-              # It accepts an array of paths. Relative paths are joint to the workspace root.
-              # Glob patterns are currently not supported.
-              # Type: [string]
-              # Example: ["Cargo.nix"]
-              excludedFiles = [ ];
+              # ignored = [
+              #   # "unused_binding"
+              #   # "unused_with"
+              # ];
+              excludedFiles = [ ];  # Globs are not supported
             };
             formatting = {
-              # External formatter command (with arguments).
-              # It should accepts file content in stdin and print the formatted code into stdout.
-              # Type: [string] | null
-              # Example: ["nixfmt"]
               command = [
                 "${pkgs.nixfmt}/bin/nixfmt"
                 "--strict"
@@ -324,19 +308,7 @@ lib.mkMerge (
               ];
             };
             nix = {
-              # The path to the `nix` binary.
-              # Type: string
-              # Example: "/run/current-system/sw/bin/nix"
               binary = "${pkgs.nix}/bin/nix";
-              # The heap memory limit in MiB for `nix` evaluation.
-              # Currently it only applies to flake evaluation when `autoEvalInputs` is
-              # enabled, and only works for Linux. Other `nix` invocations may be also
-              # applied in the future. `null` means no limit.
-              # As a reference, `nix flake show --legacy nixpkgs` usually requires
-              # about 2GiB memory.
-              #
-              # Type: number | null
-              # Example: 1024
               maxMemoryMB = 3072;
               flake = {
                 # Auto-archiving behavior which may use network.
@@ -344,16 +316,11 @@ lib.mkMerge (
                 # - null: Ask every time.
                 # - true: Automatically run `nix flake archive` when necessary.
                 # - false: Do not archive. Only load inputs that are already on disk.
-                # Type: null | boolean
-                # Example: true
                 autoArchive = false;
                 # Whether to auto-eval flake inputs.
                 # The evaluation result is used to improve completion, but may cost
                 # lots of time and/or memory.
-                #
-                # Type: boolean
-                # Example: true
-                autoEvalInputs = true;
+                autoEvalInputs = false;
                 # The input name of nixpkgs for NixOS options evaluation.
                 #
                 # The options hierarchy is used to improve completion, but may cost
@@ -368,63 +335,31 @@ lib.mkMerge (
             };
           };
           # check https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md for all nixd config
-          nixd = {
-            "nixpkgs" = {
-              # For flake.
-              expr = "import (builtins.getFlake \"${cfg.flakepath}\").inputs.nixpkgs { }   ";
-
-              # This expression will be interpreted as "nixpkgs" toplevel
-              # Nixd provides package, lib completion/information from it.
-              #
-              # Resource Usage: Entries are lazily evaluated, entire nixpkgs takes 200~300MB for just "names".
-              #                Package documentation, versions, are evaluated by-need.
-              # expr = "import <nixpkgs> { }";
-            };
-            formatting = {
-              # Which command you would like to do formatting
-              command = [
-                "${pkgs.nixfmt}/bin/nixfmt"
-                "--strict"
-                "--verify"
-              ];
-            };
-            # Tell the language server your desired option set, for completion. This is lazily evaluated.
-            # Map of eval information
-            options = {
-              # By default, this entriy will be read from `import <nixpkgs> { }`
-              # You can write arbitary nix expression here, to produce valid "options" declaration result.
-              #
-              # *NOTE*: Replace "<name>" below with your actual configuration name.
-              # If you're unsure what to use, you can verify with `nix repl` by evaluating
-              # the expression directly.
-
-              # By default, this entry will be read from `import <nixpkgs> { }`.
-              # You can write arbitrary Nix expressions here, to produce valid "options" declaration result.
-              # Tip: for flake-based configuration, utilize `builtins.getFlake`
-              nixos = {
-                expr = "(builtins.getFlake \"${cfg.flakepath}\").nixosConfigurations.jeta.options";
+          nixd =
+            let
+              flake = ''(builtins.getFlake "${cfg.flakepath}")'';
+              host = "jeta";
+              hostOptions = "${flake}.nixosConfigurations.${host}.options";
+            in
+            {
+              "nixpkgs" = {
+                expr = "import ${flake}.inputs.nixpkgs { }";
               };
-              # Before configuring Home Manager options, consider your setup:
-              # Which command do you use for home-manager switching?
-              #
-              #  A. home-manager switch --flake .#... (standalone Home Manager)
-              #  B. nixos-rebuild switch --flake .#... (NixOS with integrated Home Manager)
-              #
-              # Configuration examples for both approaches are shown below.
-              home-manager = {
-                # A:
-                # expr = "(builtins.getFlake \"${cfg.flakepath}\").homeConfigurations.jeta.options";
-                # expr = "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.<name>.options";
-
-                # B:
-                expr = "(builtins.getFlake \"${cfg.flakepath}\").nixosConfigurations.jeta.options.home-manager.users.type.getSubOptions []";
+              formatting = {
+                command = [
+                  "${pkgs.nixfmt}/bin/nixfmt"
+                  "--strict"
+                  "--verify"
+                ];
               };
+              options = {
+                nixos.expr = hostOptions;
+                home-manager.expr = "${hostOptions}.home-manager.users.type.getSubOptions []";
+              };
+              # diagnostic = {
+              #   suppress = [ "sema-extra-with" ];
+              # };
             };
-            # Control the diagnostic system
-            diagnostic = {
-              suppress = [ "sema-extra-with" ];
-            };
-          };
 
         };
       };
