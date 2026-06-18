@@ -16,7 +16,7 @@ let
       default_area = "navbar";
     };
   };
-  L2A = func: lst: builtins.listToAttrs (builtins.map func lst);
+  L2A = func: lst: builtins.listToAttrs (map func lst);
   moz_home = "${config.xdg.configHome}/mozilla";
 in
 {

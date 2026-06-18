@@ -79,7 +79,7 @@ in
             port = 443;
             protocol = "vless";
             settings = {
-              clients = builtins.map mkClient xray-creds.clients;
+              clients = map mkClient xray-creds.clients;
               decryption = xray-creds.decryption;
               # fallbacks = [
               #   {
@@ -100,7 +100,7 @@ in
                 ];
                 privateKey = xray-creds.privateKey;
                 minClientVer = "26.2.5";
-                shortIds = builtins.map (client: client.shortId) xray-creds.clients;
+                shortIds = map (client: client.shortId) xray-creds.clients;
                 mldsa65Seed = xray-creds.mldsa65Seed;
               };
               xhttpSettings = {

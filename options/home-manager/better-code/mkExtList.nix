@@ -28,12 +28,12 @@ let
   get_extension =
     { publisher, name }: builtins.getAttr name (builtins.getAttr publisher pkgs.vscode-extensions);
 
-  parsed_extensions = builtins.map parse_extension string_extensions;
+  parsed_extensions = map parse_extension string_extensions;
   presentExtensions = builtins.filter has_extension parsed_extensions;
   not_presentExtensions = builtins.filter (ext: !has_extension ext) parsed_extensions;
 
-  market_extensions = builtins.map get_extension presentExtensions;
-  nix4vscode_extensions = builtins.map unparse_extension not_presentExtensions;
+  market_extensions = map get_extension presentExtensions;
+  nix4vscode_extensions = map unparse_extension not_presentExtensions;
 in
 if nix4vscodeAlways then
   ((pkgs.nix4vscode.forVscode string_extensions) ++ raw_extensions)

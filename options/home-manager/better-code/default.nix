@@ -408,7 +408,7 @@ in
     let
       extractAttrFromList =
         attr: list:
-        lib.flatten (builtins.map (attrs: lib.optional (builtins.hasAttr attr attrs) attrs.${attr}) list);
+        lib.flatten (map (attrs: lib.optional (builtins.hasAttr attr attrs) attrs.${attr}) list);
       mergeAssertWarn = list: {
         assertions = lib.flatten (extractAttrFromList "assertions" list);
         warnings = lib.flatten (extractAttrFromList "warnings" list);
@@ -474,7 +474,7 @@ in
             in
             profileName: profileSpec:
             (builtins.listToAttrs (
-              builtins.map (attrName: {
+              map (attrName: {
                 name = attrName;
                 value = deepMerge general.${attrName} profileSpec.${attrName};
               }) attrsToMerge
@@ -664,7 +664,7 @@ in
 
               nix-flake-command = command: nix-command [ "flake" command ] [ ];
               flake-commands = mkScript (scriptNamePrefix + "flake-init") [
-                (builtins.map nix-flake-command flakeSpec.commands)
+                (map nix-flake-command flakeSpec.commands)
                 (flake-exec "exit")
               ];
 
@@ -682,7 +682,7 @@ in
           mkAction = isWorkspace: name: spec: {
             name = if isWorkspace then "Workspace: ${name}" else "Profile: ${name}";
             icon = spec.icon;
-            exec = builtins.toString (mkActionExec isWorkspace name spec);
+            exec = toString (mkActionExec isWorkspace name spec);
           };
           finalWorkspaceActions = lib.mapAttrs (mkAction true) cfg.workspaces;
           finalProfileActions = lib.mapAttrs (mkAction false) cfg.profiles;

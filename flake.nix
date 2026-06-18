@@ -173,7 +173,7 @@
               username = "kein";
               userhome = "/home/${username}";
               uid = 1000;
-              xdg.runtimeDir = "\${XDG_RUNTIME_DIR:-/run/user/${builtins.toString uid}}";
+              xdg.runtimeDir = "\${XDG_RUNTIME_DIR:-/run/user/${toString uid}}";
               flakepath = "${userhome}/nixos-configuration";
               inherit secrets useAgenixRekey;
             };
@@ -247,7 +247,7 @@
               username = "kein";
               userhome = "/home/${username}";
               uid = 1000;
-              xdg.runtimeDir = "\${XDG_RUNTIME_DIR:-/run/user/${builtins.toString uid}}";
+              xdg.runtimeDir = "\${XDG_RUNTIME_DIR:-/run/user/${toString uid}}";
               flakepath = "${userhome}/nixos-configuration";
               inherit secrets useAgenixRekey;
             };

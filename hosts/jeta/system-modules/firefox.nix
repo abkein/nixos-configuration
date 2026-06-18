@@ -66,7 +66,7 @@
         ]
       )
       // builtins.listToAttrs (
-        builtins.map makeExt [
+        map makeExt [
           "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}" # Auto Tab Discard
           "jid1-BoFifL9Vbdl2zQ@jetpack" # Decentraleyes
           "firefox.container-shortcuts@strategery.io" # Easy Container Shortcuts

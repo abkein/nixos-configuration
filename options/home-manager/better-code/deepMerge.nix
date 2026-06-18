@@ -8,8 +8,8 @@ let
     a: b:
     let
       keys = builtins.attrNames a ++ builtins.attrNames b;
-      uniqKeys = builtins.removeAttrs (builtins.listToAttrs (
-        builtins.map (k: {
+      uniqKeys = removeAttrs (builtins.listToAttrs (
+        map (k: {
           name = k;
           value = null;
         }) keys

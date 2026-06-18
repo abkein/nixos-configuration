@@ -230,8 +230,8 @@ in
             };
           }
         ]
-        ++ (builtins.map (dest: mkRegnetVLESS3 dest.postfix dest.address) xray-creds.regnet.dests)
-        ++ (builtins.map (dest: mkYun_vless-reality-xhttp dest.postfix dest.address) xray-creds.yun.dests);
+        ++ (map (dest: mkRegnetVLESS3 dest.postfix dest.address) xray-creds.regnet.dests)
+        ++ (map (dest: mkYun_vless-reality-xhttp dest.postfix dest.address) xray-creds.yun.dests);
       routing =
         let
           # mainBalancer = "TheBalancer";

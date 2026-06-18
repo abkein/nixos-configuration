@@ -39,12 +39,11 @@ let
       mkWarningPreferenceConflictsPolicy policyName preference
     );
 
-  checkPolicy =
-    policyName: value: builtins.map (checkPreference policyName) value.Preferences-Affected;
+  checkPolicy = policyName: value: map (checkPreference policyName) value.Preferences-Affected;
   checkPolicyRecursive =
     policyName: value:
     (checkPolicy policyName value)
-    ++ builtins.map (
+    ++ map (
       name: lib.optionals (builtins.hasAttr "${name}" value) (checkPolicyRecursive name value.${name})
     ) value.Children;
   policiesPreferencesConflicts = lib.flatten (
@@ -55,7 +54,7 @@ let
   );
 
   mkWarningNonexistentPolicy = policyName: "Policy `${policyName}` does not exists.";
-  nonexistentPolicies = builtins.map (
+  nonexistentPolicies = map (
     policyName: lib.optional (!(checkIfPolicyExists policyName)) (mkWarningNonexistentPolicy policyName)
   ) (builtins.attrNames cfg.policies);
 in
