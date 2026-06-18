@@ -1,24 +1,24 @@
 { mylib, lib }:
 let
-  _flattenAttrsDot =
+  _flattenAttrsSep =
+    self: prefix: sep: attrs:
     let
-      mkAttrName = path: lib.concatStringsSep "." path;
+      mkAttrName = path: lib.concatStringsSep sep path;
       mkBaseCase = path: value: { "${mkAttrName path}" = value; };
     in
-    self: prefix: attrs:
     lib.concatMapAttrs (
       name: value:
       let
         path = prefix ++ [ name ];
       in
       if lib.isAttrs value then
-        if self.isLiteral value then mkBaseCase path value.value else _flattenAttrsDot self path value
+        if self.isLiteral value then mkBaseCase path value.value else _flattenAttrsSep self path sep value
       else
         mkBaseCase path value
     ) attrs;
 
-  flattenAttrsDotGuard =
-    self: prefix: attrs:
+  flattenAttrsSepGuard =
+    self: prefix: sep: attrs:
     if (!(lib.isList prefix)) then
       throw "lib: flattenAttrsDot: First argument `prefix` is not a list."
     else if (!(lib.isAttrs attrs)) then
@@ -47,13 +47,15 @@ let
       if errors != [ ] then
         throw "lib: flattenAttrsDot: First argument `prefix` should be a list of strings:\n" + errorsMsg
       else
-        _flattenAttrsDot self prefix attrs;
+        _flattenAttrsSep self prefix sep attrs;
 
-  _flattenAttrsDot' = self: attrs: flattenAttrsDotGuard self [ ] attrs;
+  _flattenAttrsSep' = self: sep: attrs: flattenAttrsSepGuard self [ ] sep attrs;
 
-  mkFunctor' = mylib.mkFunctor "flattenAttrsDot";
+  mkFunctor' = mylib.mkFunctor "flattenAttrs";
 in
-{
-  flattenAttrsDot = mkFunctor' flattenAttrsDotGuard;
-  flattenAttrsDot' = mkFunctor' _flattenAttrsDot';
+rec {
+  flattenAttrsSep = mkFunctor' flattenAttrsSepGuard;
+  flattenAttrsSep' = mkFunctor' _flattenAttrsSep';
+  flattenAttrsDot = flattenAttrsSep ".";
+  flattenAttrsDot' = flattenAttrsSep' ".";
 }

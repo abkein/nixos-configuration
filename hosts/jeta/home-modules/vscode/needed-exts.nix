@@ -31,12 +31,12 @@ pkgs: {
   ];
 
   python = [
-    "ms-python.black-formatter"
+    # "ms-python.black-formatter"
     "ms-python.debugpy"
-    "ms-python.isort"
+    # "ms-python.isort"
     "ms-python.python"
-    "ms-python.flake8"
-    "ms-python.autopep8"
+    # "ms-python.flake8"
+    # "ms-python.autopep8"
     "ms-python.mypy-type-checker"
     "ms-python.vscode-python-envs"
     "ms-python.vscode-pylance"
