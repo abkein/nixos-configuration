@@ -15,6 +15,16 @@ lib.mkMerge (
   lib.map mylib.flattenAttrsDot' [
     {
       "telemetry.telemetryLevel" = "off";
+      "telemetry.enableTelemetry" = false;
+      "telemetry.enableCrashReporter" = false;
+      "telemetry.feedback.enabled" = false;
+      "update.channel" = "none";
+      "update.mode" = "none";
+      "update.showReleaseNotes" = false;
+      "update.showPostInstallInfo" = false;
+      "extensions.autoCheckUpdates" = false;
+      "extensions.autoUpdate" = false;
+      "extensions.ignoreRecommendations" = true;
 
       editor = {
         formatOnSave = true;
@@ -34,7 +44,7 @@ lib.mkMerge (
       };
 
       chat = {
-        disableAIFeatures = true;
+        # disableAIFeatures = true;
         mcp.gallery.enabled = true;
         # fontFamily = seriffont;
         # editor = {
@@ -129,7 +139,6 @@ lib.mkMerge (
         #   fontSize = fontsize;
         # };
       };
-      "extensions.ignoreRecommendations" = true;
 
       "direnv.watchForChanges" = false;
 

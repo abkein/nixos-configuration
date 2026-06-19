@@ -72,7 +72,7 @@ in
       };
       python = with needed_extensions; {
         extensions = python ++ dev ++ [ "tomoki1207.pdf" ];
-        userSettings = import ./pythonSettings.nix;
+        userSettings = import ./pythonSettings.nix { inherit pkgs; };
       };
       cpp = with needed_extensions; {
         extensions = cpp ++ dev;
@@ -119,51 +119,51 @@ in
           folder = "${config.home.homeDirectory}/Documents/nucleation/lmp";
           profile = "python";
         };
-        indexlib = {
-          folder = "${config.home.homeDirectory}/Documents/nucleation/lmp/indexlib";
-          workspaceFile = {
-            enable = true;
-            settings = {
-              "licenser.license" = "MIT";
-              "sonarlint.connectedMode.project" = {
-                "connectionId" = "abkein";
-                "projectKey" = "abkein_indexlib";
-              };
-            };
-          };
-          profile = "python";
-          extensions = needed_extensions.sonar;
-        };
-        pysbatch = {
-          folder = "${config.home.homeDirectory}/Documents/nucleation/lmp/pysbatch-ng";
-          workspaceFile = {
-            enable = true;
-            settings = {
-              "licenser.license" = "MIT";
-              "sonarlint.connectedMode.project" = {
-                "connectionId" = "abkein";
-                "projectKey" = "abkein_pysbatch";
-              };
-            };
-          };
-          profile = "python";
-          extensions = needed_extensions.sonar;
-        };
-        LMPResume = {
-          folder = "${config.home.homeDirectory}/Documents/nucleation/lmp/LMPResume";
-          workspaceFile = {
-            enable = true;
-            settings = {
-              "licenser.license" = "MIT";
-              "sonarlint.connectedMode.project" = {
-                "connectionId" = "abkein";
-                "projectKey" = "abkein_LMPResume";
-              };
-            };
-          };
-          profile = "python";
-          extensions = needed_extensions.sonar;
-        };
+        # indexlib = {
+        #   folder = "${config.home.homeDirectory}/Documents/nucleation/lmp/indexlib";
+        #   workspaceFile = {
+        #     enable = true;
+        #     settings = {
+        #       "licenser.license" = "MIT";
+        #       "sonarlint.connectedMode.project" = {
+        #         "connectionId" = "abkein";
+        #         "projectKey" = "abkein_indexlib";
+        #       };
+        #     };
+        #   };
+        #   profile = "python";
+        #   extensions = needed_extensions.sonar;
+        # };
+        # pysbatch = {
+        #   folder = "${config.home.homeDirectory}/Documents/nucleation/lmp/pysbatch-ng";
+        #   workspaceFile = {
+        #     enable = true;
+        #     settings = {
+        #       "licenser.license" = "MIT";
+        #       "sonarlint.connectedMode.project" = {
+        #         "connectionId" = "abkein";
+        #         "projectKey" = "abkein_pysbatch";
+        #       };
+        #     };
+        #   };
+        #   profile = "python";
+        #   extensions = needed_extensions.sonar;
+        # };
+        # LMPResume = {
+        #   folder = "${config.home.homeDirectory}/Documents/nucleation/lmp/LMPResume";
+        #   workspaceFile = {
+        #     enable = true;
+        #     settings = {
+        #       "licenser.license" = "MIT";
+        #       "sonarlint.connectedMode.project" = {
+        #         "connectionId" = "abkein";
+        #         "projectKey" = "abkein_LMPResume";
+        #       };
+        #     };
+        #   };
+        #   profile = "python";
+        #   extensions = needed_extensions.sonar;
+        # };
         ewald = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/Ewald";
           profile = "python";
