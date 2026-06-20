@@ -202,6 +202,8 @@ lib.mkMerge (
       "remote.SSH.configFile" = "/home/kein/.ssh/config";
       "remote.SSH.enableRemoteCommand" = true;
 
+      "todo-tree.ripgrep.ripgrep" = "${pkgs.ripgrep}/bin/rg";
+
       actionButtons = mylib.flattenAttrsDot'.literal {
         defaultColor = "#ff0034"; # Can also use string color names.
         loadNpmCommands = false; # Disables automatic generation of actions for npm commands.

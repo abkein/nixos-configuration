@@ -1,27 +1,20 @@
-{ config, pkgs, ... }@args:
+{ config, pkgs, lib, ... }@args:
 let
   needed_extensions = import ./needed-exts.nix pkgs;
 in
 {
-  stylix.targets.vscodium = {
+  stylix.targets.${config.better-code.variant} = {
     enable = false;
     # https://github.com/technosophos/vscode-base16
     # https://github.com/mk12/base16-modern-scheme
-    profileNames = [
-      "default"
-      "nix"
-      "LaTeX"
-      "python"
-      "cpp"
-      "ts"
-      "remote"
-    ];
+    profileNames = lib.attrNames config.better-code.profiles;
   };
 
   better-code = {
     enable = true;
-    package = pkgs.vscodium;
-    variant = "vscodium";
+    # package = pkgs.vscodium;
+    # variant = "vscodium";
+    enableFixes = true;
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
     nix4vscodeAlways = true;
@@ -90,6 +83,11 @@ in
       let
         flakeConf = flake: {
           inherit flake;
+          enable = true;
+          producesWorkspace = true;
+        };
+        universalFlake = name: {
+          flake = "${config.home.homeDirectory}/devShells/universal#${name}";
           enable = true;
           producesWorkspace = true;
         };
@@ -230,6 +228,11 @@ in
           folder = "${config.home.homeDirectory}/repos/themegen";
           profile = "python";
           flake = flakeConf "${config.home.homeDirectory}/devShells/themegen";
+        };
+        peer-reviews = {
+          folder = "${config.home.homeDirectory}/Documents/peer-reviews";
+          profile = "python";
+          flake = universalFlake "peer-reviews";
         };
       };
   };

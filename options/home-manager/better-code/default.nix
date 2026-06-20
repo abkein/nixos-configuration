@@ -153,6 +153,12 @@ in
         description = "Enable the automated VSCode configuration.";
       };
 
+      enableFixes = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Enable fixes for known bugs.";
+      };
+
       variant = mkOption {
         type = types.str;
         default = "vscode";
@@ -454,6 +460,20 @@ in
       (mkIf (cfg.package != null) { programs.${cfg.variant}.package = cfg.package; })
       (mkIf (cfg.mutableExtensionsDir != null) {
         programs.${cfg.variant}.mutableExtensionsDir = cfg.mutableExtensionsDir;
+      })
+      (mkIf (cfg.enableFixes) {
+        home.packages =
+          let
+            finalPkg = config.programs.${cfg.variant}.package;
+          in
+          [
+            (pkgs.runCommand "${cfg.variant}-icon-fix" { } ''
+              mkdir -p $out/share/icons/hicolor/256x256/apps
+
+              ln -s ${finalPkg}/share/icons/hicolor/1024x1024/apps/${cfg.variant}.png \
+                $out/share/icons/hicolor/256x256/apps/${cfg.variant}.png
+            '')
+          ];
       })
       (
         let
