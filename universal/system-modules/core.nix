@@ -98,6 +98,10 @@
     };
   };
 
+  systemd.tmpfiles.rules = [
+    "d /root/.Trash 0700 root root - -"
+  ];
+
   environment = {
     systemPackages = with pkgs; [
       curl
@@ -107,6 +111,7 @@
       openvpn
       wget
       iperf
+      trash-cli
 
       speedtest-cli
       ooniprobe-cli
@@ -131,14 +136,29 @@
 
     shellAliases = {
       delete-generations = "sudo nix-env --delete-generations +3 --profile /nix/var/nix/profiles/system";
-      system-cleaning = "delete-generations && nix store gc && nix store optimise";
+      system-cleaning = "delete-generations && nix store gc --debug && nix store optimise --debug";
+
+      dud = "du -h -d 1 ";
 
       _cat = "${pkgs.coreutils-full}/bin/cat";
       cat = "${config.programs.bat.package}/bin/bat";
-      rm = "rm -i";
-      cp = "cp -i";
-      mv = "mv -i";
-      dud = "du -h -d 1 ";
+
+      _rm = "${pkgs.coreutils-full}/bin/rm";
+      "rm -f" = "${pkgs.trash-cli}/bin/trash-put -i";
+      "rm -rf" = "${pkgs.trash-cli}/bin/trash-put -ri";
+      rm = "${pkgs.trash-cli}/bin/trash-put -i";
+
+      _cp = "${pkgs.coreutils-full}/bin/cp";
+      "cp -f" = "${pkgs.coreutils-full}/bin/cp --backup=numbered -i";
+      "cp -rf" = "${pkgs.coreutils-full}/bin/cp --backup=numbered -ri";
+      cp = "${pkgs.coreutils-full}/bin/cp --backup=numbered -i";
+
+      _mv = "${pkgs.coreutils-full}/bin/mv";
+      "mv -f" = "${pkgs.coreutils-full}/bin/mv --backup=numbered -i";
+      "mv -rf" = "${pkgs.coreutils-full}/bin/mv --backup=numbered -ri";
+      mv = "${pkgs.coreutils-full}/bin/mv --backup=numbered -i";
+
+      _grep = "${pkgs.gnugrep}/bin/grep";
       grep = "grep --color=auto";
     };
 

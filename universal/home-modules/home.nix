@@ -24,21 +24,39 @@
         delete-generations = "sudo nix-env --delete-generations +3 --profile /nix/var/nix/profiles/system";
         system-cleaning = "delete-generations && nix store gc && nix store optimise";
         wget = "wget --hsts-file=${config.xdg.dataHome}/wget-hsts";
+        dud = "du -h -d 1 ";
 
         _ls = "${pkgs.coreutils-full}/bin/ls";
         ls = "${config.programs.eza.package}/bin/eza ${eza_args}";
-        _cat = "${pkgs.coreutils-full}/bin/cat";
-        cat = "${config.programs.bat.package}/bin/bat";
+
         _tree = "${pkgs.tree}/bin/tree";
         tree = "${config.programs.eza.package}/bin/eza ${eza_args} --tree";
-        rm = "rm -i";
-        cp = "cp -i";
-        mv = "mv -i";
-        dud = "du -h -d 1 ";
+
+        _cat = "${pkgs.coreutils-full}/bin/cat";
+        cat = "${config.programs.bat.package}/bin/bat";
+
+        _rm = "${pkgs.coreutils-full}/bin/rm";
+        "rm -f" = "${pkgs.trash-cli}/bin/trash-put -i";
+        "rm -rf" = "${pkgs.trash-cli}/bin/trash-put -ri";
+        rm = "${pkgs.trash-cli}/bin/trash-put -i";
+
+        _cp = "${pkgs.coreutils-full}/bin/cp";
+        "cp -f" = "${pkgs.coreutils-full}/bin/cp --backup=numbered -i";
+        "cp -rf" = "${pkgs.coreutils-full}/bin/cp --backup=numbered -ri";
+        cp = "${pkgs.coreutils-full}/bin/cp --backup=numbered -i";
+
+        _mv = "${pkgs.coreutils-full}/bin/mv";
+        "mv -f" = "${pkgs.coreutils-full}/bin/mv --backup=numbered -i";
+        "mv -rf" = "${pkgs.coreutils-full}/bin/mv --backup=numbered -ri";
+        mv = "${pkgs.coreutils-full}/bin/mv --backup=numbered -i";
+
+        _grep = "${pkgs.gnugrep}/bin/grep";
         grep = "grep --color=auto";
+
         _top = "${pkgs.procps}/bin/top";
         top = "${config.programs.btop.package}/bin/btop";
       };
+    packages = with pkgs; [ trash-cli ];
   };
 
   xdg = {
