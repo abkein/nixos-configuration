@@ -1,20 +1,33 @@
-{ pkgs, python3Packages }:
-python3Packages.buildPythonPackage rec {
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+
+  # build-system
+  setuptools,
+  setuptools-scm,
+
+  # dependencies
+  requests,
+  urllib3,
+  pysocks,
+}:
+buildPythonPackage (finalAttrs: {
   pname = "pyalex";
   version = "0.18";
   pyproject = true;
 
-  src = pkgs.fetchPypi {
-    inherit pname version;
+  src = fetchPypi {
+    inherit (finalAttrs) pname version;
     sha256 = "sha256-tx324OEEEBeDpk7LK0GyTHUFnuRWOqWWZJlFQWi+5ec=";
   };
 
-  nativeBuildInputs = with python3Packages; [
+  build-system = [
     setuptools
     setuptools-scm
   ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = [
     requests
     urllib3
     pysocks
@@ -27,11 +40,11 @@ python3Packages.buildPythonPackage rec {
   #   pytest
   # '';
 
-  meta = with pkgs.lib; {
+  meta = with lib; {
     description = "Python interface to the OpenAlex database";
     homepage = "https://github.com/J535D165/pyalex";
     license = licenses.mit;
     maintainers = with maintainers; [ abkein ];
     broken = false;
   };
-}
+})

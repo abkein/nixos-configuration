@@ -195,19 +195,19 @@ in
           profile = "LaTeX";
         };
         LAMMPS = {
-          folder = "${config.home.homeDirectory}/repos/mylammps";
+          folder = "${config.home.homeDirectory}/repos/lammps";
           profile = "cpp";
-          flake = flakeConf "/home/kein/devShells/lammps";
+          flake = universalFlake "lammps";
         };
         MDcraft = {
           folder = "${config.home.homeDirectory}/repos/MDcraft";
           profile = "cpp";
-          flake = flakeConf "/home/kein/devShells/MDcraft";
+          flake = universalFlake "MDcraft";
         };
         cfproc = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/python/cfproc";
           profile = "python";
-          flake = flakeConf "/home/kein/devShells/cfproc";
+          flake = universalFlake "cfproc";
         };
         # vscode-clang-tidy = {
         #   folder = "${config.home.homeDirectory}/repos/vscode-clang-tidy";

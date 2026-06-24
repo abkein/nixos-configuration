@@ -149,6 +149,7 @@
     { self, nixpkgs, ... }@inputs:
     let
       lib = nixpkgs.lib;
+      mylib = import ./mylib { inherit lib; };
       useAgenixRekey = false;
       secrets = "secrets/agenix/encrypted";
       _ipkgs =
@@ -164,6 +165,7 @@
         // (lib.optionalAttrs useAgenixRekey { agenix-rekey = agenix-rekey.packages.${system}.default; });
     in
     {
+      overlays.default = import ./pkgs/overlay.nix;
       nixosConfigurations = {
         jeta =
           let
@@ -178,7 +180,6 @@
               inherit secrets useAgenixRekey;
             };
             ipkgs = _ipkgs cfg.system;
-            mylib = import ./mylib { inherit lib; };
             specialArgs = { inherit ipkgs cfg mylib; };
           in
           lib.nixosSystem {
@@ -216,8 +217,9 @@
                         # nix-vscode-extensions.overlays.default
                       ])
                       ++ [
-                        (import ./overlays/pypackages.nix)
-                        (import ./overlays/generic.nix)
+                        self.overlays.default
+                        # (import ./overlays/pypackages.nix)
+                        # (import ./overlays/generic.nix)
                       ];
                   };
                   environment.systemPackages = with ipkgs; [ (if cfg.useAgenixRekey then agenix-rekey else agenix) ];
@@ -309,6 +311,14 @@
         #   formatting = treefmtEval.check self;
         # };
         packages = _ipkgs system;
+        devShells = import ./shells {
+          inherit
+            nixpkgs
+            pkgs
+            system
+            mylib
+            ;
+        };
       }
     ));
 }
