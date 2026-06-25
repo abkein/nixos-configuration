@@ -231,11 +231,12 @@ in
           }
         ]
         ++ (map (dest: mkRegnetVLESS3 dest.postfix dest.address) xray-creds.regnet.dests)
-        ++ (map (dest: mkYun_vless-reality-xhttp dest.postfix dest.address) xray-creds.yun.dests);
+        ++ (map (dest: mkYun_vless-reality-xhttp dest.postfix dest.address) xray-creds.yun.dests)
+        ++ (import ../shadow/proxys.nix);
       routing =
         let
-          # mainBalancer = "TheBalancer";
-          mainOutbound = "yun-vless-reality-xhttp-v4";
+          mainBalancer = "TheBalancer";
+          # mainOutbound = "yun-vless-reality-xhttp-v4";
           mainInbounds = [
             "inbound-socks-4"
             "inbound-socks-6"
@@ -328,8 +329,8 @@ in
                 "domain:notebooklm.google.com"
               ];
               inboundTag = mainInbounds;
-              # balancerTag = mainBalancer;
-              outboundTag = mainOutbound;
+              balancerTag = mainBalancer;
+              # outboundTag = mainOutbound;
               ruleTag = "KnownBlockedDom2Proxy";
             }
             {
@@ -348,8 +349,8 @@ in
                 "geoip:tor"
               ];
               inboundTag = mainInbounds;
-              # balancerTag = mainBalancer;
-              outboundTag = mainOutbound;
+              balancerTag = mainBalancer;
+              # outboundTag = mainOutbound;
               ruleTag = "KnownBlockedIP2Proxy";
             }
             {
@@ -377,60 +378,72 @@ in
             }
             {
               inboundTag = mainInbounds;
-              # balancerTag = mainBalancer;
-              outboundTag = mainOutbound;
+              balancerTag = mainBalancer;
+              # outboundTag = mainOutbound;
               ruleTag = "Default2Proxy";
             }
           ];
-          # balancers = [
-          #   {
-          #     # tag = mainBalancer;
-          #     tag = "yunBalancer";
-          #     selector = [ "yun-vless-reality-xhttp-v" ];
-          #     fallbackTag = "regnet-vless-reality-Netherlands";
-          #     strategy = {
-          #       type = "leastPing";
-          #       # settings = { }; # only for leastLoad
-          #     };
-          #   }
-          #   {
-          #     # tag = mainBalancer;
-          #     tag = "regnetbalancer";
-          #     selector = [ "regnet-vless-reality-" ];
-          #     fallbackTag = "block";
-          #     strategy = {
-          #       type = "leastPing";
-          #       # settings = { }; # only for leastLoad
-          #     };
-          #   }
-          # ];
+          balancers = [
+            {
+              # tag = mainBalancer;
+              tag = "yunBalancer";
+              selector = [ "yun-vless-reality-xhttp-v" ];
+              fallbackTag = "regnet-vless-reality-Netherlands";
+              strategy = {
+                type = "leastPing";
+                # settings = { }; # only for leastLoad
+              };
+            }
+            {
+              # tag = mainBalancer;
+              tag = "regnetBalancer";
+              selector = [ "regnet-vless-reality-" ];
+              fallbackTag = "block";
+              strategy = {
+                type = "leastPing";
+                # settings = { }; # only for leastLoad
+              };
+            }
+            {
+              tag = mainBalancer;
+              # tag = "ussrBalancer";
+              selector = [ "ussr-reality-" ];
+              fallbackTag = "ussr-bridge-reality";
+              strategy = {
+                type = "leastPing";
+                # settings = { }; # only for leastLoad
+              };
+            }
+          ];
         };
       # observatory = {
       #   subjectSelector = [
-      #     "yun-vless-reality-xhttp-v"
-      #     "regnet-vless-reality-"
+      #     # "yun-vless-reality-xhttp-v"
+      #     # "regnet-vless-reality-"
+      #     "ussr-reality-"
       #   ];
       #   probeUrl = "https://www.google.com/generate_204";
       #   probeInterval = "10s";
       #   enableConcurrency = false;
       # };
-      # burstObservatory = {
-      #   subjectSelector = [
-      #     "yun-vless-reality-xhttp-v"
-      #     "regnet-vless-reality-"
-      #   ];
-      #   pingConfig = {
-      #     # For each outbound, probe 10 times within 10 minutes; specific probe times are random.
-      #     # If they all fail, it will be marked as a faulty node within 10 ~ 20 minutes.
-      #     # After failure, a single successful probe will mark it as a healthy node; at slowest, it takes 10 minutes.
-      #     destination = "https://connectivitycheck.gstatic.com/generate_204";
-      #     connectivity = "";
-      #     interval = "1m";
-      #     sampling = 10;
-      #     timeout = "5s";
-      #     httpMethod = "HEAD";
-      #   };
-      # }
+      burstObservatory = {
+        subjectSelector = [
+          # "yun-vless-reality-xhttp-v"
+          # "regnet-vless-reality-"
+          "ussr-reality-"
+        ];
+        pingConfig = {
+          # For each outbound, probe 10 times within 10 minutes; specific probe times are random.
+          # If they all fail, it will be marked as a faulty node within 10 ~ 20 minutes.
+          # After failure, a single successful probe will mark it as a healthy node; at slowest, it takes 10 minutes.
+          destination = "https://connectivitycheck.gstatic.com/generate_204";
+          connectivity = "https://connectivitycheck.gstatic.com/generate_204";
+          interval = "3m";
+          sampling = 10;
+          timeout = "5s";
+          httpMethod = "HEAD";
+        };
+      };
     };
   };
 }
