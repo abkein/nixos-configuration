@@ -98,9 +98,7 @@
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "d /root/.Trash 0700 root root - -"
-  ];
+  systemd.tmpfiles.rules = [ "d /root/.Trash 0700 root root - -" ];
 
   environment = {
     systemPackages = with pkgs; [
