@@ -100,11 +100,7 @@ buildPythonPackage (finalAttrs: {
     setuptools
     tomli
   ]
-  ++ [
-    psutil
-    lxml
-  ];
-  # ++ lib.concatAttrValues finalAttrs.optional-dependencies;
+  ++ lib.concatAttrValues finalAttrs.passthru.optional-dependencies;
 
   disabledTests = [
     # A change to the base64 decoder in CPython 3.13.13 and 3.14.4 causes this
