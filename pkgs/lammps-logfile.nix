@@ -1,6 +1,7 @@
 {
   lib,
   fetchzip,
+  fetchFromGitHub,
   buildPythonPackage,
 
   # build-system
@@ -22,17 +23,17 @@ buildPythonPackage (finalAttrs: {
   #  sha256 = "sha256-KbffpWRjrpxQR/13ocg9hX2oDIuqAwst4/tAuZfY7DQ=";
   #};
 
-  #src = pkgs.fetchFromGitHub {
-  #  owner = "henriasv";
-  #  repo = "lammps-logfile";
-  #  rev = "v${version}";
-  #  sha256 = "sha256-PgM4BAJsq4rTaLtx+CRYXOsGEPPm1VZ17UtauoV5S7U=";
-  #};
-
-  src = fetchzip {
-    url = "https://files.pythonhosted.org/packages/78/32/ea84ead948ef9f5de29600343184f7e5ef1caaf9a53fa3cb7231b8be486a/lammps_logfile-1.1.3.tar.gz";
-    hash = "sha256-HWHLaUXphPniFri3mJyV91ag9JZ7Khl8RBzbncL1ScA=";
+  src = fetchFromGitHub {
+   owner = "henriasv";
+   repo = "lammps-logfile";
+   rev = "v${finalAttrs.version}";
+   sha256 = "sha256-PgM4BAJsq4rTaLtx+CRYXOsGEPPm1VZ17UtauoV5S7U=";
   };
+
+  # src = fetchzip {
+  #   url = "https://files.pythonhosted.org/packages/78/32/ea84ead948ef9f5de29600343184f7e5ef1caaf9a53fa3cb7231b8be486a/lammps_logfile-1.1.3.tar.gz";
+  #   hash = "sha256-HWHLaUXphPniFri3mJyV91ag9JZ7Khl8RBzbncL1ScA=";
+  # };
 
   build-system = [
     setuptools
@@ -57,6 +58,7 @@ buildPythonPackage (finalAttrs: {
     homepage = "https://github.com/henriasv/lammps-logfile";
     license = licenses.gpl3;
     maintainers = with maintainers; [ abkein ];
+    mainProgram = "lammps_logplotter";
     broken = false;
   };
 })
