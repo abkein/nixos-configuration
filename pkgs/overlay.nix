@@ -19,7 +19,6 @@ in
       lammps-logfile = pySelf.callPackage ./lammps-logfile.nix { };
       ast-serialize = pySelf.callPackage ./ast-serialize.nix { };
       librt = pySelf.callPackage ./librt.nix { };
-      mypy = pySelf.callPackage ./mypy.nix { };
     }
   );
 
@@ -29,7 +28,7 @@ in
   pyzotero = self.python3Packages.pyzotero;
   jsonc-parser = self.python3Packages.jsonc-parser;
   crossrefapi = self.python3Packages.crossrefapi;
-  mypy = self.python3Packages.mypy;
+  mypy = self.python3Packages.callPackage ./mypy.nix { };
   lammps-logfile = self.python3Packages.lammps-logfile;
   ast-serialize = self.python3Packages.ast-serialize;
   librt = self.python3Packages.librt;
