@@ -22,6 +22,7 @@
 
   # optionals
   lxml,
+  orjson,
   psutil,
 
   # tests
@@ -68,6 +69,8 @@ buildPythonPackage (finalAttrs: {
 
   optional-dependencies = {
     dmypy = [ psutil ];
+    faster-cache = [ orjson ];
+    native-parser = [ ];
     reports = [ lxml ];
   };
 
@@ -139,13 +142,13 @@ buildPythonPackage (finalAttrs: {
     inherit (nixosTests) nixos-test-driver;
   };
 
-  meta = {
+  meta = with lib; {
     description = "Optional static typing for Python";
     homepage = "https://www.mypy-lang.org";
     changelog = "https://github.com/python/mypy/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     downloadPage = "https://github.com/python/mypy";
-    license = lib.licenses.mit;
+    license = licenses.mit;
     mainProgram = "mypy";
-    maintainers = [ ];
+    maintainers = with maintainers; [ abkein ];
   };
 })

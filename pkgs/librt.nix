@@ -2,21 +2,25 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
+
+  # build-system
   setuptools,
+
+  # tests
   mypy-extensions,
   python,
   pytest,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "librt";
   version = "0.11.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mypyc";
-    repo = "librt";
-    tag = "v${version}";
+    repo = finalAttrs.pname;
+    tag = "v${finalAttrs.version}";
     hash = "sha256-y9z1EdrZRiDtT8cxz/Ex/f6B/RfjnAXdGf7tM+77HGg=";
   };
 
@@ -45,10 +49,10 @@ buildPythonPackage rec {
     "librt.internal"
   ];
 
-  meta = {
+  meta = with lib; {
     description = "Mypyc runtime library";
     homepage = "https://github.com/mypyc/librt";
-    license = lib.licenses.mit;
-    maintainers = [ ];
+    license = licenses.mit;
+    maintainers = with maintainers; [ abkein ];
   };
-}
+})

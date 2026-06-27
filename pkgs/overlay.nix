@@ -19,7 +19,7 @@ in
       lammps-logfile = pySelf.callPackage ./lammps-logfile.nix { };
       ast-serialize = pySelf.callPackage ./ast-serialize.nix { };
       librt = pySelf.callPackage ./librt.nix { };
-      # mypy = pySelf.callPackage ./mypy.nix { };
+      mypy = pySelf.callPackage ./mypy.nix { };
     }
   );
 

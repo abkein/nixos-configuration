@@ -323,11 +323,12 @@
             "lammps-logfile"
             "ast-serialize"
             "librt"
+            "mypy"
           ])
-          // (_ipkgs system)
-          // {
-            mypy = pkgs.python3Packages.callPackage ./pkgs/mypy.nix { };
-          };
+          // (_ipkgs system);
+        # // {
+        #   mypy = pkgs.python3Packages.callPackage ./pkgs/mypy.nix { };
+        # };
 
         devShells = import ./shells {
           inherit

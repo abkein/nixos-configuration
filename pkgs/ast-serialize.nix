@@ -2,6 +2,8 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
+
+  # build
   rustPlatform,
   pytestCheckHook,
 }:
@@ -38,6 +40,5 @@ buildPythonPackage (finalAttrs: {
     homepage = "https://github.com/mypyc/ast_serialize";
     license = licenses.mit;
     maintainers = with maintainers; [ abkein ];
-    broken = false;
   };
 })
