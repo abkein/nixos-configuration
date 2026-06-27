@@ -149,6 +149,8 @@ in
 
         electrum
 
+        papers
+
         (python3.withPackages (
           ps: with ps; [
             bash-kernel
