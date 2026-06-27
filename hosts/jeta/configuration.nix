@@ -233,6 +233,8 @@
       nerd-fonts.jetbrains-mono
       nerd-fonts.symbols-only
       noto-fonts
+      nerd-fonts.martian-mono
+      martian-mono
       # noto-fonts-lgc-plus
       noto-fonts-cjk-sans
       # noto-fonts-cjk-sans
@@ -244,6 +246,7 @@
       corefonts
       # vista-fonts
       cm_unicode
+      # font-bh-type1
     ];
     # ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
@@ -255,6 +258,7 @@
     fontconfig = {
       enable = true;
       useEmbeddedBitmaps = true;
+      allowType1 = true;
       defaultFonts = {
         serif = [
           "Noto Serif"
@@ -262,7 +266,7 @@
           # "DejaVu Serif"
         ];
         sansSerif = [
-          "Noto Sans"
+          "Noto Sans Serif"
           "Symbols Nerd Font"
           # "DejaVu Sans"
         ];
@@ -270,7 +274,7 @@
           "Noto Sans Mono"
           "Symbols Nerd Font"
           # "DejaVu Sans Mono"
-          "JetBrainsMono Nerd Font"
+          # "JetBrainsMono Nerd Font"
         ];
         emoji = [
           "Noto Color Emoji"
