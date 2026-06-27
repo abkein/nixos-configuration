@@ -37,8 +37,10 @@ rec {
       ]
       ++ (lib.optionals createEnvrc [
         ''
-          if [[ ! -e  ${envrcFile} ]]; then
-            echo 'use flake /home/kein/nixos-configuration#${repoName}' > ${envrcFile}
+          envrc_hash_should=$(sha256sum '${envrcFile}' | awk '{print $1}')
+          envrc_hash_is=$(echo 'use flake /home/kein/nixos-configuration#${repoName}' | sha256sum - | awk '{print $1}')
+          if [[ $envrc_hash_should != $envrc_hash_is ]]; then
+            echo 'use flake /home/kein/nixos-configuration#${repoName}' > '${envrcFile}'
           fi
         ''
       ]);
@@ -324,6 +326,7 @@ rec {
           };
         };
 
+        pyright_mode = "strict";
         pyrightConfigFileLoc = root + "/pyrightconfig.json";
         pyrightConfig = {
           pythonVersion = pythonVerisionMajorMinor;
@@ -333,7 +336,7 @@ rec {
           strictSetInference = true;
           strictParameterNoneValue = true;
           disableBytesTypePromotions = true;
-          typeCheckingMode = "strict";
+          typeCheckingMode = pyright_mode;
           enableReachabilityAnalysis = true;
           # reportUnreachable = true;
         };

@@ -94,7 +94,7 @@ let
         let
           finalCtx = eval callArgs;
 
-          shellArgsWithoutHook = builtins.removeAttrs finalCtx.shellArgs [ "shellHook" ];
+          shellArgsWithoutHook = removeAttrs finalCtx.shellArgs [ "shellHook" ];
 
           shellArgHook = finalCtx.shellArgs.shellHook or "";
         in

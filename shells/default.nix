@@ -98,10 +98,43 @@ in
       root = "/home/kein/Documents/nucleation/python/" + repoName;
       overlaidPythonPackages = [
         (final: prev: pyFinal: pyPrev: {
-          lammps-logfile = pyFinal.callPackage ./pkgs/lammps-logfile.nix { };
+          lammps-logfile = pyFinal.callPackage ../pkgs/lammps-logfile.nix { };
         })
       ];
       pythonPackages = [ (ps: with ps; [ lammps-logfile ]) ];
+      pyright_mode = "standard";
+    }
+  );
+
+  lmptest = shells.mkPyShellInteractive (
+    finalContext: with finalContext; {
+      repoName = "lmptest";
+      root = "/home/kein/Documents/nucleation/" + repoName;
+      overlaidPythonPackages = [
+        (final: prev: pyFinal: pyPrev: {
+          lammps-logfile = pyFinal.callPackage ../pkgs/lammps-logfile.nix { };
+        })
+      ];
+      pythonPackages = [ (ps: with ps; [ sympy lammps-logfile ]) ];
+      pyright_mode = "standard";
+    }
+  );
+
+  lmp = shells.mkPyShellInteractive (
+    finalContext: with finalContext; {
+      repoName = "lmp";
+      root = "/home/kein/Documents/nucleation/" + repoName;
+      pythonPackages = [
+        (
+          ps: with ps; [
+            mpi4py
+            pyzmq
+            adios2
+            toml
+          ]
+        )
+      ];
+      pyright_mode = "standard";
     }
   );
 

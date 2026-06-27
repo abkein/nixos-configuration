@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }@args:
+{
+  config,
+  pkgs,
+  lib,
+  cfg,
+  ...
+}@args:
 let
   needed_extensions = import ./needed-exts.nix pkgs;
 in
@@ -87,7 +93,7 @@ in
           producesWorkspace = true;
         };
         universalFlake = name: {
-          flake = "${config.home.homeDirectory}/devShells/universal#${name}";
+          flake = "${cfg.flakepath}#${name}";
           enable = true;
           producesWorkspace = true;
         };
@@ -112,10 +118,12 @@ in
         lmptest = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/lmptest";
           profile = "python";
+          flake = universalFlake "lmptest";
         };
         lmp = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/lmp";
           profile = "python";
+          flake = universalFlake "lmp";
         };
         # indexlib = {
         #   folder = "${config.home.homeDirectory}/Documents/nucleation/lmp/indexlib";
