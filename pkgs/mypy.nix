@@ -18,6 +18,7 @@
   mypy-extensions,
   tomli,
   typing-extensions,
+  ast-serialize,
 
   # optionals
   lxml,
@@ -62,6 +63,7 @@ buildPythonPackage (finalAttrs: {
     mypy-extensions
     pathspec
     typing-extensions
+    ast-serialize
   ];
 
   optional-dependencies = {

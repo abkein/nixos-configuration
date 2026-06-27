@@ -320,11 +320,14 @@
             "pyzotero"
             "jsonc-parser"
             "crossrefapi"
-            "mypy"
             "lammps-logfile"
             "ast-serialize"
+            "librt"
           ])
-          // (_ipkgs system);
+          // (_ipkgs system)
+          // {
+            mypy = pkgs.python3Packages.callPackage ./pkgs/mypy.nix { };
+          };
 
         devShells = import ./shells {
           inherit
