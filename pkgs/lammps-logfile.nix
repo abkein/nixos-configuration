@@ -1,6 +1,5 @@
 {
   lib,
-  fetchzip,
   fetchFromGitHub,
   buildPythonPackage,
 
@@ -15,7 +14,7 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "lammps_logfile";
-  version = "1.1.13";
+  version = "1.1.3";
   pyproject = true;
 
   #src = pkgs.fetchPypi {
@@ -24,10 +23,10 @@ buildPythonPackage (finalAttrs: {
   #};
 
   src = fetchFromGitHub {
-   owner = "henriasv";
-   repo = "lammps-logfile";
-   rev = "v${finalAttrs.version}";
-   sha256 = "sha256-PgM4BAJsq4rTaLtx+CRYXOsGEPPm1VZ17UtauoV5S7U=";
+    owner = "henriasv";
+    repo = "lammps-logfile";
+    rev = "v${finalAttrs.version}";
+    sha256 = "sha256-PgM4BAJsq4rTaLtx+CRYXOsGEPPm1VZ17UtauoV5S7U=";
   };
 
   # src = fetchzip {

@@ -16,17 +16,17 @@ in
       crossrefapi = pySelf.callPackage ./crossrefapi.nix { };
       keepassxc-proxy-client = pySelf.callPackage ./keepassxc-proxy-client.nix { };
       solo1-cli = pySelf.callPackage "${solo1-cli}/solo.nix" { };
-      # mypy = pySelf.callPackage ./mypy.nix { };
       lammps-logfile = pySelf.callPackage ./lammps-logfile.nix { };
       ast-serialize = pySelf.callPackage ./ast-serialize.nix { };
+      # mypy = pySelf.callPackage ./mypy.nix { };
     }
   );
 
+  # pyalex = self.python3Packages.pyalex;
   solo1-cli = self.python3Packages.solo1-cli;
   keepassxc-proxy-client = self.python3Packages.keepassxc-proxy-client;
   pyzotero = self.python3Packages.pyzotero;
   jsonc-parser = self.python3Packages.jsonc-parser;
-  # pyalex = self.python3Packages.pyalex;
   crossrefapi = self.python3Packages.crossrefapi;
   mypy = self.python3Packages.mypy;
   lammps-logfile = self.python3Packages.lammps-logfile;

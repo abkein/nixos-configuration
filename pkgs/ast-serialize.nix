@@ -14,10 +14,10 @@ buildPythonPackage (finalAttrs: {
   pyproject = true;
 
   src = fetchFromGitHub {
-   owner = "mypyc";
-   repo = "ast_serialize";
-   rev = "v${finalAttrs.version}";
-   sha256 = "sha256-GmhbMraI16J6ePtn7lXAWaJ+9zDH1GdebKIAzm5w9ok=";
+    owner = "mypyc";
+    repo = "ast_serialize";
+    rev = "v${finalAttrs.version}";
+    sha256 = "sha256-GmhbMraI16J6ePtn7lXAWaJ+9zDH1GdebKIAzm5w9ok=";
   };
 
   build-system = [

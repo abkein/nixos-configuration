@@ -115,7 +115,14 @@ in
           lammps-logfile = pyFinal.callPackage ../pkgs/lammps-logfile.nix { };
         })
       ];
-      pythonPackages = [ (ps: with ps; [ sympy lammps-logfile ]) ];
+      pythonPackages = [
+        (
+          ps: with ps; [
+            sympy
+            lammps-logfile
+          ]
+        )
+      ];
       pyright_mode = "standard";
     }
   );

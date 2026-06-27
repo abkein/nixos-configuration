@@ -315,12 +315,17 @@
         #   formatting = treefmtEval.check self;
         # };
         packages =
-          (_ipkgs system)
-          // (with pkgs; {
-            mypy = mypy;
-            lammps-logfile = lammps-logfile;
-            ast-serialize = ast-serialize;
-          });
+          (lib.foldl' (acc: elem: acc // { ${elem} = pkgs.${elem}; }) { } [
+            "keepassxc-proxy-client"
+            "pyzotero"
+            "jsonc-parser"
+            "crossrefapi"
+            "mypy"
+            "lammps-logfile"
+            "ast-serialize"
+          ])
+          // (_ipkgs system);
+
         devShells = import ./shells {
           inherit
             nixpkgs
