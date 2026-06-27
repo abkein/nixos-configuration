@@ -16,7 +16,7 @@ in
       crossrefapi = pySelf.callPackage ./crossrefapi.nix { };
       keepassxc-proxy-client = pySelf.callPackage ./keepassxc-proxy-client.nix { };
       solo1-cli = pySelf.callPackage "${solo1-cli}/solo.nix" { };
-      mypy = pySelf.callPackage ./mypy.nix { };
+      # mypy = pySelf.callPackage ./mypy.nix { };
       lammps-logfile = pySelf.callPackage ./lammps-logfile.nix { };
       ast-serialize = pySelf.callPackage ./ast-serialize.nix { };
     }

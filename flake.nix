@@ -300,7 +300,11 @@
     // (inputs.flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        # pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ self.overlays.default ];
+        };
         treefmtEval = (inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix).config.build;
       in
       {
@@ -310,7 +314,13 @@
         # checks = {
         #   formatting = treefmtEval.check self;
         # };
-        packages = _ipkgs system;
+        packages =
+          (_ipkgs system)
+          // (with pkgs; {
+            mypy = mypy;
+            lammps-logfile = lammps-logfile;
+            ast-serialize = ast-serialize;
+          });
         devShells = import ./shells {
           inherit
             nixpkgs
