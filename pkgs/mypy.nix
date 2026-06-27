@@ -41,14 +41,12 @@ buildPythonPackage (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "python";
-    repo = "mypy";
+    repo = finalAttrs.pname;
     tag = "v${finalAttrs.version}";
     hash = "sha256-sm/pxQGxH5XuPH7B8i3fpp30KaFU9aSp6BT67UcDPvU=";
   };
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   build-system = [
     mypy-extensions
@@ -100,7 +98,11 @@ buildPythonPackage (finalAttrs: {
     setuptools
     tomli
   ]
-  ++ lib.concatAttrValues finalAttrs.optional-dependencies;
+  ++ [
+    psutil
+    lxml
+  ];
+  # ++ lib.concatAttrValues finalAttrs.optional-dependencies;
 
   disabledTests = [
     # A change to the base64 decoder in CPython 3.13.13 and 3.14.4 causes this
