@@ -17,8 +17,8 @@ in
       keepassxc-proxy-client = pySelf.callPackage ./keepassxc-proxy-client.nix { };
       solo1-cli = pySelf.callPackage "${solo1-cli}/solo.nix" { };
       lammps-logfile = pySelf.callPackage ./lammps-logfile.nix { };
-      ast-serialize = pySelf.callPackage ./ast-serialize.nix { };
-      librt = pySelf.callPackage ./librt.nix { };
+      # ast-serialize = pySelf.callPackage ./ast-serialize.nix { };
+      # librt = pySelf.callPackage ./librt.nix { };
     }
   );
 
@@ -28,10 +28,10 @@ in
   pyzotero = self.python3Packages.pyzotero;
   jsonc-parser = self.python3Packages.jsonc-parser;
   crossrefapi = self.python3Packages.crossrefapi;
-  mypy = self.python3Packages.callPackage ./mypy.nix { };
+  # mypy = self.python3Packages.callPackage ./mypy.nix { };
   lammps-logfile = self.python3Packages.lammps-logfile;
-  ast-serialize = self.python3Packages.ast-serialize;
-  librt = self.python3Packages.librt;
+  # ast-serialize = self.python3Packages.ast-serialize;
+  # librt = self.python3Packages.librt;
 
   vscode-extensions.vscode-clang-tidy = import ./vscode-clang-tidy/vscode-clang-tidy.nix self;
   zotero-addons = self.callPackage ./zotero-addons.nix { };
