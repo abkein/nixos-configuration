@@ -106,13 +106,6 @@ buildPythonPackage (finalAttrs: {
   ++ lib.concatAttrValues finalAttrs.passthru.optional-dependencies;
 
   disabledTests = [
-    # A change to the base64 decoder in CPython 3.13.13 and 3.14.4 causes this
-    # test to fail. At the time of writing, upstream skips the test.
-    # Upstream issue: https://github.com/python/mypy/issues/21120
-    # CPython issue: https://github.com/python/cpython/issues/145264
-    "testAllBase64Features_librt_experimental"
-    # https://github.com/python/mypy/issues/21120
-    "testAllBase64Features_librt"
     # fails to import librt
     "test_diff_cache_produces_valid_json"
   ]
