@@ -183,7 +183,9 @@ rec {
         numpy
         pandas
         scipy
+        scipy-stubs
         requests
+        types-requests
         matplotlib
       ]
     );

@@ -115,6 +115,12 @@ in
           lammps-logfile = pyFinal.callPackage ../pkgs/lammps-logfile.nix { };
         })
       ];
+      shellArgs.buildInputs = with pkgs; [
+        meson
+        gfortran
+        pkg-config
+        ninja
+      ];
       pythonPackages = [
         (
           ps: with ps; [
