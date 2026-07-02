@@ -297,7 +297,18 @@ in
             #   ruleTag = "YouTubeToByeDPI";
             # }
             {
-              domain = [ "geosite:ru-available-only-inside" ];
+              domain = [
+                "geosite:ru-available-only-inside"
+                "domain:scienceid.net"
+                "domain:mipt.tech"
+                "domain:volet.com"
+                "domain:aviasales.com"
+                "domain:websky.aero"
+                "domain:webskyx.com"
+                "domain:flysmartavia.com"
+                "domain:pruffme.com"
+                "domain:sci-net.xyz"
+              ];
               inboundTag = mainInbounds;
               outboundTag = "direct";
               ruleTag = "KnownDomesticOnlyDom2Direct";
@@ -356,15 +367,6 @@ in
             {
               domain = [
                 "geosite:category-ru"
-                "domain:scienceid.net"
-                "domain:mipt.tech"
-                "domain:volet.com"
-                "domain:aviasales.com"
-                "domain:websky.aero"
-                "domain:webskyx.com"
-                "domain:flysmartavia.com"
-                "domain:pruffme.com"
-                "domain:sci-net.xyz"
               ];
               inboundTag = mainInbounds;
               outboundTag = "direct";
