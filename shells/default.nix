@@ -175,4 +175,13 @@ in
       pythonPackages = [ (ps: with ps; [ markdownify ]) ];
     }
   );
+
+  nixy = shells.mkPyShell (
+    finalContext: with finalContext; {
+      repoName = "nixy";
+      root = "/home/kein/" + repoName;
+
+      pythonPackages = [ (ps: with ps; [ markdownify ]) ];
+    }
+  );
 }

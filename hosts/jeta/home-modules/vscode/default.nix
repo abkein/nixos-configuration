@@ -125,6 +125,11 @@ in
           profile = "python";
           flake = universalFlake "lmp";
         };
+        nixy = {
+          folder = "${config.home.homeDirectory}/nixy";
+          profile = "python";
+          flake = universalFlake "nixy";
+        };
         # indexlib = {
         #   folder = "${config.home.homeDirectory}/Documents/nucleation/lmp/indexlib";
         #   workspaceFile = {
