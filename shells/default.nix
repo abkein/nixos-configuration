@@ -181,7 +181,16 @@ in
       repoName = "nixy";
       root = "/home/kein/" + repoName;
 
-      pythonPackages = [ (ps: with ps; [ markdownify ]) ];
+      pythonPackages = [
+        (
+          ps: with ps; [
+            json-repair
+            marko
+            pyyaml
+            types-pyyaml
+          ]
+        )
+      ];
     }
   );
 }

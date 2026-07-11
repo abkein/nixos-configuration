@@ -325,6 +325,11 @@ rec {
               "SIM"
               "I"
             ];
+            ignore = [
+              "E402"
+              "SIM102"
+              "SIM118"
+            ];
           };
         };
 
@@ -333,6 +338,7 @@ rec {
         pyrightConfig = {
           pythonVersion = pythonVerisionMajorMinor;
           pythonPlatform = "Linux";
+          analyzeUnannotatedFunctions = true;
           strictListInference = true;
           strictDictionaryInference = true;
           strictSetInference = true;
@@ -340,7 +346,6 @@ rec {
           disableBytesTypePromotions = true;
           typeCheckingMode = pyright_mode;
           enableReachabilityAnalysis = true;
-          # reportUnreachable = true;
         };
 
         vscodeSettings = {
