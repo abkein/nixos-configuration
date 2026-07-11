@@ -140,7 +140,10 @@ lib.mkMerge (
         # };
       };
 
-      "direnv.watchForChanges" = false;
+      direnv = {
+        watchForChanges = false;
+        restart.automatic = true;
+      };
 
       git = {
         autofetch = true;
