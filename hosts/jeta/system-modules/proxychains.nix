@@ -39,7 +39,7 @@
 
     # Quiet mode (no output from library)
     #quiet_mode
-    quietMode = false; # default
+    quietMode = true; # default
 
     # Proxy DNS requests - no leak for DNS data
     # proxy_dns

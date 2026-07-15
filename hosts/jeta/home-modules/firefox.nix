@@ -17,6 +17,10 @@ let
     };
   };
   L2A = func: lst: builtins.listToAttrs (map func lst);
+  mkLockedValue = value: {
+    Value = value;
+    Locked = true;
+  };
   moz_home = "${config.xdg.configHome}/mozilla";
 in
 {
@@ -24,6 +28,7 @@ in
   home.sessionVariables.MOZ_HOME = moz_home;
   programs.firefox = {
     enable = true;
+    enableGnomeExtensions = true;
     package = pkgs.firefox.override (old: {
       nativeMessagingHosts = with pkgs; [
         keepassxc
@@ -126,8 +131,34 @@ in
     };
     # https://mozilla.github.io/policy-templates/
     policies = {
+      AIChatbot = {
+        Providers = {
+          Builtin = {
+            "Anthropic Claude" = false;
+            "ChatGPT" = true;
+            "Copilot" = false;
+            "Google Gemini" = true;
+            "HuggingChat" = true;
+            "Le Chat Mistral" = true;
+            "localhost" = false;
+          };
+        };
+      };
+      AIControls = {
+        Default = mkLockedValue "available";
+        Translations = mkLockedValue "available";
+        PDFAltText =mkLockedValue "available";
+        SmartTabGroups = mkLockedValue "available";
+        LinkPreviewKeyPoints = mkLockedValue "available";
+        SidebarChatbot = mkLockedValue "available";
+        SmartWindow = mkLockedValue "available";
+      };
+      AllowFileSelectionDialogs = true;
+      AppAutoUpdate = false;
+      AppUpdateURL = "";
+      AutofillAddressEnabled = true;
       AutofillCreditCardEnabled = false;
-      CaptivePortal = true;
+      BackgroundAppUpdate = false;
       # DNSOverHTTPS = {
       #   Enabled = true;
       #   ProviderURL = "https://8.8.8.8/dns-query"; # 8.8.8.8, 8.8.4.4
@@ -138,8 +169,10 @@ in
       #   ExcludedDomains = [ ];
       #   Fallback = false;
       # };
+      DefaultDownloadDirectory = config.xdg.userDirs.download;
       DisableAppUpdate = true;
       DisableSetDesktopBackground = true;
+      DisableTelemetry = true;
       EnableTrackingProtection = {
         Value = true;
         Locked = true;

@@ -62,8 +62,8 @@
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
-
   services = {
+    gnome.gnome-browser-connector.enable = true; # For programs.firefox.enableGnomeExtensions = true;
     blueman.enable = true;
     gvfs.enable = true;
     homed.enable = true;
