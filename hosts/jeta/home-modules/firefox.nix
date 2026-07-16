@@ -28,9 +28,9 @@ in
   home.sessionVariables.MOZ_HOME = moz_home;
   programs.firefox = {
     enable = true;
-    enableGnomeExtensions = true;
     package = pkgs.firefox.override (old: {
       nativeMessagingHosts = with pkgs; [
+        gnome-browser-connector
         keepassxc
         (pkgs.writeTextFile {
           name = "gpgme-mozilla-native-messaging";
@@ -147,7 +147,7 @@ in
       AIControls = {
         Default = mkLockedValue "available";
         Translations = mkLockedValue "available";
-        PDFAltText =mkLockedValue "available";
+        PDFAltText = mkLockedValue "available";
         SmartTabGroups = mkLockedValue "available";
         LinkPreviewKeyPoints = mkLockedValue "available";
         SidebarChatbot = mkLockedValue "available";

@@ -29,9 +29,7 @@ buildPythonPackage (finalAttrs: {
     cp -rv lib-rt/* .
   '';
 
-  build-system = [
-    setuptools
-  ];
+  build-system = [ setuptools ];
 
   nativeCheckInputs = [
     mypy-extensions

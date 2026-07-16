@@ -31,9 +31,7 @@ buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "ast_serialize" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = with lib; {
     description = "Python bindings for mypy AST serialization.";

@@ -365,9 +365,7 @@ in
               ruleTag = "KnownBlockedIP2Proxy";
             }
             {
-              domain = [
-                "geosite:category-ru"
-              ];
+              domain = [ "geosite:category-ru" ];
               inboundTag = mainInbounds;
               outboundTag = "direct";
               ruleTag = "DomRU2Direct";

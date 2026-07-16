@@ -1,6 +1,6 @@
-self: super:
+final: prev:
 let
-  solo1-cli = super.fetchFromGitHub {
+  solo1-cli = prev.fetchFromGitHub {
     owner = "abkein";
     repo = "solo1-cli";
     rev = "ea8dc795729356eb421db5918b4392316ab90f77";
@@ -8,7 +8,7 @@ let
   };
 in
 {
-  python3Packages = super.python3Packages.overrideScope (
+  python3Packages = prev.python3Packages.overrideScope (
     pySelf: pySuper: {
       # pyzotero = import ./pyzotero.nix { pkgs=self; python3Packages=pySelf; };  # now in nixpkgs
       jsonc-parser = pySelf.callPackage ./jsonc-parser.nix { };
@@ -23,20 +23,20 @@ in
   );
 
   # pyalex = self.python3Packages.pyalex;
-  solo1-cli = self.python3Packages.solo1-cli;
-  keepassxc-proxy-client = self.python3Packages.keepassxc-proxy-client;
-  pyzotero = self.python3Packages.pyzotero;
-  jsonc-parser = self.python3Packages.jsonc-parser;
-  crossrefapi = self.python3Packages.crossrefapi;
+  solo1-cli = final.python3Packages.solo1-cli;
+  keepassxc-proxy-client = final.python3Packages.keepassxc-proxy-client;
+  pyzotero = final.python3Packages.pyzotero;
+  jsonc-parser = final.python3Packages.jsonc-parser;
+  crossrefapi = final.python3Packages.crossrefapi;
   # mypy = self.python3Packages.callPackage ./mypy.nix { };
-  lammps-logfile = self.python3Packages.lammps-logfile;
+  lammps-logfile = final.python3Packages.lammps-logfile;
   # ast-serialize = self.python3Packages.ast-serialize;
   # librt = self.python3Packages.librt;
 
-  vscode-extensions.vscode-clang-tidy = import ./vscode-clang-tidy/vscode-clang-tidy.nix self;
-  zotero-addons = self.callPackage ./zotero-addons.nix { };
-  ibus-engines = super.ibus-engines // {
-    typing-booster-unwrapped = self.callPackage ./ibus-typing-booster { };
+  vscode-extensions.vscode-clang-tidy = import ./vscode-clang-tidy/vscode-clang-tidy.nix final;
+  zotero-addons = final.callPackage ./zotero-addons.nix { };
+  ibus-engines = prev.ibus-engines // {
+    typing-booster-unwrapped = final.callPackage ./ibus-typing-booster { };
   };
-  vimix-icon-theme = self.callPackage ./vimix-icon-theme.nix { };
+  vimix-icon-theme = final.callPackage ./vimix-icon-theme.nix { };
 }

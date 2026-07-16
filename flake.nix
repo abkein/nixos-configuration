@@ -321,9 +321,9 @@
             "jsonc-parser"
             "crossrefapi"
             "lammps-logfile"
-            "ast-serialize"
-            "librt"
-            "mypy"
+            # "ast-serialize"
+            # "librt"
+            # "mypy"
           ])
           // (_ipkgs system);
 

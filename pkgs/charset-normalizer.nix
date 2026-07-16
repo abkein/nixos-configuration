@@ -27,10 +27,7 @@ buildPythonPackage rec {
       --replace-fail "mypy>=1.4.1,<=1.20" "mypy"
   '';
 
-  build-system = [
-    setuptools
-  ]
-  ++ lib.optional (!isPyPy) mypy;
+  build-system = [ setuptools ] ++ lib.optional (!isPyPy) mypy;
 
   env.CHARSET_NORMALIZER_USE_MYPYC = lib.optionalString (!isPyPy) "1";
 
@@ -38,9 +35,7 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "charset_normalizer" ];
 
-  passthru.tests = {
-    inherit aiohttp requests;
-  };
+  passthru.tests = { inherit aiohttp requests; };
 
   meta = {
     description = "Python module for encoding and language detection";
