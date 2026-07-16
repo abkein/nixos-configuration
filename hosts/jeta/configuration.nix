@@ -63,7 +63,6 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
   services = {
-    gnome.gnome-browser-connector.enable = true; # For programs.firefox.gnome-browser-connector to work;
     blueman.enable = true;
     gvfs.enable = true;
     homed.enable = true;

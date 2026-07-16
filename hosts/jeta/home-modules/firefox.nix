@@ -30,7 +30,6 @@ in
     enable = true;
     package = pkgs.firefox.override (old: {
       nativeMessagingHosts = with pkgs; [
-        gnome-browser-connector
         keepassxc
         (pkgs.writeTextFile {
           name = "gpgme-mozilla-native-messaging";
