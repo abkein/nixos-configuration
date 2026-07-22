@@ -83,7 +83,7 @@ in
         thunderbird-latest
         imagemagickBig
         poppler-utils
-        texlive.combined.scheme-full
+        texliveFull
         ghostscript
         # backintime-common
         # backintime-qt
@@ -103,8 +103,10 @@ in
 
         nixpkgs-review
 
+        papers
+
         # text
-        xed-editor
+        geany
         obsidian # configurable
         prettier
         # aider-chat
@@ -148,8 +150,6 @@ in
         ffmpeg-full
 
         electrum
-
-        papers
 
         (python3.withPackages (
           ps: with ps; [

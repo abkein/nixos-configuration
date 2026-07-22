@@ -13,7 +13,6 @@ pkgs: {
     "yzhang.markdown-all-in-one"
     "trond-snekvik.simple-rst"
     "editorConfig.editorConfig"
-    # "shd101wyy.markdown-preview-enhanced"
     # "esbenp.prettier-vscode"
     # "github.copilot"  # so annoying
     # "github.copilot-chat"
@@ -43,14 +42,6 @@ pkgs: {
     "ms-toolsai.vscode-jupyter-powertoys"
     "njpwerner.autodocstring"
     # "detachhead.basedpyright"
-
-    # "ms-python.black-formatter"
-    # "ms-python.debugpy"
-    # "ms-python.isort"
-    # "ms-python.flake8"
-    # "ms-python.autopep8"
-    # "ms-python.vscode-python-envs"
-    # "kevinrose.vsc-python-indent"
   ];
 
   flutter = [
@@ -111,7 +102,6 @@ pkgs: {
 
   # "seunlanlege.action-buttons"
   # "trunk.io"
-  # "google.geminicodeassist"
   # "googlecloudtools.cloudcode"
 
   # "gruntfuggly.todo-tree"

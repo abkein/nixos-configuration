@@ -205,10 +205,10 @@
                       allowUnfree = true;
                       # rocmSupport = true;
                       warnUndeclaredOptions = true;
-                      permittedInsecurePackages = [
-                        "pypy2.7-setuptools-44.0.0"
-                        "pypy2.7-pip-20.3.4"
-                      ];
+                      # permittedInsecurePackages = [
+                      #   "pypy2.7-setuptools-44.0.0"
+                      #   "pypy2.7-pip-20.3.4"
+                      # ];
                     };
                     overlays =
                       (with inputs; [
