@@ -14,17 +14,84 @@ in
 lib.mkMerge (
   lib.map mylib.flattenAttrsDot' [
     {
-      "telemetry.telemetryLevel" = "off";
-      "telemetry.enableTelemetry" = false;
-      "telemetry.enableCrashReporter" = false;
-      "telemetry.feedback.enabled" = false;
-      "update.channel" = "none";
-      "update.mode" = "none";
-      "update.showReleaseNotes" = false;
-      "update.showPostInstallInfo" = false;
-      "extensions.autoCheckUpdates" = false;
-      "extensions.autoUpdate" = false;
-      "extensions.ignoreRecommendations" = true;
+      telemetry = {
+        telemetryLevel = "off"; # default profile
+        enableTelemetry = false; # default profile
+        feedback.enabled = false;
+      };
+      update = { # default profile
+        channel = "none";
+        mode = "none";
+        showReleaseNotes = false;
+        showPostInstallInfo = false;
+      };
+      extensions = {
+        autoCheckUpdates = false; # default profile
+        autoUpdate = "off";  # default profile
+        ignoreRecommendations = true;
+      };
+      chat = {
+        # disableAIFeatures = true;
+        artifacts.enabled = true;
+        autopilot.advanced.enabled = true;
+        checkpoints = {
+          enabled = true;
+          showFileChanges = true;
+        };
+        mcp.gallery.enabled = true;
+        # fontFamily = seriffont;
+        # editor = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
+        contextUsage.enabled = true;
+        agentHost = {
+          enabled = true;
+          codexAgent.enabled = true;
+          agentDebugLog.enabled = true;
+        };
+      };
+
+      workbench = {
+        colorTheme = "Dark Modern"; # stylix
+        preferredDarkColorTheme = "Dark Modern";
+        reduceMotion = "off";
+        # editorAssociations = mylib.flattenAttrsDot'.literal {
+        #   "*.pdf" = "pdf.preview";
+        # };
+        layoutControl.enabled = false;
+        secondarySideBar.defaultVisibility = "hidden";
+        editor = {
+          markdownDefaultEditorInAgentsWindow = true;
+          enablePreview = false;
+          useModal = "off";
+          wrapTabs = true;
+        };
+        settings.alwaysShowAdvancedSettings = true;
+        commandPalette.experimental.suggestCommands = true;
+        experimental = {
+          modernUI = true;
+          # fontFamily = monofont;
+          # fontSize = fontsize;
+        };
+        # navigationControl.enabled = false;
+        # activityBar.experimental = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
+        # bottomPane.experimental = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
+        # sideBar.experimental = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
+        # tabs.experimental = {
+        #   fontFamily = monofont;
+        #   fontSize = fontsize;
+        # };
+      };
 
       editor = {
         formatOnSave = true;
@@ -32,7 +99,21 @@ lib.mkMerge (
         formatOnPaste = true;
         formatOnType = true;
         autoIndentOnPaste = true;
-        unicodeHighlight.ambiguousCharacters = false;
+        guides.bracketPairs = true;
+        renderLineHighlight = "gutter";
+        renderRichScreenReaderContent = true;
+        semanticHighlighting.enabled = true;
+        smoothScrolling = true;
+        stablePeek = true;
+        tabCompletion = "on";
+        wordWrap = "on";
+        wrapOnEscapedLineFeeds = true;
+        # aiStats.enabled = true;
+        # experimentalGpuAcceleration = "on";
+        find.autoFindInSelection = "multiline";
+        inlineSuggest.showToolbar = "always";
+        inlineSuggest.experimental.showOnSuggestConflict = "always";
+        # unicodeHighlight.ambiguousCharacters = false;
         renderWhitespace = "all";
         # defaultFormatter = "trunk.io";
         fontFamily = monofont;
@@ -40,18 +121,8 @@ lib.mkMerge (
         fontLigatures = true;
         inlineSuggest.fontFamily = monofont;
         codeLensFontFamily = monofont;
-        # minimap.sectionHeaderFontSize = 10.285714285714286; # ?????
       };
 
-      chat = {
-        # disableAIFeatures = true;
-        mcp.gallery.enabled = true;
-        # fontFamily = seriffont;
-        # editor = {
-        #   fontFamily = monofont;
-        #   fontSize = fontsize;
-        # };
-      };
       chatgpt = {
         composerEnterBehavior = "cmdIfMultiline";
         followUpQueueMode = "steer";
@@ -75,7 +146,7 @@ lib.mkMerge (
         fontLigatures.enabled = true;
       };
 
-      window = {
+      window = { # defaul profile
         titleBarStyle = "custom";
         customTitleBarVisibility = "never";
         dialogStyle = "custom";
@@ -89,7 +160,8 @@ lib.mkMerge (
       };
 
       files = {
-        hotExit = "onExitAndWindowClose";
+        autoGuessEncoding = true;
+        hotExit = "onExitAndWindowClose"; # default profile
         autoSave = "afterDelay";
         trimTrailingWhitespace = true;
         associations = mylib.flattenAttrsDot'.literal {
@@ -116,6 +188,10 @@ lib.mkMerge (
         codeLens = true;
         wordWrap = "on";
         ignoreTrimWhitespace = false;
+        experimental = {
+          showMoves = "all";
+          useTrueInlineView = true;
+        };
       };
 
       notebook = {
@@ -123,14 +199,21 @@ lib.mkMerge (
         # markup.fontFamily = seriffont;
       };
 
-      markdown.preview = {
-        fontFamily = seriffont;
-        fontSize = fontsize;
+      markdown = {
+        preview.doubleClickToSwitchToEditor = true;
+        occurrencesHighlight.enabled = true;
+        preview = {
+          fontFamily = seriffont;
+          fontSize = fontsize;
+        };
       };
 
       screencastMode.fontSize = 48;
-
-      "security.workspace.trust.untrustedFiles" = "open";
+      keyboard.dispatch = "keyCode";
+      redhat.telemetry.enabled = false;
+      githubPullRequests.createOnPublishBranch = "never";
+      dart.previewFlutterUiGuides = true;
+      security.workspace.trust.untrustedFiles = "open";
 
       debug = {
         onTaskErrors = "abort";
@@ -152,42 +235,6 @@ lib.mkMerge (
         ignoreRebaseWarning = true;
       };
 
-      workbench = {
-        colorTheme = "Dark Modern"; # stylix
-        layoutControl.enabled = false;
-        secondarySideBar.defaultVisibility = "hidden";
-        editor.enablePreview = false;
-        # editorAssociations = mylib.flattenAttrsDot'.literal {
-        #   "*.pdf" = "pdf.preview";
-        # };
-        # experimental = {
-        #   fontFamily = monofont;
-        #   fontSize = fontsize;
-        # };
-        # navigationControl.enabled = false;
-        # activityBar.experimental = {
-        #   fontFamily = monofont;
-        #   fontSize = fontsize;
-        # };
-        # bottomPane.experimental = {
-        #   fontFamily = monofont;
-        #   fontSize = fontsize;
-        # };
-        # sideBar.experimental = {
-        #   fontFamily = monofont;
-        #   fontSize = fontsize;
-        # };
-        # tabs.experimental = {
-        #   fontFamily = monofont;
-        #   fontSize = fontsize;
-        # };
-      };
-
-      "keyboard.dispatch" = "keyCode";
-      "atomKeymap.promptV3Features" = true;
-      "redhat.telemetry.enabled" = true;
-      "githubPullRequests.createOnPublishBranch" = "never";
-      "dart.previewFlutterUiGuides" = true;
 
       scm = {
         alwaysShowActions = true;
