@@ -19,7 +19,8 @@ lib.mkMerge (
         enableTelemetry = false; # default profile
         feedback.enabled = false;
       };
-      update = { # default profile
+      update = {
+        # default profile
         channel = "none";
         mode = "none";
         showReleaseNotes = false;
@@ -27,7 +28,7 @@ lib.mkMerge (
       };
       extensions = {
         autoCheckUpdates = false; # default profile
-        autoUpdate = "off";  # default profile
+        autoUpdate = "off"; # default profile
         ignoreRecommendations = true;
       };
       chat = {
@@ -146,7 +147,8 @@ lib.mkMerge (
         fontLigatures.enabled = true;
       };
 
-      window = { # defaul profile
+      window = {
+        # defaul profile
         titleBarStyle = "custom";
         customTitleBarVisibility = "never";
         dialogStyle = "custom";
@@ -234,7 +236,6 @@ lib.mkMerge (
         enableCommitSigning = true;
         ignoreRebaseWarning = true;
       };
-
 
       scm = {
         alwaysShowActions = true;
