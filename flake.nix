@@ -272,7 +272,11 @@
               ++ [
                 ./hosts/yun
                 {
-                  # nixpkgs = { };
+                  nixpkgs = {
+                    overlays = [
+                      self.overlays.default
+                    ];
+                  };
                   environment.systemPackages = with ipkgs; [ (if cfg.useAgenixRekey then agenix-rekey else agenix) ];
                   home-manager = {
                     useGlobalPkgs = true;

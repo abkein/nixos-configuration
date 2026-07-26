@@ -182,6 +182,7 @@ in
     };
   };
 
+  stylix.targets.micro.enable = false;
   programs = {
     codex = {
       enable = true;

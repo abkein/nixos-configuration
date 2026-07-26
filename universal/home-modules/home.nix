@@ -16,6 +16,10 @@
       enableBashIntegration = true;
       enableZshIntegration = true;
     };
+    sessionVariables = {
+      EDITOR = "micro";
+      PAGER = "bat";
+    };
     shellAliases =
       let
         eza_args = "--git --icons=auto --color=auto --color-scale=all --color-scale-mode=gradient --time-style='+%H:%M %d.%m.%Y' --group";

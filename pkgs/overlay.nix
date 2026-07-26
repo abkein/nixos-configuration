@@ -35,6 +35,7 @@ in
 
   vscode-extensions.vscode-clang-tidy = import ./vscode-clang-tidy/vscode-clang-tidy.nix final;
   zotero-addons = final.callPackage ./zotero-addons.nix { };
+  micro-plugins = final.callPackage ./micro-plugins.nix { };
   ibus-engines = prev.ibus-engines // {
     typing-booster-unwrapped = final.callPackage ./ibus-typing-booster { };
   };

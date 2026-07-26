@@ -1,4 +1,6 @@
 { config, pkgs, ... }: {
+  imports = [ ../../options/home-manager/micro.nix ];
+
   programs = {
     eza.enable = true;
     bat.enable = true;
@@ -25,13 +27,36 @@
       silent = false;
       enableBashIntegration = true;
       enableZshIntegration = true;
-      nix-direnv.enable = true;
+      # nix-direnv.enable = true;
       config = {
         bash_path = "${config.programs.bash.package}/bin/bash";
         disable_stdin = true;
         load_dotenv = true;
         strict_env = true;
       };
+    };
+    micro = {
+      enable = true;
+      package = pkgs.micro-full;
+      settings = {
+        autosave = 1;
+        hlsearch = true;
+        hltaberrors = true;
+        parsecursor = true;
+        showchars = "tab=>,space=.,itab=|>,ispace=|";
+        tabstospaces = true;
+        colorscheme = "atom-dark";
+      };
+      keybindings = {
+        "Ctrl-X" = "Quit";
+      };
+      plugins = with pkgs.micro-plugins; [
+        editorconfig
+        manipulator
+        quoter
+        autofmt
+        detectindent
+      ];
     };
     bash = {
       enable = true;
