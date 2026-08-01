@@ -68,6 +68,32 @@ in
           }
           {
             listen = "127.0.0.1";
+            port = 1081;
+            protocol = "socks";
+            settings = {
+              auth = "noauth";
+              udp = true;
+              ip = "127.0.0.1";
+              userLevel = 0;
+            };
+            tag = "inbound-nix-4";
+            sniffing = sniffRoute;
+          }
+          {
+            listen = "::1";
+            port = 1081;
+            protocol = "socks";
+            settings = {
+              auth = "noauth";
+              udp = true;
+              ip = "::1";
+              userLevel = 0;
+            };
+            tag = "inbound-nix-6";
+            sniffing = sniffRoute;
+          }
+          {
+            listen = "127.0.0.1";
             port = 1080;
             protocol = "socks";
             settings = {
@@ -241,6 +267,10 @@ in
             "inbound-socks-4"
             "inbound-socks-6"
           ];
+          nixInbounds = [
+            "inbound-nix-4"
+            "inbound-nix-6"
+          ];
         in
         {
           domainStrategy = "IPOnDemand";
@@ -260,13 +290,13 @@ in
                 "fe80::/10"
                 "geoip:private"
               ];
-              inboundTag = mainInbounds;
+              inboundTag = mainInbounds ++ nixInbounds;
               outboundTag = "direct";
               ruleTag = "PrivateIPDirect";
             }
             {
               domain = [ "geosite:private" ];
-              inboundTag = mainInbounds;
+              inboundTag = mainInbounds ++ nixInbounds;
               outboundTag = "direct";
               ruleTag = "PrivateDomainDirect";
             }
@@ -366,13 +396,13 @@ in
             }
             {
               domain = [ "geosite:category-ru" ];
-              inboundTag = mainInbounds;
+              inboundTag = mainInbounds ++ nixInbounds;
               outboundTag = "direct";
               ruleTag = "DomRU2Direct";
             }
             {
               ip = [ "geoip:ru" ];
-              inboundTag = mainInbounds;
+              inboundTag = mainInbounds ++ nixInbounds;
               outboundTag = "direct";
               ruleTag = "IPRU2Direct";
             }
