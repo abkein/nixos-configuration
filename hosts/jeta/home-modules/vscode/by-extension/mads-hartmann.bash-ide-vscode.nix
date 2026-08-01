@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   bashIde = {
     enableSourceErrorDiagnostics = true;
     shellcheckPath = "${pkgs.shellcheck}/bin/shellcheck";
