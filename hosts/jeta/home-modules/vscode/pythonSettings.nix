@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 let
   showNotifications = "off";
 in
@@ -31,7 +31,7 @@ in
   "python.analysis.typeEvaluation.strictListInference" = true;
   "python.analysis.typeEvaluation.strictParameterNoneValue" = true;
   "python.analysis.typeEvaluation.strictSetInference" = true;
-  "python.analysis.nodeExecutable" = "${pkgs.nodejs}/bin/node";
+  # "python.analysis.nodeExecutable" = "${pkgs.nodejs}/bin/node";
 
   # "autopep8.showNotifications" = showNotifications;
   # "black-formatter.showNotifications" = showNotifications;

@@ -3,7 +3,6 @@
   pkgs,
   mylib,
   cfg,
-  ipkgs,
   ...
 }@args:
 let
@@ -113,7 +112,7 @@ mylib.flattenAttrsDot' (
       find.autoFindInSelection = "multiline";
       inlineSuggest.showToolbar = "always";
       inlineSuggest.experimental.showOnSuggestConflict = "always";
-      # unicodeHighlight.ambiguousCharacters = false;
+      unicodeHighlight.ambiguousCharacters = false;
       renderWhitespace = "all";
       # defaultFormatter = "trunk.io";
       fontFamily = monofont;
@@ -127,7 +126,7 @@ mylib.flattenAttrsDot' (
       composerEnterBehavior = "cmdIfMultiline";
       followUpQueueMode = "steer";
       reviewDelivery = "detached";
-      cliExecutable = "${ipkgs.codex-cli}/bin/codex";
+      # cliExecutable = "${ipkgs.codex-cli}/bin/codex";
     };
     claudeCode = {
       disableLoginPrompt = true;
