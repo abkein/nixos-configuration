@@ -26,7 +26,7 @@
       in
       {
         delete-generations = "sudo nix-env --delete-generations +3 --profile /nix/var/nix/profiles/system";
-        system-cleaning = "delete-generations && nix store gc && nix store optimise";
+        system-cleaning = "delete-generations && nix store gc --debug && nix store optimise";
         wget = "wget --hsts-file=${config.xdg.dataHome}/wget-hsts";
         dud = "du -h -d 1 ";
 
