@@ -24,7 +24,7 @@
       link-previews = false;
       working-directory = "home";
       clipboard-trim-trailing-spaces = true;
-      shell-integration-features = "cursor,title,ssh-env,ssh-terminfo";
+      shell-integration-features = "cursor,title"; # ,ssh-env,ssh-terminfo
       app-notifications = "no-clipboard-copy,config-reload";
       linux-cgroup = "always";
       keybind = "global:ctrl+q=toggle_quick_terminal";
