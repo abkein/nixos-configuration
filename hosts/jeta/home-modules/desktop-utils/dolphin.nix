@@ -28,7 +28,6 @@
     kdePackages.kservice
     kdePackages.plasma-integration
 
-
     # # kdePackages.breeze-icons
     # shared-mime-info
   ];

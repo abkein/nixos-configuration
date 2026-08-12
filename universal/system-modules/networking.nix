@@ -30,9 +30,7 @@
       logRefusedConnections = true;
       logRefusedPackets = true;
       logReversePathDrops = true;
-      allowedTCPPorts = [
-        5001
-      ];
+      allowedTCPPorts = [ 5001 ];
     };
   };
 

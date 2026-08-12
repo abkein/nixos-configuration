@@ -13,7 +13,12 @@ let
       ...
     }:
     stdenv.mkDerivation {
-      inherit pname version src meta;
+      inherit
+        pname
+        version
+        src
+        meta
+        ;
 
       preferLocalBuild = true;
       allowSubstitutes = true;
