@@ -13,9 +13,7 @@ let
       ...
     }:
     stdenv.mkDerivation {
-      name = "${pname}-${version}";
-
-      inherit src meta;
+      inherit pname version src meta;
 
       preferLocalBuild = true;
       allowSubstitutes = true;
@@ -34,16 +32,17 @@ let
       tag,
       file,
       hash,
+      name ? null,
     }:
     pkgs.fetchurl {
-      inherit hash;
+      inherit hash name;
       url = "https://github.com/${owner}/${repo}/releases/download/${tag}/${file}";
     };
 in
 {
   format-metadata = buildZoteroXpiAddon rec {
     pname = "zotero-format-metadata";
-    version = "3.1.0";
+    version = "3.3.2";
     addonId = "zotero-format-metadata@northword.cn";
 
     src = fetchGitHubReleaseFile {
@@ -51,7 +50,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "linter-for-zotero.xpi";
-      hash = "sha256-o/Afn9u4gTK4T9VFJVk9uRhpdCWUSK+r7eCZgsF2vG0=";
+      hash = "sha256-HBaYgdlF4HTT98SRy90TxegzOygV/ZO8ZvK6E5hNLyE=";
     };
 
     meta = with lib; {
@@ -67,7 +66,7 @@ in
 
   pdf-translate = buildZoteroXpiAddon rec {
     pname = "zotero-pdf-translate";
-    version = "2.4.4";
+    version = "2.4.6";
     addonId = "zoteropdftranslate@euclpts.com";
 
     src = fetchGitHubReleaseFile {
@@ -75,7 +74,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "translate-for-zotero.xpi";
-      hash = "sha256-Pw6oK2G5pc/sk4tGO5Uom7nCt9C0NoCynqq9Jb9qLEM=";
+      hash = "sha256-9xqXLIDYGa1myOXPyGnX8zfcK8xKlkIuMBoeRiQFKoM=";
     };
 
     meta = with lib; {
@@ -107,7 +106,7 @@ in
 
   metadata-hunter = buildZoteroXpiAddon rec {
     pname = "zotero-metadata-hunter";
-    version = "0.3.1";
+    version = "0.5.0";
     addonId = "metadatahunter@federicotorrielli.github.io";
 
     src = fetchGitHubReleaseFile {
@@ -115,7 +114,8 @@ in
       repo = pname;
       tag = "v${version}";
       file = "metadatahunter@federicotorrielli.github.io-${version}.xpi";
-      hash = "sha256-f2cWQg7Tyk4bpEhr+cWiNHS/hsvd+kk1PoUC6MWfgok=";
+      name = "metadatahunter-0.5.0.xpi";
+      hash = "sha256-1DCgKVwyoQgHnBPSuKEBCzCtOrmFLJBfN5c96vb3IBA=";
     };
 
     meta = with lib; {
@@ -147,7 +147,7 @@ in
 
   mcp = buildZoteroXpiAddon rec {
     pname = "zotero-mcp";
-    version = "1.4.7";
+    version = "1.5.0";
     addonId = "zotero-mcp-plugin@autoagent.my";
 
     src = fetchGitHubReleaseFile {
@@ -155,7 +155,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "zotero-mcp-plugin-${version}.xpi";
-      hash = "sha256-xJhYVFrulQMTfMxr3l3Zz9xz0Oekz3hqnBrFknY8EQ0=";
+      hash = "sha256-c+tIOxhYHnW/L+DIls3EaYzs2dzPv2gzAOuL6xh9JPg=";
     };
 
     meta = with lib; {
@@ -227,7 +227,7 @@ in
 
   cita = buildZoteroXpiAddon rec {
     pname = "zotero-cita";
-    version = "1.0.0-beta.19";
+    version = "1.0.0-beta.23";
     addonId = "zotero-wikicite@wikidata.org";
 
     src = fetchGitHubReleaseFile {
@@ -235,7 +235,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "zotero-cita.xpi";
-      hash = "sha256-6LOfvvFPqPMhSy8HmjrCYEuEZboCkK6VSCwSJpFxsf8=";
+      hash = "sha256-N5t10HquQcInUlETmddyjFtajoByO3mJgGJiMa4BgsM=";
     };
 
     meta = with lib; {
@@ -247,7 +247,7 @@ in
 
   zotseek = buildZoteroXpiAddon rec {
     pname = "ZotSeek";
-    version = "1.14.0";
+    version = "1.19.0";
     addonId = "zotseek@zotero.org";
 
     src = fetchGitHubReleaseFile {
@@ -255,7 +255,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "zotseek-${version}.xpi";
-      hash = "sha256-LnJPSPV1wDpTab0b+16SpM0UjQOwqzrGn4GlRz+jEpQ=";
+      hash = "sha256-7AETBD6M37UyYS1TzXwLRuLUX+xg+ADGgsDVQPD/XIE=";
     };
 
     meta = with lib; {
@@ -287,7 +287,7 @@ in
 
   markdb-connect = buildZoteroXpiAddon rec {
     pname = "zotero-markdb-connect";
-    version = "0.2.1";
+    version = "0.2.2";
     addonId = "daeda@mit.edu";
 
     src = fetchGitHubReleaseFile {
@@ -295,7 +295,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "markdb-connect.xpi";
-      hash = "sha256-m1OCaohWrCt0hFrX2nXRQ+xE0SI1G9wvE5v4g2zvP0k=";
+      hash = "sha256-/+jGU46mXQe58tl+X3lCaYL8ROOqsAXVMLzE+WxzBJU=";
     };
 
     meta = with lib; {
@@ -347,7 +347,7 @@ in
 
   arxiv-workflow = buildZoteroXpiAddon rec {
     pname = "zotero-arxiv-workflow";
-    version = "0.3.7";
+    version = "0.3.8";
     addonId = "arxiv@allanchain.github.com";
 
     src = fetchGitHubReleaseFile {
@@ -355,7 +355,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "zotero-arxiv-workflow.xpi";
-      hash = "sha256-56GJQreorgLm5QHozsXYfuxHgqevqHFUf0qLs6Ddzos=";
+      hash = "sha256-kaC9ieQXhPCCkeW3w/+AeMlzUKIG+0cZkA439myZ5Pw=";
     };
 
     meta = with lib; {
@@ -407,7 +407,7 @@ in
 
   inspire = buildZoteroXpiAddon rec {
     pname = "zotero-inspire";
-    version = "3.0.2";
+    version = "3.0.6";
     addonId = "zoteroinspire@itp.ac.cn";
 
     src = fetchGitHubReleaseFile {
@@ -415,7 +415,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "zotero-inspire.xpi";
-      hash = "sha256-ITrrZrDIri1qEfyNhobwmOW207bloFipKsrWFzqA8UU=";
+      hash = "sha256-cnYHhyXt3hRqUT1Wa28n1YIlTMbL1jCLwAtHZfMXhoA=";
     };
 
     meta = with lib; {
@@ -476,7 +476,7 @@ in
 
   better-bibtex = buildZoteroXpiAddon rec {
     pname = "zotero-better-bibtex";
-    version = "9.0.23";
+    version = "9.0.55";
     addonId = "better-bibtex@iris-advies.com";
 
     src = fetchGitHubReleaseFile {
@@ -484,7 +484,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "zotero-better-bibtex-${version}.xpi";
-      hash = "sha256-CX6gwKn/1kyJQpWtN1LcBqmz8HuIBqhK7fnW/PQ1cXw=";
+      hash = "sha256-LZFOuxdMLFkOz/dBppA/GXkGW0J0DzAdk47Cy2wD5NY=";
     };
 
     meta = with lib; {
@@ -517,7 +517,7 @@ in
 
   open-pdf = buildZoteroXpiAddon rec {
     pname = "zotero-open-pdf";
-    version = "1.0.12";
+    version = "1.0.13";
     addonId = "zotero-open-pdf@iris-advies.com";
 
     src = fetchGitHubReleaseFile {
@@ -525,7 +525,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "zotero-open-pdf-${version}.xpi";
-      hash = "sha256-sqjFViYbMXxwoJOqAi0vA7Ewuf4z1XjtT3a8aP9qu38=";
+      hash = "sha256-mowlmr7FUl6HhoAmBXUTkjE+S0fElOXxwaO3Ys2hVsE=";
     };
 
     meta = with lib; {
@@ -537,7 +537,7 @@ in
 
   attachment-scanner = buildZoteroXpiAddon rec {
     pname = "zotero-attachment-scanner";
-    version = "0.4.1";
+    version = "0.5.1";
     addonId = "attachmentscanner@changlab.um.edu.mo";
 
     src = fetchGitHubReleaseFile {
@@ -545,7 +545,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "attachmentscanner-${version}.xpi";
-      hash = "sha256-N7Vl+I2tMumF0wtNJUkspQpiwvOBR/eK0W2Kpcb74CI=";
+      hash = "sha256-N7XaZBlcp5KqOnE7Yhw0BX2OVQQ4RnCF3U7uljQew6k=";
     };
 
     meta = with lib; {
@@ -641,7 +641,7 @@ in
 
   zotmoov = buildZoteroXpiAddon rec {
     pname = "zotmoov";
-    version = "1.2.29";
+    version = "1.2.32";
     addonId = "zotmoov@wileyy.com";
 
     src = fetchGitHubReleaseFile {
@@ -649,7 +649,7 @@ in
       repo = pname;
       tag = "${version}";
       file = "zotmoov-${version}-fx.xpi";
-      hash = "sha256-DDjziK93E6F4nxEXxLVA/bVj0OsS0fnuUd0nZR1yFl0=";
+      hash = "sha256-d3DcLGLSqqsmYv10Aq+t0Fg4e/9pV4SBrAOb/AUOzCs=";
     };
 
     meta = with lib; {
@@ -661,7 +661,7 @@ in
 
   delitemwithatt = buildZoteroXpiAddon rec {
     pname = "delitemwithatt";
-    version = "0.4.5";
+    version = "0.5.0";
     addonId = "delitemwithatt@redleaf.me";
 
     src = fetchGitHubReleaseFile {
@@ -669,7 +669,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "del-item-with-attachment.xpi";
-      hash = "sha256-XCbwegs8jZ0h/KNaKnbF8D6Jj1iRLNbqasHKxVlZtnY=";
+      hash = "sha256-wku7NbV6HbkuZpWHHvx3AyJPRGWCpNhOimO4ocz3Qls=";
     };
 
     meta = with lib; {
@@ -721,7 +721,7 @@ in
 
   better-notes = buildZoteroXpiAddon rec {
     pname = "zotero-better-notes";
-    version = "3.0.8";
+    version = "3.2.6";
     addonId = "Knowledge4Zotero@windingwind.com";
 
     src = fetchGitHubReleaseFile {
@@ -729,7 +729,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "better-notes-for-zotero.xpi";
-      hash = "sha256-vefxmWpJ/uUVvd4WY3E5soFviTg5W8dOKtlq0wXjoQg=";
+      hash = "sha256-TMZZ5VbVR3ScjKcJbY6UEWcqvCdq/xPTZDiNSX4X3dY=";
     };
 
     meta = with lib; {
