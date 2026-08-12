@@ -7,7 +7,7 @@
     ./dunst.nix
     ./ghostty.nix
     ./swappy.nix
-    ./dolphin.nix
+    # ./dolphin.nix
     ./networkmanager-dmenu.nix
     # ./wofi.nix
   ];

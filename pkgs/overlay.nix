@@ -55,6 +55,21 @@ in
     }
   );
 
+  # kdePackages = prev.kdePackages.overrideScope (kfinal: kprev: {
+  #   dolphin = prev.symlinkJoin {
+  #     name = "dolphin-wrapped";
+  #     paths = [ kprev.dolphin kprev.dolphin.dev ];
+  #     nativeBuildInputs = [ prev.makeWrapper ];
+  #     postBuild = ''
+  #       rm $out/bin/dolphin
+  #       makeWrapper ${kprev.dolphin}/bin/dolphin $out/bin/dolphin \
+  #         --set XDG_CONFIG_DIRS "${kprev.kservice}/etc/xdg:$XDG_CONFIG_DIRS" \
+  #         --run "${kprev.kservice}/bin/kbuildsycoca6 --noincremental ${kprev.kservice}/etc/xdg/menus/applications.menu"
+  #     '';
+  #     passthru = (kprev.dolphin.passthru or {}) // { dev = kprev.dolphin.dev; };
+  #   };
+  # });
+
   # pyalex = self.python3Packages.pyalex;
   solo1-cli = final.python3Packages.solo1-cli;
   keepassxc-proxy-client = final.python3Packages.keepassxc-proxy-client;
