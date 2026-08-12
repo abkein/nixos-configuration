@@ -1,4 +1,4 @@
-{ cfg, ... }: {
+{ pkgs, cfg, ... }: {
   networking = {
     hostName = cfg.hostname;
     nameservers = [
@@ -76,5 +76,20 @@
 
   programs = {
     traceroute.enable = true;
+    tcpdump.enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+    curl
+    inetutils
+    nmap
+    dig
+    wget
+    iperf
+    ndisc6
+
+    openvpn
+    speedtest-cli
+    ooniprobe-cli
+  ];
 }

@@ -102,17 +102,7 @@
 
   environment = {
     systemPackages = with pkgs; [
-      curl
-      inetutils
-      nmap
-      dig
-      openvpn
-      wget
-      iperf
       trash-cli
-
-      speedtest-cli
-      ooniprobe-cli
 
       jq
       pstree
