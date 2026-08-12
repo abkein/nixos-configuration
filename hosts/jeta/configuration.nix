@@ -63,6 +63,10 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
   services = {
+    # FNIRSI FNB-58
+    udev.extraRules = ''
+      KERNEL=="hidraw*", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="0038", GROUP="users", MODE="0660"
+    '';
     blueman.enable = true;
     gvfs.enable = true;
     homed.enable = true;
