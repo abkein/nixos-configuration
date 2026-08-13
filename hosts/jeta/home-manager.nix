@@ -104,6 +104,7 @@ in
         nixpkgs-review
 
         papers
+        nomacs
 
         # text
         geany
