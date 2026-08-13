@@ -2,12 +2,15 @@
   imports = [ ../../options/home-manager/micro.nix ];
 
   programs = {
-    eza.enable = true;
     bat.enable = true;
     btop.enable = true;
     htop.enable = true;
     ripgrep.enable = true;
     ripgrep-all.enable = true;
+    eza = {
+      enable = true;
+      theme.date.foreground = "#E78284";
+    };
     nix-index = {
       enable = true;
       enableBashIntegration = true;
