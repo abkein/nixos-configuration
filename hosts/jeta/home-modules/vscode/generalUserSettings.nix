@@ -99,7 +99,7 @@ mylib.flattenAttrsDot' (
       formatOnType = true;
       autoIndentOnPaste = true;
       guides.bracketPairs = true;
-      renderLineHighlight = "gutter";
+      renderLineHighlight = "all";
       renderRichScreenReaderContent = true;
       semanticHighlighting.enabled = true;
       smoothScrolling = true;
@@ -427,8 +427,16 @@ mylib.flattenAttrsDot' (
       };
     };
   }
-  // (lib.foldl' (acc: extension: acc // (import (./by-extension + "/${extension}.nix") args)) { } [
-    "tamasfe.even-better-toml"
-    "mads-hartmann.bash-ide-vscode"
-  ])
+  // (
+    let
+      entries = lib.readDir ./by-extension;
+
+      files = lib.filter (name: entries.${name} == "regular" && lib.hasSuffix ".nix" name) (
+        lib.attrNames entries
+      );
+
+      importFile = file: import (./by-extension + "/${file}") args;
+    in
+    lib.foldl' (acc: file: acc // (importFile file)) { } files
+  )
 )
