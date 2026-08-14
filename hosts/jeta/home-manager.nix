@@ -76,6 +76,9 @@ in
 
   home = {
     stateVersion = "24.11";
+    shellAliases = {
+      run_codex = "proxychains4 -q env http_proxy=socks5h://127.0.0.1:1080 https_proxy=socks5h://127.0.0.1:1080 socks_proxy=socks5h://127.0.0.1:1080 no_proxy=127.0.0.1,localhost,::1 codex";
+    };
     packages =
       (with ipkgs; [ ayugram-desktop ])
       ++ (with pkgs; [
