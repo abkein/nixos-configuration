@@ -193,10 +193,12 @@
       {
         HTTP_PROXY = proxy;
         HTTPS_PROXY = proxy;
+        SOCKS_PROXY = proxy;
         ALL_PROXY = proxy;
 
         http_proxy = proxy;
         https_proxy = proxy;
+        socks_proxy = proxy;
         all_proxy = proxy;
 
         NO_PROXY = no_proxy;

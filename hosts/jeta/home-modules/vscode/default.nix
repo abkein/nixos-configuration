@@ -43,14 +43,20 @@ in
       extensions = needed_extensions.global;
       env =
         let
-          proxy = "http://127.0.0.1:1080";
-          no_proxy = "localhost,127.0.0.0/8";
+          proxy = "socks5h://127.0.0.1:1080";
+          no_proxy = "localhost,127.0.0.1,::1";
         in
         {
           http_proxy = proxy;
-          HTTP_PROXY = proxy;
           https_proxy = proxy;
+          socks_proxy = proxy;
+          all_proxy = proxy;
+
+          HTTP_PROXY = proxy;
           HTTPS_PROXY = proxy;
+          SOCKS_PROXY = proxy;
+          ALL_PROXY = proxy;
+
           no_proxy = no_proxy;
           NO_PROXY = no_proxy;
         };
