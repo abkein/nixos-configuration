@@ -324,18 +324,21 @@
         # checks = {
         #   formatting = treefmtEval.check self;
         # };
-        packages =
-          (lib.foldl' (acc: elem: acc // { ${elem} = pkgs.${elem}; }) { } [
-            "keepassxc-proxy-client"
-            "pyzotero"
-            "jsonc-parser"
-            "crossrefapi"
-            "lammps-logfile"
-            # "ast-serialize"
-            # "librt"
-            # "mypy"
-          ])
-          // (_ipkgs system);
+        packages = {
+          inherit (pkgs)
+            keepassxc-proxy-client
+            pyzotero
+            jsonc-parser
+            crossrefapi
+            lammps-logfile
+            pyemf3
+            veusz
+            ;
+          # ast-serialize
+          # librt
+          # mypy
+        }
+        // (_ipkgs system);
 
         devShells = import ./shells {
           inherit

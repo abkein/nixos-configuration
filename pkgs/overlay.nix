@@ -50,6 +50,7 @@ in
       keepassxc-proxy-client = pySelf.callPackage ./keepassxc-proxy-client.nix { };
       solo1-cli = pySelf.callPackage "${solo1-cli}/solo.nix" { };
       lammps-logfile = pySelf.callPackage ./lammps-logfile.nix { };
+      pyemf3 = pySelf.callPackage ./pyemf3.nix { };
       # ast-serialize = pySelf.callPackage ./ast-serialize.nix { };
       # librt = pySelf.callPackage ./librt.nix { };
     }
@@ -78,8 +79,11 @@ in
   crossrefapi = final.python3Packages.crossrefapi;
   # mypy = self.python3Packages.callPackage ./mypy.nix { };
   lammps-logfile = final.python3Packages.lammps-logfile;
+  pyemf3 = final.python3Packages.pyemf3;
   # ast-serialize = self.python3Packages.ast-serialize;
   # librt = self.python3Packages.librt;
+
+  veusz = prev.callPackage ./veusz { };
 
   vscode-extensions.vscode-clang-tidy = import ./vscode-clang-tidy/vscode-clang-tidy.nix final;
   zotero-addons = final.callPackage ./zotero-addons.nix { };
