@@ -186,6 +186,7 @@ rec {
       ps: with ps; [
         numpy
         pandas
+        pandas-stubs
         scipy
         scipy-stubs
         requests
@@ -206,6 +207,7 @@ rec {
     );
     typeCheckers = (
       ps: with ps; [
+        ast-serialize
         mypy
         ruff
       ]
