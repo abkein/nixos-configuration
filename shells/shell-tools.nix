@@ -3,6 +3,7 @@
   system,
   lib ? nixpkgs.lib,
   mylib,
+  root-overlays ? [ ],
 }:
 let
   _mkShell =
@@ -31,7 +32,7 @@ let
       shellPkgs = import nixpkgs (
         {
           inherit system;
-          overlays = final.nixpkgs.overlays;
+          overlays = final.nixpkgs.overlays ++ root-overlays;
         }
         // final.nixpkgs.args
       );

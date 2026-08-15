@@ -1,13 +1,29 @@
 {
   nixpkgs,
-  pkgs,
   lib ? nixpkgs.lib,
   system,
   mylib,
+  root-overlays ? [ ],
 }:
 let
-  shell-tools = import ./shell-tools.nix { inherit nixpkgs system mylib; };
-  shells = import ./shell-collection.nix { inherit lib shell-tools; };
+  shell-tools = import ./shell-tools.nix {
+    inherit
+      nixpkgs
+      system
+      mylib
+      root-overlays
+      ;
+  };
+  shells = import ./shell-collection.nix {
+    inherit lib shell-tools;
+    root-overlaidPythonPackages = [
+      (final: prev: pyFinal: pyPrev: {
+        numpy-typing-compat = pyFinal.callPackage ./temporary-python-packages/numpy-typing-compat.nix { };
+        optype = pyFinal.callPackage ./temporary-python-packages/optype.nix { };
+        scipy-stubs = pyFinal.callPackage ./temporary-python-packages/scipy-stubs.nix { };
+      })
+    ];
+  };
 
   mkCppShellWithPython = shells.mkCppShell.extend shells.modules.pythonBase;
 in
@@ -101,7 +117,14 @@ in
           lammps-logfile = pyFinal.callPackage ../pkgs/lammps-logfile.nix { };
         })
       ];
-      pythonPackages = [ (ps: with ps; [ lammps-logfile ]) ];
+      pythonPackages = [
+        (
+          ps: with ps; [
+            lammps-logfile
+            camelot
+          ]
+        )
+      ];
       pyright_mode = "standard";
     }
   );
@@ -160,12 +183,14 @@ in
     }
   );
 
-  latex = pkgs.mkShell {
-    packages = with pkgs; [
-      # texlive.combined.scheme-full
-      ltex-ls-plus
-    ];
-  };
+  latex = shells.baseShell (
+    finalContext: with finalContext; {
+      shellArgs.packages = with pkgs; [
+        # texlive.combined.scheme-full
+        ltex-ls-plus
+      ];
+    }
+  );
 
   peer-reviews = shells.mkPyShell (
     finalContext: with finalContext; {

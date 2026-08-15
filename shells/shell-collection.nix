@@ -1,4 +1,8 @@
-{ lib, shell-tools }:
+{
+  lib,
+  shell-tools,
+  root-overlaidPythonPackages ? [ ],
+}:
 # TODO: Errorprone: Implement scoped ctx (attrs), not the heap it is
 rec {
   # root,
@@ -244,7 +248,7 @@ rec {
         shortPyVersion = "py" + (lib.replaceString "." "" pythonVerisionMajorMinor);
       in
       {
-        overlaidPythonPackages = [ ];
+        overlaidPythonPackages = root-overlaidPythonPackages;
         nixpkgs.overlays = [ (shell-tools.mkPythonOverlay overlaidPythonPackages) ];
 
         pythonPackages = [

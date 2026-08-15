@@ -310,7 +310,6 @@
     // (inputs.flake-utils.lib.eachDefaultSystem (
       system:
       let
-        # pkgs = nixpkgs.legacyPackages.${system};
         pkgs = import nixpkgs {
           inherit system;
           overlays = [ self.overlays.default ];
@@ -340,14 +339,7 @@
         }
         // (_ipkgs system);
 
-        devShells = import ./shells {
-          inherit
-            nixpkgs
-            pkgs
-            system
-            mylib
-            ;
-        };
+        devShells = import ./shells { inherit nixpkgs system mylib; };
       }
     ));
 }
