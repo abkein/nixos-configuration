@@ -336,6 +336,7 @@
           # ast-serialize
           # librt
           # mypy
+          my-mathematica = import ./pkgs/my-mathematica.nix { inherit pkgs; };
         }
         // (_ipkgs system);
 
