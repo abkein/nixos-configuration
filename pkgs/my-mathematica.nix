@@ -8,8 +8,4 @@ pkgs.mathematica.override {
     installer = "Wolfram_15.0.1.sh";
   };
   source = /home/kein/Projects/Mathematica/Wolfram_15.0.1.sh;
-  # pkgs.fetchurl {
-  #   url = "https://example.com/Wolfram_XX.X.X_BNDL_LINUX.sh";
-  #   hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-  # };
 }

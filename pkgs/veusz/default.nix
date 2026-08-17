@@ -19,9 +19,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     hash = "sha256-gQasdQuXLDDVEELY2ux2URu8888V8CIUwyXBcNnPmPE=";
   };
 
-  build-system = with python3Packages; [
-    setuptools
-  ];
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = with python3Packages; [
     copyDesktopItems
