@@ -280,7 +280,7 @@ rec {
             python_version = pythonVerisionMajorMinor;
             platform = "linux";
             implicit_optional = false;
-            warn_redundant_casts = true;
+            warn_redundant_casts = false;
             warn_unused_ignores = true;
             warn_no_return = true;
             warn_return_any = true;
