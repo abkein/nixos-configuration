@@ -9,7 +9,7 @@
     ./gnupg.nix
     ./zotero.nix
     ./syncthing.nix
-    ./files.nix
+    ./files
     ./fixes.nix
     # ./thunderbird.nix
     # ./zen-browser.nix

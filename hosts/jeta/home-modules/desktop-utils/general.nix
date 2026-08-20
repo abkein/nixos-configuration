@@ -17,10 +17,6 @@
     xdg-launch
     xdg-terminal-exec
     xdg-ninja
-
-    slurp
-    grim
-    grimblast
   ];
 
   programs = {

@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 let
   hex2hypr = color: "rgba(${builtins.substring 1 (-1) color})";
   lua = lib.generators.mkLuaInline;
@@ -64,6 +64,12 @@ let
     // effects;
 in
 {
+  home.packages = with pkgs; [
+    tesseract5
+    slurp
+    grim
+    grimblast
+  ];
   wayland.systemd.target = "graphical-session.target";
   wayland.windowManager.hyprland = {
     enable = true;
@@ -272,14 +278,14 @@ in
         (bindExec "SUPER + X" "xed")
         (bindExec "SUPER + SHIFT + W" "wps")
         (bindExec "SUPER + F" "firefox")
-        (bindExec "CTRL + SUPER + SHIFT + V" "easyeffects")
-        (bindExec "CTRL + SHIFT + Escape" "gnome-system-monitor")
+        # (bindExec "CTRL + SUPER + SHIFT + V" "easyeffects")
+        # (bindExec "CTRL + SHIFT + Escape" "gnome-system-monitor")
 
         # Actions
         (bind "SUPER + Q" "hl.dsp.window.close()")
         (bindExec "SHIFT + SUPER + ALT + Q" "hyprctl kill")
         (bindExec "CTRL + SHIFT + ALT + Delete" "pkill wlogout || wlogout -p layer-shell")
-        (bindExec "CTRL + SHIFT + ALT + SUPER + Delete" "systemctl poweroff || loginctl poweroff")
+        (bindExec "CTRL + SHIFT + ALT + SUPER + Delete" "systemctl poweroff")
 
         # Screenshot, record, OCR, color picker, and clipboard history
         (bindExec "SUPER + Print" ''grim -g "$(slurp)" - | swappy -f -'')
@@ -304,8 +310,8 @@ in
         (bindExec "SUPER + SHIFT + ALT + mouse:276" ''playerctl next || playerctl position `bc <<< "100 * $(playerctl metadata mpris:length) / 1000000 / 100"`'')
 
         # Lock screen and launcher
-        (bindExec "SUPER + L" "loginctl lock-session && hyprlock")
-        (bindExec "SUPER + SHIFT + L" "loginctl lock-session && hyprlock")
+        (bindExec "SUPER + L" "loginctl lock-session")
+        # (bindExec "SUPER + SHIFT + L" "loginctl lock-session")
         (bindExec "CTRL + SUPER + Slash" "pkill anyrun || anyrun")
 
         # Swap windows
@@ -399,15 +405,15 @@ in
         (bindLockedRepeatingExec "XF86MonBrightnessDown" "brightnessctl --device=amdgpu_bl1 set '1%-'")
 
         # Arrow keys with IJKL
-        (bindLockedRepeatingExec "ALT + I" "ydotool key 103:1 103:0")
-        (bindLockedRepeatingExec "ALT + K" "ydotool key 108:1 108:0")
-        (bindLockedRepeatingExec "ALT + J" "ydotool key 105:1 105:0")
-        (bindLockedRepeatingExec "ALT + L" "ydotool key 106:1 106:0")
+        # (bindLockedRepeatingExec "ALT + I" "ydotool key 103:1 103:0")
+        # (bindLockedRepeatingExec "ALT + K" "ydotool key 108:1 108:0")
+        # (bindLockedRepeatingExec "ALT + J" "ydotool key 105:1 105:0")
+        # (bindLockedRepeatingExec "ALT + L" "ydotool key 106:1 106:0")
 
         # Move/resize windows with SUPER + LMB/RMB and dragging
         (bindMouse "SUPER + mouse:272" "hl.dsp.window.drag()")
         (bindMouse "SUPER + mouse:273" "hl.dsp.window.resize()")
-        (bindMouse "SUPER + Z" "hl.dsp.window.drag()")
+        # (bindMouse "SUPER + Z" "hl.dsp.window.drag()")
       ];
 
       workspace_rule = [
