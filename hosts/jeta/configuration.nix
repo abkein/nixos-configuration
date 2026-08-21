@@ -160,6 +160,7 @@
     virtualisation.flushL1DataCache = "always";
     # soteria.enable = true;
     # protectKernelImage = true; # test
+    chromiumSuidSandbox.enable = true;
 
     rtkit.enable = true; # At least needed by PipeWire
     polkit.enable = true;
@@ -223,6 +224,8 @@
       nix-output-monitor
 
       # syncthingtray
+
+      bubblewrap
 
       # utilities
       pinentry-all

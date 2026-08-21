@@ -80,7 +80,7 @@ in
       run_codex = "proxychains4 -q env http_proxy=socks5h://127.0.0.1:1080 https_proxy=socks5h://127.0.0.1:1080 socks_proxy=socks5h://127.0.0.1:1080 no_proxy=127.0.0.1,localhost,::1 codex";
     };
     packages =
-      (with ipkgs; [ ayugram-desktop ])
+      (with ipkgs; [ ayugram-desktop chatgpt ])
       ++ (with pkgs; [
         ocrmypdf
         thunderbird-latest
@@ -92,7 +92,6 @@ in
         # backintime-qt
         tesseract
         #chatbox
-        chromium # configurable
         element-desktop # configurable
         tor-browser
 
@@ -188,9 +187,19 @@ in
 
   stylix.targets.micro.enable = false;
   programs = {
+    chromium = {
+      enable = true;
+      dictionaries = with pkgs.hunspellDictsChromium; [
+        en_US
+        de_DE
+      ];
+      extensions = [
+        { id = "hehggadaopoacecdllhhajmbjkdcmajg"; } # ChatGPT connector
+      ];
+    };
     codex = {
       enable = true;
-      package = ipkgs.codex-cli;
+      package = ipkgs.codex;
     };
     # claude-code = {
     #   enable = true;

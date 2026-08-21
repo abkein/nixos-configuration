@@ -159,6 +159,11 @@
         "nix-command"
         "flakes"
         "auto-allocate-uids"
+        "ca-derivations"
+        "cgroups"
+        "fetch-closure"
+        "fetch-tree"
+        "git-hashing"
       ];
     };
     extraOptions = ''

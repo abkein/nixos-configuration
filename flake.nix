@@ -140,16 +140,26 @@
       # url = "https://github.com/ndfined-crp/ayugram-desktop/";
     };
 
-    codex-cli = {
-      url = "github:sadjow/codex-cli-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
+    # codex-cli = {
+    #   url = "github:sadjow/codex-cli-nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.flake-utils.follows = "flake-utils";
+    # };
 
-    claude-code = {
-      url = "github:sadjow/claude-code-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.flake-utils.follows = "flake-utils";
+    # claude-code = {
+    #   url = "github:sadjow/claude-code-nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   # inputs.flake-utils.follows = "flake-utils";
+    # };
+
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        treefmt-nix.follows = "treefmt-nix";
+        flake-parts.follows = "flake-parts";
+      };
     };
   };
 
@@ -165,11 +175,12 @@
         with inputs;
         {
           agenix = agenix.packages.${system}.default;
-          codex-cli = codex-cli.packages.${system}.default;
+          # codex-cli = codex-cli.packages.${system}.default;
           # claude-code = claude-code.packages.${system}.default;
           ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
           # anyrun-pkgs = anyrun.packages.${system}.default;
         }
+        // llm-agents.packages.${system}
         // (lib.optionalAttrs useAgenixRekey { agenix-rekey = agenix-rekey.packages.${system}.default; });
     in
     {
