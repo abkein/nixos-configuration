@@ -16,6 +16,30 @@ let
       Hidden=true
     '';
   };
+  wrappedChatGPT = pkgs.symlinkJoin {
+    name = "chatgpt-${ipkgs.chatgpt.version}";
+    paths = [ ipkgs.chatgpt ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/chatgpt \
+        --set all_proxy socks5h://127.0.0.1:1080 \
+        --set CODEX_MCP_NODE_PATH ${pkgs.nodejs}/bin/node \
+        --set RUST_LOG INFO
+    '';
+    inherit (ipkgs.chatgpt) meta passthru;
+  };
+  wrappedCodex = pkgs.symlinkJoin {
+    name = "codex-${ipkgs.codex.version}";
+    paths = [ ipkgs.codex ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/codex \
+        --set all_proxy socks5h://127.0.0.1:1080 \
+        --set CODEX_MCP_NODE_PATH ${pkgs.nodejs}/bin/node \
+        --set RUST_LOG INFO
+    '';
+    inherit (ipkgs.codex) meta passthru;
+  };
 in
 {
   imports = [
@@ -80,7 +104,10 @@ in
       run_codex = "proxychains4 -q env http_proxy=socks5h://127.0.0.1:1080 https_proxy=socks5h://127.0.0.1:1080 socks_proxy=socks5h://127.0.0.1:1080 no_proxy=127.0.0.1,localhost,::1 codex";
     };
     packages =
-      (with ipkgs; [ ayugram-desktop chatgpt ])
+      (with ipkgs; [
+        ayugram-desktop
+        wrappedChatGPT
+      ])
       ++ (with pkgs; [
         ocrmypdf
         thunderbird-latest
@@ -199,7 +226,7 @@ in
     };
     codex = {
       enable = true;
-      package = ipkgs.codex;
+      package = wrappedCodex;
     };
     # claude-code = {
     #   enable = true;
