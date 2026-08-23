@@ -319,17 +319,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1787286673,
-        "narHash": "sha256-HRmx7PnoqUNtA06P/FEyygZeUJIzbNUtx4zo9Jiiz9s=",
-        "owner": "numtide",
-        "repo": "llm-agents.nix",
-        "rev": "0bedd15c76b9422a649b05e44b82666196e5246f",
-        "type": "github"
+        "lastModified": 1787444939,
+        "narHash": "sha256-83WkVUiLWbclHSz8m7v9bVvcUb60fbTmP+IJk8t65ow=",
+        "ref": "refs/heads/main",
+        "rev": "b44f002a50d8fe0235285e9211d821fe3bc76e83",
+        "revCount": 16047,
+        "type": "git",
+        "url": "file:/home/kein/Projects/ChatGPT/llm-agents.nix"
       },
       "original": {
-        "owner": "numtide",
-        "repo": "llm-agents.nix",
-        "type": "github"
+        "type": "git",
+        "url": "file:/home/kein/Projects/ChatGPT/llm-agents.nix"
       }
     },
     "nix4vscode": {

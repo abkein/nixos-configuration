@@ -153,7 +153,7 @@
     # };
 
     llm-agents = {
-      url = "github:numtide/llm-agents.nix";
+      url = "git+file:/home/kein/Projects/ChatGPT/llm-agents.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
@@ -347,7 +347,7 @@
           # ast-serialize
           # librt
           # mypy
-          my-mathematica = import ./pkgs/my-mathematica.nix { inherit pkgs; };
+          # my-mathematica = import ./pkgs/my-mathematica.nix { inherit pkgs; };
         }
         // (_ipkgs system);
 
