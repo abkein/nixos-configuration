@@ -114,9 +114,18 @@
       procs
       procfd
 
-      nixfmt
       age
       git-agecrypt
+
+      nixfmt
+
+      nix-prefetch
+      nix-prefetch-git
+      nix-prefetch-github
+      nix-output-monitor
+
+      nix-diff
+      nix-tree
 
       ripgrep
       ripgrep-all

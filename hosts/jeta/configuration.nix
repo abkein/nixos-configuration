@@ -217,15 +217,7 @@
 
       # cdrtools # mkisofs
 
-      nix-prefetch
-      nix-prefetch-git
-      nix-prefetch-github
-
-      nix-output-monitor
-
       # syncthingtray
-
-      bubblewrap
 
       # utilities
       pinentry-all

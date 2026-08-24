@@ -106,100 +106,100 @@ in
     shellAliases = {
       run_codex = "proxychains4 -q env http_proxy=socks5h://127.0.0.1:1080 https_proxy=socks5h://127.0.0.1:1080 socks_proxy=socks5h://127.0.0.1:1080 no_proxy=127.0.0.1,localhost,::1 codex";
     };
-    packages =
-      (with ipkgs; [
-        ayugram-desktop
-        wrappedChatGPT
-      ])
-      ++ (with pkgs; [
-        ocrmypdf
-        thunderbird-latest
-        imagemagickBig
-        poppler-utils
-        texliveFull
-        ghostscript
-        # backintime-common
-        # backintime-qt
-        tesseract
-        #chatbox
-        element-desktop # configurable
-        tor-browser
+    packages = [
+      wrappedChatGPT
+    ]
+    # ++ (with ipkgs; [
+    #   # ayugram-desktop
+    # ])
+    ++ (with pkgs; [
+      ayugram-desktop
+      ocrmypdf
+      thunderbird-latest
+      imagemagickBig
+      poppler-utils
+      texliveFull
+      ghostscript
+      # backintime-common
+      # backintime-qt
+      tesseract
+      #chatbox
+      element-desktop # configurable
+      tor-browser
 
-        file-roller
-        xdot
-        graphviz
+      file-roller
+      xdot
+      graphviz
 
-        nix-tree
+      qpwgraph
 
-        qpwgraph
+      nixpkgs-review
 
-        nixpkgs-review
+      papers
+      nomacs
 
-        papers
-        nomacs
+      # text
+      geany
+      obsidian # configurable
+      prettier
+      # aider-chat
 
-        # text
-        geany
-        obsidian # configurable
-        prettier
-        # aider-chat
+      libreoffice-fresh
+      # crow-translate
 
-        libreoffice-fresh
-        # crow-translate
+      (hunspell.withDicts (
+        d: with d; [
+          ru-ru
+          en-us-large
+        ]
+      ))
 
-        (hunspell.withDicts (
-          d: with d; [
-            ru-ru
-            en-us-large
-          ]
-        ))
+      baobab
+      bleachbit
 
-        baobab
-        bleachbit
+      # image/audio/video
+      vlc
+      gimp
+      inkscape
+      # -with-extensions
+      # inkscape-extensions.textext
 
-        # image/audio/video
-        vlc
-        gimp
-        inkscape
-        # -with-extensions
-        # inkscape-extensions.textext
+      zoom-us
 
-        zoom-us
+      gucharmap
+      networkmanagerapplet
 
-        gucharmap
-        networkmanagerapplet
+      ipfetch
+      cpufetch
+      ramfetch
 
-        ipfetch
-        cpufetch
-        ramfetch
+      qrencode
+      libnotify
 
-        qrencode
-        libnotify
+      p7zip # 7z
 
-        p7zip # 7z
+      veusz
 
-        veusz
+      ffmpeg-full
 
-        ffmpeg-full
+      electrum
 
-        electrum
+      (python3.withPackages (
+        ps: with ps; [
+          bash-kernel
+          ipython
+          ipykernel
+          isort
+          numpy
+          pandas
+          scipy
+          requests
+          matplotlib
 
-        (python3.withPackages (
-          ps: with ps; [
-            bash-kernel
-            ipython
-            ipykernel
-            isort
-            numpy
-            pandas
-            scipy
-            requests
-            matplotlib
-
-            plotext
-          ]
-        ))
-      ]);
+          plotext
+        ]
+      ))
+    ]);
   };
 
   systemd.user.tmpfiles.rules = [
