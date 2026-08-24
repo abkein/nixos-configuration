@@ -165,6 +165,10 @@
         "fetch-tree"
         "git-hashing"
       ];
+      trusted-users = [
+        "root"
+        cfg.username
+      ];
     };
     extraOptions = ''
       !include ${config.age.secrets."nix-access-tokens.conf".path}
