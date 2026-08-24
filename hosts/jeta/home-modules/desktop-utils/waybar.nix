@@ -27,7 +27,7 @@ in
           "systemd-failed-units"
           "privacy"
           "idle_inhibitor"
-          "wireplumber"
+          "wireplumber#sink"
           "wireplumber#source"
           "network#wlan"
           "network#eth"
@@ -392,7 +392,7 @@ in
           };
           on-click = "pavucontrol";
         };
-        wireplumber = {
+        "wireplumber#sink" = {
           only-physical = true;
           reverse-scrolling = true;
           scroll-step = 1;
