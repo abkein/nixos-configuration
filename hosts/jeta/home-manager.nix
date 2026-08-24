@@ -144,7 +144,7 @@ in
       prettier
       # aider-chat
 
-      libreoffice-fresh
+      libreoffice-stable
       # crow-translate
 
       (hunspell.withDicts (
