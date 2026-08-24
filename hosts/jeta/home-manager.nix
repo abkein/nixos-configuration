@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ipkgs,
   cfg,
   ...
@@ -24,6 +25,7 @@ let
       wrapProgram $out/bin/chatgpt \
         --set all_proxy socks5h://127.0.0.1:1080 \
         --set CODEX_MCP_NODE_PATH ${pkgs.nodejs}/bin/node \
+        --prefix PATH : ${lib.makeBinPath [ pkgs.nodejs ]} \
         --set RUST_LOG INFO
     '';
     inherit (ipkgs.chatgpt) meta passthru;
@@ -36,6 +38,7 @@ let
       wrapProgram $out/bin/codex \
         --set all_proxy socks5h://127.0.0.1:1080 \
         --set CODEX_MCP_NODE_PATH ${pkgs.nodejs}/bin/node \
+        --prefix PATH : ${lib.makeBinPath [ pkgs.nodejs ]} \
         --set RUST_LOG INFO
     '';
     inherit (ipkgs.codex) meta passthru;

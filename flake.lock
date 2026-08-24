@@ -319,11 +319,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787444939,
-        "narHash": "sha256-83WkVUiLWbclHSz8m7v9bVvcUb60fbTmP+IJk8t65ow=",
-        "ref": "refs/heads/main",
-        "rev": "b44f002a50d8fe0235285e9211d821fe3bc76e83",
-        "revCount": 16047,
+        "lastModified": 1787520600,
+        "narHash": "sha256-BOoSyp26XpVDzksW1UX7ktco5NSBSmNckXnQdGhVKVI=",
+        "ref": "refs/heads/fix/chatgpt",
+        "rev": "77e6f434765658628923b8708efc2bfdfcbb3014",
+        "revCount": 16076,
         "type": "git",
         "url": "file:/home/kein/Projects/ChatGPT/llm-agents.nix"
       },
