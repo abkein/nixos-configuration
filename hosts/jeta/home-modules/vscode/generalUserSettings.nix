@@ -3,6 +3,7 @@
   pkgs,
   mylib,
   cfg,
+  ipkgs,
   ...
 }@args:
 let
@@ -106,7 +107,7 @@ mylib.flattenAttrsDot' (
       stablePeek = true;
       tabCompletion = "on";
       wordWrap = "on";
-      wrapOnEscapedLineFeeds = true;
+      # wrapOnEscapedLineFeeds = true;
       # aiStats.enabled = true;
       # experimentalGpuAcceleration = "on";
       find.autoFindInSelection = "multiline";
@@ -126,7 +127,7 @@ mylib.flattenAttrsDot' (
       composerEnterBehavior = "cmdIfMultiline";
       followUpQueueMode = "steer";
       reviewDelivery = "detached";
-      # cliExecutable = "${ipkgs.codex-cli}/bin/codex";
+      cliExecutable = "${ipkgs.codex}/bin/codex";
     };
     claudeCode = {
       disableLoginPrompt = true;
@@ -168,20 +169,20 @@ mylib.flattenAttrsDot' (
         "*.gpi" = "gnuplot";
         "*.in" = "lmps";
       };
-      exclude = mylib.flattenAttrsDot'.literal {
-        "**/.trunk/*actions/" = true;
-        "**/.trunk/*logs/" = true;
-        "**/.trunk/*notifications/" = true;
-        "**/.trunk/*out/" = true;
-        "**/.trunk/*plugins/" = true;
-      };
-      watcherExclude = mylib.flattenAttrsDot'.literal {
-        "**/.trunk/*actions/" = true;
-        "**/.trunk/*logs/" = true;
-        "**/.trunk/*notifications/" = true;
-        "**/.trunk/*out/" = true;
-        "**/.trunk/*plugins/" = true;
-      };
+      # exclude = mylib.flattenAttrsDot'.literal {
+      #   "**/.trunk/*actions/" = true;
+      #   "**/.trunk/*logs/" = true;
+      #   "**/.trunk/*notifications/" = true;
+      #   "**/.trunk/*out/" = true;
+      #   "**/.trunk/*plugins/" = true;
+      # };
+      # watcherExclude = mylib.flattenAttrsDot'.literal {
+      #   "**/.trunk/*actions/" = true;
+      #   "**/.trunk/*logs/" = true;
+      #   "**/.trunk/*notifications/" = true;
+      #   "**/.trunk/*out/" = true;
+      #   "**/.trunk/*plugins/" = true;
+      # };
     };
 
     diffEditor = {
