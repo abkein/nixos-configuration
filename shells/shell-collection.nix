@@ -191,6 +191,7 @@ rec {
         scipy-stubs
         requests
         types-requests
+        pysocks
         matplotlib
       ]
     );

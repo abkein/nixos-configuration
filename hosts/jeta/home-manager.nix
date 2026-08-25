@@ -17,18 +17,18 @@ let
       Hidden=true
     '';
   };
+  chatgptWithRuntime = ipkgs.chatgpt.override {
+    withPrimaryRuntime = true;
+  };
   wrappedChatGPT = pkgs.symlinkJoin {
-    name = "chatgpt-${ipkgs.chatgpt.version}";
-    paths = [ ipkgs.chatgpt ];
+    name = "chatgpt-${chatgptWithRuntime.version}";
+    paths = [ chatgptWithRuntime ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/chatgpt \
-        --set all_proxy socks5h://127.0.0.1:1080 \
-        --set CODEX_MCP_NODE_PATH ${pkgs.nodejs}/bin/node \
-        --prefix PATH : ${lib.makeBinPath [ pkgs.nodejs ]} \
-        --set RUST_LOG INFO
+        --set all_proxy socks5h://127.0.0.1:1080
     '';
-    inherit (ipkgs.chatgpt) meta passthru;
+    inherit (chatgptWithRuntime) meta passthru;
   };
   wrappedCodex = pkgs.symlinkJoin {
     name = "codex-${ipkgs.codex.version}";

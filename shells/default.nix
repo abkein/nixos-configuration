@@ -201,6 +201,21 @@ in
     }
   );
 
+  chatgpt = shells.mkPyShell (
+    finalContext: with finalContext; {
+      repoName = "chatgpt";
+      root = "/home/kein/Projects/" + repoName;
+
+      pythonPackages = [
+        (
+          ps: with ps; [
+            pysocks
+          ]
+        )
+      ];
+    }
+  );
+
   nixy = shells.mkPyShell (
     finalContext: with finalContext; {
       repoName = "nixy";
