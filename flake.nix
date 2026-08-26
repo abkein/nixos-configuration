@@ -128,17 +128,10 @@
     #   };
     # };
 
-    ayugram-desktop = {
-      url = "github:ndfined-crp/ayugram-desktop";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        # flake-parts.follows = "flake-parts";
-        # git-hooks.follows = "git-hooks";
-      };
-      # type = "git";
-      # submodules = true;
-      # url = "https://github.com/ndfined-crp/ayugram-desktop/";
-    };
+    # ayugram-desktop = {
+    #   url = "github:ndfined-crp/ayugram-desktop";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # codex-cli = {
     #   url = "github:sadjow/codex-cli-nix";
@@ -177,7 +170,7 @@
           agenix = agenix.packages.${system}.default;
           # codex-cli = codex-cli.packages.${system}.default;
           # claude-code = claude-code.packages.${system}.default;
-          ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
+          # ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
           # anyrun-pkgs = anyrun.packages.${system}.default;
         }
         // llm-agents.packages.${system}
