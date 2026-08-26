@@ -24,6 +24,7 @@ let
   moz_home = "${config.xdg.configHome}/mozilla";
 in
 {
+  imports = [ (import ./firefox-policies-module.nix "firefox") ];
   stylix.targets.firefox.profileNames = [ "default" ];
   home.sessionVariables.MOZ_HOME = moz_home;
   programs.firefox = {
@@ -66,6 +67,7 @@ in
         id = 1;
         name = "cleanProf";
         path = "a8wjwc3u.cleanProf";
+        # settings."browser.ml.chat.enabled" = true;
       };
       default = {
         isDefault = true;
@@ -129,7 +131,7 @@ in
       };
     };
     # https://mozilla.github.io/policy-templates/
-    policies = {
+    _policies = {
       AIChatbot = {
         Providers = {
           Builtin = {
@@ -143,6 +145,7 @@ in
           };
         };
       };
+      # DisablePocket = true;
       AIControls = {
         Default = mkLockedValue "available";
         Translations = mkLockedValue "available";
@@ -221,6 +224,8 @@ in
         "jid1-BoFifL9Vbdl2zQ@jetpack" # Decentraleyes
         # "firefox.container-shortcuts@strategery.io" # Easy Container Shortcuts
         # "{1018e4d6-728f-4b20-ad56-37578a4de76b}" # Flagfox
+        "{6c00218c-707a-4977-84cf-36df1cef310f}" # Port Authority
+        "{a8cf72f7-09b7-4cd4-9aaa-7a023bf09916}" # Time Tracker
         "jid1-AQqSMBYb0a8ADg@jetpack" # Mailvelope
         "jid1-MnnxcxisBPnSXQ@jetpack" # Privacy Badger
         "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}" # Search by Image
@@ -244,7 +249,7 @@ in
       HardwareAcceleration = true;
       HttpsOnlyMode = "force_enabled";
       OfferToSaveLogins = false;
-      # OfferToSaveLoginsDefault = false;  # Errors is non-default is present
+      # OfferToSaveLoginsDefault = false;  # Errors if non-default is present
       PasswordManagerEnabled = false;
       PostQuantumKeyAgreementEnabled = true;
       Permissions = {
@@ -327,18 +332,18 @@ in
           Value = "";
           Status = "locked";
         };
-        "datareporting.healthreport.uploadEnabled" = {
-          Value = false;
-          Status = "locked";
-        };
+        # "datareporting.healthreport.uploadEnabled" = {
+        #   Value = false;
+        #   Status = "locked";
+        # };
         "datareporting.healthreport.service.enabled" = {
           Value = false;
           Status = "locked";
         };
-        "datareporting.policy.dataSubmissionEnabled" = {
-          Value = false;
-          Status = "locked";
-        };
+        # "datareporting.policy.dataSubmissionEnabled" = {
+        #   Value = false;
+        #   Status = "locked";
+        # };
         "datareporting.policy.dataSubmissionPolicyAcceptedVersion" = {
           Value = 2;
           Status = "locked";
@@ -355,10 +360,10 @@ in
           Value = "data:,";
           Status = "locked";
         };
-        "toolkit.telemetry.archive.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
+        # "toolkit.telemetry.archive.enabled" = {
+        #   Value = false;
+        #   Status = "locked";
+        # };
         "toolkit.telemetry.newProfilePing.enabled" = {
           Value = false;
           Status = "locked";
