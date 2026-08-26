@@ -5,6 +5,7 @@
 }:
 # TODO: Errorprone: Implement scoped ctx (attrs), not the heap it is
 rec {
+  emptyShell = shell-tools.makeShell { };
   # root,
   # repoName,
   baseShell = shell-tools.makeShell (

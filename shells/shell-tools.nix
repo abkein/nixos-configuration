@@ -36,6 +36,7 @@ let
         }
         // final.nixpkgs.args
       );
+      shellHook = [ ];
     }
   );
 in

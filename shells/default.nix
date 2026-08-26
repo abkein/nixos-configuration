@@ -138,7 +138,7 @@ in
           lammps-logfile = pyFinal.callPackage ../pkgs/lammps-logfile.nix { };
         })
       ];
-      shellArgs.buildInputs = with pkgs; [
+      shellArgs.buildInputs = with shellPkgs; [
         meson
         gfortran
         pkg-config
@@ -183,9 +183,9 @@ in
     }
   );
 
-  latex = shells.baseShell (
+  latex = shells.emptyShell (
     finalContext: with finalContext; {
-      shellArgs.packages = with pkgs; [
+      shellArgs.packages = with shellPkgs; [
         # texlive.combined.scheme-full
         ltex-ls-plus
       ];
@@ -206,13 +206,7 @@ in
       repoName = "chatgpt";
       root = "/home/kein/Projects/" + repoName;
 
-      pythonPackages = [
-        (
-          ps: with ps; [
-            pysocks
-          ]
-        )
-      ];
+      pythonPackages = [ (ps: with ps; [ pysocks ]) ];
     }
   );
 
