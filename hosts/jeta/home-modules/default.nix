@@ -12,5 +12,6 @@
     ./files.nix
     ./fixes.nix
     # ./thunderbird.nix
+    # ./zen-browser.nix
   ];
 }

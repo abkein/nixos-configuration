@@ -107,13 +107,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake/beta";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
+    # zen-browser = {
+    #   url = "github:0xc000022070/zen-browser-flake/beta";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     home-manager.follows = "home-manager";
+    #   };
+    # };
 
     # flake-compat = {
     #   url = "github:NixOS/flake-compat";
@@ -219,8 +219,6 @@
                       # rocmSupport = true;
                       warnUndeclaredOptions = true;
                       # permittedInsecurePackages = [
-                      #   "pypy2.7-setuptools-44.0.0"
-                      #   "pypy2.7-pip-20.3.4"
                       # ];
                     };
                     overlays =
@@ -243,7 +241,7 @@
                     overwriteBackup = true;
                     sharedModules = with inputs; [
                       agenix.homeManagerModules.default
-                      zen-browser.homeModules.beta
+                      # zen-browser.homeModules.beta
                       # stylix.homeModules.stylix
                     ];
                     users = {
