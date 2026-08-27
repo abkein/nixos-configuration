@@ -4,7 +4,7 @@ let
     name = id;
     value = {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/${id}/latest.xpi";
-      installation_mode = "force_installed";
+      installation_mode = "normal_installed";
       default_area = "menupanel";
     };
   };
@@ -12,15 +12,11 @@ let
     name = id;
     value = {
       install_url = "https://addons.mozilla.org/firefox/downloads/latest/${id}/latest.xpi";
-      installation_mode = "force_installed";
+      installation_mode = "normal_installed";
       default_area = "navbar";
     };
   };
   L2A = func: lst: builtins.listToAttrs (map func lst);
-  mkLockedValue = value: {
-    Value = value;
-    Locked = true;
-  };
   moz_home = "${config.xdg.configHome}/mozilla";
 in
 {
@@ -48,10 +44,6 @@ in
       ];
     });
     configPath = "${moz_home}/firefox";
-    # preferences = {
-    #   "security.sandbox.content.read_path_whitelist" = "/nix/store/";
-    #   "gfx.font_rendering.fontconfig.max_generic_substitutions" = 127;
-    # };
     # nativeMessagingHosts = with pkgs; [
     #   # gpgme
     #   # gpgme.dev
@@ -67,7 +59,6 @@ in
         id = 1;
         name = "cleanProf";
         path = "a8wjwc3u.cleanProf";
-        # settings."browser.ml.chat.enabled" = true;
       };
       default = {
         isDefault = true;
@@ -130,8 +121,19 @@ in
         };
       };
     };
-    # https://mozilla.github.io/policy-templates/
+    # https://mozilla.github.io/policy-templates/ — DEPRECATED
+    # https://firefox-admin-docs.mozilla.org/reference/policies/sync/
     _policies = {
+      # Quite interesting, yet currently done via Xray
+      # AccessConnector = {
+      #   Host = "documents.company.com";
+      #   Port = 443;
+      #   MatchPatterns = [
+      #     "/finance*"
+      #     "/hr*"
+      #   ];
+      #   Locked = true;
+      # };
       AIChatbot = {
         Providers = {
           Builtin = {
@@ -145,36 +147,113 @@ in
           };
         };
       };
-      # DisablePocket = true;
-      AIControls = {
-        Default = mkLockedValue "available";
-        Translations = mkLockedValue "available";
-        PDFAltText = mkLockedValue "available";
-        SmartTabGroups = mkLockedValue "available";
-        LinkPreviewKeyPoints = mkLockedValue "available";
-        SidebarChatbot = mkLockedValue "available";
-        SmartWindow = mkLockedValue "available";
-      };
+      AIControls =
+        let
+          mkLockedValue = value: {
+            Value = value;
+            Locked = true;
+          };
+        in
+        {
+          Default = mkLockedValue "available";
+          Translations = mkLockedValue "available";
+          PDFAltText = mkLockedValue "available";
+          SmartTabGroups = mkLockedValue "available";
+          LinkPreviewKeyPoints = mkLockedValue "available";
+          SidebarChatbot = mkLockedValue "available";
+          SmartWindow = mkLockedValue "available";
+        };
       AllowFileSelectionDialogs = true;
       AppAutoUpdate = false;
       AppUpdateURL = "";
-      AutofillAddressEnabled = true;
+      AutofillAddressEnabled = false;
       AutofillCreditCardEnabled = false;
       BackgroundAppUpdate = false;
-      # DNSOverHTTPS = {
-      #   Enabled = true;
-      #   ProviderURL = "https://8.8.8.8/dns-query"; # 8.8.8.8, 8.8.4.4
-      #   # ProviderURL = "https://mozilla.cloudflare-dns.com/dns-query";  # 162.159.61.4 172.64.41.4
-      #   # ProviderURL = "https://dns.cloudflare.com/dns-query";  # 162.159.61.4 172.64.41.4
-      #   # ProviderURL = "https://dns.quad9.net/dns-query";  # 9.9.9.9, 149.112.112.112
-      #   Locked = true;
-      #   ExcludedDomains = [ ];
-      #   Fallback = false;
-      # };
+      BlockAboutAddons = false;
+      BlockAboutConfig = false;
+      BlockAboutProfiles = false;
+      BlockAboutSupport = false;
+      BrowserDataBackup = {
+        AllowBackup = true;
+        AllowRestore = true;
+      };
+      CaptivePortal = true;
+      CNSA2KeyAgreementEnabled = true;
+      Cookies = {
+        Locked = false;
+        Behavior = "reject-tracker";
+        BehaviorPrivateBrowsing = "partition-foreign";
+      };
+      CrashReportsSubmit = {
+        Enabled = true;
+      };
+      DefaultBrowserSettingEnabled = true;
       DefaultDownloadDirectory = config.xdg.userDirs.download;
+      DefaultSerialGuardSetting = 3;
+      DisableAccounts = false;
       DisableAppUpdate = true;
+      DisableBuiltinPDFViewer = true;
+      # DisabledCiphers = {
+      # TLS_DHE_RSA_WITH_AES_128_CBC_SHA
+      # TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+      # TLS_RSA_WITH_AES_128_CBC_SHA
+      # TLS_RSA_WITH_AES_256_CBC_SHA
+      # TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+      # TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+      # TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+      # TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+      # TLS_RSA_WITH_3DES_EDE_CBC_SHA
+      # TLS_RSA_WITH_AES_128_GCM_SHA256
+      # TLS_RSA_WITH_AES_256_GCM_SHA384
+      # TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+      # TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+      # TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+      # TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+      # TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+      # TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+      # TLS_CHACHA20_POLY1305_SHA256
+      # TLS_AES_128_GCM_SHA256
+      # TLS_AES_256_GCM_SHA384
+      # };
+      DisableDeveloperTools = false;
+      DisableEncryptedClientHello = false;
+      DisableFeedbackCommands = true;
+      DisableFirefoxAccounts = false;
+      DisableFirefoxScreenshots = false;
+      DisableFirefoxStudies = false;
+      DisableForgetButton = false;
+      DisableFormHistory = false;
+      DisableLocalPolicies = false;
+      DisableMasterPasswordCreation = false;
+      DisablePasswordReveal = false;
+      DisablePrivateBrowsing = false;
+      DisableProfileImport = false;
+      DisableProfileRefresh = false;
+      DisableRemoteImprovements = false;
+      DisableRemoteSettingsAndAcceptSecurityConsequences = false;
+      DisableSafeMode = false;
+      DisableSecurityBypass = {
+        InvalidCertificate = false;
+        SafeBrowsing = false;
+      };
       DisableSetDesktopBackground = true;
+      DisableSystemAddonUpdate = false;
       DisableTelemetry = true;
+      DisplayBookmarksToolbar = "always";
+      DisplayMenuBar = "default-on";
+      DNSOverHTTPS = {
+        Enabled = true;
+        ProviderURL = "https://127.0.0.1:3000/dns-query";
+        # ProviderURL = "https://8.8.8.8/dns-query"; # 8.8.8.8, 8.8.4.4, goo.gle
+        # ProviderURL = "https://mozilla.cloudflare-dns.com/dns-query";  # 162.159.61.4 172.64.41.4
+        # ProviderURL = "https://dns.cloudflare.com/dns-query";  # 162.159.61.4 172.64.41.4
+        # ProviderURL = "https://dns.quad9.net/dns-query";  # 9.9.9.9, 149.112.112.112
+        Locked = false;
+        ExcludedDomains = [ ];
+        Fallback = false;
+      };
+      DontCheckDefaultBrowser = true;
+      # DownloadDirectory = config.xdg.userDirs.download;
       EnableTrackingProtection = {
         Value = true;
         Locked = true;
@@ -187,16 +266,8 @@ in
         BaselineExceptions = true;
         ConvenienceExceptions = true;
       };
-      FirefoxHome = {
-        Search = true;
-        TopSites = true;
-        SponsoredTopSites = false;
-        Highlights = false;
-        Pocket = true;
-        Stories = false;
-        SponsoredPocket = false;
-        SponsoredStories = false;
-        Snippets = true;
+      EncryptedMediaExtensions = {
+        Enabled = true;
         Locked = true;
       };
       ExtensionUpdate = true;
@@ -246,203 +317,251 @@ in
         "{cb08faed-9460-474a-ba0b-d98b13b5e001}" # Regex Search
         # "{e662576a-2f73-4069-bcca-ddf440fea62b}" # Web Apps by 123apps
       ];
+      FirefoxHome = {
+        Search = true;
+        TopSites = true;
+        SponsoredTopSites = false;
+        Highlights = false;
+        Pocket = true;
+        Stories = false;
+        SponsoredPocket = false;
+        SponsoredStories = false;
+        Snippets = true;
+        Locked = true;
+      };
+      GenerativeAI = {
+        Enabled = true;
+        Chatbot = true;
+        LinkPreviews = true;
+        TabGroups = true;
+        Locked = true;
+      };
+      # GoToIntranetSiteForSingleWordEntryInAddressBar = true;
       HardwareAcceleration = true;
+      Homepage = {
+        URL = "about:home";
+        Locked = true;
+        Additional = [
+          "about:newtab"
+          "https://google.com"
+        ];
+        StartPage = "previous-session";
+      };
       HttpsOnlyMode = "force_enabled";
+      IPProtectionAvailable = true;
+      LocalNetworkAccess = {
+        Enabled = true;
+        BlockTrackers = true;
+        EnablePrompting = true;
+        # SkipDomains = [];
+        Locked = true;
+      };
+      ManualAppUpdateOnly = true;
+      NetworkPrediction = true;
+      NewTabPage = true;
       OfferToSaveLogins = false;
       # OfferToSaveLoginsDefault = false;  # Errors if non-default is present
       PasswordManagerEnabled = false;
-      PostQuantumKeyAgreementEnabled = true;
+      PDFjs = {
+        Enabled = true;
+        EnablePermissions = false;
+      };
       Permissions = {
         Autoplay = {
           Default = "block-audio-video";
           Locked = true;
         };
-      };
-      Homepage = {
-        URL = "about:newtab";
-        Locked = true;
-        StartPage = "previous-session";
-      };
-      ManualAppUpdateOnly = true;
-      PrimaryPassword = true;
-      # Proxy = {
-      #   Mode = "manual";
-      #   Locked = true;
-      #   SOCKSProxy = "127.0.0.1:1080";
-      #   SOCKSVersion = 5;
-      #   UseProxyForDNS = true;
-      # };
-      SecurityDevices = {
-        Add = {
-          "OpenSC PKCS#11 Module" = "${pkgs.opensc}/lib/opensc-pkcs11.so";
-        };
-      };
-      TranslateEnabled = true;
-      ShowHomeButton = true;
-      SearchSuggestEnabled = true;
-      SearchBar = "unified";
-      SupportMenu = {
-        Title = "Custom Support";
-        URL = "http://example.com/support";
-        AccessKey = "S";
-      };
-      SanitizeOnShutdown = {
-        Cache = true;
-        Locked = false;
-      };
-      PrintingEnabled = true;
-      PopupBlocking = {
-        Allow = [ "https://github.com/" ];
-        Default = true;
-        Locked = false;
-      };
-      NetworkPrediction = false;
-      NewTabPage = true;
-      PDFjs = {
-        Enabled = false;
-      };
-      Permissions = {
         Notifications = {
           BlockNewRequests = true;
           Locked = true;
         };
       };
-      Preferences = {
-        "app.shield.optoutstudies.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        "experiments.supported" = {
-          Value = false;
-          Status = "locked";
-        };
-        "experiments.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        "experiments.manifest.uri" = {
-          Value = "";
-          Status = "locked";
-        };
-        "app.normandy.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        "app.normandy.api_url" = {
-          Value = "";
-          Status = "locked";
-        };
-        # "datareporting.healthreport.uploadEnabled" = {
-        #   Value = false;
-        #   Status = "locked";
-        # };
-        "datareporting.healthreport.service.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        # "datareporting.policy.dataSubmissionEnabled" = {
-        #   Value = false;
-        #   Status = "locked";
-        # };
-        "datareporting.policy.dataSubmissionPolicyAcceptedVersion" = {
-          Value = 2;
-          Status = "locked";
-        };
-        "toolkit.telemetry.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        "toolkit.telemetry.unified" = {
-          Value = false;
-          Status = "locked";
-        };
-        "toolkit.telemetry.server" = {
-          Value = "data:,";
-          Status = "locked";
-        };
-        # "toolkit.telemetry.archive.enabled" = {
-        #   Value = false;
-        #   Status = "locked";
-        # };
-        "toolkit.telemetry.newProfilePing.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        "toolkit.telemetry.shutdownPingSender.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        "toolkit.telemetry.updatePing.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        "toolkit.telemetry.bhrPing.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        "toolkit.telemetry.firstShutdownPing.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
-        "toolkit.telemetry.coverage.opt-out" = {
-          Value = true;
-          Status = "locked";
-        };
-        "toolkit.coverage.opt-out" = {
-          Value = true;
-          Status = "locked";
-        };
-        "toolkit.coverage.endpoint.base" = {
-          Value = "";
-          Status = "locked";
-        };
-        "browser.newtabpage.activity-stream.telemetry" = {
-          Value = false;
-          Status = "locked";
-        };
-        "browser.ping-centre.telemetry" = {
-          Value = false;
-          Status = "locked";
-        };
-        "breakpad.reportURL" = {
-          Value = "";
-          Status = "locked";
-        };
-        "browser.tabs.crashReporting.sendReport" = {
-          Value = false;
-          Status = "locked";
-        };
-        "browser.crashReports.unsubmittedCheck.autoSubmit2" = {
-          Value = false;
-          Status = "locked";
-        };
-
-        "browser.contentblocking.category" = {
-          Value = "strict";
-          Status = "locked";
-        };
-        "svg.context-properties.content.enabled" = {
-          Value = true;
-          Status = "user";
-        };
-        "security.insecure_connection_text.enabled" = {
-          Value = true;
-          Status = "locked";
-        };
-        "security.insecure_connection_text.pbmode.enabled" = {
-          Value = true;
-          Status = "locked";
-        };
-        "network.proxy.socks_remote_dns" = {
-          # for flagfox
-          Value = true;
-          Status = "user";
-        };
-        "security.csp.reporting.enabled" = {
-          Value = false;
-          Status = "locked";
-        };
+      PictureInPicture = {
+        Enabled = true;
+        Locked = true;
       };
+      PopupBlocking = {
+        Allow = [ "https://github.com/" ];
+        Default = true;
+        Locked = false;
+      };
+      PostQuantumKeyAgreementEnabled = true;
+      Preferences =
+        let
+          mkValue = value: status: {
+            Value = value;
+            Status = status;
+          };
+        in
+        {
+          # Disable titlebar
+          "browser.tabs.inTitlebar" = mkValue 2 "default";
+          # Tab unload
+          "browser.tabs.unloadOnLowMemory" = mkValue true "locked";
+          "browser.tabs.min_inactive_duration_before_unload" = mkValue 600000 "default"; # 10m
+          "browser.low_commit_space_threshold_percent" = mkValue 50 "default"; # % of free RAM to start unloading tabs
+          # Preview tab contents on hover
+          "browser.tabs.hoverPreview.enabled" = mkValue true "locked";
+          "browser.tabs.hoverPreview.showThumbnails" = mkValue true "locked";
+          # Translation pop-up
+          "browser.translations.automaticallyPopup" = mkValue true "default";
+          "browser.tabs.loadInBackground" = mkValue true "default";
+          "browser.tabs.opentabfor.middleclick" = mkValue true "locked";
+
+          # write session status in 1m interval, instead of 15s default
+          "browser.sessionstore.interval" = mkValue 60000 "default";
+
+          "browser.cache.disk.enable" = mkValue true "locked";
+          "browser.cache.disk.encryption.enabled" = mkValue true "locked";
+          "browser.cache.disk.smart_size.enabled" = mkValue true "locked";
+          "browser.cache.memory.enable" = mkValue true "locked";
+          "browser.cache.memory.capacity" = mkValue (-1) "default"; # automatic
+
+          "network.dns.disableIPv6" = mkValue false "locked";
+          "network.dns.skip_ipv6_when_no_addresses" = mkValue false "locked";
+          "network.dns.preferIPv6" = mkValue true "default";
+
+          # Additional privacy
+          "browser.safebrowsing.malware.enabled" = mkValue true "locked";
+          "browser.safebrowsing.phishing.enabled" = mkValue true "locked";
+          "browser.safebrowsing.blockedURIs.enabled" = mkValue true "locked";
+          "browser.safebrowsing.downloads.enabled" = mkValue true "locked";
+          "browser.safebrowsing.downloads.remote.enabled" = mkValue true "locked";
+          "browser.safebrowsing.downloads.remote.block_dangerous" = mkValue true "locked";
+          "browser.safebrowsing.downloads.remote.block_dangerous_host" = mkValue true "locked";
+          "browser.safebrowsing.downloads.remote.block_potentially_unwanted" = mkValue true "locked";
+          "browser.safebrowsing.downloads.remote.block_uncommon" = mkValue true "locked";
+
+          # These only heighten fingerprinting capability
+          # "privacy.resistFingerprinting" = mkValue true "locked";
+          # "privacy.resistFingerprinting.pbmode" = mkValue true "locked";
+          # Isn't accepted by Firefox for "stability reasons"
+          # "privacy.partition.network_state.connection_with_proxy" = mkValue true "default";
+
+          "browser.search.region" = mkValue "US" "locked";
+          "doh-rollout.home-region" = mkValue "US" "locked";
+
+          "media.hardware-video-decoding.enabled" = mkValue true "locked";
+          "media.hardware-video-encoding.enabled" = mkValue true "locked";
+          "media.hardware-video-decoding.force-enabled" = mkValue true "default";
+          "media.hardware-video-encoding.force-enabled" = mkValue true "default";
+          "gfx.webrender.all" = mkValue true "default";
+          "svg.context-properties.content.enabled" = mkValue true "default";
+
+          "security.insecure_connection_text.enabled" = mkValue true "locked";
+          "security.insecure_connection_text.pbmode.enabled" = mkValue true "locked";
+          "security.warn_submit_secure_to_insecure" = mkValue true "locked";
+
+          "extensions.blocklist.enabled" = mkValue true "default";
+          "extensions.htmlaboutaddons.recommendations.enabled" = mkValue true "default";
+
+          "extensions.ui.dictionary.hidden" = mkValue false "locked";
+          "extensions.ui.extension.hidden" = mkValue false "locked";
+          "extensions.ui.locale.hidden" = mkValue false "locked";
+          "extensions.ui.mlmodel.hidden" = mkValue false "locked";
+          "extensions.ui.sitepermission.hidden" = mkValue false "locked";
+          "extensions.ui.plugin.hidden" = mkValue false "locked";
+          "extensions.ui.theme.hidden" = mkValue false "locked";
+
+          ### Testing ###
+          # These do nothing
+          # "browser.display.show_focus_rings" = mkValue true "default";
+          # "browser.display.always_show_rings_after_key_focus" = mkValue true "default";
+
+          # WebRTC
+          "media.peerconnection.ice.proxy_only_if_behind_proxy" = mkValue true "default";
+          # IDK if this does anything
+          "media.webspeech.recognition.enable" = mkValue true "user";
+        };
+      PrimaryPassword = true;
+      PrintingEnabled = true;
+      PrivateBrowsingModeAvailability = 0;
+      PromptForDownloadLocation = false;
+      Proxy = {
+        Mode = "manual";
+        Locked = false;
+        HTTPProxy = "127.0.0.1:1080";
+        UseHTTPProxyForAllProtocols = false;
+        # SSLProxy = "example.com";
+        # FTPProxy = "example.com";
+        SOCKSProxy = "127.0.0.1:1080";
+        SOCKSVersion = 5;
+        Passthrough = "localhost,127.0.0.0/8,::1,<local>,192.168.0.0/16";
+        # AutoConfigURL = "https://example.com/proxy";
+        # AutoLogin = true;
+        UseProxyForDNS = true;
+      };
+      RequestedLocales = [
+        "en-US"
+        "ru"
+        "de"
+      ];
+      SanitizeOnShutdown = {
+        Cache = true;
+        Cookies = false;
+        FormData = false;
+        History = false;
+        Sessions = false;
+        SiteSettings = false;
+        Locked = false;
+      };
+      SearchBar = "unified";
+      # SearchEngines = {
+      #   Default = "Example1";
+      #   Add = [
+      #     {
+      #       Name = "Example1";
+      #       URLTemplate = "https://www.example.org/q={searchTerms}";
+      #       Method = "GET";
+      #       IconURL = "https://www.example.org/favicon.ico";
+      #       Alias = "example";
+      #       Description = "Description";
+      #       SuggestURLTemplate = "https://www.example.org/suggestions/q={searchTerms}";
+      #     }
+      #   ];
+      #   PreventInstalls = true;
+      # };
+      SearchSuggestEnabled = true;
+      # SecurityDevices = {
+      #   Add = {
+      #     "OpenSC PKCS#11 Module" = "${pkgs.opensc}/lib/opensc-pkcs11.so";
+      #   };
+      # };
+      # ShowHomeButton = true;
+      SkipTermsOfUse = true;
+      SSLVersionMax = "tls1.3";
+      SSLVersionMin = "tls1.2";
+      StartDownloadsInTempDirectory = false;
+      # SupportMenu = {
+      #   Title = "Custom Support";
+      #   URL = "http://example.com/support";
+      #   AccessKey = "S";
+      # };
+      Sync = {
+        Addons = false;
+        Addresses = true;
+        Bookmarks = true;
+        Enabled = true;
+        History = true;
+        Locked = true;
+        OpenTabs = true;
+        Passwords = false;
+        PaymentMethods = false;
+        Settings = false;
+      };
+      TranslateEnabled = true;
+      UserMessaging = {
+        ExtensionRecommendations = true;
+        FeatureRecommendations = true;
+        UrlbarInterventions = false;
+        SkipOnboarding = true;
+        MoreFromMozilla = true;
+        FirefoxLabs = true;
+        Locked = true;
+      };
+      UseSystemPrintDialog = false;
+      VisualSearchEnabled = true;
+      XSLTEnabled = true;
     };
   };
 }
