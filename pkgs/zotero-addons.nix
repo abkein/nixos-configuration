@@ -481,7 +481,7 @@ in
 
   better-bibtex = buildZoteroXpiAddon rec {
     pname = "zotero-better-bibtex";
-    version = "9.0.55";
+    version = "9.0.63";
     addonId = "better-bibtex@iris-advies.com";
 
     src = fetchGitHubReleaseFile {
@@ -489,7 +489,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "zotero-better-bibtex-${version}.xpi";
-      hash = "sha256-LZFOuxdMLFkOz/dBppA/GXkGW0J0DzAdk47Cy2wD5NY=";
+      hash = "sha256-h5n9djvCI2AYc7thJnPVb2eC2vTpsWPXtwlr4V8VNwo=";
     };
 
     meta = with lib; {
