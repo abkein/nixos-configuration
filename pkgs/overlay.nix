@@ -92,4 +92,13 @@ in
     typing-booster-unwrapped = final.callPackage ./ibus-typing-booster { };
   };
   vimix-icon-theme = final.callPackage ./vimix-icon-theme.nix { };
+
+  v2ray-geoip-ru = final.callPackage ./v2ray-geoip-ru.nix { };
+  v2ray-geosite-ru = final.callPackage ./v2ray-geosite-ru.nix { };
+  xray = prev.xray.override {
+    assets = with final; [
+      v2ray-geoip-ru
+      v2ray-geosite-ru
+    ];
+  };
 }

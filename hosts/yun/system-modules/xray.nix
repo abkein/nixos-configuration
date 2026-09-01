@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ lib, ... }:
 let
   xray-creds = import ../shadow/xray-creds.nix;
   network-creds = import ../shadow/network.nix;
@@ -7,12 +7,6 @@ in
 {
   services.xray = {
     enable = true;
-    package = pkgs.xray.override {
-      assets = [
-        (pkgs.callPackage ../../../pkgs/v2ray-geoip-ru.nix { })
-        (pkgs.callPackage ../../../pkgs/v2ray-geosite-ru.nix { })
-      ];
-    };
     settings = {
       log = {
         # access = "/var/log/xray-access.log";
