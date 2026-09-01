@@ -60,6 +60,7 @@ in
         User = "git";
         # identitiesOnly = true;
         # identityFile = "/home/kein/nixos-configuration/secrets/keys/github_yubikey.pub";
+        ProxyCommand = "${keepassxc_ssh_prompt} %h %p";
       };
     };
   };
