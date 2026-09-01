@@ -121,30 +121,31 @@ in
 
       config = {
         general = {
-          # Gaps and border
           border_size = 1;
-          gaps_in = 2;
+          extend_border_grab_area = 2;
+          gaps_in = 4;
           gaps_out = 2;
           float_gaps = 5;
           gaps_workspaces = 50;
+          layout = "dwindle";
+          modal_parent_blocking = false;
+          no_focus_fallback = true;
+          resize_on_border = true;
 
           # col.active_border = hex2hypr "#0DB7D4FF"; # stylix
           # col.inactive_border = hex2hypr "#00000000"; # stylix
 
-          layout = "dwindle";
-          no_focus_fallback = true;
-          resize_on_border = true;
-          extend_border_grab_area = 2;
         };
 
         decoration = {
-          rounding = 10;
-          inactive_opacity = 0.9;
-          dim_modal = true;
+          dim_around = 0.2;
           dim_inactive = true;
+          dim_modal = true;
           dim_strength = 0.05;
           dim_special = 0.2;
-          dim_around = 0.2;
+          inactive_opacity = 0.9;
+          rounding = 10;
+          rounding_power = 4.0;
 
           blur = {
             enabled = true;
@@ -164,6 +165,10 @@ in
             # color = hex2hypr "#0DB7D4FF"; # stylix
             color_inactive = hex2hypr "#0000001A";
             offset = "0 2";
+          };
+
+          glow = {
+            enabled = true;
           };
         };
 
