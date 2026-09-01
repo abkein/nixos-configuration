@@ -13,21 +13,14 @@ let
   bind = keys: dispatcher: mkBind keys dispatcher { };
   bindExec = keys: command: bind keys "hl.dsp.exec_cmd(${builtins.toJSON command})";
   bindLockedExec =
-    keys: command:
-    mkBind keys "hl.dsp.exec_cmd(${builtins.toJSON command})" {
-      locked = true;
-    };
+    keys: command: mkBind keys "hl.dsp.exec_cmd(${builtins.toJSON command})" { locked = true; };
   bindLockedRepeatingExec =
     keys: command:
     mkBind keys "hl.dsp.exec_cmd(${builtins.toJSON command})" {
       locked = true;
       repeating = true;
     };
-  bindMouse =
-    keys: dispatcher:
-    mkBind keys dispatcher {
-      mouse = true;
-    };
+  bindMouse = keys: dispatcher: mkBind keys dispatcher { mouse = true; };
 
   bezier = name: x1: y1: x2: y2: {
     _args = [
@@ -56,12 +49,7 @@ let
     }
     // lib.optionalAttrs (style != null) { inherit style; };
   windowRule = match: effects: { inherit match; } // effects;
-  layerRule =
-    namespace: effects:
-    {
-      match = { inherit namespace; };
-    }
-    // effects;
+  layerRule = namespace: effects: { match = { inherit namespace; }; } // effects;
 in
 {
   home.packages = with pkgs; [
@@ -475,9 +463,7 @@ in
         }
 
         # Pinned border
-        (windowRule { pin = true; } {
-          border_color = "rgba(ffabf1AA) rgba(ffabf177)";
-        })
+        (windowRule { pin = true; } { border_color = "rgba(ffabf1AA) rgba(ffabf177)"; })
 
         # Floats
         (windowRule { class = "system-config-printer"; } { float = true; })

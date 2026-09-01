@@ -172,7 +172,7 @@
           # claude-code = claude-code.packages.${system}.default;
           # ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
           # anyrun-pkgs = anyrun.packages.${system}.default;
-          zen-browser = zen-browser.packages.${system}.beta;
+          # zen-browser = zen-browser.packages.${system}.beta;
         }
         // llm-agents.packages.${system}
         // (lib.optionalAttrs useAgenixRekey { agenix-rekey = agenix-rekey.packages.${system}.default; });

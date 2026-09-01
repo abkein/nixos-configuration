@@ -17,9 +17,7 @@ let
       Hidden=true
     '';
   };
-  chatgptWithRuntime = ipkgs.chatgpt.override {
-    withPrimaryRuntime = true;
-  };
+  chatgptWithRuntime = ipkgs.chatgpt.override { withPrimaryRuntime = true; };
   wrappedChatGPT = pkgs.symlinkJoin {
     name = "chatgpt-${chatgptWithRuntime.version}";
     paths = [ chatgptWithRuntime ];

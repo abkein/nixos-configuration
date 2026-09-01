@@ -446,7 +446,6 @@ in
           "privacy.resistFingerprinting.pbmode" = mkValue true "locked";
           "privacy.partition.network_state.connection_with_proxy" = mkValue true "default";
 
-
           "browser.search.region" = mkValue "US" "locked";
           "doh-rollout.home-region" = mkValue "US" "locked";
 
@@ -491,7 +490,7 @@ in
           "zen.urlbar.behavior" = mkValue "float" "locked";
           "zen.urlbar.show-pip-button" = mkValue true "locked";
           "zen.urlbar.replace-newtab" = mkValue false "locked";
-          "zen.folders.owned-tabs-in-folder"= mkValue true "locked";
+          "zen.folders.owned-tabs-in-folder" = mkValue true "locked";
           "zen.view.compact.enable-at-startup" = mkValue false "default";
         };
       PrimaryPassword = true;
