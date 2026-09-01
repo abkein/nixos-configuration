@@ -7,6 +7,7 @@
       autoImport = true;
       followSystem = true;
     };
+    overlays.enable = false;
     polarity = "dark";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/katy.yaml";
     # base16Scheme = "${pkgs.base16-schemes}/share/themes/espresso.yaml";
