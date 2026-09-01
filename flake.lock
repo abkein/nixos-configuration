@@ -298,17 +298,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1787637703,
-        "narHash": "sha256-Lrm036G8KEzsF/qmczClBd0RzdqiJEnOKNIcJFDQ1yg=",
-        "ref": "refs/heads/fix/chatgpt",
-        "rev": "018e16a1f5181341c62b640e55a7350c9b320c19",
-        "revCount": 16078,
-        "type": "git",
-        "url": "file:/home/kein/Projects/chatgpt/llm-agents.nix"
+        "lastModified": 1788258647,
+        "narHash": "sha256-eRtZ4oKZ9/We8qfuqUoISAuqeaJnsIKYPW9JDXqPjHA=",
+        "owner": "numtide",
+        "repo": "llm-agents.nix",
+        "rev": "68c363aaa0acf2337a8e8b311bc780bcb184019c",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/kein/Projects/chatgpt/llm-agents.nix"
+        "owner": "numtide",
+        "repo": "llm-agents.nix",
+        "type": "github"
       }
     },
     "nix4vscode": {

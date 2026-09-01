@@ -146,7 +146,8 @@
     # };
 
     llm-agents = {
-      url = "git+file:/home/kein/Projects/chatgpt/llm-agents.nix";
+      url = "github:numtide/llm-agents.nix";
+      # url = "git+file:/home/kein/Projects/chatgpt/llm-agents.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";

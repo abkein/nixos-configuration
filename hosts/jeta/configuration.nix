@@ -186,6 +186,7 @@
         ManagedOOMMemoryPressureDurationSec = "10s";
       };
     };
+
     services.nix-daemon.environment =
       let
         proxy = "socks5h://127.0.0.1:1080";
@@ -307,14 +308,14 @@
     settings = {
       substituters = [
         "https://mirror.yandex.ru/nixos?priority=30"
-        "https://ayugram-desktop.cachix.org?priority=40"
+        # "https://ayugram-desktop.cachix.org?priority=40"
+        "https://cache.numtide.com?priority=40"
         "https://cache.nixos.org?priority=50"
-        # "https://cache.garnix.io?priority=200"
         # "https://anyrun.cachix.org"
       ];
       trusted-public-keys = [
-        "ayugram-desktop.cachix.org:AZ5EqHrJsAKL5YkZYLPEsb1FdD9QlypUwQ0REcJftgA="
-        # "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+        # "ayugram-desktop.cachix.org:AZ5EqHrJsAKL5YkZYLPEsb1FdD9QlypUwQ0REcJftgA="
         # "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
       ];
     };
