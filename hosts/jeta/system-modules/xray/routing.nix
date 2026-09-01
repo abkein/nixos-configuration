@@ -141,6 +141,12 @@
           ruleTag = "DomRU2Direct";
         }
         {
+          domain = [ "geosite:github" ];
+          inboundTag = nixInbounds;
+          outboundTag = "direct";
+          ruleTag = "NixGH2Direct";
+        }
+        {
           ip = [ "geoip:ru" ];
           inboundTag = mainInbounds ++ nixInbounds;
           outboundTag = "direct";
