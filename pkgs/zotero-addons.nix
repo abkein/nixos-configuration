@@ -489,7 +489,7 @@ in
       repo = pname;
       tag = "v${version}";
       file = "zotero-better-bibtex-${version}.xpi";
-      hash = "sha256-h5n9djvCI2AYc7thJnPVb2eC2vTpsWPXtwlr4V8VNwo=";
+      hash = "sha256-Ok0IDslBU6jCS/gnVonF+UbZnjFLauD6tQYNaXD1Y4g=";
     };
 
     meta = with lib; {
