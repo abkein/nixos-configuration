@@ -20,13 +20,18 @@ in
         maskAddress = ""; # empty to no mask
       };
       api = {
-        tag = "api";
+        # tag = "api";
         listen = "127.0.0.1:8080";
         services = [
+          "RoutingService"
           "LoggerService"
           "StatsService"
           "ReflectionService"
         ];
+      };
+      metrics = {
+        # tag = "metrics";
+        listen = "127.0.0.1:8081";
       };
       stats = { };
       policy = universal-xray.policy;
