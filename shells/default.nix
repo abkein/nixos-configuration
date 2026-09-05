@@ -122,6 +122,7 @@ in
           ps: with ps; [
             lammps-logfile
             camelot
+            scikit-learn
           ]
         )
       ];

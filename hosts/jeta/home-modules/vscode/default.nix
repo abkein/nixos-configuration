@@ -109,10 +109,6 @@ in
           folder = "${config.home.homeDirectory}/nixos-configuration";
           profile = "nix";
         };
-        devShells = {
-          folder = "${config.home.homeDirectory}/devShells";
-          profile = "nix";
-        };
         nixpkgs = {
           folder = "${config.home.homeDirectory}/repos/nixpkgs";
           profile = "nix";
