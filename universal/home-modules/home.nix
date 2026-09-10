@@ -18,7 +18,7 @@
     };
     sessionVariables = {
       EDITOR = "micro";
-      PAGER = "bat";
+      PAGER = "bat -p";
     };
     shellAliases =
       let
