@@ -17,50 +17,55 @@ let
   '';
 in
 {
+  systemd.user.tmpfiles.rules = [
+    "d ${config.home.homeDirectory}/.ssh 0700 ${config.home.username} users - -"
+  ];
+  services.ssh-agent.enable = true;
   programs.ssh = {
     enable = true;
     package = pkgs.openssh;
-    extraConfig = "WarnWeakCrypto = no-pq-kex";
     enableDefaultConfig = false;
     settings = {
       "*" = {
-        # ForwardAgent = false;
         AddKeysToAgent = "confirm";
-        Compression = false;
+        Compression = "no";
         ConnectionAttempts = 4;
-        # EnableSSHKeysign = "yes";
-        ServerAliveInterval = 3;
-        ServerAliveCountMax = 3;
-        HashKnownHosts = false;
-        UserKnownHostsFile = "${config.home.homeDirectory}/.ssh/known_hosts";
-        ControlMaster = "ask";
+        ControlMaster = "no";
         ControlPath = "${config.home.homeDirectory}/.ssh/master-%r@%n:%p";
         ControlPersist = "no";
+        EnableSSHKeysign = "yes";
+        HashKnownHosts = "no";
+        LocalCommand = "${pkgs.libnotify}/bin/notify-send -a SSH 'New session' '%r@%n:%p\\nHostname: %h\\nAlias: %k'";
+        PermitLocalCommand = "yes";
+        ProxyCommand = "${keepassxc_ssh_prompt} %h %p";
+        ServerAliveCountMax = 3;
+        ServerAliveInterval = 3;
+        StrictHostKeyChecking = "accept-new";
+        UpdateHostKeys = "yes";
+        UserKnownHostsFile = "${config.home.homeDirectory}/.ssh/known_hosts";
+        VisualHostKey = "yes";
       };
       fisher = with ssh-creds.fisher; {
+        header = "Host fisher ${host}";
         HostName = host;
         User = user;
-        Port = 22;
-        ProxyCommand = "${keepassxc_ssh_prompt} %h %p";
+        WarnWeakCrypto = "no-pq-kex";
       };
       yun = with ssh-creds.yun; {
+        header = "Host yun ${host}";
         HostName = host;
         User = user;
-        Port = 22;
-        ProxyCommand = "${keepassxc_ssh_prompt} %h %p";
       };
-      yun6 = with ssh-creds.yun; {
-        HostName = host6;
+      yun6 = with ssh-creds.yun6; {
+        header = "Host yun6 ${host}";
+        HostName = host;
         User = user;
-        Port = 22;
-        ProxyCommand = "${keepassxc_ssh_prompt} %h %p";
+        AddressFamily = "inet6";
       };
       github = {
+        header = "Host github github.com";
         HostName = "github.com";
         User = "git";
-        # identitiesOnly = true;
-        # identityFile = "/home/kein/nixos-configuration/secrets/keys/github_yubikey.pub";
-        ProxyCommand = "${keepassxc_ssh_prompt} %h %p";
       };
     };
   };

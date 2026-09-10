@@ -104,9 +104,6 @@ in
 
   home = {
     stateVersion = "24.11";
-    shellAliases = {
-      run_codex = "proxychains4 -q env http_proxy=socks5h://127.0.0.1:1080 https_proxy=socks5h://127.0.0.1:1080 socks_proxy=socks5h://127.0.0.1:1080 no_proxy=127.0.0.1,localhost,::1 codex";
-    };
     packages = [
       wrappedChatGPT
     ]
@@ -203,13 +200,7 @@ in
     ]);
   };
 
-  systemd.user.tmpfiles.rules = [
-    "d ${config.programs.gpg.homedir} 0700 ${config.home.username} users - -"
-    "d ${config.home.homeDirectory}/.ssh 0700 ${config.home.username} users - -"
-  ];
-
   services = {
-    ssh-agent.enable = true;
     kdeconnect = {
       enable = true;
       # indicator = true;
@@ -253,22 +244,18 @@ in
         format = "openpgp";
       };
     };
-    mcp = {
-      enable = true;
-      servers = {
-        github = {
-          command = "${pkgs.github-mcp-server}/bin/github-mcp-server";
-          args = [ "stdio" ];
-        };
-        # nixos = {
-        #   command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
-        #   args = [ ];
-        # };
-      };
-    };
-    # texlive = {
+    # mcp = {
     #   enable = true;
-    #   packageSet = pkgs.;
+    #   servers = {
+    #     github = {
+    #       command = "${pkgs.github-mcp-server}/bin/github-mcp-server";
+    #       args = [ "stdio" ];
+    #     };
+    #     # nixos = {
+    #     #   command = "${pkgs.mcp-nixos}/bin/mcp-nixos";
+    #     #   args = [ ];
+    #     # };
+    #   };
     # };
     # java.enable = true;
     npm.settings = {

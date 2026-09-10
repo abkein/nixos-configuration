@@ -6,7 +6,6 @@
     enableSshSupport = false;
     grabKeyboardAndMouse = true;
     pinentry = {
-      # TODO: tweak programs.wayprompt
       # package = pkgs.pinentry-all;
       package = pkgs.wayprompt;
       program = "pinentry-wayprompt";
@@ -18,6 +17,9 @@
     defaultCacheTtl = 60;
     maxCacheTtl = 120;
   };
+  systemd.user.tmpfiles.rules = [
+    "d ${config.programs.gpg.homedir} 0700 ${config.home.username} users - -"
+  ];
   programs.gpg = {
     enable = true;
     homedir = "${config.xdg.dataHome}/gnupg";
