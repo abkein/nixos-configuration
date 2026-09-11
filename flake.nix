@@ -217,7 +217,7 @@
                   nixpkgs = {
                     config = {
                       allowUnfree = true;
-                      rocmSupport = true;
+                      # rocmSupport = true;
                       warnUndeclaredOptions = true;
                       # permittedInsecurePackages = [
                       # ];
