@@ -239,6 +239,7 @@ mylib.flattenAttrsDot' (
       enableCommitSigning = true;
       mergeEditor = true;
       pullBeforeCheckout = true;
+      confirmSync = false;
     };
 
     scm = {
