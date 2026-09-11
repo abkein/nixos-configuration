@@ -230,10 +230,15 @@ mylib.flattenAttrsDot' (
     };
 
     git = {
-      autofetch = true;
-      confirmSync = false;
+      allowForcePush = true;
+      allowNoVerifyCommit = true;
+      blame.editorDecoration.enabled = true;
+      autofetch = false;
+      detectWorktrees = true;
+      fetchOnPull = true;
       enableCommitSigning = true;
-      ignoreRebaseWarning = true;
+      mergeEditor = true;
+      pullBeforeCheckout = true;
     };
 
     scm = {
