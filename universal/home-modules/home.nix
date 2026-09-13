@@ -39,20 +39,20 @@
         _cat = "${pkgs.coreutils-full}/bin/cat";
         cat = "${config.programs.bat.package}/bin/bat";
 
-        _rm = "${pkgs.coreutils-full}/bin/rm";
-        "rm -f" = "${pkgs.trash-cli}/bin/trash-put -i";
-        "rm -rf" = "${pkgs.trash-cli}/bin/trash-put -ri";
-        rm = "${pkgs.trash-cli}/bin/trash-put -i";
+        # _rm = "${pkgs.coreutils-full}/bin/rm";
+        # "rm -f" = "${pkgs.trash-cli}/bin/trash-put -i";
+        # "rm -rf" = "${pkgs.trash-cli}/bin/trash-put -ri";
+        # rm = "${pkgs.trash-cli}/bin/trash-put -i";
 
-        _cp = "${pkgs.coreutils-full}/bin/cp";
-        "cp -f" = "${pkgs.coreutils-full}/bin/cp --backup=numbered -i";
-        "cp -rf" = "${pkgs.coreutils-full}/bin/cp --backup=numbered -ri";
-        cp = "${pkgs.coreutils-full}/bin/cp --backup=numbered -i";
+        # _cp = "${pkgs.coreutils-full}/bin/cp";
+        # "cp -f" = "${pkgs.coreutils-full}/bin/cp --backup=numbered -i";
+        # "cp -rf" = "${pkgs.coreutils-full}/bin/cp --backup=numbered -ri";
+        # cp = "${pkgs.coreutils-full}/bin/cp --backup=numbered -i";
 
-        _mv = "${pkgs.coreutils-full}/bin/mv";
-        "mv -f" = "${pkgs.coreutils-full}/bin/mv --backup=numbered -i";
-        "mv -rf" = "${pkgs.coreutils-full}/bin/mv --backup=numbered -ri";
-        mv = "${pkgs.coreutils-full}/bin/mv --backup=numbered -i";
+        # _mv = "${pkgs.coreutils-full}/bin/mv";
+        # "mv -f" = "${pkgs.coreutils-full}/bin/mv --backup=numbered -i";
+        # "mv -rf" = "${pkgs.coreutils-full}/bin/mv --backup=numbered -ri";
+        # mv = "${pkgs.coreutils-full}/bin/mv --backup=numbered -i";
 
         _grep = "${pkgs.gnugrep}/bin/grep";
         grep = "grep --color=auto";
