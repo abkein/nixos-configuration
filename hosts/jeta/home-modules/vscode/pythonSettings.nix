@@ -1,37 +1,46 @@
-{ ... }:
+{ mylib, ... }:
 let
   showNotifications = "off";
 in
-{
-  # "python.analysis.diagnosticSeverityOverrides" = {
-  #     "reportUnboundVariable" = "none";
-  #     "reportGeneralTypeIssues" = "none"
-  # };
-  # "python.analysis.indexing" =  false;
-  "python.locator" = "js";
+mylib.flattenAttrsDot' {
+  "[python]" = mylib.flattenAttrsDot'.literal {
+    "editor.codeActionsOnSave" = {
+      "source.organizeImports" = "explicit";
+    };
+  };
 
-  "python.terminal.activateEnvironment" = false;
-  "python.terminal.shellIntegration.enabled" = false;
+  python = {
+    locator = "js";
 
-  "python.analysis.autoFormatStrings" = true;
-  "python.analysis.languageServerMode" = "full";
-  "python.analysis.diagnosticMode" = "workspace";
-  "python.analysis.autoImportCompletions" = true;
-  "python.analysis.completeFunctionParens" = true;
-  "python.analysis.generateWithTypeAnnotation" = true;
+    terminal = {
+      activateEnvironment = false;
+      shellIntegration.enabled = false;
+    };
 
-  "python.analysis.inlayHints.callArgumentNames" = "all";
-  "python.analysis.inlayHints.variableTypes" = true;
-  "python.analysis.inlayHints.pytestParameters" = true;
-  "python.analysis.inlayHints.functionReturnTypes" = true;
-
-  "python.analysis.typeEvaluation.disableBytesTypePromotions" = true;
-  "python.analysis.typeEvaluation.enableReachabilityAnalysis" = true;
-  "python.analysis.typeEvaluation.strictDictionaryInference" = true;
-  "python.analysis.typeEvaluation.strictListInference" = true;
-  "python.analysis.typeEvaluation.strictParameterNoneValue" = true;
-  "python.analysis.typeEvaluation.strictSetInference" = true;
-  # "python.analysis.nodeExecutable" = "${pkgs.nodejs}/bin/node";
+    analysis = {
+      # nodeExecutable = "${pkgs.nodejs}/bin/node";
+      autoFormatStrings = true;
+      languageServerMode = "full";
+      diagnosticMode = "workspace";
+      autoImportCompletions = true;
+      completeFunctionParens = true;
+      generateWithTypeAnnotation = true;
+      inlayHints = {
+        callArgumentNames = "all";
+        variableTypes = true;
+        pytestParameters = true;
+        functionReturnTypes = true;
+      };
+      typeEvaluation = {
+        disableBytesTypePromotions = true;
+        enableReachabilityAnalysis = true;
+        strictDictionaryInference = true;
+        strictListInference = true;
+        strictParameterNoneValue = true;
+        strictSetInference = true;
+      };
+    };
+  };
 
   # "autopep8.showNotifications" = showNotifications;
   # "black-formatter.showNotifications" = showNotifications;

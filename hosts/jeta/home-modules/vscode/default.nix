@@ -73,11 +73,11 @@ in
       };
       LaTeX = with needed_extensions; {
         extensions = LaTeX; # ++ python;
-        userSettings = import ./latexSettings.nix { inherit pkgs; };
+        userSettings = import ./latexSettings.nix args;
       };
       python = with needed_extensions; {
         extensions = python ++ dev ++ [ "tomoki1207.pdf" ];
-        userSettings = import ./pythonSettings.nix { inherit pkgs; };
+        userSettings = import ./pythonSettings.nix args;
       };
       cpp = with needed_extensions; {
         extensions = cpp ++ dev;

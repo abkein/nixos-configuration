@@ -190,7 +190,7 @@ mylib.flattenAttrsDot' (
       wordWrap = "on";
       ignoreTrimWhitespace = false;
       experimental = {
-        showMoves = "all";
+        showMoves = true;
         useTrueInlineView = true;
       };
     };
@@ -357,7 +357,7 @@ mylib.flattenAttrsDot' (
     nix = {
       enableLanguageServer = true;
       serverPath = "${pkgs.nixd}/bin/nixd"; # or "nil"
-      formatterPath = "${pkgs.nixfmt}/bin/nixfmt --strict --verify";
+      # formatterPath = "${pkgs.nixfmt}/bin/nixfmt --strict --verify";  # VSCode says it should be a enum value. Nevertheless, it's not used if `enableLanguageServer = true`
       serverSettings = mylib.flattenAttrsDot'.literal {
         # check https://github.com/oxalica/nil/blob/main/docs/configuration.md for all options available
         nil = {
