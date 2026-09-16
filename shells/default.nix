@@ -202,6 +202,25 @@ in
     }
   );
 
+  mob-guide = shells.mkPyShell (
+    finalContext: with finalContext; {
+      repoName = "mob-guide";
+      root = "/home/kein/Documents/" + repoName;
+
+      pythonPackages = [
+        (
+          ps: with ps; [
+            curl-cffi
+            markdownify
+            marko
+            beautifulsoup4
+            types-beautifulsoup4
+          ]
+        )
+      ];
+    }
+  );
+
   chatgpt = shells.mkPyShell (
     finalContext: with finalContext; {
       repoName = "chatgpt";
