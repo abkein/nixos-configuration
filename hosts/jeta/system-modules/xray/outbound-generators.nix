@@ -95,8 +95,8 @@
       ) filtered_raw;
       filtered = lib.filter (
         outbound:
-        (outbound.tag != "us-proxy")
-        && (outbound.tag != "tiktok-proxy")
+        # (outbound.tag != "us-proxy")
+        (outbound.tag != "tiktok-proxy")
         && (outbound.tag != "youtube-proxy")
         && (outbound.tag != "proxy-tcp-reality-bridge")
       ) fixed;
@@ -109,7 +109,7 @@
     renamed
     ++ [
       (getFirstRename "proxy-tcp-reality-bridge" "ussr-bridge-reality")
-      (getFirstRename "us-proxy" "ussr-reality-us")
+      # (getFirstRename "us-proxy" "ussr-reality-us")
       (getFirstRename "youtube-proxy" "ussr-reality-youtube")
     ];
 }
