@@ -155,6 +155,16 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    nix-init = {
+      url = "github:nix-community/nix-init";
+      # url = "git+file:/home/kein/Projects/chatgpt/llm-agents.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        treefmt-nix.follows = "treefmt-nix";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
   };
 
   outputs =
@@ -174,8 +184,10 @@
           # ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
           # anyrun-pkgs = anyrun.packages.${system}.default;
           # zen-browser = zen-browser.packages.${system}.beta;
+          codex = llm-agents.packages.${system}.codex;
+          chatgpt = llm-agents.packages.${system}.chatgpt;
+          nix-init = nix-init.packages.${system}.nix-init;
         }
-        // llm-agents.packages.${system}
         // (lib.optionalAttrs useAgenixRekey { agenix-rekey = agenix-rekey.packages.${system}.default; });
     in
     {
@@ -337,9 +349,6 @@
             pyemf3
             veusz
             ;
-          # ast-serialize
-          # librt
-          # mypy
           # my-mathematica = import ./pkgs/my-mathematica.nix { inherit pkgs; };
         }
         // (_ipkgs system);

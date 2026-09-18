@@ -150,6 +150,30 @@
         "type": "github"
       }
     },
+    "fenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nix-init",
+          "nixpkgs"
+        ],
+        "rust-analyzer-src": [
+          "nix-init"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787122318,
+        "narHash": "sha256-37asD+JKFnedthzsuGP8mDgxCzjNePJVfMAVzYWIMfs=",
+        "owner": "nix-community",
+        "repo": "fenix",
+        "rev": "d57340fe40c2ee12f86c0e087d2239d682b54eb0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "fenix",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -312,6 +336,33 @@
         "type": "github"
       }
     },
+    "nix-init": {
+      "inputs": {
+        "fenix": "fenix",
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789389308,
+        "narHash": "sha256-UMj98hKm6mRMMdt5lGzieoOOQDJr86QptAvbedGfxgc=",
+        "owner": "nix-community",
+        "repo": "nix-init",
+        "rev": "7884840da5a4037dfd981c37a326e5f4d2b60331",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-init",
+        "type": "github"
+      }
+    },
     "nix4vscode": {
       "inputs": {
         "nixpkgs": [
@@ -383,6 +434,7 @@
         "gitignore": "gitignore",
         "home-manager": "home-manager",
         "llm-agents": "llm-agents",
+        "nix-init": "nix-init",
         "nix4vscode": "nix4vscode",
         "nixpkgs": "nixpkgs",
         "nur": "nur",

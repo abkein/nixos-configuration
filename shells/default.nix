@@ -202,7 +202,7 @@ in
     }
   );
 
-  mob-guide = shells.mkPyShell (
+  mob-guide = shells.mkPyShellInteractive (
     finalContext: with finalContext; {
       repoName = "mob-guide";
       root = "/home/kein/Documents/" + repoName;
@@ -214,7 +214,6 @@ in
             markdownify
             marko
             beautifulsoup4
-            types-beautifulsoup4
           ]
         )
       ];
