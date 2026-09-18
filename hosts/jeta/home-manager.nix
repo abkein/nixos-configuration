@@ -121,8 +121,6 @@ in
       # backintime-common
       # backintime-qt
       tesseract
-      #chatbox
-      element-desktop # configurable
       tor-browser
 
       file-roller
@@ -140,6 +138,7 @@ in
       geany
       obsidian # configurable
       prettier
+      # chatbox
       # aider-chat
 
       libreoffice-stable
@@ -162,8 +161,6 @@ in
       # -with-extensions
       # inkscape-extensions.textext
 
-      zoom-us
-
       gucharmap
       networkmanagerapplet
 
@@ -180,7 +177,9 @@ in
 
       ffmpeg-full
 
-      electrum
+      # element-desktop # configurable
+      # zoom-us
+      # electrum
 
       (python3.withPackages (
         ps: with ps; [
