@@ -27,7 +27,12 @@ let
         --set all_proxy socks5h://127.0.0.1:1080 \
         --set CODEX_MCP_NODE_PATH ${pkgs.nodejs}/bin/node \
         --set RUST_LOG DEBUG \
-        --prefix PATH:${lib.makeBinPath [ pkgs.nodejs pkgs.bubblewrap ]}
+        --prefix PATH:${
+          lib.makeBinPath [
+            pkgs.nodejs
+            pkgs.bubblewrap
+          ]
+        }
     '';
     inherit (ipkgs.chatgpt) meta passthru;
   };
@@ -40,7 +45,12 @@ let
         --set all_proxy socks5h://127.0.0.1:1080 \
         --set CODEX_MCP_NODE_PATH ${pkgs.nodejs}/bin/node \
         --set RUST_LOG DEBUG \
-        --prefix PATH:${lib.makeBinPath [ pkgs.nodejs pkgs.bubblewrap ]}
+        --prefix PATH:${
+          lib.makeBinPath [
+            pkgs.nodejs
+            pkgs.bubblewrap
+          ]
+        }
     '';
     inherit (ipkgs.codex) meta passthru;
   };

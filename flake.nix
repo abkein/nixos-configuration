@@ -342,12 +342,9 @@
         packages = {
           inherit (pkgs)
             keepassxc-proxy-client
-            pyzotero
             jsonc-parser
             crossrefapi
             lammps-logfile
-            pyemf3
-            veusz
             ;
           # my-mathematica = import ./pkgs/my-mathematica.nix { inherit pkgs; };
         }

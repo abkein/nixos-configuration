@@ -116,7 +116,7 @@ mylib.flattenAttrsDot' {
       tools = [
         {
           name = "lualatexmk";
-          command =  "latexmk";
+          command = "latexmk";
           args = [
             "-synctex=1"
             "-interaction=nonstopmode"
@@ -130,7 +130,7 @@ mylib.flattenAttrsDot' {
         }
         {
           name = "xelatexmk";
-          command =  "latexmk";
+          command = "latexmk";
           args = [
             "-synctex=1"
             "-interaction=nonstopmode"
@@ -144,19 +144,19 @@ mylib.flattenAttrsDot' {
         }
         {
           name = "latexmk_rconly";
-          command =  "latexmk";
+          command = "latexmk";
           args = [ "%DOC%" ];
           "env" = { };
         }
         {
           name = "bibtex";
-          command =  "bibtex";
+          command = "bibtex";
           args = [ "%DOCFILE%" ];
           "env" = { };
         }
         {
           name = "rnw2tex";
-          command =  "Rscript";
+          command = "Rscript";
           args = [
             "-e"
             "knitr::opts_knit$set(concordance = TRUE); knitr::knit('%DOCFILE_EXT%')"
@@ -165,7 +165,7 @@ mylib.flattenAttrsDot' {
         }
         {
           name = "jnw2tex";
-          command =  "julia";
+          command = "julia";
           args = [
             "-e"
             "using Weave; weave(\"%DOC_EXT%\", doctype=\"tex\")"
@@ -174,7 +174,7 @@ mylib.flattenAttrsDot' {
         }
         {
           name = "jnw2texminted";
-          command =  "julia";
+          command = "julia";
           args = [
             "-e"
             "using Weave; weave(\"%DOC_EXT%\", doctype=\"texminted\")"
@@ -183,7 +183,7 @@ mylib.flattenAttrsDot' {
         }
         {
           name = "pnw2tex";
-          command =  "pweave";
+          command = "pweave";
           args = [
             "-f"
             "tex"
@@ -193,7 +193,7 @@ mylib.flattenAttrsDot' {
         }
         {
           name = "pnw2texminted";
-          command =  "pweave";
+          command = "pweave";
           args = [
             "-f"
             "texminted"
@@ -203,7 +203,7 @@ mylib.flattenAttrsDot' {
         }
         {
           name = "tectonic";
-          command =  "tectonic";
+          command = "tectonic";
           args = [
             "--synctex"
             "--keep-logs"
@@ -214,7 +214,7 @@ mylib.flattenAttrsDot' {
         }
         {
           name = "lualatex";
-          command =  "lualatex";
+          command = "lualatex";
           args = [
             "-synctex=1"
             "-interaction=nonstopmode"
@@ -226,12 +226,12 @@ mylib.flattenAttrsDot' {
         }
         {
           name = "biber";
-          command =  "biber";
+          command = "biber";
           args = [ "%DOCFILE%" ];
         }
         {
           name = "latexmk";
-          command =  "latexmk";
+          command = "latexmk";
           args = [
             "-shell-escape"
             "-synctex=1"
@@ -246,7 +246,7 @@ mylib.flattenAttrsDot' {
         }
         {
           name = "pdflatex";
-          command =  "pdflatex";
+          command = "pdflatex";
           args = [
             "--shell-escape" # if you want to have the shell-escape flag
             "-synctex=1"

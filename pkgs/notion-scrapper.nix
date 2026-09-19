@@ -42,7 +42,7 @@ buildNpmPackage (finalAttrs: {
     description = "Take your Notion content back. One command exports any public Notion site to local markdown for Obsidian, Logseq, or any markdown editor. No API key, no cloud, no lock-in";
     homepage = "https://github.com/gkosach/notion_scrapper";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = [ ];
     mainProgram = "notion-scrapper";
   };
 })
