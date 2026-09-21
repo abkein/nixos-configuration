@@ -309,11 +309,13 @@
       substituters = [
         "https://mirror.yandex.ru/nixos?priority=30"
         # "https://ayugram-desktop.cachix.org?priority=40"
-        "https://cache.numtide.com?priority=40"
         "https://cache.nixos.org?priority=50"
+        "https://nix-community.cachix.org?priority=60"
+        "https://cache.numtide.com?priority=70"
         # "https://anyrun.cachix.org"
       ];
       trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         # "ayugram-desktop.cachix.org:AZ5EqHrJsAKL5YkZYLPEsb1FdD9QlypUwQ0REcJftgA="
         # "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
