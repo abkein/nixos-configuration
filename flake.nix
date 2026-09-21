@@ -155,6 +155,7 @@
         flake-parts.follows = "flake-parts";
       };
     };
+
     nix-init = {
       url = "github:nix-community/nix-init";
       # url = "git+file:/home/kein/Projects/chatgpt/llm-agents.nix";
@@ -165,6 +166,10 @@
       };
     };
 
+    litefind = {
+      url = "github:recursiveascent/litefind";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -187,6 +192,7 @@
           codex = llm-agents.packages.${system}.codex;
           chatgpt = llm-agents.packages.${system}.chatgpt;
           nix-init = nix-init.packages.${system}.nix-init;
+          litefind = litefind.packages.${system}.default;
         }
         // (lib.optionalAttrs useAgenixRekey { agenix-rekey = agenix-rekey.packages.${system}.default; });
     in

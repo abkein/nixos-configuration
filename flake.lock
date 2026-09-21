@@ -306,6 +306,26 @@
         "type": "github"
       }
     },
+    "litefind": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1787453398,
+        "narHash": "sha256-8cUAjr8U9kmNDm6FLNveMq7XyBPBmmctnAkAFVFvlUw=",
+        "owner": "recursiveascent",
+        "repo": "litefind",
+        "rev": "6e0cedfb7bac2de09b852eda6821fbe7b63da2e0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "recursiveascent",
+        "repo": "litefind",
+        "type": "github"
+      }
+    },
     "llm-agents": {
       "inputs": {
         "bun2nix": "bun2nix",
@@ -433,6 +453,7 @@
         "flake-utils": "flake-utils",
         "gitignore": "gitignore",
         "home-manager": "home-manager",
+        "litefind": "litefind",
         "llm-agents": "llm-agents",
         "nix-init": "nix-init",
         "nix4vscode": "nix4vscode",
