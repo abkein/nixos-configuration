@@ -92,7 +92,9 @@ final: prev:
   #   typing-booster-unwrapped = final.callPackage ./ibus-typing-booster { };
   # };
 
-  vscode-extensions.vscode-clang-tidy = import ./vscode-clang-tidy/vscode-clang-tidy.nix final;
+  vscode-extensions = prev.vscode-extensions // {
+    vscode-clang-tidy = import ./vscode-clang-tidy/vscode-clang-tidy.nix final;
+  };
   zotero-addons = final.callPackage ./zotero-addons.nix { };
   micro-plugins = final.callPackage ./micro-plugins.nix { };
   vimix-icon-theme = final.callPackage ./vimix-icon-theme.nix { };
