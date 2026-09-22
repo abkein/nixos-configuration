@@ -23,7 +23,7 @@ in
     enableFixes = true;
     enableUpdateCheck = false;
     enableExtensionUpdateCheck = false;
-    nix4vscodeAlways = true;
+    nix4vscodeAlways = false;
 
     desktopEntries.enable = true;
     terminal = {
@@ -43,7 +43,7 @@ in
       extensions = needed_extensions.global;
       env =
         let
-          proxy = "socks5h://127.0.0.1:1080";
+          proxy = "http://127.0.0.1:1080";
           no_proxy = "localhost,127.0.0.1,::1";
         in
         {
@@ -61,8 +61,6 @@ in
           NO_PROXY = no_proxy;
         };
     };
-
-    # envstr = "http_proxy=http://127.0.0.1:1081 https_proxy=http://127.0.0.1:1081 no_proxy=localhost,127.0.0.0/8";
 
     profiles = {
       default = {
@@ -218,6 +216,11 @@ in
           folder = "${config.home.homeDirectory}/repos/MDcraft";
           profile = "cpp";
           flake = universalFlake "MDcraft";
+        };
+        ocp-framework = {
+          folder = "${config.home.homeDirectory}/repos/ocp-framework";
+          profile = "cpp";
+          flake = universalFlake "ocp-framework";
         };
         cfproc = {
           folder = "${config.home.homeDirectory}/Documents/nucleation/python/cfproc";
