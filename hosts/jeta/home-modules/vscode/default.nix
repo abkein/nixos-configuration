@@ -79,7 +79,7 @@ in
       };
       cpp = with needed_extensions; {
         extensions = cpp ++ dev;
-        userSettings = import ./cppSettings.nix;
+        userSettings = import ./cppSettings.nix args;
       };
       ts = with needed_extensions; {
         extensions = ts ++ dev;

@@ -1,71 +1,87 @@
-{
-  "cmake.configureOnOpen" = true;
-  "cmake.configureOnEdit" = false;
-  "cmake.automaticReconfigure" = false;
-  "cmake.configureSettings" = { };
-  "cmake.showOptionsMovedNotification" = false;
-  "cmake.options.statusBarVisibility" = "compact";
-  "cmake.showConfigureWithDebuggerNotification" = false;
+{ mylib, ... }:
+mylib.flattenAttrsDot' {
+  "[cpp]" = mylib.flattenAttrsDot'.literal { "editor.defaultFormatter" = "ms-vscode.cpptools"; };
 
-  # "C_Cpp.formatting" = "disabled";
-  "C_Cpp.intelliSenseUpdateDelay" = 3000;
-  "C_Cpp.experimentalFeatures" = "enabled";
-  "C_Cpp.workspaceParsingPriority" = "high";
-  "C_Cpp.autocompleteAddParentheses" = true;
-  "C_Cpp.exclusionPolicy" = "checkFilesAndFolders";
-  "C_Cpp.intelliSenseCachePath" = "$XDG_CACHE_HOME/vscode-cpptools/";
-  # "C_Cpp.default.mergeConfigurations" = true;
-  "C_Cpp.default.cppStandard" = "c++20";
-  "C_Cpp.default.configurationProvider" = "ms-vscode.cmake-tools";
-  "C_Cpp.inlayHints.parameterNames.enabled" = true;
-  "C_Cpp.inlayHints.referenceOperator.enabled" = true;
-  "C_Cpp.inlayHints.autoDeclarationTypes.enabled" = true;
-  "C_Cpp.inlayHints.autoDeclarationTypes.showOnLeft" = true;
-  "C_Cpp.inlayHints.parameterNames.suppressWhenArgumentContainsName" = false;
-  # "C_Cpp.default.includePath" = [
-  #   "/usr/local/include/"
-  #   "\${default}"
-  #   "/usr/include/"
-  # ];
-  "C_Cpp.errorSquiggles" = "enabled";
-  "C_Cpp.loggingLevel" = "Debug";
-  "C_Cpp.codeAnalysis.clangTidy.enabled" = true;
-  "C_Cpp.codeAnalysis.runAutomatically" = true;
-
-  "[cpp]" = {
-    "editor.defaultFormatter" = "ms-vscode.cpptools";
+  cmake = {
+    configureOnOpen = false;
+    configureOnEdit = false;
+    automaticReconfigure = false;
+    showOptionsMovedNotification = false;
+    options.statusBarVisibility = "compact";
+    showConfigureWithDebuggerNotification = false;
+    removeStaleKitsOnScan = true;
   };
 
-  "c-cpp-flylint.debug" = true;
-  "c-cpp-flylint.run" = "onBuild";
-  "c-cpp-flylint.standard" = [ "c++20" ];
-  "c-cpp-flylint.flexelint.enable" = false;
-  "c-cpp-flylint.cppcheck.enable" = false;
-  "c-cpp-flylint.cppcheck.extraArgs" = [ "--check-level=exhaustive" ];
-  "c-cpp-flylint.cppcheck.force" = true;
-  "c-cpp-flylint.clang.enable" = false;
-  "c-cpp-flylint.clang.extraArgs" = [ "-Qunused-arguments" ];
-  "c-cpp-flylint.lizard.enable" = false;
+  C_Cpp = {
+    default.configurationProvider = "ms-vscode.cmake-tools";
+    intelliSenseUpdateDelay = 3000;
+    experimentalFeatures = "enabled";
+    workspaceParsingPriority = "high";
+    autocompleteAddParentheses = true;
+    exclusionPolicy = "checkFilesAndFolders";
+    intelliSenseCachePath = "$XDG_CACHE_HOME/vscode-cpptools/";
+    errorSquiggles = "enabled";
+    loggingLevel = "Debug";
+    clang_format_style = "file";
+    formatting = "clangFormat";
+    markdownInComments = "enabled";
+    inlayHints = {
+      parameterNames.enabled = true;
+      referenceOperator.enabled = true;
+      autoDeclarationTypes.enabled = true;
+      autoDeclarationTypes.showOnLeft = true;
+      parameterNames.suppressWhenArgumentContainsName = false;
+    };
+    codeAnalysis = {
+      clangTidy.enabled = true;
+      runAutomatically = true;
+      clangTidy.useBuildPath = true;
+      exclude = mylib.flattenAttrsDot'.literal { "**/build/" = true; };
+    };
+  };
 
-  "clangd.fallbackFlags" = [ "--compile-commands-dir=build" ];
-  "clangd.arguments" = [
-    # "--query-driver=/nix/store/*/bin/clang++,/nix/store/*/bin/mpicxx"
-    "--query-driver=/nix/store/*/bin/g++,/nix/store/*-gcc-wrapper-*/bin/g++,/nix/store/*/bin/c++,/nix/store/*/bin/clang++,/nix/store/*/bin/mpicxx"
-  ];
+  clangd = {
+    enableCodeCompletion = false;
+    enableHover = false;
+    detectExtensionConflicts = false;
+  };
 
-  "clangd.enableCodeCompletion" = false;
-  "clangd.enableHover" = false;
-  "clangd.detectExtensionConflicts" = false;
+  c-cpp-flylint = {
+    debug = true;
+    run = "onBuild";
+    cppcheck = {
+      enable = true;
+      force = true;
+      verbose = true;
+      platform = "unix64";
+    };
+    clang = {
+      enable = true;
+      pedantic = true;
+      extraArgs = [ "-Qunused-arguments" ];
+    };
+    flexelint.enable = false;
+    lizard.enable = false;
+  };
 
-  "c-cpp-linter.general.runOnOpen" = false;
-  "c-cpp-linter.general.runOnSave" = false;
-  "c-cpp-linter.general.showInformationDialog" = true;
-  "c-cpp-linter.general.showOutputFromLinters" = true;
-  "c-cpp-linter.compiler.additionalFlags" = [ "-Qunused-arguments" ];
-  "c-cpp-linter.cppCheck.additionalFlags" = [
-    "--std=c++20"
-    "--platform=native"
-    "--check-level=exhaustive"
-    "--force"
-  ];
+  c-cpp-linter = {
+    clangTidy.enabled = false;
+    compiler.additionalFlags = [ "-Qunused-arguments" ];
+    general = {
+      runOnOpen = false;
+      runOnSave = false;
+      showInformationDialog = true;
+      showOutputFromLinters = true;
+      sourceFileExtensions = [
+        "c"
+        "h"
+        "cpp"
+        "hpp"
+        "cxx"
+        "hxx"
+      ];
+    };
+  };
+
+  clang-tidy.lintOnSave = false;
 }

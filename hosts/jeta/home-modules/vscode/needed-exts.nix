@@ -104,7 +104,6 @@ pkgs: {
   # "trunk.io"
   # "googlecloudtools.cloudcode"
 
-  # "gruntfuggly.todo-tree"
   # "ms-python.vscode-python-envs"
 
   # "redhat.java"
