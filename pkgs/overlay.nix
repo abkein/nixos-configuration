@@ -94,6 +94,11 @@ final: prev:
 
   vscode-extensions = prev.vscode-extensions // {
     vscode-clang-tidy = import ./vscode-clang-tidy/vscode-clang-tidy.nix final;
+    ms-vscode.cpptools = prev.vscode-extensions.ms-vscode.cpptools.overrideAttrs (old: {
+      postPatch = (old.postPatch or "") + ''
+        chmod +x bin/cpptools-srv2
+      '';
+    });
   };
   zotero-addons = final.callPackage ./zotero-addons.nix { };
   micro-plugins = final.callPackage ./micro-plugins.nix { };
