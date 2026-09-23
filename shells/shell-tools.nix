@@ -12,7 +12,9 @@ let
       ctx = mylib.lazyMergeListDeep layers;
       shellHook = lib.concatStringsSep "\n" ctx.shellHook;
     in
-    ctx.shellPkgs.mkShell (ctx.shellArgs // { inherit shellHook; });
+    ctx.shellPkgs.mkShell.override { stdenv = ctx.stdenv; } (
+      ctx.shellArgs // { inherit shellHook; }
+    );
 
   _mkBuilder = layers: {
     __functor = self: layer: self.instantiate layer;
@@ -36,6 +38,7 @@ let
         }
         // final.nixpkgs.args
       );
+      stdenv = final.shellPkgs.stdenv;
       shellHook = [ ];
     }
   );
