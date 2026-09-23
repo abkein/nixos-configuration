@@ -3,8 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "git+file:///home/kein/repos/nixpkgs?rev=279a3747bfd34ed75bb864d190d2ada5afa99bc9";
-    # nixpkgs.url = "github:SandaruKasa/nixpkgs/14403d56305e7592b7c9f7f08ae06439bdffd466";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -113,12 +111,7 @@
     #     nixpkgs.follows = "nixpkgs";
     #     home-manager.follows = "home-manager";
     #   };
-    # };
-
-    # flake-compat = {
-    #   url = "github:NixOS/flake-compat";
-    #   # flake = false;
-    # };
+    # };;
 
     # git-hooks = {
     #   url = "github:cachix/git-hooks.nix";
@@ -158,7 +151,6 @@
 
     nix-init = {
       url = "github:nix-community/nix-init";
-      # url = "git+file:/home/kein/Projects/chatgpt/llm-agents.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         treefmt-nix.follows = "treefmt-nix";
@@ -184,11 +176,6 @@
         with inputs;
         {
           agenix = agenix.packages.${system}.default;
-          # codex-cli = codex-cli.packages.${system}.default;
-          # claude-code = claude-code.packages.${system}.default;
-          # ayugram-desktop = ayugram-desktop.packages.${system}.ayugram-desktop;
-          # anyrun-pkgs = anyrun.packages.${system}.default;
-          # zen-browser = zen-browser.packages.${system}.beta;
           codex = llm-agents.packages.${system}.codex;
           chatgpt = llm-agents.packages.${system}.chatgpt;
           nix-init = nix-init.packages.${system}.nix-init;
@@ -244,13 +231,8 @@
                       (with inputs; [
                         nix4vscode.overlays.forVscode
                         nur.overlays.default
-                        # nix-vscode-extensions.overlays.default
                       ])
-                      ++ [
-                        self.overlays.default
-                        # (import ./overlays/pypackages.nix)
-                        # (import ./overlays/generic.nix)
-                      ];
+                      ++ [ self.overlays.default ];
                   };
                   environment.systemPackages = with ipkgs; [ (if cfg.useAgenixRekey then agenix-rekey else agenix) ];
                   home-manager = {
@@ -258,11 +240,7 @@
                     useUserPackages = true;
                     backupFileExtension = "hm-backup";
                     overwriteBackup = true;
-                    sharedModules = with inputs; [
-                      agenix.homeManagerModules.default
-                      # zen-browser.homeModules.beta
-                      # stylix.homeModules.stylix
-                    ];
+                    sharedModules = with inputs; [ agenix.homeManagerModules.default ];
                     users = {
                       "${cfg.username}" = ./hosts/jeta/home-manager.nix;
                     };
@@ -321,7 +299,6 @@
               ];
           };
       };
-      # devShells.${system}.default = nixpkgs.mkShell {};
     }
     // (lib.optionalAttrs useAgenixRekey {
       agenix-rekey = inputs.agenix-rekey.configure {
