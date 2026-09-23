@@ -30,7 +30,7 @@
       silent = false;
       enableBashIntegration = true;
       enableZshIntegration = true;
-      nix-direnv.enable = true;
+      nix-direnv.enable = false;
       config = {
         bash_path = "${config.programs.bash.package}/bin/bash";
         disable_stdin = true;
