@@ -28,22 +28,15 @@ let
   mkCppShellWithPython = shells.mkCppShell.extend shells.modules.pythonBase;
 in
 {
-  mylammps = mkCppShellWithPython (
+  lammps = mkCppShellWithPython (
     finalContext: with finalContext; {
-      repoName = "mylammps";
+      repoName = "lammps";
       root = "/home/kein/repos/" + repoName;
       cmakeSourceDirectory = root + "/cmake";
 
-      clangTidyConfText = [
-        ''
-          Checks: >
-            cppcoreguidelines-pro-type-member-init
-
-          CheckOptions:
-            - key: cppcoreguidelines-pro-type-member-init.IgnoreArrays
-              value: 'true'
-        ''
-      ];
+      clangTidyConf.CheckOptions = {
+        "cppcoreguidelines-pro-type-member-init.IgnoreArrays" = true;
+      };
       cppcheckSuppressions = [
         "noExplicitConstructor:src/nucc_cspan.hpp"
         "shiftTooManyBits:src/fix_cluster_crush_delete.cpp"
@@ -67,10 +60,19 @@ in
             pyzmq
             adios2
             mpi4py
-            lizard # C++ linter
           ]
         )
       ];
+    }
+  );
+
+  ocp-framework = shells.mkCppShell (
+    finalContext: with finalContext; {
+      repoName = "ocp-framework";
+      root = "/home/kein/repos/" + repoName;
+      cmakeSourceDirectory = root + "/src";
+
+      shellArgs.buildInputs = with shellPkgs; [ adios2 ];
     }
   );
 
@@ -94,7 +96,6 @@ in
           ps: with ps; [
             pybind11
             mpi4py
-            lizard # C++ linter
           ]
         )
       ];

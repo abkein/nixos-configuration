@@ -61,109 +61,59 @@ rec {
     finalContext:
     with finalContext;
     let
-      clangTidyUnwrapped = "${llvm.clang-tools}/bin/clang-tidy";
       cppcheckSupprPlain = shellPkgs.writeText "${repoName}-cppcheck_suppressions" (
         lib.concatStringsSep "\n" cppcheckSuppressions
       );
-      clangTidyConf = shellPkgs.writeText "${repoName}-clang-tidy_configuration" (
-        lib.concatStringsSep "\n" clangTidyConfText
-      );
+      yamlformat = shellPkgs.formats.yaml { };
+      clangTidyConfFile = yamlformat.generate "${repoName}-clang-tidy" clangTidyConf;
     in
     {
-      gccToolchain = shellPkgs.gcc.cc;
-      mpi = shellPkgs.openmpi;
-      llvm = shellPkgs.llvmPackages_latest;
-      clangTidy = shellPkgs.writeShellScriptBin "clang-tidy-wrapped" ''
-        exec ${clangTidyUnwrapped} \
-          --extra-arg=--gcc-toolchain=${gccToolchain} \
-          --extra-arg=-stdlib=libstdc++ \
-          --extra-arg=-isystem${mpi}/include \
-          --extra-arg=-Qunused-arguments \
-          "$@"
-      '';
-      clangTidyArgs = [
-        "--gcc-toolchain=${gccToolchain}"
-        "-stdlib=libstdc++"
-        "-isystem${mpi}/include"
-        "-Qunused-arguments"
-      ];
-      clangTidyExtraArgs = map (arg: "--extra-arg=${arg}") clangTidyArgs;
+      stdenv = shellPkgs.clangStdenv;
+      cpp-standard = "c++20";
+
+      clang-tidy-bin = "${shellPkgs.clang-tools}/bin/clang-tidy";
       cppcheckBuildDir = vscodeDir + "/.cppcheck";
       cppcheckSupprPlainLoc = vscodeDir + "/cppcheck_suppressions";
-      clangTidyConfLoc = vscodeDir + "/.clang-tidy";
+      clangTidyConfLoc = root + "/.clang-tidy";
 
       cppcheckSuppressions = [ ];
-      clangTidyConfText = [ ];
       cmakeSourceDirectory = root;
       buildPath = root + "/build";
-
-      shellArgs = {
-        buildInputs = [
-          mpi
-          clangTidy
-          llvm.clang
-          llvm.clang-tools
-        ]
-        ++ (with shellPkgs; [
-          cmake
-          ninja
-          pkg-config
-          gcc
-          gdb
-          gfortran
-
-          flawfinder
-          cppcheck
-          cpplint
-
-        ]);
-      };
-
-      vscodeSettings = {
-        "cmake.sourceDirectory" = cmakeSourceDirectory;
-        "cmake.useCMakePresets" = "always";
-
-        "C_Cpp.codeAnalysis.clangTidy.useBuildPath" = true;
-        "C_Cpp.codeAnalysis.exclude" = {
-          "**/build/" = true;
-        };
-
-        "cpplint.cpplintPath" = "${shellPkgs.cpplint}/bin/cpplint";
-        "cpplint.lineLength" = lineLength;
-        "cpplint.verbose" = 0;
-
-        "c-cpp-linter.clangTidy.enabled" = false;
-        "c-cpp-linter.clangTidy.path" = "${clangTidy}/bin/clang-tidy-wrapped";
-        "c-cpp-linter.compiler.path" = "${llvm.clang}/bin/clang++";
-        "c-cpp-linter.compiler.additionalFlags" = [ "-Qunused-arguments" ];
-        "c-cpp-linter.cppCheck.path" = "${shellPkgs.cppcheck}/bin/cppcheck";
-        "c-cpp-linter.cppCheck.additionalFlags" = [
-          "--std=c++20"
-          "--platform=unix64"
-          "--check-level=exhaustive"
-          "--force"
-          "--cppcheck-build-dir=${cppcheckBuildDir}"
-          "--inline-suppr"
-          "--suppressions-list=${cppcheckSupprPlainLoc}"
-        ];
-        "c-cpp-linter.general.sourceFileExtensions" = [
-          "c"
+      clangTidyConf = {
+        FormatStyle = "file";
+        InheritParentConfig = false;
+        HeaderFileExtensions = [
           "h"
-          "cpp"
           "hpp"
+          "hxx"
         ];
-
-        "clang-tidy.buildPath" = buildPath;
-        "clang-tidy.lintOnSave" = false;
-        "clang-tidy.executable" = clangTidy;
-        "clang-tidy.configFile" = clangTidyConfLoc;
-        "clang-tidy.compilerArgs" = clangTidyArgs;
-        "clang-tidy.checks" = [
-          "-*,bugprone-*,concurrency-*,hicpp-*,modernize-*,performance-*,readability-*,llvm-*,misc-*,mpi-*,openmp-*"
-          "-readability-magic-numbers,-readability-function-cognitive-complexity,-readability-identifier-length"
-          "-readability-math-missing-parentheses,-readability-avoid-const-params-in-decls,-readability-isolate-declaration"
+        ImplementationFileExtensions = [
+          "c"
+          "cpp"
+          "cxx"
+        ];
+        Checks = [
+          "-*"
+          "bugprone-*"
+          "concurrency-*"
+          "hicpp-*"
+          "modernize-*"
+          "performance-*"
+          "readability-*"
+          "llvm-*"
+          "misc-*"
+          "mpi-*"
+          "openmp-*"
+          "cppcoreguidelines-*"
+          "-readability-magic-numbers"
+          "-readability-function-cognitive-complexity"
+          "-readability-identifier-length"
+          "-readability-math-missing-parentheses"
+          "-readability-avoid-const-params-in-decls"
+          "-readability-isolate-declaration"
           "-readability-use-concise-preprocessor-directives"
-          "-modernize-use-trailing-return-type,-modernize-return-braced-init-list"
+          "-modernize-use-trailing-return-type"
+          "-modernize-return-braced-init-list"
           "-hicpp-signed-bitwise"
           # hicpp-member-init is an alias for enabled cppcoreguidelines-pro-type-member-init
           # hicpp-special-member-functions is an alias for cppcoreguidelines-special-member-functions
@@ -171,13 +121,72 @@ rec {
           "-llvm-header-guard"
           "-llvm-prefer-static-over-anonymous-namespace"
           "-bugprone-easily-swappable-parameters"
+          "-cppcoreguidelines-avoid-magic-numbers"
         ];
+      };
+
+      shellArgs = {
+        packages =
+          [ ]
+          ++ (with shellPkgs; [
+            clang
+            clang-tools
+            cmake
+            ninja
+
+            flawfinder
+            cppcheck
+            cpplint
+          ]);
+      };
+
+      vscodeSettings = {
+        "cmake.sourceDirectory" = cmakeSourceDirectory;
+        "cmake.buildDirectory" = "${buildPath}";
+
+        "C_Cpp.default.cppStandard" = cpp-standard;
+        "C_Cpp.codeAnalysis.clangTidy.path" = clang-tidy-bin;
+        "C_Cpp.default.cStandard" = "c23";
+        "C_Cpp.default.intelliSenseMode" = "linux-clang-x64";
+        "C_Cpp.clang_format_path" = "${shellPkgs.clang}/bin/clang-format";
+
+        "cpplint.cpplintPath" = "${shellPkgs.cpplint}/bin/cpplint";
+        "cpplint.lineLength" = lineLength;
+        "cpplint.verbose" = 0;
+
+        "clangd.enable" = false;
+
+        "c-cpp-flylint.standard" = [ cpp-standard ];
+        "c-cpp-flylint.cppcheck.extraArgs" = [
+          "--check-level=exhaustive"
+          "--cppcheck-build-dir=${cppcheckBuildDir}"
+          "--inline-suppr"
+          "--suppressions-list=${cppcheckSupprPlainLoc}"
+          "--enable=all"
+        ];
+
+        "c-cpp-linter.compiler.path" = "${shellPkgs.clang}/bin/clang++";
+        "c-cpp-linter.cppCheck.path" = "${shellPkgs.cppcheck}/bin/cppcheck";
+        "c-cpp-linter.cppCheck.additionalFlags" = [
+          "--std=${cpp-standard}"
+          "--platform=unix64"
+          "--force"
+          "--check-level=exhaustive"
+          "--cppcheck-build-dir=${cppcheckBuildDir}"
+          "--inline-suppr"
+          "--suppressions-list=${cppcheckSupprPlainLoc}"
+          "--enable=all"
+          "--verbose"
+        ];
+
+        "clang-tidy.buildPath" = buildPath;
+        "clang-tidy.executable" = clang-tidy-bin;
       };
 
       shellHook = [
         "mkdir -p '${cppcheckBuildDir}'"
         "cat '${cppcheckSupprPlain}' > '${cppcheckSupprPlainLoc}'"
-        "cat '${clangTidyConf}' > '${clangTidyConfLoc}'"
+        "cat '${clangTidyConfFile}' > '${clangTidyConfLoc}'"
       ];
     }
   );
