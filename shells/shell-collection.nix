@@ -117,11 +117,13 @@ rec {
           "-hicpp-signed-bitwise"
           # hicpp-member-init is an alias for enabled cppcoreguidelines-pro-type-member-init
           # hicpp-special-member-functions is an alias for cppcoreguidelines-special-member-functions
-          # "-cppcoreguidelines-non-private-member-variables-in-classes"
           "-llvm-header-guard"
           "-llvm-prefer-static-over-anonymous-namespace"
           "-bugprone-easily-swappable-parameters"
           "-cppcoreguidelines-avoid-magic-numbers"
+          "-cppcoreguidelines-pro-bounds-pointer-arithmetic"
+          "-cppcoreguidelines-non-private-member-variables-in-classes"
+          "-misc-non-private-member-variables-in-classes"
         ];
       };
 
@@ -133,6 +135,7 @@ rec {
             clang-tools
             cmake
             ninja
+            pkg-config
 
             flawfinder
             cppcheck
@@ -148,7 +151,7 @@ rec {
         "C_Cpp.codeAnalysis.clangTidy.path" = clang-tidy-bin;
         "C_Cpp.default.cStandard" = "c23";
         "C_Cpp.default.intelliSenseMode" = "linux-clang-x64";
-        "C_Cpp.clang_format_path" = "${shellPkgs.clang}/bin/clang-format";
+        "C_Cpp.clang_format_path" = "${shellPkgs.clang-tools}/bin/clang-format";
 
         "cpplint.cpplintPath" = "${shellPkgs.cpplint}/bin/cpplint";
         "cpplint.lineLength" = lineLength;
@@ -157,14 +160,15 @@ rec {
         "clangd.enable" = false;
 
         "c-cpp-flylint.standard" = [ cpp-standard ];
+        "c-cpp-flylint.clang.executable" = "${shellPkgs.clang}/bin/clang++";
         "c-cpp-flylint.cppcheck.extraArgs" = [
           "--check-level=exhaustive"
           "--cppcheck-build-dir=${cppcheckBuildDir}"
-          "--inline-suppr"
           "--suppressions-list=${cppcheckSupprPlainLoc}"
           "--enable=all"
         ];
 
+        "c-cpp-linter.clangTidy.path" = clang-tidy-bin;
         "c-cpp-linter.compiler.path" = "${shellPkgs.clang}/bin/clang++";
         "c-cpp-linter.cppCheck.path" = "${shellPkgs.cppcheck}/bin/cppcheck";
         "c-cpp-linter.cppCheck.additionalFlags" = [
@@ -181,6 +185,11 @@ rec {
 
         "clang-tidy.buildPath" = buildPath;
         "clang-tidy.executable" = clang-tidy-bin;
+
+        "cppcheck-official.path" = "${shellPkgs.cppcheck}/bin/cppcheck";
+        "cppcheck-official.arguments" =
+          "--std=${cpp-standard} --platform=unix64 --force --check-level=exhaustive --cppcheck-build-dir=${cppcheckBuildDir} --suppressions-list=${cppcheckSupprPlainLoc} --verbose --project=${buildPath}/compile_commands.cppcheck.json";
+
       };
 
       shellHook = [
