@@ -18,6 +18,7 @@ pkgs: {
     # "github.copilot-chat"
     # "Koda.koda"
     # "Continue.continue"
+    "davidanson.vscode-markdownlint"
   ];
 
   LaTeX = [
@@ -63,6 +64,7 @@ pkgs: {
     "llvm-vs-code-extensions.vscode-clangd"
     # "mine.cpplint"
     "crugthew.c-cpp-linter"
+    "cppchecksolutionsab.cppcheck-official"
     pkgs.vscode-extensions.vscode-clang-tidy
     # "cs128.cs128-clang-tidy"
   ];
