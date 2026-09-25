@@ -95,8 +95,8 @@
       ) filtered_raw;
       filtered = lib.filter (
         outbound:
-        # (outbound.tag != "us-proxy")
-        (outbound.tag != "tiktok-proxy")
+        ((builtins.match "^proxy-.{8}$" outbound.tag) == null)
+        && (outbound.tag != "tiktok-proxy")
         && (outbound.tag != "youtube-proxy")
         && (outbound.tag != "proxy-tcp-reality-bridge")
       ) fixed;
