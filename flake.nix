@@ -43,7 +43,7 @@
       };
     };
 
-    # flake-compat.url = "github:edolstra/flake-compat";
+    # flake-compat.url = "github:NixOS/flake-compat";
 
     gitignore = {
       url = "github:hercules-ci/gitignore.nix";

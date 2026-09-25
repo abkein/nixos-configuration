@@ -9,6 +9,7 @@ pkgs: {
     "gruntfuggly.todo-tree"
     "mkhl.direnv"
     "openai.chatgpt"
+    "openai.codex-audio"
     # "anthropic.claude-code"
     "yzhang.markdown-all-in-one"
     "trond-snekvik.simple-rst"
