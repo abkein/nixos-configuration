@@ -84,39 +84,7 @@
         "settings": {
           "vnext": [
             {
-              "address": "de-fra-ncp-10.cccpbot.fuck-rkn.xyz",
-              "port": 443,
-              "users": [
-                {
-                  "id": "b62b0ff3-234f-4875-a6a8-df14f0237ef3",
-                  "security": "auto",
-                  "encryption": "none",
-                  "email": "https://gozargah.github.io/marzban/",
-                  "alterId": 0,
-                  "flow": "xtls-rprx-vision"
-                }
-              ]
-            }
-          ]
-        },
-        "streamSettings": {
-          "network": "tcp",
-          "security": "reality",
-          "realitySettings": {
-            "serverName": "ussr.party",
-            "fingerprint": "firefox",
-            "show": false,
-            "publicKey": "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc"
-          }
-        }
-      },
-      {
-        "tag": "proxy-tcp-reality-direct-2",
-        "protocol": "vless",
-        "settings": {
-          "vnext": [
-            {
-              "address": "de-fra-ncp-11.cccpbot.fuck-rkn.xyz",
+              "address": "de-tube-01.cccpbot.fuck-rkn.xyz",
               "port": 443,
               "users": [
                 {
@@ -251,8 +219,7 @@
     "observatory": {
       "subjectSelector": [
         "proxy-tcp-reality-bridge",
-        "proxy-tcp-reality-direct-1",
-        "proxy-tcp-reality-direct-2"
+        "proxy-tcp-reality-direct-1"
       ],
       "probeURL": "https://cloudflare.com/cdn-cgi/trace",
       "probeInterval": "60m",
@@ -1844,38 +1811,6 @@
         }
       },
       {
-        "tag": "proxy-tcp-reality-direct-2",
-        "protocol": "vless",
-        "settings": {
-          "vnext": [
-            {
-              "address": "fi-hel-hostvds-02.cccpbot.fuck-rkn.xyz",
-              "port": 443,
-              "users": [
-                {
-                  "id": "b62b0ff3-234f-4875-a6a8-df14f0237ef3",
-                  "security": "auto",
-                  "encryption": "none",
-                  "email": "https://gozargah.github.io/marzban/",
-                  "alterId": 0,
-                  "flow": "xtls-rprx-vision"
-                }
-              ]
-            }
-          ]
-        },
-        "streamSettings": {
-          "network": "tcp",
-          "security": "reality",
-          "realitySettings": {
-            "serverName": "ussr.party",
-            "fingerprint": "firefox",
-            "show": false,
-            "publicKey": "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc"
-          }
-        }
-      },
-      {
         "tag": "proxy-tcp-reality-bridge",
         "protocol": "vless",
         "settings": {
@@ -1913,7 +1848,7 @@
         "settings": {
           "vnext": [
             {
-              "address": "fi-hel-hostvds-01.cccpbot.fuck-rkn.xyz",
+              "address": "youtube.cccpbot.fuck-rkn.xyz",
               "port": 443,
               "users": [
                 {
@@ -1984,8 +1919,7 @@
     "observatory": {
       "subjectSelector": [
         "proxy-tcp-reality-bridge",
-        "proxy-tcp-reality-direct-1",
-        "proxy-tcp-reality-direct-2"
+        "proxy-tcp-reality-direct-1"
       ],
       "probeURL": "https://cloudflare.com/cdn-cgi/trace",
       "probeInterval": "60m",
@@ -2299,39 +2233,7 @@
         "settings": {
           "vnext": [
             {
-              "address": "us-man-ncp-01.jobinvest.ru",
-              "port": 443,
-              "users": [
-                {
-                  "id": "b62b0ff3-234f-4875-a6a8-df14f0237ef3",
-                  "security": "auto",
-                  "encryption": "none",
-                  "email": "https://gozargah.github.io/marzban/",
-                  "alterId": 0,
-                  "flow": "xtls-rprx-vision"
-                }
-              ]
-            }
-          ]
-        },
-        "streamSettings": {
-          "network": "tcp",
-          "security": "reality",
-          "realitySettings": {
-            "serverName": "ussr.party",
-            "fingerprint": "firefox",
-            "show": false,
-            "publicKey": "SbVKOEMjK0sIlbwg4akyBg5mL5KZwwB-ed4eEE7YnRc"
-          }
-        }
-      },
-      {
-        "tag": "proxy-tcp-reality-direct-2",
-        "protocol": "vless",
-        "settings": {
-          "vnext": [
-            {
-              "address": "us-man-ncp-02.jobinvest.ru",
+              "address": "us-tube-01.cccpbot.fuck-rkn.xyz",
               "port": 443,
               "users": [
                 {
@@ -2434,8 +2336,7 @@
     "observatory": {
       "subjectSelector": [
         "proxy-tcp-reality-bridge",
-        "proxy-tcp-reality-direct-1",
-        "proxy-tcp-reality-direct-2"
+        "proxy-tcp-reality-direct-1"
       ],
       "probeURL": "https://cloudflare.com/cdn-cgi/trace",
       "probeInterval": "60m",
