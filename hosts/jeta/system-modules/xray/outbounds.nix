@@ -35,7 +35,7 @@ in
       };
     }
   ]
-  ++ (map (dest: generators.mkRegnetVLESS3 dest.postfix dest.address) xray-creds.regnet.dests)
+  # ++ (map (dest: generators.mkRegnetVLESS3 dest.postfix dest.address) xray-creds.regnet.dests)
   ++ (map (dest: generators.mkYun_vless-reality-xhttp dest.postfix dest.address) xray-creds.yun.dests)
   ++ generators.ussr-list;
 }
