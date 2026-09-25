@@ -39,7 +39,7 @@
 
     editorconfig-checker = {
       command = "${pkgs.lib.getExe pkgs.editorconfig-checker}";
-      options = [ ];
+      options = [ "-fix" ];
       includes = [ "*" ];
       excludes = [ ];
       priority = 1;
