@@ -306,6 +306,7 @@
 
   nix = {
     settings = {
+      auto-optimise-store = true;
       substituters = [
         "https://mirror.yandex.ru/nixos?priority=30"
         # "https://ayugram-desktop.cachix.org?priority=40"
