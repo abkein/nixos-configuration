@@ -110,6 +110,6 @@
     ++ [
       (getFirstRename "proxy-tcp-reality-bridge" "ussr-bridge-reality")
       # (getFirstRename "us-proxy" "ussr-reality-us")
-      (getFirstRename "youtube-proxy" "ussr-reality-youtube")
+      # (getFirstRename "youtube-proxy" "ussr-reality-youtube")
     ];
 }
