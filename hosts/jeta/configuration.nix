@@ -62,11 +62,13 @@
   #   keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
+
   services = {
     # FNIRSI FNB-58
     udev.extraRules = ''
       KERNEL=="hidraw*", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="0038", GROUP="users", MODE="0660"
     '';
+    tumbler.enable = true;
     blueman.enable = true;
     gvfs.enable = true;
     homed.enable = true;
@@ -163,7 +165,10 @@
     chromiumSuidSandbox.enable = true;
 
     rtkit.enable = true; # At least needed by PipeWire
-    polkit.enable = true;
+    polkit = {
+      enable = true;
+      enablePkexecWrapper = true;
+    };
     pam.p11.enable = true;
   };
 
