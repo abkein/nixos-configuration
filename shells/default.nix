@@ -72,7 +72,9 @@ in
       root = "/home/kein/repos/" + repoName;
       cmakeSourceDirectory = root + "/src";
 
-      shellArgs.buildInputs = with shellPkgs; [ adios2 ];
+      shellArgs.nativeBuildInputs = with shellPkgs; [ mpi adios2 ];
+      shellArgs.buildInputs = with shellPkgs; [ mpi adios2 ];
+      shellArgs.packages = with shellPkgs; [ mpi adios2 ];
     }
   );
 
@@ -172,6 +174,14 @@ in
           ]
         )
       ];
+      pyright_mode = "standard";
+    }
+  );
+
+  articleTVT2026 = shells.mkPyShellInteractive (
+    finalContext: with finalContext; {
+      repoName = "articleTVT2026";
+      root = "/home/kein/Documents/nucleation/" + repoName;
       pyright_mode = "standard";
     }
   );
