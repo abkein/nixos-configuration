@@ -18,24 +18,24 @@ let
     '';
   };
   # chatgptWithRuntime = ipkgs.chatgpt.override { withPrimaryRuntime = true; };
-  wrappedChatGPT = pkgs.symlinkJoin {
-    name = "chatgpt-${ipkgs.chatgpt.version}";
-    paths = [ ipkgs.chatgpt ];
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      wrapProgram $out/bin/chatgpt \
-        --set all_proxy socks5h://127.0.0.1:1080 \
-        --set CODEX_MCP_NODE_PATH ${pkgs.nodejs}/bin/node \
-        --set RUST_LOG DEBUG \
-        --prefix PATH:${
-          lib.makeBinPath [
-            pkgs.nodejs
-            pkgs.bubblewrap
-          ]
-        }
-    '';
-    inherit (ipkgs.chatgpt) meta passthru;
-  };
+  # wrappedChatGPT = pkgs.symlinkJoin {
+  #   name = "chatgpt-${ipkgs.chatgpt.version}";
+  #   paths = [ ipkgs.chatgpt ];
+  #   nativeBuildInputs = [ pkgs.makeWrapper ];
+  #   postBuild = ''
+  #     wrapProgram $out/bin/chatgpt \
+  #       --set all_proxy socks5h://127.0.0.1:1080 \
+  #       --set CODEX_MCP_NODE_PATH ${pkgs.nodejs}/bin/node \
+  #       --set RUST_LOG DEBUG \
+  #       --prefix PATH:${
+  #         lib.makeBinPath [
+  #           pkgs.nodejs
+  #           pkgs.bubblewrap
+  #         ]
+  #       }
+  #   '';
+  #   inherit (ipkgs.chatgpt) meta passthru;
+  # };
   wrappedCodex = pkgs.symlinkJoin {
     name = "codex-${ipkgs.codex.version}";
     paths = [ ipkgs.codex ];
@@ -115,7 +115,7 @@ in
   home = {
     stateVersion = "24.11";
     packages = [
-      wrappedChatGPT
+      # wrappedChatGPT
     ]
     # ++ (with ipkgs; [
     #   # ayugram-desktop
@@ -190,6 +190,9 @@ in
       # element-desktop # configurable
       # zoom-us
       # electrum
+
+      onlykey
+      android-tools
 
       (python3.withPackages (
         ps: with ps; [
