@@ -13,12 +13,12 @@
         vimixPkg = (pkgs.vimix-icon-theme.override { colorVariants = [ "standard" ]; });
       in
       [
-        (runCommand "zoom-icon-fix" { } ''
-          mkdir -p $out/share/icons/hicolor/256x256
+        # (runCommand "zoom-icon-fix" { } ''
+        #   mkdir -p $out/share/icons/hicolor/256x256
 
-          ln -s ${pkgs.zoom-us}/share/pixmaps \
-            $out/share/icons/hicolor/256x256/apps
-        '')
+        #   ln -s ${pkgs.zoom-us}/share/pixmaps \
+        #     $out/share/icons/hicolor/256x256/apps
+        # '')
         (runCommand "gucharmap-icon-fix" { } ''
           mkdir -p $out/share/icons/hicolor/scalable/apps
 
