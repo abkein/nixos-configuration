@@ -186,6 +186,14 @@ in
     }
   );
 
+  convolver = shells.mkPyShellInteractive (
+    finalContext: with finalContext; {
+      repoName = "convolver";
+      root = "/home/kein/Projects/" + repoName;
+      pyright_mode = "standard";
+    }
+  );
+
   themegen = shells.mkPyShell (
     finalContext: with finalContext; {
       repoName = "themegen";

@@ -1,6 +1,9 @@
 { mylib, ... }:
 mylib.flattenAttrsDot' {
-  "[cpp]" = mylib.flattenAttrsDot'.literal { "editor.defaultFormatter" = "ms-vscode.cpptools"; };
+  "[cpp]" = mylib.flattenAttrsDot'.literal {
+    "editor.defaultFormatter" = "ms-vscode.cpptools";
+    "editor.tabSize" = 2;
+  };
 
   cmake = {
     configureOnOpen = false;
