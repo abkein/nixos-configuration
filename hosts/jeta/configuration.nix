@@ -72,6 +72,11 @@
     blueman.enable = true;
     gvfs.enable = true;
     homed.enable = true;
+    smartd = {
+      enable = true;
+      autodetect = true;
+      notifications.wall.enable = true;
+    };
     avahi = {
       # For printing, but it's here because it's network-related
       # and putting it in networking module would've been amigious
