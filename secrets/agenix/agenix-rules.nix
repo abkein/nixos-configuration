@@ -29,4 +29,20 @@ in
     ];
     armor = true;
   };
+  "encrypted/dnscrypt.web.age" = {
+    publicKeys = [
+      kein
+      home
+      jeta
+    ];
+    armor = true;
+  };
+  "encrypted/dnscrypt.doh.age" = {
+    publicKeys = [
+      kein
+      home
+      jeta
+    ];
+    armor = true;
+  };
 }

@@ -182,4 +182,6 @@
       !include ${config.age.secrets."nix-access-tokens.conf".path}
     '';
   };
+
+  security.pki.certificateFiles = [ ../../resources/certificates/root-ca.crt ];
 }

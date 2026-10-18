@@ -29,6 +29,18 @@
       "nix-netrc" = {
         file = ../../${cfg.secrets}/nix-netrc.age;
       };
+      "dnscrypt-web" = {
+        file = ../../${cfg.secrets}/dnscrypt.web.age;
+        mode = "0400";
+        owner = "dnscrypt-proxy";
+        group = "dnscrypt-proxy";
+      };
+      "dnscrypt-doh" = {
+        file = ../../${cfg.secrets}/dnscrypt.doh.age;
+        mode = "0400";
+        owner = "dnscrypt-proxy";
+        group = "dnscrypt-proxy";
+      };
       # "syncthingPass" = {
       #   file = ../../${cfg.secrets}/syncthingPass.age;
       # };
@@ -150,8 +162,13 @@
       # avoids dbus-broker warnings without granting extra SetHostName access.
       netdev = { };
       plugdev = { };
+      dnscrypt-proxy = { };
     };
     users = {
+      dnscrypt-proxy = {
+        isSystemUser = true;
+        group = "dnscrypt-proxy";
+      };
       "${cfg.username}" = {
         extraGroups = [
           "networkmanager"

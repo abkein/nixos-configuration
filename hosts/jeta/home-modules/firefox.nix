@@ -187,6 +187,9 @@ in
       CrashReportsSubmit = {
         Enabled = true;
       };
+      Certificates = {
+        Install = [ "${../../../resources/certificates/root-ca.crt}" ];
+      };
       DefaultBrowserSettingEnabled = true;
       DefaultDownloadDirectory = config.xdg.userDirs.download;
       DefaultSerialGuardSetting = 3;
