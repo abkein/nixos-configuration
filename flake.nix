@@ -219,8 +219,9 @@
                       allowUnfree = true;
                       # rocmSupport = true;
                       warnUndeclaredOptions = true;
-                      # permittedInsecurePackages = [
-                      # ];
+                      permittedInsecurePackages = [
+                        "firefox-esr-140-bin-unwrapped-140.17.0esr" # for zotero
+                      ];
                     };
                     overlays =
                       (with inputs; [
