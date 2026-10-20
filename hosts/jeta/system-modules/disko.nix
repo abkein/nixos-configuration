@@ -29,6 +29,7 @@
                   keyFile = "/root/ice/conf/secret.key";
                   # fallbackToPassword = true;
                   allowDiscards = false;
+                  keyFileTimeout = 5;
                 };
                 # additionalKeyFiles = [ "/root/ice/conf/additionalSecret.key" ];
                 content = {

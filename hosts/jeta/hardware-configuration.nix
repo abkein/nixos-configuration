@@ -40,8 +40,6 @@
         "dm-snapshot"
         "cryptd"
       ];
-      # luks.devices."crypted".device = "/dev/nvme0n1p2";
-      luks.devices."crypted".keyFileTimeout = 5;
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
