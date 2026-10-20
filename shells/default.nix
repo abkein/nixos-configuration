@@ -221,6 +221,21 @@ in
     }
   );
 
+  fnamerepair =  shells.mkPyShellInteractive (
+    finalContext: with finalContext; {
+      repoName = "fnamerepair";
+      root = "/home/kein/Projects/" + repoName;
+
+      pythonPackages = [
+        (
+          ps: with ps; [
+            python-magic
+          ]
+        )
+      ];
+    }
+  );
+
   mob-guide = shells.mkPyShellInteractive (
     finalContext: with finalContext; {
       repoName = "mob-guide";
