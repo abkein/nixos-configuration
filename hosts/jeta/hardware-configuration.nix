@@ -6,6 +6,7 @@
     ./hardware-modules
   ];
 
+  # doesn't quite work
   # services.udev = {
   #   extraHwdb = ''
   #     # Apply to AT keyboards (internal laptop keyboard via atkbd/i8042)
@@ -18,7 +19,6 @@
   # };
 
   boot = {
-    # Use the systemd-boot EFI boot loader.
     loader = {
       systemd-boot = {
         enable = true;
@@ -52,10 +52,12 @@
       percentageCritical = 7;
       percentageAction = 5;
     };
+    ### decided not to use it
     # lact = {
     #   enable = true;
     #   # settings = {};
     # };
+    ### interesting, might have to configure
     # acpid = {
     #   # Register commands for events, e.g.
     #   # "button/power.*" "button/lid.*" "ac_adapter.*" "button/mute.*" "button/volumedown.*" "cd/play.*" "cd/next.*"
@@ -102,6 +104,7 @@
   # Start it eagerly instead of waiting for DBus activation from a user service.
   systemd.services.upower.wantedBy = [ "multi-user.target" ];
 
+  ### S3 sleep, kind of works with acpi-patch
   # systemd = {
   #   sleep.extraConfig = ''
   #     HibernateDelaySec=1h
@@ -109,11 +112,11 @@
   #   '';
   # };
 
-  # hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware = {
     amdgpu = {
       # initrd.enable = true;  # looks weird
       opencl.enable = true;
+      ### Same as LACT
       # overdrive = {
       #   enable = true;
       #   # ppfeaturemask = "";  # Default: "0xfffd7fff", example: "0xffffffff".
