@@ -72,9 +72,18 @@ in
       root = "/home/kein/repos/" + repoName;
       cmakeSourceDirectory = root + "/src";
 
-      shellArgs.nativeBuildInputs = with shellPkgs; [ mpi adios2 ];
-      shellArgs.buildInputs = with shellPkgs; [ mpi adios2 ];
-      shellArgs.packages = with shellPkgs; [ mpi adios2 ];
+      shellArgs.nativeBuildInputs = with shellPkgs; [
+        mpi
+        adios2
+      ];
+      shellArgs.buildInputs = with shellPkgs; [
+        mpi
+        adios2
+      ];
+      shellArgs.packages = with shellPkgs; [
+        mpi
+        adios2
+      ];
     }
   );
 
@@ -221,18 +230,12 @@ in
     }
   );
 
-  fnamerepair =  shells.mkPyShellInteractive (
+  fnamerepair = shells.mkPyShellInteractive (
     finalContext: with finalContext; {
       repoName = "fnamerepair";
       root = "/home/kein/Projects/" + repoName;
 
-      pythonPackages = [
-        (
-          ps: with ps; [
-            python-magic
-          ]
-        )
-      ];
+      pythonPackages = [ (ps: with ps; [ python-magic ]) ];
     }
   );
 

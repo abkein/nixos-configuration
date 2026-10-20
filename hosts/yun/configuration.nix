@@ -37,7 +37,7 @@
   # programs = {
   # };
 
-   nix = {
+  nix = {
     settings = {
       substituters = [
         "https://cache.nixos.org?priority=50"
