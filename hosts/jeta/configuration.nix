@@ -41,6 +41,9 @@
         owner = "dnscrypt-proxy";
         group = "dnscrypt-proxy";
       };
+      "ugreen" = {
+        file = ../../${cfg.secrets}/ugreen.key.age;
+      };
       # "syncthingPass" = {
       #   file = ../../${cfg.secrets}/syncthingPass.age;
       # };

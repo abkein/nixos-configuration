@@ -45,4 +45,12 @@ in
     ];
     armor = true;
   };
+  "encrypted/ugreen.key.age" = {
+    publicKeys = [
+      kein
+      home
+      jeta
+    ];
+    armor = true;
+  };
 }
