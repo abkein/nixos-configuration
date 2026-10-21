@@ -19,6 +19,7 @@
   # };
 
   boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
     loader = {
       systemd-boot = {
         enable = true;
@@ -42,7 +43,6 @@
       ];
     };
     kernelModules = [ "kvm-amd" ];
-    extraModulePackages = [ ];
     kernel.sysctl."kernel.sysrq" = 1;
   };
 
@@ -116,7 +116,7 @@
     amdgpu = {
       # initrd.enable = true;  # looks weird
       opencl.enable = true;
-      ### Same as LACT
+      ### Similar to LACT
       # overdrive = {
       #   enable = true;
       #   # ppfeaturemask = "";  # Default: "0xfffd7fff", example: "0xffffffff".
