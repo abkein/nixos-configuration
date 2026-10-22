@@ -125,12 +125,18 @@
     graphics = {
       enable = true; # actually enabled by other modules
       # enable32Bit = true;
-      extraPackages = with pkgs; [ rocmPackages.clr.icd ];
+      extraPackages = with pkgs; [
+        mesa.opencl
+      ];
     };
     mcelog.enable = true;
     # enableAllFirmware = true;
     # enableAllHardware = true;
     enableRedistributableFirmware = true;
     cpu.amd.updateMicrocode = true;
+  };
+  environment.variables = {
+    RUSTICL_ENABLE = "radeonsi";
+    RUSTICL_FEATURES = "fp64";
   };
 }
