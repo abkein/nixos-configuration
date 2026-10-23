@@ -175,6 +175,7 @@
           chatgpt = llm-agents.packages.${system}.chatgpt;
           nix-init = nix-init.packages.${system}.nix-init;
           litefind = litefind.packages.${system}.default;
+          disko = disko.packages.${system}.disko;
         }
         // (lib.optionalAttrs useAgenixRekey { agenix-rekey = agenix-rekey.packages.${system}.default; });
     in

@@ -3,6 +3,7 @@
   pkgs,
   lib,
   cfg,
+  ipkgs,
   ...
 }:
 {
@@ -101,35 +102,37 @@
   systemd.tmpfiles.rules = [ "d /root/.Trash 0700 root root - -" ];
 
   environment = {
-    systemPackages = with pkgs; [
-      trash-cli
+    systemPackages =
+      (with pkgs; [
+        trash-cli
 
-      jq
-      pstree
-      killall
-      file
-      hw-probe
-      zip
-      unzip
-      procs
-      procfd
+        jq
+        pstree
+        killall
+        file
+        hw-probe
+        zip
+        unzip
+        procs
+        procfd
 
-      age
-      git-agecrypt
+        age
+        git-agecrypt
 
-      nixfmt
+        nixfmt
 
-      nix-prefetch
-      nix-prefetch-git
-      nix-prefetch-github
-      nix-output-monitor
+        nix-prefetch
+        nix-prefetch-git
+        nix-prefetch-github
+        nix-output-monitor
 
-      nix-diff
-      nix-tree
+        nix-diff
+        nix-tree
 
-      ripgrep
-      ripgrep-all
-    ];
+        ripgrep
+        ripgrep-all
+      ])
+      ++ (with ipkgs; [ disko ]);
 
     profiles = lib.mkForce [
       # "$HOME/.nix-profile"
