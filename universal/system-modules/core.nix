@@ -118,6 +118,7 @@
 
         age
         git-agecrypt
+        age-plugin-yubikey
 
         nixfmt
 

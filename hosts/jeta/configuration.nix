@@ -264,8 +264,6 @@
       gparted-full
       smartmontools
 
-      age-plugin-yubikey
-
       # onlykey-cli  # insecure because of ecdsa package
       # onlykey-rebuilt
       # onlykey
