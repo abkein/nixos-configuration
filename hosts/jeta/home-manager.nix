@@ -221,6 +221,7 @@ in
 
   stylix.targets.micro.enable = false;
   programs = {
+    btop.settings.net_iface = "eth0";
     chromium = {
       enable = true;
       dictionaries = with pkgs.hunspellDictsChromium; [

@@ -56,9 +56,6 @@
 
         _grep = "${pkgs.gnugrep}/bin/grep";
         grep = "grep --color=auto";
-
-        _top = "${pkgs.procps}/bin/top";
-        top = "${config.programs.btop.package}/bin/btop";
       };
     packages = with pkgs; [ trash-cli ];
   };

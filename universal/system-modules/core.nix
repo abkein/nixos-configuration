@@ -184,4 +184,21 @@
   };
 
   security.pki.certificateFiles = [ ../../resources/certificates/root-ca.crt ];
+
+  security = {
+    wrappers = {
+      ping = {
+        owner = "root";
+        group = "root";
+        capabilities = "cap_net_raw+ep";
+        source = "${pkgs.iputils.out}/bin/ping";
+      };
+      btop = {
+        owner = "root";
+        group = "root";
+        capabilities = "cap_perfmon=+ep cap_dac_read_search=+ep";
+        source = "${pkgs.btop.out}/bin/btop";
+      };
+    };
+  };
 }

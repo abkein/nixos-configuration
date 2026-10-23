@@ -3,10 +3,18 @@
 
   programs = {
     bat.enable = true;
-    btop.enable = true;
     htop.enable = true;
     ripgrep.enable = true;
     ripgrep-all.enable = true;
+    btop = {
+      enable = true;
+      settings = {
+        proc_sorting = "cpu direct";
+        proc_per_core = true;
+        use_fstab = false;
+        disks_filter = "exclude=/nix/store /boot";
+      };
+    };
     eza = {
       enable = true;
       theme.date.foreground = "#E78284";
