@@ -58,7 +58,10 @@
 
       cloak_ttl = 60;
       local_doh = {
-        listen_addresses = [ "127.0.0.1:3000" "[::1]:3000" ];
+        listen_addresses = [
+          "127.0.0.1:3000"
+          "[::1]:3000"
+        ];
         path = "/dns-query";
         cert_file = ./dnscrypt.doh.crt;
         cert_key_file = config.age.secrets.dnscrypt-doh.path;

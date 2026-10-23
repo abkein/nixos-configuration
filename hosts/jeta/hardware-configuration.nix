@@ -125,9 +125,7 @@
     graphics = {
       enable = true; # actually enabled by other modules
       # enable32Bit = true;
-      extraPackages = with pkgs; [
-        mesa.opencl
-      ];
+      extraPackages = with pkgs; [ mesa.opencl ];
     };
     mcelog.enable = true;
     # enableAllFirmware = true;
