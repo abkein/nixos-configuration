@@ -51,6 +51,22 @@
     ageBin = "PATH=$PATH:${lib.makeBinPath [ pkgs.age-plugin-yubikey ]} ${pkgs.age}/bin/age";
   };
 
+  environment.etc.crypttab.text = ''
+    urgsms UUID=d54a4db0-83ab-44da-a912-fd14b14a925a /run/agenix/ugreen luks,nofail,keyfile-timeout=5
+  '';
+
+  fileSystems."/mnt/sms" = {
+    device = "/dev/mapper/urgsms";
+    fsType = "btrfs";
+    options = [
+      "nofail"
+      "noatime"
+      "compress=zstd:3"
+      "x-systemd.automount"
+      "x-systemd.requires=systemd-cryptsetup@urgsms.service"
+    ];
+  };
+
   time.timeZone = "Europe/Moscow";
 
   # Select internationalisation properties.
