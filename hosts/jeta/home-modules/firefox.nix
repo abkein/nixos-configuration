@@ -25,30 +25,23 @@ in
   home.sessionVariables.MOZ_HOME = moz_home;
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox.override (old: {
-      nativeMessagingHosts = with pkgs; [
-        keepassxc
-        (pkgs.writeTextFile {
-          name = "gpgme-mozilla-native-messaging";
-          text = ''
-            {
-              "name": "gpgmejson",
-              "description": "JavaScript binding for GnuPG",
-              "path": "${pkgs.gpgme}/bin/gpgme-jsona",
-              "type": "stdio",
-              "allowed_extensions": ["jid1-AQqSMBYb0a8ADg@jetpack"]
-            }
-          '';
-          destination = "/lib/mozilla/native-messaging-hosts/gpgme.json";
-        })
-      ];
-    });
     configPath = "${moz_home}/firefox";
-    # nativeMessagingHosts = with pkgs; [
-    #   # gpgme
-    #   # gpgme.dev
-    #   # gpgme.info
-    # ];
+    nativeMessagingHosts = with pkgs; [
+      keepassxc
+      (pkgs.writeTextFile {
+        name = "gpgme-mozilla-native-messaging";
+        text = ''
+          {
+            "name": "gpgmejson",
+            "description": "JavaScript binding for GnuPG",
+            "path": "${pkgs.gpgme.dev}/bin/gpgme-json",
+            "type": "stdio",
+            "allowed_extensions": ["jid1-AQqSMBYb0a8ADg@jetpack"]
+          }
+        '';
+        destination = "/lib/mozilla/native-messaging-hosts/gpgmejson.json";
+      })
+    ];
     languagePacks = [
       "en-US"
       "ru"
@@ -489,7 +482,7 @@ in
         # FTPProxy = "example.com";
         SOCKSProxy = "127.0.0.1:1080";
         SOCKSVersion = 5;
-        Passthrough = "localhost,127.0.0.0/8,::1,<local>,192.168.0.0/16";
+        Passthrough = "localhost,127.0.0.0/8,::1,<local>,192.168.0.0/16,home.arpa";
         # AutoConfigURL = "https://example.com/proxy";
         # AutoLogin = true;
         UseProxyForDNS = true;
