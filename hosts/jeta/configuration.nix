@@ -95,6 +95,32 @@
   # };
 
   services = {
+    # samba = {
+    #   enable = true;
+    #   openFirewall = true;
+    #   settings = {
+    #     global = {
+    #       "map to guest" = "Bad User";
+    #     };
+    #     public = {
+    #       path = "/run/media/kein/7b9a4e9a-f7d9-4bc1-9d3e-20d336dc0b97/library/ftb/";
+    #       browseable = "yes";
+    #       "read only" = "yes";
+    #       "guest ok" = "yes";
+    #     };
+    #   };
+    # };
+    immich = {
+      enable = true;
+      host = "0.0.0.0";
+      # redis.enable = true;
+      # database.enable = true;
+      # database.createDB = true;
+      # machine-learning.enable = true;
+      openFirewall = true;
+      mediaLocation = "/mnt/sms/immich/";
+      accelerationDevices = null;
+    };
     udisks2.enable = true;
     # FNIRSI FNB-58
     udev.extraRules = ''
@@ -234,25 +260,31 @@
       };
     };
 
-    services.nix-daemon.environment =
-      let
-        proxy = "socks5h://127.0.0.1:1080";
-        no_proxy = "127.0.0.1,localhost,::1";
-      in
-      {
-        HTTP_PROXY = proxy;
-        HTTPS_PROXY = proxy;
-        SOCKS_PROXY = proxy;
-        ALL_PROXY = proxy;
-
-        http_proxy = proxy;
-        https_proxy = proxy;
-        socks_proxy = proxy;
-        all_proxy = proxy;
-
-        NO_PROXY = no_proxy;
-        no_proxy = no_proxy;
+    services = {
+      immich-server.unitConfig = {
+        StartLimitIntervalSec="600s";
+        StartLimitBurst=1;
       };
+      nix-daemon.environment =
+        let
+          proxy = "socks5h://127.0.0.1:1080";
+          no_proxy = "127.0.0.1,localhost,::1";
+        in
+        {
+          HTTP_PROXY = proxy;
+          HTTPS_PROXY = proxy;
+          SOCKS_PROXY = proxy;
+          ALL_PROXY = proxy;
+
+          http_proxy = proxy;
+          https_proxy = proxy;
+          socks_proxy = proxy;
+          all_proxy = proxy;
+
+          NO_PROXY = no_proxy;
+          no_proxy = no_proxy;
+        };
+    };
   };
 
   environment = {
