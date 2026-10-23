@@ -406,6 +406,8 @@ in
 
           # write session status in 1m interval, instead of 15s default
           "browser.sessionstore.interval" = mkValue 60000 "default";
+          "browser.sessionstore.restore_pinned_tabs_on_demand" = mkValue true "locked";
+          "browser.sessionstore.restore_on_demand" = mkValue true "locked";
 
           "browser.cache.disk.enable" = mkValue true "locked";
           "browser.cache.disk.encryption.enabled" = mkValue true "locked";
