@@ -116,6 +116,9 @@
         procs
         procfd
 
+        sysstat
+        fio
+
         age
         git-agecrypt
         age-plugin-yubikey
