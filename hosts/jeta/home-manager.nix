@@ -213,6 +213,18 @@ in
   };
 
   services = {
+    udiskie = {
+      enable = true;
+      automount = false;
+      notify = true;
+      tray = "auto";
+      settings = {
+        program_options = {
+          password_cache = false;
+          terminal = "ghostty +new-window --working-directory=";
+        };
+      };
+    };
     kdeconnect = {
       enable = true;
       # indicator = true;
