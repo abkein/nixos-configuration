@@ -52,9 +52,6 @@ final: prev:
       pyalex = pySelf.callPackage ./pyalex.nix { };
 
       # pyemf3 = pySelf.callPackage ./pyemf3.nix { };
-
-      # ast-serialize = pySelf.callPackage ./ast-serialize.nix { };
-      # librt = pySelf.callPackage ./librt.nix { };
     }
   );
 
@@ -65,10 +62,6 @@ final: prev:
   crossrefapi = final.python3Packages.crossrefapi;
   lammps-logfile = final.python3Packages.lammps-logfile;
   pyalex = final.python3Packages.pyalex;
-
-  # librt = self.python3Packages.librt;
-  # ast-serialize = self.python3Packages.ast-serialize;
-  # mypy = self.python3Packages.callPackage ./mypy.nix { };
 
   # pyemf3 = final.python3Packages.pyemf3;
   # veusz = prev.callPackage ./veusz { };
@@ -91,6 +84,14 @@ final: prev:
   # ibus-engines = prev.ibus-engines // {
   #   typing-booster-unwrapped = final.callPackage ./ibus-typing-booster { };
   # };
+
+  # rocmPackages = prev.rocmPackages.overrideScope (
+  #   _rocmFinal: rocmPrev: {
+  #     clr = rocmPrev.clr.override { localGpuTargets = [ "gfx1103" ]; };
+  #     # Composable Kernel builds without a gfx9 target are marked broken.
+  #     miopen = rocmPrev.miopen.override { withComposableKernel = false; };
+  #   }
+  # );
 
   vscode-extensions = prev.vscode-extensions // {
     vscode-clang-tidy = import ./vscode-clang-tidy/vscode-clang-tidy.nix final;
