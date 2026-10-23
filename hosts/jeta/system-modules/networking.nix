@@ -54,6 +54,8 @@
         =dnscrypt.home.arpa ::1
         =doh.home.arpa 127.0.0.1
         =doh.home.arpa ::1
+        =immich.home.arpa 127.0.0.1
+        =immich.home.arpa ::1
       '';
 
       cloak_ttl = 60;
