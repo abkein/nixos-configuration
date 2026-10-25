@@ -43,6 +43,9 @@
     };
     kernelModules = [ "kvm-amd" ];
     kernel.sysctl."kernel.sysrq" = 1;
+    extraModprobeConfig = ''
+      options mt7921_common disable_clc=1
+    '';
   };
 
   services = {
