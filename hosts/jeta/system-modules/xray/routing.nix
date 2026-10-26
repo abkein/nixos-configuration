@@ -40,6 +40,12 @@
           outboundTag = "direct";
           ruleTag = "PrivateDomainDirect";
         }
+        {
+          domain = [ "geosite:github" ];
+          inboundTag = nixInbounds;
+          outboundTag = "direct";
+          ruleTag = "NixGitHub2Direct";
+        }
         # {
         #   inboundTag = [ "inbound_tor" ];
         #   # balancerTag = mainBalancer;
@@ -139,12 +145,6 @@
           inboundTag = mainInbounds ++ nixInbounds;
           outboundTag = "direct";
           ruleTag = "DomRU2Direct";
-        }
-        {
-          domain = [ "geosite:github" ];
-          inboundTag = nixInbounds;
-          outboundTag = "direct";
-          ruleTag = "NixGH2Direct";
         }
         {
           ip = [ "geoip:ru" ];
