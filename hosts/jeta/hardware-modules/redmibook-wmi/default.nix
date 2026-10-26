@@ -6,6 +6,7 @@ let
       stdenv,
       lib,
       kernel,
+      kernelModuleMakeFlags,
       ...
     }:
     stdenv.mkDerivation {
@@ -17,26 +18,21 @@ let
       nativeBuildInputs = kernel.moduleBuildDependencies;
 
       # Build against the currently selected kernel
-      makeFlags = [
+      makeFlags = kernelModuleMakeFlags ++ [
         "KERNELRELEASE=${kernel.modDirVersion}"
         "-C"
         "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
         "M=$(PWD)"
-        "modules"
+        "INSTALL_MOD_PATH=${placeholder "out"}"
+        "INSTALL_MOD_DIR=extra"
+        "INSTALL_MOD_STRIP=1"
+        "DEPMOD=true"
       ];
 
-      buildPhase = ''
-        runHook preBuild
-        make ''${makeFlags[@]}
-        runHook postBuild
-      '';
+      buildFlags = [ "modules" ];
 
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/lib/modules/${kernel.modDirVersion}/extra
-        cp redmibook_wmi.ko $out/lib/modules/${kernel.modDirVersion}/extra/
-        runHook postInstall
-      '';
+      # Also generate the module certificate required by the kernel modules tree.
+      installTargets = [ "modules_install" ];
 
       meta = with lib; {
         description = "WMI hotkey driver for Xiaomi RedmiBook 15 series";
