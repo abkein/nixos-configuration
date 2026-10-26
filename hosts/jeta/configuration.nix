@@ -52,7 +52,7 @@
   };
 
   environment.etc.crypttab.text = ''
-    urgsms UUID=d54a4db0-83ab-44da-a912-fd14b14a925a /run/agenix/ugreen luks,nofail,keyfile-timeout=5
+    urgsms UUID=d54a4db0-83ab-44da-a912-fd14b14a925a /run/agenix/ugreen luks,nofail,keyfile-timeout=5,x-systemd.device-timeout=3s
   '';
 
   fileSystems."/mnt/sms" = {
@@ -63,6 +63,7 @@
       "noatime"
       "compress=zstd:3"
       "x-systemd.automount"
+      "x-systemd.device-timeout=3s"
       "x-systemd.requires=systemd-cryptsetup@urgsms.service"
     ];
   };
@@ -110,13 +111,6 @@
     #     };
     #   };
     # };
-    immich = {
-      enable = true;
-      host = "0.0.0.0";
-      openFirewall = true;
-      mediaLocation = "/mnt/sms/immich/";
-      accelerationDevices = null;
-    };
     udisks2.enable = true;
     # FNIRSI FNB-58
     udev.extraRules = ''
@@ -257,10 +251,6 @@
     };
 
     services = {
-      immich-server.unitConfig = {
-        StartLimitIntervalSec="600s";
-        StartLimitBurst=1;
-      };
       nix-daemon.environment =
         let
           proxy = "socks5h://127.0.0.1:1080";
