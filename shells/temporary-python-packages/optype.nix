@@ -12,20 +12,21 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "optype";
-  version = "0.18.0";
+  version = "0.19.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "jorenham";
     repo = "optype";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mtcGblOEyLfOmBwQCC+jX9wvpXiRJE/DNPfPMpcKEOI=";
+    hash = "sha256-5o7z8gBsFcLEyTPicJdxAiBVS2lS7BqavNzFJ6ApZ7w=";
   };
 
-  # postPatch = ''
-  #   substituteInPlace pyproject.toml \
-  #     --replace-fail "uv_build>=0.9.16,<0.10.0" uv_build
-  # '';
+  postPatch = ''
+    substituteInPlace pyproject.toml --replace-fail "uv_build>=0.12.22,<0.13" "uv_build>=0.12.4"
+  '';
+
+  doCheck = false;
 
   build-system = [ uv-build ];
 

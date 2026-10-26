@@ -20,7 +20,7 @@ let
       (final: prev: pyFinal: pyPrev: {
         numpy-typing-compat = pyFinal.callPackage ./temporary-python-packages/numpy-typing-compat.nix { };
         optype = pyFinal.callPackage ./temporary-python-packages/optype.nix { };
-        scipy-stubs = pyFinal.callPackage ./temporary-python-packages/scipy-stubs.nix { };
+        # scipy-stubs = pyFinal.callPackage ./temporary-python-packages/scipy-stubs.nix { };
       })
     ];
   };
