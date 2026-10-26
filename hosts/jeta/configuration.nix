@@ -287,9 +287,6 @@
 
       # cdrtools # mkisofs
 
-      # syncthingtray
-
-      # utilities
       pinentry-all
       usbutils
 
