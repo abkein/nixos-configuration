@@ -302,6 +302,9 @@
       gparted-full
       smartmontools
 
+      iw
+      lm_sensors
+
       # onlykey-cli  # insecure because of ecdsa package
       # onlykey-rebuilt
       # onlykey
