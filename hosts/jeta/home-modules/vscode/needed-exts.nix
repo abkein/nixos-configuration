@@ -20,6 +20,7 @@ pkgs: {
     # "Koda.koda"
     # "Continue.continue"
     "davidanson.vscode-markdownlint"
+    # "mpmischitelli.gtk-css" # waybar
   ];
 
   LaTeX = [

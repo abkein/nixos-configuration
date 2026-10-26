@@ -113,10 +113,6 @@
     immich = {
       enable = true;
       host = "0.0.0.0";
-      # redis.enable = true;
-      # database.enable = true;
-      # database.createDB = true;
-      # machine-learning.enable = true;
       openFirewall = true;
       mediaLocation = "/mnt/sms/immich/";
       accelerationDevices = null;
