@@ -113,4 +113,27 @@ final: prev:
       v2ray-geosite-ru
     ];
   };
+
+  # waybar = prev.waybar.overrideAttrs (old: {
+  #   src = final.fetchFromGitHub {
+  #     owner = "Alexays";
+  #     repo = "Waybar";
+  #     rev = "c15ec02ede4343592a59eb5c2ff4443c9c045f7c";
+  #     hash = "sha256-mBDWjeeIuFfDZQuBxHu+EpbJ+GMbbSxpRz0WVM2N+ZI=";
+  #   };
+
+  #   postUnpack = ''
+  #     pushd "$sourceRoot"
+  #     cp -R --no-preserve=mode,ownership ${final.libcava.src} subprojects/cava-${final.libcava.version}
+  #     patchShebangs .
+  #     popd
+  #   '';
+
+  #   buildInputs =
+  #     old.buildInputs
+  #     ++ (with final; [
+  #       modemmanager
+  #       libepoxy
+  #     ]);
+  # });
 }

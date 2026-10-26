@@ -38,7 +38,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # flake-compat.url = "github:NixOS/flake-compat";
+    flake-compat.url = "github:NixOS/flake-compat";
 
     gitignore = {
       url = "github:hercules-ci/gitignore.nix";
@@ -157,6 +157,14 @@
       url = "github:recursiveascent/litefind";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    waybar = {
+      url = "github:Alexays/Waybar";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
+    };
   };
 
   outputs =
@@ -176,6 +184,7 @@
           nix-init = nix-init.packages.${system}.nix-init;
           litefind = litefind.packages.${system}.default;
           disko = disko.packages.${system}.disko;
+          waybar = waybar.packages.${system}.waybar;
         }
         // (lib.optionalAttrs useAgenixRekey { agenix-rekey = agenix-rekey.packages.${system}.default; });
     in

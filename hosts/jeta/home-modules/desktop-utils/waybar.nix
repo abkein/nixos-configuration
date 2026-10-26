@@ -8,6 +8,7 @@ let
   ];
 in
 {
+  stylix.targets.waybar.enable = false;
   programs.waybar = {
     enable = true;
     systemd = {
@@ -15,35 +16,38 @@ in
       # enableInspect = true;
     };
     settings = {
-      mainBar = {
-        height = 36;
-        spacing = 4;
-        modules-left = [
-          "hyprland/workspaces"
-          "hyprland/window"
-        ];
-        # modules-center = [ "hyprland/window" ];
+      right = {
+        name = "waybar-right";
+        position = "right";
+        width = 27;
+        spacing = 0;
         modules-right = [
-          "systemd-failed-units"
-          "privacy"
           "idle_inhibitor"
-          "wireplumber#sink"
-          "wireplumber#source"
-          "network#wlan"
-          "network#eth"
-          "bluetooth"
           "power-profiles-daemon"
-          "cpu"
-          "memory"
-          "temperature"
-          "backlight"
-          "keyboard-state"
-          "hyprland/language"
-          "battery"
-          "clock"
           "group/group-power"
           "tray"
         ];
+        idle_inhibitor = {
+          # format = "{icon}\n{timeleft}";
+          format = "{icon}";
+          format-icons = {
+            activated = "";
+            deactivated = "";
+          };
+          timeout = 30;
+          justify = "center";
+        };
+        power-profiles-daemon = {
+          format = "{icon}";
+          tooltip-format = "Power profile= {profile}";
+          tooltip = true;
+          format-icons = {
+            default = "";
+            performance = "";
+            balanced = "";
+            power-saver = "";
+          };
+        };
         "group/group-power" = {
           orientation = "inherit";
           drawer = {
@@ -52,14 +56,27 @@ in
             transition-left-to-right = false;
           };
           modules = [
-            "custom/power" # First element is the "group leader" and won't ever be hidden
+            "custom/lock" # First element is the "group leader" and won't ever be hidden
+            "custom/power"
             "custom/reboot"
             "custom/quit"
-            "custom/lock"
+            "custom/suspend"
           ];
         };
+        "custom/lock" = {
+          format = "󰍁";
+          tooltip = true;
+          tooltip-format = "Lock";
+          on-click = "loginctl lock-session";
+        };
+        "custom/suspend" = {
+          format = "󰒲";
+          tooltip = true;
+          tooltip-format = "Suspend";
+          on-click = "loginctl lock-session && systemctl suspend";
+        };
         "custom/power" = {
-          format = "";
+          format = "⏻";
           tooltip = true;
           tooltip-format = "Shutdown";
           on-click = "hyprshutdown --post-cmd 'systemctl shutdown'";
@@ -76,16 +93,55 @@ in
           tooltip-format = "Quit";
           on-click = "hyprshutdown"; # "hyprctl dispatch exit";
         };
-        "custom/lock" = {
-          format = "󰍁";
+        tray = {
+          spacing = 20;
+          show-passive-items = true;
+        };
+      };
+      top = {
+        name = "waybar-top";
+        position = "top";
+        height = 20;
+        spacing = 0;
+        modules-left = [
+          "hyprland/workspaces"
+          "hyprland/window"
+        ];
+        # modules-center = [ "hyprland/window" ];
+        modules-right = [
+          "systemd-failed-units"
+          "privacy"
+          "wireplumber#sink"
+          "wireplumber#source"
+          "bluetooth"
+          "network#wlan"
+          "network#eth"
+          "cpu"
+          "memory"
+          "temperature"
+          "backlight"
+          "hyprland/language"
+          "keyboard-state"
+          "battery"
+          "clock"
+        ];
+        "hyprland/language" = {
+          format = "{shortDescription}";
+          # format-en = "EN";
+          # format-ru = "RU";
           tooltip = true;
-          tooltip-format = "Lock";
-          on-click = "hyprlock";
+          tooltip-format = "{long}\n{shortDescription}-{short}-{variant}";
+          keyboard-name = "at-translated-set-2-keyboard";
+          on-click = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
+          on-click-right = "hyprctl switchxkblayout at-translated-set-2-keyboard prev";
         };
         "hyprland/workspaces" = {
           all-outputs = true;
           active-only = false;
-          on-click = "activate";
+          enable-bar-scroll = true;
+          on-scroll-up = ''hyprctl dispatch "hl.dsp.focus({ workspace = 'r-1' })"'';
+          on-scroll-down = ''hyprctl dispatch "hl.dsp.focus({ workspace = 'r+1' })"'';
+          # on-click = "activate"; # doesn't work anymore
           format = "{icon}";
           format-icons = {
             "1" = "1";
@@ -102,6 +158,12 @@ in
             # "default" = "";
           };
 
+          tooltip = true;
+          tooltips = {
+            default = "{name}: {windows}";
+            empty = "empty";
+          };
+
           persistent-workspaces = {
             eDP-1 = lst;
             DP-6 = lst;
@@ -110,29 +172,16 @@ in
         };
         keyboard-state = {
           capslock = true;
-          format = "{name} {icon}";
+          format = "{icon}";
           format-icons = {
             locked = "";
             unlocked = "";
           };
         };
-        idle_inhibitor = {
-          format = "{icon}";
-          format-icons = {
-            activated = "";
-            deactivated = "";
-          };
-          timeout = 60;
-        };
-        tray = {
-          # "icon-size"= 21;
-          spacing = 10;
-          show-passive-items = true;
-        };
         clock = {
           timezone = "Europe/Moscow";
-          format = "{:%H:%M}  ";
-          format-alt = "{:%A, %B %d, %Y (%R)}  ";
+          format = "{:%H:%M} ";
+          format-alt = "{:%A, %B %d, %Y (%R)} ";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           calendar = {
             mode = "year";
@@ -155,6 +204,11 @@ in
         };
         cpu = {
           format = "{usage}%  {max_frequency} GHz";
+          states = {
+            high = 80;
+            medium = 50;
+            low = 15;
+          };
           tooltip-format = "{icon0}{icon2}{icon4}{icon6}{icon8}{icon10}{icon12}{icon14}";
           format-icons = [
             "<span color='#69ff94'>▁</span>" # green
@@ -176,11 +230,14 @@ in
           #   "🂍" "🂎" "🂏" "🂐" "🂑" "🂒" "🂓" "🁢"
           # ];
           on-click = "ghostty -e btop";
-          tooltip = true;
         };
         memory = {
           format = "{percentage}% {icon} {swapPercentage}%"; # ""
-          tooltip = true;
+          states = {
+            high = 80;
+            medium = 50;
+            low = 15;
+          };
           tooltip-format = "RAM: {used:0.1f}/{total:0.1f} GiB\nSwap: {swapUsed:0.1f}/{swapTotal:0.1f} GiB";
           format-icons = [
             "<span color='#69ff94'>▁</span>" # green
@@ -229,13 +286,14 @@ in
           in
           {
             controller = "hci0";
-            min-length = 3;
+            controller-alias = "jeta";
+            # min-length = 3;
             on-click = "blueman-manager";
             on-click-middle = "blueman-adapters";
             on-click-right = "blueman-services";
             format = "󰂯 {status}";
             format-no-controller = " {status}";
-            format-disabled = " 󰂲";
+            format-disabled = "󰂲";
             format-off = "󰂲";
             format-on = "󰂯";
             format-connected = "󰂱 {device_alias}";
@@ -253,9 +311,9 @@ in
               "󰥈"
             ];
             tooltip-format = "${about_controller}\n{num_connections} connected";
-            tooltip-format-disabled = "${about_controller}\nDisabled";
-            tooltip-format-off = "${about_controller}\nOFF";
-            tooltip-format-on = "${about_controller}\nNot connected";
+            tooltip-format-disabled = "Disabled\n${about_controller}";
+            tooltip-format-off = "OFF\n${about_controller}";
+            tooltip-format-on = "Not connected\n${about_controller}";
             tooltip-format-connected = "${about_controller}\n{num_connections} connected\n\n{device_enumerate}";
             tooltip-format-connected-battery = "${about_controller}\n{num_connections} connected\n\n{device_enumerate}";
             tooltip-format-enumerate-connected = "${about_device}";
@@ -300,17 +358,6 @@ in
           tooltip-format-plugged = "{timeTo}\nPower draw: {power}\nCycles: {cycles}\nHealth: {health}";
           bat = "BATT";
         };
-        power-profiles-daemon = {
-          format = "{icon}";
-          tooltip-format = "Power profile= {profile}";
-          tooltip = true;
-          format-icons = {
-            default = "";
-            performance = "";
-            balanced = "";
-            power-saver = "";
-          };
-        };
         privacy = {
           icon-spacing = 4;
           icon-size = 18;
@@ -331,28 +378,60 @@ in
               tooltip = true;
               tooltip-icon-size = 24;
             }
+            {
+              type = "location";
+              icon = "location-services-active-symbolic";
+            }
           ];
         };
-        "network#wlan" = {
-          interface = "wlan*";
-          format-wifi = "{essid} ({frequency} GHz, {signalStrength}%) ";
-          format-ethernet = "{ipaddr}/{cidr} 󰈁 {bandwidthUpBytes} vs {bandwidthDownBytes}";
-          tooltip-format = "{ifname} via {gwaddr} \n{bandwidthUpBytes} vs {bandwidthDownBytes}";
-          format-linked = "{ifname} (No IP) ";
-          format-disconnected = "Disconnected ⚠";
-          format-alt = "{ipaddr}/{cidr} {bandwidthUpBytes} vs {bandwidthDownBytes}";
-          format-disabled = "";
-        };
-        "network#eth" = {
-          interface = "eth*";
-          format-wifi = "{essid} ({frequency} GHz, {signalStrength}%) ";
-          format-ethernet = "{ipaddr}/{cidr} 󰈁 {bandwidthUpBytes} vs {bandwidthDownBytes}";
-          tooltip-format = "{ifname} via {gwaddr} 󰈁";
-          format-linked = "{ifname} (No IP) 󰈁";
-          format-disconnected = "Disconnected ⚠";
-          format-alt = "{ipaddr}/{cidr} {bandwidthUpBytes} vs {bandwidthDownBytes}";
-          format-disabled = "󰈂";
-        };
+        "network#wlan" =
+          let
+            fmt = "{essid} {frequency} GHz {icon} {signalStrength}%";
+          in
+          {
+            interface = "wlan*";
+            format-alt = "↑{bandwidthUpBits} {icon} ↓{bandwidthDownBits} ";
+            format = fmt;
+            format-wifi = fmt;
+            format-linked = "{icon} (No IP)";
+            format-disconnected = "󰤫 Disconnected";
+            format-disabled = "󰤮"; # ""
+            format-icons = {
+              default = [
+                "󰤯"
+                "󰤟"
+                "󰤢"
+                "󰤥"
+                "󰤨"
+              ];
+              linked = [
+                "󰤫"
+                "󰤠"
+                "󰤣"
+                "󰤦"
+                "󰤩"
+              ];
+              disconnected = "󰤫";
+              disabled = "󰤮";
+            };
+            tooltip-format-disconnected = "{ifname} is disconnected";
+            tooltip-format-disabled = "{ifname} is down";
+            tooltip-format = "{ifname} via {gwaddr}\nIP: {ipaddr}/{cidr}\nTotal: {bandwidthTotalBits}\nUp: {bandwidthUpBits}\nDown: {bandwidthDownBits}\n-------\n{essid} {frequency} GHz {icon}\nSignal: {signalStrength}% ({signaldBm} dBm)\n{signalStrengthApp}\nBSSID: {bssid}";
+          };
+        "network#eth" =
+          let
+            fmt = "󰈁 {ipaddr}/{cidr}";
+          in
+          {
+            interface = "eth*";
+            format-alt = "↑{bandwidthUpBits} 󰈁 ↓{bandwidthDownBits}";
+            format = fmt;
+            format-ethernet = fmt;
+            format-linked = "󰈁 (No IP)";
+            format-disconnected = "󰈂";
+            tooltip-format-disconnected = "{ifname} is disconnected";
+            tooltip-format = "{ifname} via {gwaddr}\nIP: {ipaddr}/{cidr}\nTotal: {bandwidthTotalBits}\nUp: {bandwidthUpBits}\nDown: {bandwidthDownBits}";
+          };
         systemd-failed-units = {
           hide-on-ok = false;
           format = "{nr_failed_system}s ✗ {nr_failed_user}u";
@@ -360,53 +439,26 @@ in
           system = true;
           user = true;
         };
-        pulseaudio = {
-          scroll-step = 1;
-          format = "{volume}% {icon}   {format_source}";
-          format-bluetooth = "{volume}% {icon}󰂯 {format_source}";
-          format-bluetooth-muted = "󰖁 {icon}󰂯 {format_source}";
-          format-muted = "󰖁 {format_source}";
-          format-source = "{volume}% ";
-          format-source-muted = "";
-          format-icons = {
-            headphone = "";
-            hands-free = "󰋎";
-            headset = "󰋎";
-            phone = "";
-            phone-muted = "";
-            portable = "";
-            portable-muted = "";
-            car = "";
-            hdmi = "󰡁";
-            default = [
-              ""
-              ""
-              ""
-            ];
-            speaker = [
-              ""
-              ""
-              ""
-            ];
-
-          };
-          on-click = "pavucontrol";
-        };
         "wireplumber#sink" = {
           only-physical = true;
           reverse-scrolling = true;
           scroll-step = 1;
           node-type = "Audio/Sink";
-          format = "Out: {volume}% {icon}";
-          format-bluetooth = "Out: {volume}% {icon}󰂯";
+          format = "󰕾 {volume}% {icon}";
+          format-bluetooth = "󰕾 {volume}% {icon}󰂯";
           format-bluetooth-muted = "󰖁 {icon}󰂯";
           format-muted = "󰖁";
           tooltip = true;
           tooltip-format = "Sink: {node_name}";
           format-icons = {
-            headphone = "";
-            hands-free = "󰋎";
-            headset = "󰋎";
+            headphone = "󰋋";
+            headphone-muted = "󰟎";
+            headphones = "󰋋";
+            headphones-muted = "󰟎";
+            hands-free = "";
+            hands-free-muted = "󰋐";
+            headset = "";
+            headset-muted = "󰋐";
             phone = "";
             phone-muted = "";
             portable = "";
@@ -414,37 +466,40 @@ in
             car = "";
             hdmi = "󰡁";
             default = [
-              ""
-              ""
-              ""
+              "󰕿"
+              "󰖀"
+              "󰕾"
             ];
             speaker = [
-              ""
-              ""
-              ""
+              "󰕿"
+              "󰖀"
+              "󰕾"
             ];
-
           };
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          on-click-middle = "qpwgraph";
+          on-click-right = "qpwgraph";
         };
         "wireplumber#source" = {
           only-physical = true;
           reverse-scrolling = true;
           scroll-step = 1;
           node-type = "Audio/Source";
-          format = "In: {volume}% {icon}";
-          format-bluetooth = "In: {volume}% {icon}󰂯";
-          format-bluetooth-muted = " 󰂯";
+          format = " {volume}% {icon}";
+          format-bluetooth = " {volume}% {icon}󰂯";
+          format-bluetooth-muted = " {icon}󰂯";
           format-muted = "";
           # format-source = "{source_volume}% ";
           # format-source-muted = "";
           tooltip = true;
           tooltip-format = "Source: {node_name}";
           format-icons = {
-            headphone = "";
-            hands-free = "󰋎";
-            headset = "󰋎";
+            headphone = "󰋋";
+            headphone-muted = "󰟎";
+            headphones = "󰋋";
+            headphones-muted = "󰟎";
+            hands-free-muted = "󰋐";
+            headset = "";
+            headset-muted = "󰋐";
             phone = "";
             phone-muted = "";
             portable = "";
@@ -452,59 +507,21 @@ in
             car = "";
             hdmi = "󰡁";
             default = [
-              ""
-              ""
-              ""
+              "󰕿"
+              "󰖀"
+              "󰕾"
             ];
             speaker = [
-              ""
-              ""
-              ""
+              "󰕿"
+              "󰖀"
+              "󰕾"
             ];
-
           };
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
-          on-click-middle = "qpwgraph";
+          on-click-right = "qpwgraph";
         };
       };
-      #     style =
-      #     ''
-      # #workspaces {
-      #     margin-right: 8px;
-      #     border-radius: 10px;
-      #     transition: none;
-      #     background: #383c4a;
-      # }
-
-      # #workspaces button {
-      #     transition: none;
-      #     color: #7c818c;
-      #     background: transparent;
-      #     padding: 5px;
-      #     font-size: 18px;
-      # }
-
-      # #workspaces button.persistent {
-      #     color: #7c818c;
-      #     font-size: 12px;
-      # }
-
-      # /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-      # #workspaces button:hover {
-      #     transition: none;
-      #     box-shadow: inherit;
-      #     text-shadow: inherit;
-      #     border-radius: inherit;
-      #     color: #383c4a;
-      #     background: #7c818c;
-      # }
-
-      # #workspaces button.active {
-      #     background: #4e5263;
-      #     color: white;
-      #     border-radius: inherit;
-      # }
-      #     '';
     };
+    style = builtins.readFile ./waybar.css;
   };
 }
