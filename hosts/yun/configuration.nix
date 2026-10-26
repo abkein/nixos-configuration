@@ -12,9 +12,13 @@
     secrets = {
       "nix-access-tokens.conf" = {
         file = ../../${cfg.secrets}/nix-access-tokens.conf.age;
+        owner = cfg.username;
+        mode = "0400";
       };
       "nix-netrc" = {
         file = ../../${cfg.secrets}/nix-netrc.age;
+        owner = cfg.username;
+        mode = "0400";
       };
     };
   };
