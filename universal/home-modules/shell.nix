@@ -11,6 +11,7 @@
       settings = {
         proc_sorting = "cpu direct";
         proc_per_core = true;
+        freq_mode = "range";
         use_fstab = false;
         disks_filter = "exclude=/nix/store /boot";
       };
