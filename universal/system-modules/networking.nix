@@ -89,6 +89,7 @@
     iperf
     ndisc6
     ethtool
+    iw
 
     openvpn
     speedtest-cli

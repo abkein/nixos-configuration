@@ -115,6 +115,7 @@
         unzip
         procs
         procfd
+        lsof
 
         sysstat
         fio
