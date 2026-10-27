@@ -292,7 +292,7 @@
 
       evtest
       acpi
-      acpid
+      acpitool
       libinput
       brightnessctl
 
