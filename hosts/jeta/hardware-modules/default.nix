@@ -5,6 +5,6 @@
     ./redmibook-wmi
     ./acpi-patch
     # ./amdgpu-patch
-    ./facter
+    # ./facter
   ];
 }
