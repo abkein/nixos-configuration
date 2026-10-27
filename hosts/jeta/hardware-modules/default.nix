@@ -1,5 +1,6 @@
 { ... }: {
   imports = [
+    ./corefreq
     ./pstate.nix
     ./redmibook-wmi
     ./acpi-patch
