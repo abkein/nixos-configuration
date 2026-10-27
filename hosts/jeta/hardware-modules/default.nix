@@ -1,9 +1,9 @@
 { ... }: {
   imports = [
     ./pstate.nix
-    ./zenpower.nix
     ./redmibook-wmi
     ./acpi-patch
+    # ./zenpower.nix
     # ./amdgpu-patch
     # ./facter
   ];

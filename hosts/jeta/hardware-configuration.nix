@@ -48,7 +48,12 @@
     '';
   };
 
+  programs = {
+    ryzen-monitor-ng.enable = true;
+  };
+
   services = {
+    cpupower-gui.enable = true;
     upower = {
       enable = true; # Auto sleep at 5% battery left
       percentageCritical = 7;
@@ -133,7 +138,10 @@
     # enableAllFirmware = true;
     # enableAllHardware = true;
     enableRedistributableFirmware = true;
-    cpu.amd.updateMicrocode = true;
+    cpu.amd = {
+      updateMicrocode = true;
+      ryzen-smu.enable = true;
+    };
   };
   environment.variables = {
     RUSTICL_ENABLE = "radeonsi";

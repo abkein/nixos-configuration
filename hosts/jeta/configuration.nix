@@ -301,6 +301,9 @@
 
       iw
       lm_sensors
+      linuxPackages_latest.tmon
+      linuxPackages_latest.cpupower
+      linuxPackages_latest.turbostat
 
       # onlykey-cli  # insecure because of ecdsa package
       # onlykey-rebuilt
