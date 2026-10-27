@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   kernel,
+  kernelModuleMakeFlags,
   # See the official readme for a list of optional flags:
   # https://github.com/cyring/CoreFreq/blob/master/README.md
   extraFlags ? [ ],
@@ -32,7 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/bin
   '';
 
-  installFlags = [ "PREFIX=$(out)" ];
+  # Generate the module certificate without changing the userspace build's compiler.
+  installFlags = kernelModuleMakeFlags ++ [ "PREFIX=$(out)" ];
 
   meta = {
     description = "CPU monitoring and tuning software designed for 64-bit processors";
