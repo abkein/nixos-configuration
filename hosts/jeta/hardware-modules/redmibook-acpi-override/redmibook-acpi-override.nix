@@ -52,6 +52,7 @@ stdenvNoCC.mkDerivation {
 
   patches = [
     ./svrp-only.patch
+    ./s3-sleep.patch
   ];
 
   patchFlags = [ "-p0" ];

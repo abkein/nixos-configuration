@@ -1,7 +1,7 @@
 --- dsdt.dsl
 +++ dsdt.dsl
 @@ -858,19 +858,14 @@
-         Zero,
+         Zero, 
          Zero
      })
 -    If ((CNSB == Zero))
@@ -12,18 +12,18 @@
 -        {
 -            Name (_S3, Package (0x04)  // _S3_: S3 System State
 -            {
--                0x03,
--                0x03,
--                Zero,
+-                0x03, 
+-                0x03, 
+-                Zero, 
 -                Zero
 -            })
 -        }
 -    }
-+        0x03,
-+        0x03,
-+        Zero,
++        0x03, 
++        0x03, 
++        Zero, 
 +        Zero
 +    })
-
+ 
      Name (_S4, Package (0x04)  // _S4_: S4 System State
      {
