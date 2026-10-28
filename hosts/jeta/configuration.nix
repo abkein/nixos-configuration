@@ -100,21 +100,21 @@
   # };
 
   services = {
-    # samba = {
-    #   enable = true;
-    #   openFirewall = true;
-    #   settings = {
-    #     global = {
-    #       "map to guest" = "Bad User";
-    #     };
-    #     public = {
-    #       path = "/run/media/kein/7b9a4e9a-f7d9-4bc1-9d3e-20d336dc0b97/library/ftb/";
-    #       browseable = "yes";
-    #       "read only" = "yes";
-    #       "guest ok" = "yes";
-    #     };
-    #   };
-    # };
+    samba = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        global = {
+          "map to guest" = "Bad User";
+        };
+        public = {
+          path = "/mnt/sms/";
+          browseable = "yes";
+          "read only" = "yes";
+          "guest ok" = "yes";
+        };
+      };
+    };
     udisks2.enable = true;
     # FNIRSI FNB-58
     udev.extraRules = ''
