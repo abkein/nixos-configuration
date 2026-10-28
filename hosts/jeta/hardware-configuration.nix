@@ -53,7 +53,6 @@
   };
 
   services = {
-    cpupower-gui.enable = true;
     upower = {
       enable = true; # Auto sleep at 5% battery left
       percentageCritical = 7;
