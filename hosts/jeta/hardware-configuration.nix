@@ -141,7 +141,7 @@
     enableRedistributableFirmware = true;
     cpu.amd = {
       updateMicrocode = true;
-      ryzen-smu.enable = false;
+      ryzen-smu.enable = true;
     };
   };
   environment.variables = {
