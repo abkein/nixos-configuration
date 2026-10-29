@@ -119,6 +119,7 @@
 
         sysstat
         fio
+        sbctl
 
         age
         git-agecrypt

@@ -165,6 +165,22 @@
         flake-compat.follows = "flake-compat";
       };
     };
+
+    pre-commit = {
+      url = "github:cachix/git-hooks.nix";
+      inputs = {
+        flake-compat.follows = "flake-compat";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.2.0";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit.follows = "pre-commit";
+      };
+    };
   };
 
   outputs =
@@ -218,6 +234,7 @@
                   disko.nixosModules.disko
                   agenix.nixosModules.default
                   stylix.nixosModules.stylix
+                  lanzaboote.nixosModules.lanzaboote
                 ]
                 ++ (lib.optionals cfg.useAgenixRekey [ agenix-rekey.nixosModules.default ])
               )
