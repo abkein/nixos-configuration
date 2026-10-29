@@ -10,6 +10,7 @@
       "*.aml"
       ".gitattributes"
       ".gitignore"
+      "**/shadow/*"
     ];
   };
 
