@@ -258,7 +258,7 @@
     services = {
       nix-daemon.environment =
         let
-          proxy = "socks5h://127.0.0.1:1080";
+          proxy = "socks5h://127.0.0.1:1081";
           no_proxy = "127.0.0.1,localhost,::1";
         in
         {
