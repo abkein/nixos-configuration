@@ -110,13 +110,11 @@
   # Start it eagerly instead of waiting for DBus activation from a user service.
   systemd.services.upower.wantedBy = [ "multi-user.target" ];
 
-  ### S3 sleep, kind of works with acpi-patch
-  # systemd = {
-  #   sleep.extraConfig = ''
-  #     HibernateDelaySec=1h
-  #     SuspendState=mem
-  #   '';
-  # };
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "1h";
+    HibernateOnACPower = "no";
+    SuspendState = "mem";
+  };
 
   hardware = {
     amdgpu = {
