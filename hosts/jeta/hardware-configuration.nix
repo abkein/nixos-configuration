@@ -49,7 +49,7 @@
   };
 
   programs = {
-    ryzen-monitor-ng.enable = true;
+    ryzen-monitor-ng.enable = false;
   };
 
   services = {
@@ -71,7 +71,7 @@
     #   # logEvents = true;
     # };
     tlp = {
-      enable = true;
+      enable = false;
       settings = {
         TLP_AUTO_SWITCH = 1;
         TLP_DEFAULT_MODE = "BAL";
@@ -139,7 +139,7 @@
     enableRedistributableFirmware = true;
     cpu.amd = {
       updateMicrocode = true;
-      ryzen-smu.enable = true;
+      ryzen-smu.enable = false;
     };
   };
   environment.variables = {

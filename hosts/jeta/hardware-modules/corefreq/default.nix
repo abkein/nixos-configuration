@@ -1,6 +1,6 @@
 { config, ... }: {
   programs.corefreq = {
-    enable = true;
+    enable = false;
     package = config.boot.kernelPackages.callPackage ./corefreq.nix { };
   };
 }
