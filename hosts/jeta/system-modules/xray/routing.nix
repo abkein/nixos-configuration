@@ -85,7 +85,7 @@
             "domain:pruffme.com"
             "domain:sci-net.xyz"
           ];
-          inboundTag = mainInbounds;
+          inboundTag = mainInbounds ++ nixInbounds;
           outboundTag = "direct";
           ruleTag = "KnownDomesticOnlyDom2Direct";
         }
@@ -95,7 +95,7 @@
             "geoip:yandex"
             "geoip:ru-whitelist"
           ];
-          inboundTag = mainInbounds;
+          inboundTag = mainInbounds ++ nixInbounds;
           outboundTag = "direct";
           ruleTag = "KnownDomesticOnlyIP2Direct";
         }
@@ -115,7 +115,7 @@
             "domain:notebooklm.google"
             "domain:notebooklm.google.com"
           ];
-          inboundTag = mainInbounds;
+          inboundTag = mainInbounds ++ nixInbounds;
           balancerTag = mainBalancer;
           # outboundTag = mainOutbound;
           ruleTag = "KnownBlockedDom2Proxy";
@@ -135,7 +135,7 @@
             "geoip:twitter"
             "geoip:tor"
           ];
-          inboundTag = mainInbounds;
+          inboundTag = mainInbounds ++ nixInbounds;
           balancerTag = mainBalancer;
           # outboundTag = mainOutbound;
           ruleTag = "KnownBlockedIP2Proxy";
@@ -153,7 +153,7 @@
           ruleTag = "IPRU2Direct";
         }
         {
-          inboundTag = mainInbounds;
+          inboundTag = mainInbounds ++ nixInbounds;
           balancerTag = mainBalancer;
           # outboundTag = mainOutbound;
           ruleTag = "Default2Proxy";
