@@ -52,7 +52,7 @@ stdenvNoCC.mkDerivation {
 
   patches = [
     ./svrp-only.patch
-    ./s3-sleep.patch
+    # ./s3-sleep.patch
     ./azal-device.patch
   ];
 
