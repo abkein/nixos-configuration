@@ -1,0 +1,14 @@
+--- dsdt.dsl
++++ dsdt.dsl
+@@ -4012,6 +4012,11 @@
+                     Name (_ADR, 0x05)  // _ADR: Address
+                 }
+ 
++                Device (AZAL)
++                {
++                    Name (_ADR, 0x06)  // _ADR: Address
++                }
++
+                 Device (HDAU)
+                 {
+                     Name (_ADR, One)  // _ADR: Address
