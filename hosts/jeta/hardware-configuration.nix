@@ -75,7 +75,7 @@
     #   # logEvents = true;
     # };
     tlp = {
-      enable = false;
+      enable = true;
       settings = {
         TLP_AUTO_SWITCH = 1;
         TLP_DEFAULT_MODE = "BAL";
