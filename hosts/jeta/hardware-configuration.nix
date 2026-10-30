@@ -46,7 +46,19 @@
       ];
     };
     kernelModules = [ "kvm-amd" ];
-    kernel.sysctl."kernel.sysrq" = 1;
+    kernel.sysctl = {
+      "kernel.sysrq" = 1;
+
+      "net.ipv4.tcp_fastopen" = 3;
+      "net.ipv4.tcp_keepalive_time" = 600;
+      "net.ipv4.tcp_keepalive_intvl" = 30;
+      # "net.ipv4.tcp_keepalive_probes" = 9; # default
+      "net.ipv4.tcp_mtu_probing" = 1;
+      "net.ipv4.tcp_mtu_probe_floor" = 512;
+
+      # "net.core.default_qdisc" = "cake";
+      # "net.ipv4.tcp_congestion_control" = "bbr";
+    };
     extraModprobeConfig = ''
       options mt7921_common disable_clc=1
     '';
