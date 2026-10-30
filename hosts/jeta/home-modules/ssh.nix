@@ -1,9 +1,18 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   ssh-creds = import ../shadow/ssh-creds.nix;
   keepassxc_ssh_prompt = pkgs.writeShellScript "keepassxc_ssh_prompt.sh" ''
+    set -euo pipefail
+
     host=$1
     port=$2
+    shift
+    shift
 
     until ${config.programs.ssh.package}/bin/ssh-add -l &> /dev/null
     do
@@ -13,8 +22,41 @@ let
       sleep 1
     done
 
-    ${pkgs.netcat}/bin/nc "$host" "$port"
+    ${pkgs.netcat}/bin/nc "$@" "$host" "$port"
   '';
+  mkProxyCommand =
+    args:
+    lib.escapeShellArgs (
+      [
+        "${keepassxc_ssh_prompt}"
+        "%h"
+        "%p"
+      ]
+      ++ args
+    );
+  genericProxyCommand = mkProxyCommand [ ];
+  mkAddress =
+    {
+      host,
+      port ? null,
+    }:
+    host + (lib.optionalString (port != null) ":${toString port}");
+  mkProxyCommandWProxy =
+    {
+      protocol ? null,
+      host,
+      port ? null,
+    }:
+    mkProxyCommand (
+      (lib.optionals (protocol != null) [
+        "-X"
+        (toString protocol)
+      ])
+      ++ [
+        "-x"
+        (mkAddress { inherit host port; })
+      ]
+    );
 in
 {
   systemd.user.tmpfiles.rules = [
@@ -35,9 +77,16 @@ in
         ControlPersist = "no";
         EnableSSHKeysign = "yes";
         HashKnownHosts = "no";
-        LocalCommand = "${pkgs.libnotify}/bin/notify-send -a SSH 'New session' '%r@%n:%p\\nHostname: %h\\nAlias: %k'";
+        LocalCommand = lib.escapeShellArgs [
+          "${pkgs.libnotify}/bin/notify-send"
+          "-a"
+          "SSH"
+          "New session"
+          "%r@%n:%p\\nHostname: %h\\nAlias: %k"
+        ];
+        #  "${pkgs.libnotify}/bin/notify-send -a SSH 'New session' '%r@%n:%p\\nHostname: %h\\nAlias: %k'";
         PermitLocalCommand = "yes";
-        ProxyCommand = "${keepassxc_ssh_prompt} %h %p";
+        ProxyCommand = genericProxyCommand;
         ServerAliveCountMax = 3;
         ServerAliveInterval = 3;
         StrictHostKeyChecking = "accept-new";
@@ -66,6 +115,16 @@ in
         header = "Host github github.com";
         HostName = "github.com";
         User = "git";
+      };
+      freedesktop = {
+        header = "Host freedesktop gitlab.freedesktop ssh.gitlab.freedesktop.org";
+        HostName = "ssh.gitlab.freedesktop.org";
+        User = "git";
+        ProxyCommand = mkProxyCommandWProxy {
+          protocol = 5;
+          host = "127.0.0.1";
+          port = 1080;
+        };
       };
     };
   };
