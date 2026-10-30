@@ -62,6 +62,8 @@
     extraModprobeConfig = ''
       options mt7921_common disable_clc=1
     '';
+    # kernelParams = [ "lockdown=integrity" ];
+    # kexec.enable = false;
   };
 
   programs = {
