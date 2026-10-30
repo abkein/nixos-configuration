@@ -1,0 +1,37 @@
+Subject: [PATCH] drm/amd/display: Restore PSR-SU guard in power module
+
+Commit a5ce8695d6d1 ("drm/amd/display: Avoid configuring PSR granularity
+if PSR-SU not supported") limited DSC slice-height configuration to
+PSR-SU. The power-module integration removed that guarded caller and
+replaced it with an unconditional call whose return value is ignored.
+
+On the Redmi Book Pro 15 2023, PSR1 is selected but the panel advertises
+an SU Y granularity of 4. Its 2000-line mode has 16 vertical DSC slices,
+so the calculated slice height of 125 trips the SU alignment assertion.
+
+Restore the version check and error handling in the new caller. PSR1
+continues through normal setup with no selective-update slice height;
+PSR-SU retains its alignment validation.
+
+Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
+Link: https://github.com/torvalds/linux/commit/a5ce8695d6d1b40d6960d2d298b579042c158f25
+---
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_psr.c b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+--- a/drivers/gpu/drm/amd/display/modules/power/power_psr.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power_psr.c
+@@ -94,9 +94,12 @@ bool mod_power_psr_notify_mode_change(struct mod_power *mod_power,
+ 	 * The value of DSC slice height is determined in DSC Driver but it does not
+ 	 * propagated out here, so we need to calculate it as below 'slice_height'.
+ 	 */
+-	psr_su_set_dsc_slice_height(dc, link,
+-				(struct dc_stream_state *) stream,
+-				&psr_config);
++	if (link->psr_settings.psr_version == DC_PSR_VERSION_SU_1) {
++		if (!psr_su_set_dsc_slice_height(dc, link,
++					      (struct dc_stream_state *) stream,
++					      &psr_config))
++			return false;
++	}
+ 
+ 	dc_link_setup_psr(link, stream, &psr_config, &psr_context);
+ 

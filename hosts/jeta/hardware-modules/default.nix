@@ -1,5 +1,6 @@
 { ... }: {
   imports = [
+    ./amdgpu-psr
     ./corefreq
     ./pstate.nix
     ./redmibook-wmi
