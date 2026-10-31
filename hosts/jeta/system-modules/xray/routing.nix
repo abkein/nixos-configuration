@@ -84,6 +84,7 @@
             "domain:flysmartavia.com"
             "domain:pruffme.com"
             "domain:sci-net.xyz"
+            "domain:aliexpress.ru"
           ];
           inboundTag = mainInbounds ++ nixInbounds;
           outboundTag = "direct";
