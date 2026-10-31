@@ -62,7 +62,10 @@
     extraModprobeConfig = ''
       options mt7921_common disable_clc=1
     '';
-    # kernelParams = [ "lockdown=integrity" ];
+    # kernelParams = [
+    #   # "lockdown=integrity"
+    #   # "amdgpu.dcdebugmask=0x410"
+    # ];
     # kexec.enable = false;
   };
 
@@ -92,7 +95,7 @@
       enable = true;
       settings = {
         TLP_AUTO_SWITCH = 1;
-        TLP_DEFAULT_MODE = "BAL";
+        TLP_PROFILE_DEFAULT = "BAL";
 
         RADEON_DPM_PERF_LEVEL_ON_AC = "auto";
         RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
