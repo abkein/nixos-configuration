@@ -285,6 +285,7 @@
       drm_info
       v4l-utils # edid-decode
       rocmPackages.rocminfo
+      dmidecode
 
       # cdrtools # mkisofs
 
