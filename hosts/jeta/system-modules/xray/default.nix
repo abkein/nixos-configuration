@@ -61,7 +61,7 @@ in
         subjectSelector = [
           # "yun-vless-reality-xhttp-v"
           # "regnet-vless-reality-"
-          "ussr-reality-"
+          "ussr-"
         ];
         pingConfig = {
           # For each outbound, probe 10 times within 10 minutes; specific probe times are random.

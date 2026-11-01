@@ -171,21 +171,21 @@
             # settings = { }; # only for leastLoad
           };
         }
-        {
-          # tag = mainBalancer;
-          tag = "regnetBalancer";
-          selector = [ "regnet-vless-reality-" ];
-          fallbackTag = "block";
-          strategy = {
-            type = "leastPing";
-            # settings = { }; # only for leastLoad
-          };
-        }
+        # {
+        #   # tag = mainBalancer;
+        #   tag = "regnetBalancer";
+        #   selector = [ "regnet-vless-reality-" ];
+        #   fallbackTag = "block";
+        #   strategy = {
+        #     type = "leastPing";
+        #     # settings = { }; # only for leastLoad
+        #   };
+        # }
         {
           tag = mainBalancer;
           # tag = "ussrBalancer";
-          selector = [ "ussr-reality-" ];
-          fallbackTag = "ussr-bridge-reality";
+          selector = [ "ussr-" ];
+          fallbackTag = "block";
           strategy = {
             type = "leastPing";
             # settings = { }; # only for leastLoad

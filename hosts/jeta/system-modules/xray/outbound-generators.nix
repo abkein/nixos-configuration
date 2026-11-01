@@ -79,9 +79,7 @@
     let
       confs = builtins.fromJSON (builtins.readFile ../../shadow/xray.json);
       outbounds_raw = lib.flatten (map (conf: conf.outbounds) confs);
-      filtered_raw = lib.filter (
-        outbound: (outbound.tag != "block") && (outbound.tag != "direct") && (outbound.tag != "direct")
-      ) outbounds_raw;
+      filtered_raw = lib.filter (outbound: (outbound.protocol == "vless")) outbounds_raw;
       fixed = map (
         outbound:
         let
@@ -96,20 +94,24 @@
       filtered = lib.filter (
         outbound:
         ((builtins.match "^proxy-.{8}$" outbound.tag) == null)
-        && (outbound.tag != "tiktok-proxy")
-        && (outbound.tag != "youtube-proxy")
-        && (outbound.tag != "proxy-tcp-reality-bridge")
+        && ((builtins.match "^ir-.*$" outbound.settings.address) == null)
       ) fixed;
-      renamed = lib.imap1 (i: outbound: outbound // { tag = "ussr-reality-${toString i}"; }) filtered;
-
-      getFirstRename =
-        tag: newtag:
-        (builtins.elemAt (lib.filter (outbound: outbound.tag == tag) fixed) 0) // { tag = newtag; };
+      unique = lib.attrValues (
+        lib.listToAttrs (
+          map (
+            outbound:
+            let
+              tag = "${outbound.settings.address}-${toString outbound.settings.port}";
+            in
+            {
+              name = tag;
+              value = outbound // {
+                tag = "ussr-" + tag;
+              };
+            }
+          ) filtered
+        )
+      );
     in
-    renamed
-    ++ [
-      (getFirstRename "proxy-tcp-reality-bridge" "ussr-bridge-reality")
-      # (getFirstRename "us-proxy" "ussr-reality-us")
-      # (getFirstRename "youtube-proxy" "ussr-reality-youtube")
-    ];
+    unique;
 }
