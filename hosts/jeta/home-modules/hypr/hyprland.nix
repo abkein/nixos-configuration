@@ -260,30 +260,31 @@ in
 
       bind = [
         # System
-        (bindExec "SUPER + XF86MyComputer" "hyprshutdown --post-cmd 'systemctl shutdown'")
-        (bindExec "ALT + XF86MyComputer" "hyprshutdown --post-cmd 'systemctl reboot'")
+        (bindExec "SUPER + XF86Assistant" "hyprshutdown --post-cmd 'systemctl shutdown'")
+        (bindExec "ALT + XF86Assistant" "hyprshutdown --post-cmd 'systemctl reboot'")
         (bindExec "SUPER + SUPER_L" "pgrep fuzzel >/dev/null 2>&1 && pkill fuzzel || fuzzel")
-        (bind "SUPER + P" "hl.dsp.window.float()")
 
         # Applications
         (bindExec "SUPER + T" "ghostty")
         (bindExec "SUPER + E" "thunar")
-        (bindExec "SUPER + X" "xed")
-        (bindExec "SUPER + SHIFT + W" "wps")
         (bindExec "SUPER + F" "firefox")
+        # (bindExec "SUPER + X" "xed")
+        # (bindExec "SUPER + SHIFT + W" "wps")
         # (bindExec "CTRL + SUPER + SHIFT + V" "easyeffects")
         # (bindExec "CTRL + SHIFT + Escape" "gnome-system-monitor")
 
         # Actions
         (bind "SUPER + Q" "hl.dsp.window.close()")
         (bindExec "SHIFT + SUPER + ALT + Q" "hyprctl kill")
-        (bindExec "CTRL + SHIFT + ALT + Delete" "pkill wlogout || wlogout -p layer-shell")
-        (bindExec "CTRL + SHIFT + ALT + SUPER + Delete" "systemctl poweroff")
+        (bindExec "CTRL + SHIFT + Escape" "pkill wlogout || wlogout -p layer-shell")
+        # (bindExec "CTRL + SHIFT + ALT + SUPER + Delete" "systemctl poweroff")
 
         # Screenshot, record, OCR, color picker, and clipboard history
         (bindExec "SUPER + Print" ''grim -g "$(slurp)" - | swappy -f -'')
-        (bindExec "SUPER + S" "grimblast --freeze --notify -e 1500 --openparentdir copysave area")
-        (bindExec "SUPER + SHIFT + S" "grimblast --freeze --notify -e 1500 --openparentdir copysave output")
+        (bindExec "XF86SelectiveScreenshot" "grimblast --freeze --notify -e 1500 --openparentdir copysave area")
+        (bindExec "Print" "grimblast --freeze --notify -e 1500 --openparentdir copysave output")
+        # (bindExec "SUPER + S" "grimblast --freeze --notify -e 1500 --openparentdir copysave area")
+        # (bindExec "SUPER + SHIFT + S" "grimblast --freeze --notify -e 1500 --openparentdir copysave output")
         (bindExec "CTRL + ALT + O" ''grim -g "$(slurp)" - | tesseract - - | wl-copy'')
         (bindExec "CTRL + ALT + I" ''grim -g "$(slurp)" - | tesseract -l rus - - | wl-copy'')
         (bindExec "SUPER + R" "~/execs/record-script.sh")
@@ -294,13 +295,9 @@ in
         (bindExec "SUPER + V" "pkill fuzzel || cliphist list | fuzzel --dmenu | cliphist decode | wl-copy")
 
         # Text-to-image: default, English, and Japanese
-        (bindExec "CTRL + SUPER + SHIFT + S" ''grim -g "$(slurp $SLURP_ARGS)" "tmp.png" && tesseract "tmp.png" - | wl-copy && rm "tmp.png"'')
-        (bindExec "SUPER + SHIFT + T" ''grim -g "$(slurp $SLURP_ARGS)" "tmp.png" && tesseract -l eng "tmp.png" - | wl-copy && rm "tmp.png"'')
-        (bindExec "SUPER + SHIFT + J" ''grim -g "$(slurp $SLURP_ARGS)" "tmp.png" && tesseract -l jpn "tmp.png" - | wl-copy && rm "tmp.png"'')
-
-        # Media
-        (bindExec "SUPER + SHIFT + ALT + mouse:275" "playerctl previous")
-        (bindExec "SUPER + SHIFT + ALT + mouse:276" ''playerctl next || playerctl position `bc <<< "100 * $(playerctl metadata mpris:length) / 1000000 / 100"`'')
+        # (bindExec "CTRL + SUPER + SHIFT + S" ''grim -g "$(slurp $SLURP_ARGS)" "tmp.png" && tesseract "tmp.png" - | wl-copy && rm "tmp.png"'')
+        # (bindExec "SUPER + SHIFT + T" ''grim -g "$(slurp $SLURP_ARGS)" "tmp.png" && tesseract -l eng "tmp.png" - | wl-copy && rm "tmp.png"'')
+        # (bindExec "SUPER + SHIFT + J" ''grim -g "$(slurp $SLURP_ARGS)" "tmp.png" && tesseract -l jpn "tmp.png" - | wl-copy && rm "tmp.png"'')
 
         # Lock screen and launcher
         (bindExec "SUPER + L" "loginctl lock-session")
@@ -337,6 +334,7 @@ in
         # Fullscreen
         (bind "SUPER + G" ''hl.dsp.window.fullscreen({ mode = "fullscreen" })'')
         (bind "SUPER + H" ''hl.dsp.window.fullscreen({ mode = "maximized" })'')
+        (bind "SUPER + P" ''hl.dsp.window.float()'')
 
         # Switch workspaces
         (bind "SUPER + 1" ''hl.dsp.focus({ workspace = "1" })'')
@@ -363,8 +361,8 @@ in
         (bind "SUPER + ALT + 8" ''hl.dsp.window.move({ workspace = "8", follow = true })'')
         (bind "SUPER + ALT + 9" ''hl.dsp.window.move({ workspace = "9", follow = true })'')
         (bind "SUPER + ALT + 0" ''hl.dsp.window.move({ workspace = "10", follow = true })'')
-        (bind "CTRL + SHIFT + SUPER + Up" ''hl.dsp.window.move({ workspace = "special", follow = false })'')
         (bind "SUPER + ALT + S" ''hl.dsp.window.move({ workspace = "special", follow = false })'')
+        # (bind "CTRL + SHIFT + SUPER + Up" ''hl.dsp.window.move({ workspace = "special", follow = false })'')
 
         # Move the current workspace to a monitor
         (bind "SUPER + CTRL + 1" ''hl.dsp.workspace.move({ monitor = "eDP-1" })'')
@@ -372,28 +370,25 @@ in
         (bind "SUPER + CTRL + 3" ''hl.dsp.workspace.move({ monitor = "desc:Acer Technologies SA240Y 0x0480DAE1" })'')
 
         # Scroll through workspaces
-        (bind "SUPER + mouse_up" ''hl.dsp.focus({ workspace = "+1" })'')
-        (bind "SUPER + mouse_down" ''hl.dsp.focus({ workspace = "-1" })'')
+        (bind "SUPER + mouse_up" ''hl.dsp.focus({ workspace = "-1" })'')
+        (bind "SUPER + mouse_down" ''hl.dsp.focus({ workspace = "+1" })'')
 
         # Resize to a fixed size
         (bind "CTRL + SUPER + Backslash" "hl.dsp.window.resize({ x = 640, y = 480 })")
 
         # Locked binds
         (bindLockedExec "SUPER + Print" "grim - | wl-copy")
-        (bindLockedExec "SUPER + SHIFT + N" ''playerctl next || playerctl position `bc <<< "100 * $(playerctl metadata mpris:length) / 1000000 / 100"`'')
-        (bindLockedExec "XF86AudioNext" ''playerctl next || playerctl position `bc <<< "100 * $(playerctl metadata mpris:length) / 1000000 / 100"`'')
-        (bindLockedExec "SUPER + SHIFT + B" "playerctl previous")
-        (bindLockedExec "SUPER + SHIFT + P" "playerctl play-pause")
-        (bindLockedExec "XF86AudioPlay" "playerctl play-pause")
+        # (bindLockedExec "SUPER + SHIFT + N" ''playerctl next || playerctl position `bc <<< "100 * $(playerctl metadata mpris:length) / 1000000 / 100"`'')
+        # (bindLockedExec "XF86AudioNext" ''playerctl next || playerctl position `bc <<< "100 * $(playerctl metadata mpris:length) / 1000000 / 100"`'')
+        # (bindLockedExec "SUPER + SHIFT + B" "playerctl previous")
+        # (bindLockedExec "SUPER + SHIFT + P" "playerctl play-pause")
+        # (bindLockedExec "XF86AudioPlay" "playerctl play-pause")
         (bindLockedExec "SUPER + SHIFT + L" "sleep 0.1 && systemctl suspend || loginctl suspend")
 
         # Locked, repeating binds
         (bindLockedRepeatingExec "XF86AudioMute" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
         (bindLockedRepeatingExec "XF86AudioRaiseVolume" "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+")
         (bindLockedRepeatingExec "XF86AudioLowerVolume" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")
-        (bindLockedRepeatingExec "ALT + XF86AudioMute" "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle")
-        (bindLockedRepeatingExec "ALT + XF86AudioRaiseVolume" "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+")
-        (bindLockedRepeatingExec "ALT + XF86AudioLowerVolume" "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-")
         (bindLockedRepeatingExec "XF86MonBrightnessUp" "brightnessctl --device=amdgpu_bl1 set '+1%'")
         (bindLockedRepeatingExec "XF86MonBrightnessDown" "brightnessctl --device=amdgpu_bl1 set '1%-'")
 
@@ -406,7 +401,6 @@ in
         # Move/resize windows with SUPER + LMB/RMB and dragging
         (bindMouse "SUPER + mouse:272" "hl.dsp.window.drag()")
         (bindMouse "SUPER + mouse:273" "hl.dsp.window.resize()")
-        # (bindMouse "SUPER + Z" "hl.dsp.window.drag()")
       ];
 
       workspace_rule = [
