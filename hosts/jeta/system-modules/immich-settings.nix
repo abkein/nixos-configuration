@@ -17,10 +17,9 @@
     tonemap = "hable";
     twoPass = false;
     ### Hardware Acceleration
-    # accel = "disabled";
-    # accelDecode = true;
-    # cqMode = "icq";
-    # temporalAQ = false;
+    accel = "VAAPI";
+    accelDecode = true;
+    cqMode = "cqp";
     # preferredHwDevice = "auto";
     ### Realtime transcoding
     realtime.enabled = false;
