@@ -17,9 +17,11 @@
     tonemap = "hable";
     twoPass = false;
     ### Hardware Acceleration
-    accel = "VAAPI";
+    accel = "disabled";
+    # accel = "vaapi";
     accelDecode = true;
     cqMode = "cqp";
+    preferredHwDevice = "/dev/dri/renderD128";
     # preferredHwDevice = "auto";
     ### Realtime transcoding
     realtime.enabled = false;
