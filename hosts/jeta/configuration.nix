@@ -56,7 +56,7 @@
   };
 
   environment.etc.crypttab.text = ''
-    urgsms UUID=d54a4db0-83ab-44da-a912-fd14b14a925a /run/agenix/ugreen luks,nofail,noauto,keyfile-timeout=5,x-systemd.device-timeout=3s
+    urgsms UUID=d54a4db0-83ab-44da-a912-fd14b14a925a /run/agenix/ugreen luks,nofail,noauto,keyfile-timeout=3s,x-systemd.device-timeout=3s
   '';
 
   fileSystems."/mnt/sms" = {
@@ -67,7 +67,7 @@
       "noauto"
       "noatime"
       "compress=zstd:3"
-      "x-systemd.automount"
+      # "x-systemd.automount"
       "x-systemd.device-timeout=3s"
       "x-systemd.requires=systemd-cryptsetup@urgsms.service"
     ];
