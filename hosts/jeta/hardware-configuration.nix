@@ -46,6 +46,7 @@
       ];
     };
     kernelModules = [ "kvm-amd" ];
+    blacklistedKernelModules = [ "bitland_mifs_wmi" ];
     kernel.sysctl = {
       "kernel.sysrq" = 1;
 

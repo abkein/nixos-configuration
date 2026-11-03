@@ -3,8 +3,8 @@
     ./amdgpu-psr
     ./corefreq
     ./pstate.nix
-    ./redmibook-wmi
     ./redmibook-acpi-override
+    # ./redmibook-wmi
     # ./zenpower.nix
     # ./amdgpu-patch
     # ./facter
