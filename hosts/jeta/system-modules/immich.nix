@@ -9,6 +9,7 @@ in
     openFirewall = true;
     mediaLocation = "/mnt/sms/immich/";
     accelerationDevices = null;
+    settings = import ./immich-settings.nix;
   };
 
   systemd.services = {
