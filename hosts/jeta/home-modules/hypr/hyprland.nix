@@ -50,6 +50,12 @@ let
     // lib.optionalAttrs (style != null) { inherit style; };
   windowRule = match: effects: { inherit match; } // effects;
   layerRule = namespace: effects: { match = { inherit namespace; }; } // effects;
+
+  mon = {
+    main = "eDP-1";
+    top = "desc:Xiaomi Corporation Mi monitor 5323110031874";
+    right = "desc:Acer Technologies SA240Y 0x0480DAE1";
+  };
 in
 {
   home.packages = with pkgs; [
@@ -74,35 +80,38 @@ in
     settings = {
       monitor = [
         {
-          output = "eDP-1";
+          output = mon.main;
           mode = "3200x2000@120";
           position = "0x0";
           scale = 1.6;
           bitdepth = 10;
-          cm = "srgb";
-          vrr = 1;
+          cm = "edid";
+          sdr_eotf = "gamma22";
         }
         {
-          output = "desc:Acer Technologies SA240Y 0x0480DAE1";
-          mode = "1920x1080@74.97";
+          output = mon.right;
+          mode = "1920x1080@75";
           position = "2000x0";
           scale = 1;
           bitdepth = 10;
-          cm = "srgb";
+          cm = "edid";
+          sdr_eotf = "srgb";
+          vrr = 1;
         }
         {
-          output = "desc:Xiaomi Corporation Mi monitor 5323110031874";
-          mode = "3440x1440@180.00";
+          output = mon.top;
+          mode = "3440x1440@120";
           position = "0x-1440";
           scale = 1;
           bitdepth = 10;
           cm = "srgb";
+          sdr_eotf = "srgb";
           vrr = 1;
         }
         {
           output = "";
           mode = "preferred";
-          position = "auto";
+          position = "auto-left";
           scale = 1;
         }
       ];
@@ -122,7 +131,6 @@ in
 
           # col.active_border = hex2hypr "#0DB7D4FF"; # stylix
           # col.inactive_border = hex2hypr "#00000000"; # stylix
-
         };
 
         decoration = {
@@ -153,10 +161,6 @@ in
             # color = hex2hypr "#0DB7D4FF"; # stylix
             color_inactive = hex2hypr "#0000001A";
             offset = "0 2";
-          };
-
-          glow = {
-            enabled = true;
           };
         };
 
@@ -198,6 +202,8 @@ in
           # swallow_regex = "(foot|kitty|allacritty|Alacritty)";
           focus_on_activate = true;
           middle_click_paste = false;
+          new_float_force_onscreen = 2;
+          key_press_enables_dpms = true;
         };
 
         ecosystem.enforce_permissions = false;
@@ -262,7 +268,8 @@ in
         # System
         (bindExec "SUPER + XF86Assistant" "hyprshutdown --post-cmd 'systemctl shutdown'")
         (bindExec "ALT + XF86Assistant" "hyprshutdown --post-cmd 'systemctl reboot'")
-        (bindExec "SUPER + SUPER_L" "pgrep fuzzel >/dev/null 2>&1 && pkill fuzzel || fuzzel")
+        (bindExec "SUPER_L" "pgrep fuzzel >/dev/null 2>&1 && pkill fuzzel || fuzzel")
+        # (bindExec "SUPER + SUPER_L" "pgrep fuzzel >/dev/null 2>&1 && pkill fuzzel || fuzzel")
 
         # Applications
         (bindExec "SUPER + T" "ghostty")
@@ -334,7 +341,7 @@ in
         # Fullscreen
         (bind "SUPER + G" ''hl.dsp.window.fullscreen({ mode = "fullscreen" })'')
         (bind "SUPER + H" ''hl.dsp.window.fullscreen({ mode = "maximized" })'')
-        (bind "SUPER + P" ''hl.dsp.window.float()'')
+        (bind "SUPER + P" "hl.dsp.window.float()")
 
         # Switch workspaces
         (bind "SUPER + 1" ''hl.dsp.focus({ workspace = "1" })'')
