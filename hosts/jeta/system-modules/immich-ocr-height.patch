@@ -1,0 +1,43 @@
+The legacy ESLAV PP-OCRv5 recognizer names its height dimension "?" and
+its width "DynamicDimension.1". Preserve the required 48-pixel height
+instead of assigning the requested recognition width to both dimensions.
+
+--- a/immich_ml/sessions/policy.py
++++ b/immich_ml/sessions/policy.py
+@@ -12,6 +12,7 @@
+ class ShapePolicy:
+     dims: tuple[Shape, ...] = (Shape(batch=1),)
+     label: str = ""  # the artifact subdirectory, for a submodel that ships more than one set
++    fixed_overrides: tuple[tuple[str, int], ...] = ()
+ 
+     @property
+     def pinned(self) -> Shape:
+--- a/immich_ml/sessions/ort.py
++++ b/immich_ml/sessions/ort.py
+@@ -354,7 +354,8 @@
+         position = order.index(dimension)  # a graph that names several dims takes the first pin for all
+         named += [(dimension, size), (f"DynamicDimension.{position}", size)]
+         named.append(("None", size) if position == 0 else ("?", size))
+-    return named
++    fixed = dict(policy.fixed_overrides)
++    return [(name, size) for name, size in named if name not in fixed] + list(policy.fixed_overrides)
+ 
+ 
+ @cache
+--- a/immich_ml/models/ocr/recognition.py
++++ b/immich_ml/models/ocr/recognition.py
+@@ -36,7 +36,13 @@
+         self.decoder: CtcDecoder | None = None
+         sizes = batches(settings.max_batch_size.ocr)
+         self.shape_policy = ShapePolicy(
+-            dims=tuple(Shape(batch, width=width) for width in OCR_RECOGNITION_WIDTHS for batch in sizes)
++            dims=tuple(Shape(batch, width=width) for width in OCR_RECOGNITION_WIDTHS for batch in sizes),
++            # This legacy export uses "?" for height, not for its variable width.
++            fixed_overrides=(
++                (("?", REC_HEIGHT),)
++                if settings.legacy_models and self.model_name == "ESLAV__PP-OCRv5_mobile"
++                else ()
++            ),
+         )
+ 
+     def _load(self) -> ModelSession:
