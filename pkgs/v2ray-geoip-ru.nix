@@ -5,11 +5,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "russia-v2ray-geoip";
-  version = "202609010851";
+  version = "202611081040 ";
 
   src = fetchurl {
     url = "https://github.com/runetfreedom/russia-v2ray-rules-dat/releases/download/${finalAttrs.version}/geoip.dat";
-    hash = "sha256-0XUBfUma/a/2MQFcANL99RBRPlIoyrTEgGkwPxJFl8w=";
+    hash = "sha256-CrhhRxzlPNgiSUw6iY7CzJLQQJpyijGbgb7g8sddmZI=";
   };
 
   dontUnpack = true;
