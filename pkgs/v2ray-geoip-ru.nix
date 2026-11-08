@@ -5,7 +5,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "russia-v2ray-geoip";
-  version = "202611081040 ";
+  version = "202611081040";
 
   src = fetchurl {
     url = "https://github.com/runetfreedom/russia-v2ray-rules-dat/releases/download/${finalAttrs.version}/geoip.dat";
