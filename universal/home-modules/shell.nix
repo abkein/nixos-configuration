@@ -47,6 +47,13 @@
         strict_env = true;
         warn_timeout = "10s";
       };
+      stdlib = ''
+        use_flake() {
+          watch_file flake.nix
+          watch_file flake.lock
+          eval "$(nix print-dev-env "$@")"
+        }
+      '';
     };
     micro = {
       enable = true;
