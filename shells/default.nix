@@ -88,6 +88,7 @@ in
       shellArgs.packages = with shellPkgs; [
         mpi
         adios2
+        finalContext.llvm.openmp
       ];
     }
   );

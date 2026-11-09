@@ -66,12 +66,14 @@ rec {
       );
       yamlformat = shellPkgs.formats.yaml { };
       clangTidyConfFile = yamlformat.generate "${repoName}-clang-tidy" clangTidyConf;
+      llvm = shellPkgs.llvmPackages;
     in
     {
+      inherit llvm;
       stdenv = shellPkgs.clangStdenv;
       cpp-standard = "c++20";
 
-      clang-tidy-bin = "${shellPkgs.clang-tools}/bin/clang-tidy";
+      clang-tidy-bin = "${llvm.clang-tools}/bin/clang-tidy";
       cppcheckBuildDir = vscodeDir + "/.cppcheck";
       cppcheckSupprPlainLoc = vscodeDir + "/cppcheck_suppressions";
       clangTidyConfLoc = root + "/.clang-tidy";
@@ -131,8 +133,8 @@ rec {
         packages =
           [ ]
           ++ (with shellPkgs; [
-            clang
-            clang-tools
+            llvm.clang
+            llvm.clang-tools
             cmake
             ninja
             pkg-config
@@ -151,7 +153,7 @@ rec {
         "C_Cpp.codeAnalysis.clangTidy.path" = clang-tidy-bin;
         "C_Cpp.default.cStandard" = "c23";
         "C_Cpp.default.intelliSenseMode" = "linux-clang-x64";
-        "C_Cpp.clang_format_path" = "${shellPkgs.clang-tools}/bin/clang-format";
+        "C_Cpp.clang_format_path" = "${llvm.clang-tools}/bin/clang-format";
 
         "cpplint.cpplintPath" = "${shellPkgs.cpplint}/bin/cpplint";
         "cpplint.lineLength" = lineLength;
@@ -160,7 +162,7 @@ rec {
         "clangd.enable" = false;
 
         "c-cpp-flylint.standard" = [ cpp-standard ];
-        "c-cpp-flylint.clang.executable" = "${shellPkgs.clang}/bin/clang++";
+        "c-cpp-flylint.clang.executable" = "${llvm.clang}/bin/clang++";
         "c-cpp-flylint.cppcheck.extraArgs" = [
           "--check-level=exhaustive"
           "--cppcheck-build-dir=${cppcheckBuildDir}"
@@ -169,7 +171,7 @@ rec {
         ];
 
         "c-cpp-linter.clangTidy.path" = clang-tidy-bin;
-        "c-cpp-linter.compiler.path" = "${shellPkgs.clang}/bin/clang++";
+        "c-cpp-linter.compiler.path" = "${llvm.clang}/bin/clang++";
         "c-cpp-linter.cppCheck.path" = "${shellPkgs.cppcheck}/bin/cppcheck";
         "c-cpp-linter.cppCheck.additionalFlags" = [
           "--std=${cpp-standard}"
