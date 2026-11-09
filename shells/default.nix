@@ -72,14 +72,19 @@ in
       root = "/home/kein/repos/" + repoName;
       cmakeSourceDirectory = root + "/src";
 
-      shellArgs.nativeBuildInputs = with shellPkgs; [
+      shellArgs.packages = with shellPkgs; [
         mpi
         adios2
       ];
-      shellArgs.buildInputs = with shellPkgs; [
-        mpi
-        adios2
-      ];
+    }
+  );
+
+  bocp-md = shells.mkCppShell (
+    finalContext: with finalContext; {
+      repoName = "bocp-md";
+      root = "/home/kein/Projects/" + repoName;
+      cmakeSourceDirectory = root;
+
       shellArgs.packages = with shellPkgs; [
         mpi
         adios2
