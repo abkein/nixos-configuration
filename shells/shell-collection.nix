@@ -66,11 +66,11 @@ rec {
       );
       yamlformat = shellPkgs.formats.yaml { };
       clangTidyConfFile = yamlformat.generate "${repoName}-clang-tidy" clangTidyConf;
-      llvm = shellPkgs.llvmPackages;
+      llvm = shellPkgs.llvmPackages_22;
     in
     {
       inherit llvm;
-      stdenv = shellPkgs.clangStdenv;
+      stdenv = llvm.stdenv;
       cpp-standard = "c++20";
 
       clang-tidy-bin = "${llvm.clang-tools}/bin/clang-tidy";
@@ -125,15 +125,20 @@ rec {
           "-cppcoreguidelines-avoid-magic-numbers"
           "-cppcoreguidelines-pro-bounds-pointer-arithmetic"
           "-cppcoreguidelines-non-private-member-variables-in-classes"
+          "-cppcoreguidelines-pro-bounds-avoid-unchecked-container-access"
+          "-cppcoreguidelines-pro-bounds-constant-array-index"
+          "-cppcoreguidelines-avoid-do-while"
           "-misc-non-private-member-variables-in-classes"
+          "-performance-avoid-endl"
         ];
+        ExtraArgsBefore = [ "-std=${cpp-standard}" ];
       };
 
       shellArgs = {
         packages =
           [ ]
           ++ (with shellPkgs; [
-            llvm.clang
+            # Prefer the tools that supply Nix's standard-library include paths.
             llvm.clang-tools
             cmake
             ninja
@@ -151,6 +156,9 @@ rec {
 
         "C_Cpp.default.cppStandard" = cpp-standard;
         "C_Cpp.codeAnalysis.clangTidy.path" = clang-tidy-bin;
+        # Preserve compiler flags such as -fopenmp when running clang-tidy.
+        "C_Cpp.default.compileCommands" = [ "${buildPath}/compile_commands.json" ];
+        "C_Cpp.codeAnalysis.clangTidy.useBuildPath" = true;
         "C_Cpp.default.cStandard" = "c23";
         "C_Cpp.default.intelliSenseMode" = "linux-clang-x64";
         "C_Cpp.clang_format_path" = "${llvm.clang-tools}/bin/clang-format";
@@ -160,6 +168,7 @@ rec {
         "cpplint.verbose" = 0;
 
         "clangd.enable" = false;
+        "clangd.path" = "${llvm.clang-tools}/bin/clangd";
 
         "c-cpp-flylint.standard" = [ cpp-standard ];
         "c-cpp-flylint.clang.executable" = "${llvm.clang}/bin/clang++";
