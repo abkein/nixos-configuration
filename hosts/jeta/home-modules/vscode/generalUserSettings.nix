@@ -168,6 +168,7 @@ mylib.flattenAttrsDot' (
       associations = mylib.flattenAttrsDot'.literal {
         "*.gpi" = "gnuplot";
         "*.in" = "lmps";
+        ".clang-tidy" = "yaml";
       };
       # exclude = mylib.flattenAttrsDot'.literal {
       #   "**/.trunk/*actions/" = true;
