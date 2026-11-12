@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   mylib,
@@ -213,9 +214,17 @@ mylib.flattenAttrsDot' (
     screencastMode.fontSize = 48;
     keyboard.dispatch = "keyCode";
     redhat.telemetry.enabled = false;
-    githubPullRequests.createOnPublishBranch = "never";
     dart.previewFlutterUiGuides = true;
-    security.workspace.trust.untrustedFiles = "open";
+
+    security.workspace.trust = {
+      untrustedFiles = "open";
+      startupPrompt = "once";
+    };
+
+    githubPullRequests = {
+      createOnPublishBranch = "never";
+      commentExpandState = "collapseAll";
+    };
 
     debug = {
       onTaskErrors = "abort";
@@ -250,16 +259,15 @@ mylib.flattenAttrsDot' (
       # inputFontSize = fontsize;
     };
 
-    "randomNameGen.DefaultCasing" = "PascalCase";
-    "randomNameGen.WordCount" = 1;
+    lammps = {
+      AutoComplete.Setting = "Extensive";
+      Hover.Detail = "Complete";
+    };
 
-    "lammps.AutoComplete.Setting" = "Extensive";
-    "lammps.Hover.Detail" = "Complete";
-
-    "remote.SSH.configFile" = "/home/kein/.ssh/config";
-    "remote.SSH.enableRemoteCommand" = true;
-
-    "todo-tree.ripgrep.ripgrep" = "${pkgs.ripgrep}/bin/rg";
+    remote.SSH = {
+      configFile = "${config.home.homeDirectory}/.ssh/config";
+      enableRemoteCommand = true;
+    };
 
     actionButtons = mylib.flattenAttrsDot'.literal {
       defaultColor = "#ff0034"; # Can also use string color names.
@@ -294,12 +302,15 @@ mylib.flattenAttrsDot' (
       ];
     };
 
-    "todo-tree.general.tags" = [
-      "BUG"
-      "FIXME"
-      "TODO"
-      "type= ignore"
-    ];
+    todo-tree = {
+      ripgrep.ripgrep = "${pkgs.ripgrep}/bin/rg";
+      general.tags = [
+        "BUG"
+        "FIXME"
+        "TODO"
+        "type= ignore"
+      ];
+    };
 
     # deepl = {
     #   formality = "default";
