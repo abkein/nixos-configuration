@@ -14,6 +14,7 @@ let
 in
 mylib.flattenAttrsDot' (
   {
+    redhat.telemetry.enabled = false;
     telemetry = {
       telemetryLevel = "off"; # default profile
       enableTelemetry = false; # default profile
@@ -32,25 +33,104 @@ mylib.flattenAttrsDot' (
       ignoreRecommendations = true;
     };
     chat = {
-      # disableAIFeatures = true;
-      artifacts.enabled = true;
-      autopilot.advanced.enabled = true;
-      checkpoints = {
-        enabled = true;
-        showFileChanges = true;
+      defaultToCopilotHarness = false;
+      editor = {
+        localAgent.enabled = true;
+        preferCopilotHarness = false;
       };
-      mcp.gallery.enabled = true;
+      # disableAIFeatures = true;
       # fontFamily = seriffont;
+      # fontSize = fontsize;
       # editor = {
       #   fontFamily = monofont;
       #   fontSize = fontsize;
       # };
-      contextUsage.enabled = true;
       agentHost = {
         enabled = true;
+        agentOrchestrationLimits = "on";
+        byokModels.enabled = false;
+        claudeAgent.enabled = false;
         codexAgent.enabled = true;
         agentDebugLog.enabled = true;
+        computerUse.enabled = true;
+        experimental = {
+          autoAttachPullRequests = true;
+          markdownPlanRichLinks = true;
+          mcpToolRouting = true;
+          systemProxy.enabled = true;
+        };
       };
+      agentMerge = {
+        enabled = true;
+        addressReviews = true;
+        fixCI = true;
+        replyAttribution = true;
+        resolveConflicts = true;
+      };
+      artifactIntegrations.enabled = true;
+      artifactTools.enabled = true;
+      canvases.enabled = true;
+      experimental.workspaceSnapshot = true;
+      stickyScroll.enabled = true;
+      agent = {
+        enabled = true;
+        networkFilter = false;
+        codeBlockProgress = true;
+        collapseCompletedResponses = false;
+      };
+      agentSessionProjection.enabled = true;
+      agentSessions.showExternal = "last30Days";
+      # agentsHandoffTip.mode = "default";
+      agentsWindowBanner = {
+        enabled = true;
+        developerMode = true;
+        revealCurrentSession = true;
+      };
+      artifacts.enabled = true;
+      autopilot.advanced.enabled = true;
+      autoReply = false;
+      btwTip.enabled = true;
+      checkpoints = {
+        enabled = true;
+        showFileChanges = true;
+      };
+      closedPromoNotification = "copilotIconPopup";
+      contextUsage.enabled = true;
+      customizations = {
+        locationsMigration.enabled = true;
+        marketplace.enabled = true;
+        mcpServerMigration.enabled = true;
+        migration.enabled = true;
+        promptMigration.enabled = true;
+        structuredPreview.enabled = true;
+        userDataMigration.enabled = true;
+      };
+      experimental = {
+        sessionStateIndicator.enabled = true;
+        stickyScroll.enabled = true;
+      };
+      experimentalModePermissionsPicker = true;
+      extensionTools.enabled = true;
+      extensionUnification.enabled = true;
+      math.enabled = true;
+      mcp = {
+        access = "all";
+        apps.enabled = true;
+        gallery.enabled = true;
+      };
+      microsoftAuthentication.enabled = "never";
+      plugins.enabled = true;
+      progressBorder.enabled = true;
+      requestQueuing.defaultAction = "steer";
+      restoreLastPanelSession = false;
+      tips.enabled = true;
+      viewProgressBadge.enabled = true;
+      viewSessions.enabled = true;
+    };
+
+    sessions = {
+      chat.unifiedWorkspacePicker.enabled = true;
+      chatTimeline.display = "gutter";
     };
 
     workbench = {
@@ -107,7 +187,13 @@ mylib.flattenAttrsDot' (
       smoothScrolling = true;
       stablePeek = true;
       tabCompletion = "on";
+      tabSize = 2;
       wordWrap = "on";
+      quickSuggestions = {
+        comments = "on";
+        strings = "on";
+        other = "on";
+      };
       # wrapOnEscapedLineFeeds = true;
       # aiStats.enabled = true;
       # experimentalGpuAcceleration = "on";
@@ -170,6 +256,7 @@ mylib.flattenAttrsDot' (
         "*.gpi" = "gnuplot";
         "*.in" = "lmps";
         ".clang-tidy" = "yaml";
+        ".clang-format" = "yaml";
       };
       # exclude = mylib.flattenAttrsDot'.literal {
       #   "**/.trunk/*actions/" = true;
@@ -203,17 +290,25 @@ mylib.flattenAttrsDot' (
     };
 
     markdown = {
-      preview.doubleClickToSwitchToEditor = true;
+      editor.quickSuggestion = true;
       occurrencesHighlight.enabled = true;
+      updateLinksOnFileMove.enabled = "prompt";
+      validate.enabled = true;
       preview = {
         fontFamily = seriffont;
-        fontSize = fontsize;
+        fontSize = fontsize + 2;
+        doubleClickToSwitchToEditor = true;
+        frontMatter = "table";
+      };
+      math = {
+        enabled = true;
+        # A collection of custom macros. Each macro is a key-value pair where the key is a new command name and the value is the expansion of the macro.
+        # macros = {};
       };
     };
 
     screencastMode.fontSize = 48;
     keyboard.dispatch = "keyCode";
-    redhat.telemetry.enabled = false;
     dart.previewFlutterUiGuides = true;
 
     security.workspace.trust = {

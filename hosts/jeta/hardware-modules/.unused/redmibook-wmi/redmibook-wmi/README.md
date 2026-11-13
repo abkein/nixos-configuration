@@ -1,1 +1,1 @@
-Borrowed from https://github.com/vrolife/modern_laptop
+Borrowed from <https://github.com/vrolife/modern_laptop>

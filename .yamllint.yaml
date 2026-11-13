@@ -1,0 +1,98 @@
+%YAML 1.2
+---
+rules:
+  anchors:
+    forbid-duplicated-anchors: true
+    forbid-undeclared-aliases: true
+    forbid-unused-anchors: false
+  braces:
+    forbid: false
+    max-spaces-inside: 1
+    max-spaces-inside-empty: 1
+    min-spaces-inside: 1
+    min-spaces-inside-empty: 1
+  brackets:
+    forbid: false
+    max-spaces-inside: 1
+    max-spaces-inside-empty: 1
+    min-spaces-inside: 1
+    min-spaces-inside-empty: 1
+  colons:
+    max-spaces-after: -1
+    max-spaces-before: 0
+  commas:
+    max-spaces-after: 1
+    max-spaces-before: 0
+    min-spaces-after: 1
+  comments:
+    ignore-shebangs: true
+    min-spaces-from-content: 2
+    require-starting-space: true
+  document-end:
+    present: true
+  document-start:
+    present: true
+  empty-lines:
+    max: 2
+    max-end: 1
+    max-start: 1
+  empty-values:
+    forbid-in-block-mappings: true
+    forbid-in-block-sequences: true
+    forbid-in-flow-mappings: true
+  float-values:
+    forbid-inf: false
+    forbid-nan: false
+    forbid-scientific-notation: false
+    require-numeral-before-decimal: true
+  hyphens:
+    max-spaces-after: 1
+  indentation:
+    check-multi-line-strings: true
+    indent-sequences: true
+    spaces: 2
+  key-duplicates:
+    forbid-duplicated-merge-keys: false
+  key-ordering: false
+  line-length:
+    allow-non-breakable-inline-mappings: false
+    allow-non-breakable-words: true
+    max: 120
+  new-line-at-end-of-file: enable
+  new-lines:
+    type: unix
+  octal-values:
+    forbid-explicit-octal: false
+    forbid-implicit-octal: true
+  quoted-strings:
+    allow-quoted-quotes: false
+    check-keys: false
+    extra-allowed: [ ]
+    extra-required: [ ]
+    quote-type: any
+    required: false
+  trailing-spaces: enable
+  # truthy:
+  #   check-keys: true
+  #   allowed-values:
+  #     - true
+  #     - false
+  #     # - TRUE
+  #     # - True
+  #     # - true
+  #     # - FALSE
+  #     # - False
+  #     # - false
+  #     # - YES
+  #     # - Yes
+  #     # - yes
+  #     # - NO
+  #     # - No
+  #     # - no
+  #     # - ON
+  #     # - On
+  #     # - on
+  #     # - OFF
+  #     # - Off
+  #     # - off
+...

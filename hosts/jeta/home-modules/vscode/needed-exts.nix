@@ -4,7 +4,7 @@ pkgs: {
     "jnoortheen.nix-ide"
     "mechatroner.rainbow-csv"
     "ms-vscode.atom-keybindings"
-    "thmsrynr.vscode-namegen" # possibly delete
+    # "thmsrynr.vscode-namegen" # possibly delete
     "michaelcurrin.auto-commit-msg"
     "gruntfuggly.todo-tree"
     "mkhl.direnv"
@@ -19,8 +19,21 @@ pkgs: {
     # "github.copilot-chat"
     # "Koda.koda"
     # "Continue.continue"
-    "davidanson.vscode-markdownlint"
+    # "davidanson.vscode-markdownlint"
     # "mpmischitelli.gtk-css" # waybar
+    "timonwong.shellcheck"
+    "mkhl.shfmt"
+    "tombi-toml.tombi"
+    "redhat.vscode-yaml"
+    "rvben.rumdl"
+
+    "ms-vscode.hexeditor"
+    "github.vscode-pull-request-github"
+    "github.vscode-github-actions"
+    "github.remotehub"
+    "redhat.vscode-xml"
+    # "mads-hartmann.bash-ide-vscode"
+    # "tamasfe.even-better-toml"
   ];
 
   LaTeX = [
@@ -71,16 +84,9 @@ pkgs: {
     # "cs128.cs128-clang-tidy"
   ];
 
-  dev = [
-    "ms-vscode.hexeditor"
-    "github.vscode-pull-request-github"
-    "github.vscode-github-actions"
-    "github.remotehub"
-    "mads-hartmann.bash-ide-vscode"
-    "redhat.vscode-xml"
-    "tamasfe.even-better-toml"
-    "thfriedrich.lammps"
-  ];
+  # dev = [
+  #   "thfriedrich.lammps"
+  # ];
 
   misc = [
     "coolbear.systemd-unit-file"

@@ -1,0 +1,152 @@
+[global]
+  line-length       = 120
+  respect-gitignore = false
+  cache             = false
+  editorconfig      = true
+  flavor            = "gfm"
+  # output-format = "full"
+  extend-enable     = [
+    "MD060",                 # table-format, table-cell-alignment, table-column-style
+    "MD063",                 # heading-capitalization
+    "MD070",                 # nested-code-fence
+    "MD073",                 # toc-validation
+    "MD080",                 # heading-anchor-collision
+    "MD082",                 # no-empty-sections
+    # "MD083", # mojibake
+    "MD084",                 # invisible-characters
+    "MD085",                 # paragraph-continuation-indent
+    "MD087",                 # unused-disable-comment
+    # "MD089", # cjk-spacing
+    "MD090",                 # no-hr-before-heading
+    "MD091",                 # ?no-markdown-in-html
+    "MD095",                 # link-confusables
+  ]
+  extend-disable    = [
+    "MD041",                 # first-line-heading, first-line-h1
+    "MD072",                 # frontmatter-key-sort
+    "MD088",                 # quotes-dashes
+    "MD093",                 # no-formatting-in-headings
+    "MD096",                 # table-sort
+  ]
+
+[per-file-flavor]
+  "**/*.mdx" = "mdx"
+
+[code-block-tools]
+  enabled                        = true
+  normalize-language             = "linguist"
+  on-error                       = "fail"
+  on-missing-language-definition = "ignore"
+  on-missing-language-tag        = "ignore"
+  on-unknown-language-tag        = "warn"
+  on-missing-tool-binary         = "fail"
+  on-missing-mode-definition     = "ignore"
+  on-no-tools-run                = "ignore"
+  # timeout = 30000
+
+  [code-block-tools.languages]
+    python   = { lint = [ "ruff:check" ], format = [ "ruff:format" ] }
+    shell    = { lint = [ "shellcheck" ], format = [ "shfmt" ] }
+    json     = { lint = [ "jq" ], format = [ "jq" ] }
+    toml     = { lint = [ "tombi:lint" ], format = [ "tombi:format" ] }
+    markdown = { lint = [ "rumdl:lint" ], format = [ "rumdl:format" ] }
+    yaml     = { lint = [ "yamllint" ] }
+    nix      = { format = [ "nixfmt" ] }
+    cpp      = { format = [ "clang-format" ] }
+
+  [code-block-tools.tools.yamllint]
+    command = [ "yamllint", "--strict", "-" ]
+    stdin   = true
+    stdout  = true
+
+[MD013]  # line-length
+  line-length              = 120
+  code-blocks              = false
+  code-spans               = false
+  tables                   = false
+  headings                 = true
+  math-blocks              = false
+  bracket-display-math     = false
+  paragraphs               = true
+  blockquotes              = true
+  strict                   = false
+  stern                    = false
+  ignore-link-urls         = false
+  heading-line-length      = 120
+  code-block-line-length   = 120
+  reflow                   = true
+  reflow-mode              = "default"  # "default", "normalize", "sentence-per-line", "sentence-pack", or "semantic-line-breaks"
+  length-mode              = "visual"   # How to count line length: "visual", "chars", or "bytes" (default: "visual")
+  # abbreviations = [ "Assn", "Univ" ]  # Add custom abbreviations for sentence-driven reflow modes
+  link-text-punctuation    = "ignore"
+  # break-words = [ "puisque", "porque" ]  # Add semantic break words for your project's prose
+  require-sentence-capital = true       # Require uppercase to start the next sentence (default: true)
+  atomic-spans             = true
+  reflow-break-link-text   = false
+  # reflow-sentence-double-space = false
+  reflow-break-code-spans  = false
+  reflow-length-exemptions = false
+  # cjk-soft-break = "space"  # How reflow joins a line break between two CJK characters: "space" or "join" (default: "space")
+
+[MD055]  # table-pipe-style
+  style = "leading-and-trailing"
+
+[MD057]  # existing-relative-links
+  absolute-links         = "ignore"   # Defaults to ignore
+  compact-paths          = true
+  self-referential-links = false      # Warns about a relative link that points at the file it is written in
+  # search-paths = ["assets", "images", "attachments"]
+  check-frontmatter      = true
+  # ignore-frontmatter-fields = ["image", "cover"]
+  severity               = "warning"
+
+[MD058]  # blanks-around-tables
+  minimum-before = 1
+  minimum-after  = 1
+
+[MD060]  # table-format, table-cell-alignment, table-column-style
+  enabled             = true
+  style               = "aligned"
+  max-width           = 150
+  column-align        = "left"
+  column-align-header = "left"
+  column-align-body   = "left"
+  loose-last-column   = true
+  aligned-delimiter   = true
+  pad-width           = 1
+
+[MD063]  # heading-capitalization
+  enabled                     = true
+  # lowercase-words             = [  ]
+  # ignore-words                = [  ]
+  style                       = "sentence-case"
+  preserve-cased-words        = true
+  sentence-case-restart-after = [ "." ]
+  min-level                   = 1
+  max-level                   = 3
+
+[MD072]  # frontmatter-key-sort
+  enabled = false
+
+[MD073]  # toc-validation
+  enabled       = true
+  min-level     = 2     # Default
+  max-level     = 4     # Default
+  enforce-order = true
+  indent        = 2     # MD007
+
+[MD080]  # heading-anchor-collision
+  anchor-style = "github"
+  # levels       = [ 1, 2, 3, 4, 5, 6 ] # Default
+
+[MD082]  # no-empty-sections
+  level                 = 1
+  allow-parent-headings = false
+  severity              = "warning"
+
+[MD084]  # invisible-characters
+  strict = true
+  # allow  = [  ]
+
+[MD096]  # table-sort
+  enabled = false
