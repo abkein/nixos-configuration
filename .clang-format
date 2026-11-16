@@ -1,0 +1,39 @@
+%YAML 1.2
+---
+Language:                             Cpp
+BasedOnStyle:                         LLVM
+AccessModifierOffset:                 -1
+AlignConsecutiveAssignments:
+  Enabled:                   true
+  AcrossEmptyLines:          false
+  AcrossComments:            false
+  AlignCompound:             true
+AlignConsecutiveDeclarations:         false
+AlignOperands:                        false
+AlignEscapedNewlines:                 Left
+AlignTrailingComments:                true
+AllowShortBlocksOnASingleLine:        true
+AlwaysBreakTemplateDeclarations:      Yes
+IndentPPDirectives:                   Leave
+AllowShortFunctionsOnASingleLine:     Inline
+AllowShortIfStatementsOnASingleLine:  WithoutElse
+AllowShortLambdasOnASingleLine:       None
+AllowShortLoopsOnASingleLine:         true
+BreakBeforeBraces:                    Custom
+BreakConstructorInitializers:         AfterColon
+BreakInheritanceList:                 AfterColon
+ColumnLimit:                          150
+IndentCaseLabels:                     true
+IndentWidth:                          2
+NamespaceIndentation:                 All
+ObjCBlockIndentWidth:                 2
+PenaltyBreakAssignment:               4
+ReflowComments:                       false
+SpaceAfterCStyleCast:                 true
+SpacesBeforeTrailingComments:         4
+SpacesInContainerLiterals:            false
+Standard:                             c++20
+TabWidth:                             2
+PointerAlignment:                     Left
+UseTab:                               Never
+...

@@ -7,6 +7,7 @@ TODO:
 3. Prometheus?
 
 Performance:
+
 - corefreq
 - ryzen-smu
 - cpupower (util)
@@ -15,12 +16,14 @@ Performance:
 - perf
 
 Security:
+
 - LKRG
 - tsme-test
 - chipsec
 - shufflecake
 
 Network
+
 - netatop-bpf + atop
 - BCC tcptop
 

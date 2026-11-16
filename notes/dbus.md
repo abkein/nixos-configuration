@@ -1,22 +1,25 @@
 ## Original issue
 
-The messages `dbus-broker-launch: Ignoring duplicate name` are caused by duplicate D-Bus activation service files, not by failing services.
+The messages `dbus-broker-launch: Ignoring duplicate name` are caused by duplicate D-Bus activation service files, not
+by failing services.
 
 Root cause:
 
-- The evaluated NixOS `services.dbus.packages` contains both `system-path` and the individual packages inside it, for example `networkmanager`, `iwd`, `bluez`, `upower`, `udisks`, `polkit`, `xdg-desktop-portal`, `thunar`, `gvfs`, etc.
+- The evaluated NixOS `services.dbus.packages` contains both `system-path` and the individual packages inside it, for
+  example `networkmanager`, `iwd`, `bluez`, `upower`, `udisks`, `polkit`, `xdg-desktop-portal`, `thunar`, `gvfs`, etc.
 - `/etc/dbus-1/system.conf` and `/etc/dbus-1/session.conf` therefore expose the same `.service` files through two paths:
   - merged profile path such as `/nix/store/...-system-path/share/dbus-1/...`
   - original package path such as `/nix/store/...-networkmanager-.../share/dbus-1/...`
 - `dbus-broker-launch` sees the same `Name=` twice and logs `Ignoring duplicate name ...` for the later copy.
 
-So these are mostly noise from Nix/NixOS profile composition. `dbus-broker` keeps one activation entry and ignores the duplicate.
+So these are mostly noise from Nix/NixOS profile composition. `dbus-broker` keeps one activation entry and ignores the
+duplicate.
 
 From docs
 
 > Subject: Invalid service file
 > Defined-By: dbus-broker
-> Support: https://groups.google.com/forum/#!forum/bus1-devel
+> Support: <https://groups.google.com/forum/#!forum/bus1-devel>
 >
 > A service file is a ini-type configuration file.
 >

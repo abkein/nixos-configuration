@@ -1,6 +1,3 @@
-# EditorConfig is awesome: https://editorconfig.org
-
-# top-most EditorConfig file
 root = true
 
 [*]
@@ -9,19 +6,22 @@ charset = utf-8
 indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
-
-# Matches multiple files with brace expansion notation
-# Set default charset
-# [*.{js,py}]
-
-[*.nix]
 indent_size = 2
 
-[*.{yml,yaml}]
-indent_size = 2
-
-[*.json]
-indent_size = 2
+[*.py]
+indent_size = 4
 
 [Makefile]
 indent_style = tab
+
+[[shell]]
+language_dialect   = bash
+simplify           = true
+binary_next_line   = false
+case_indent        = true
+space_redirects    = true
+block_next_line    = true
+minify             = false
+
+[*.{c,cpp,hpp,h}]
+indent_size =
