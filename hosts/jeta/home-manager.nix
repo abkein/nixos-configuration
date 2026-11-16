@@ -233,6 +233,12 @@ in
 
   stylix.targets.micro.enable = false;
   programs = {
+    element-desktop = {
+      enable = true;
+      package = pkgs.element-desktop.override {
+        commandLineArgs = "--password-store=gnome-libsecret --proxy-server=127.0.0.1:1080";
+      };
+    };
     btop.settings = {
       net_iface = "eth0";
       cpu_sensor = "thermal0/acpitz";
