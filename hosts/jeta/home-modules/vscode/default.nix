@@ -67,25 +67,25 @@ in
         extensions = builtins.concatLists (builtins.attrValues needed_extensions);
       };
       nix = {
-        extensions = needed_extensions.dev;
+        # extensions = needed_extensions.dev;
       };
       LaTeX = with needed_extensions; {
         extensions = LaTeX; # ++ python;
         userSettings = import ./latexSettings.nix args;
       };
       python = with needed_extensions; {
-        extensions = python ++ dev ++ [ "tomoki1207.pdf" ];
+        extensions = python ++ [ "tomoki1207.pdf" ];
         userSettings = import ./pythonSettings.nix args;
       };
       cpp = with needed_extensions; {
-        extensions = cpp ++ dev;
+        extensions = cpp;
         userSettings = import ./cppSettings.nix args;
       };
       ts = with needed_extensions; {
-        extensions = ts ++ dev;
+        extensions = ts;
       };
       remote = with needed_extensions; {
-        extensions = remote ++ dev;
+        extensions = remote;
       };
     };
 
