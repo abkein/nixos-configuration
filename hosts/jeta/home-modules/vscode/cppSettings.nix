@@ -44,8 +44,8 @@ mylib.flattenAttrsDot' {
   };
 
   clangd = {
-    enableCodeCompletion = false;
-    enableHover = false;
+    # enableCodeCompletion = false;
+    # enableHover = false;
     detectExtensionConflicts = false;
   };
 
