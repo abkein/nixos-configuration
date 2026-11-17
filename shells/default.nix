@@ -90,6 +90,11 @@ in
         adios2
         finalContext.llvm.openmp
       ];
+
+      cppcheckSuppressions = [
+        "missingIncludeSystem"
+        "objectIndex"
+      ];
     }
   );
 

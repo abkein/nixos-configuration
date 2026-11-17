@@ -71,7 +71,7 @@ rec {
     {
       inherit llvm;
       stdenv = llvm.stdenv;
-      cpp-standard = "c++20";
+      cpp-standard = "c++23";
 
       clang-tidy-bin = "${llvm.clang-tools}/bin/clang-tidy";
       cppcheckBuildDir = vscodeDir + "/.cppcheck";
@@ -167,7 +167,7 @@ rec {
         "cpplint.lineLength" = lineLength;
         "cpplint.verbose" = 0;
 
-        "clangd.enable" = false;
+        "clangd.enable" = true;
         "clangd.path" = "${llvm.clang-tools}/bin/clangd";
 
         "c-cpp-flylint.standard" = [ cpp-standard ];
@@ -199,7 +199,7 @@ rec {
 
         "cppcheck-official.path" = "${shellPkgs.cppcheck}/bin/cppcheck";
         "cppcheck-official.arguments" =
-          "--std=${cpp-standard} --platform=unix64 --force --check-level=exhaustive --cppcheck-build-dir=${cppcheckBuildDir} --suppressions-list=${cppcheckSupprPlainLoc} --verbose --project=${buildPath}/compile_commands.cppcheck.json";
+          "--safety --platform=unix64 --force --check-level=exhaustive --cppcheck-build-dir=${cppcheckBuildDir} --suppressions-list=${cppcheckSupprPlainLoc} --verbose --project=${buildPath}/compile_commands.cppcheck.json";
 
       };
 
