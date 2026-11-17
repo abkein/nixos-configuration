@@ -455,7 +455,7 @@ mylib.flattenAttrsDot' (
 
     "[nix]" = mylib.flattenAttrsDot'.literal { "editor.tabSize" = 2; };
     "[markdown]" = mylib.flattenAttrsDot'.literal {
-      "editor.defaultFormatter" = "yzhang.markdown-all-in-one";
+      "editor.defaultFormatter" = "rvben.rumdl";
     };
 
     # nixEnvSelector = {
