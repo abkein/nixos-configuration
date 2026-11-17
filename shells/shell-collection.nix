@@ -200,7 +200,6 @@ rec {
         "cppcheck-official.path" = "${shellPkgs.cppcheck}/bin/cppcheck";
         "cppcheck-official.arguments" =
           "--safety --platform=unix64 --force --check-level=exhaustive --cppcheck-build-dir=${cppcheckBuildDir} --suppressions-list=${cppcheckSupprPlainLoc} --verbose --project=${buildPath}/compile_commands.cppcheck.json";
-
       };
 
       shellHook = [
