@@ -24,7 +24,8 @@ final: prev:
         hash = "sha256-j1SrpUFgrtcv2pf43ZxRo3poYtMDQnWS3vmKkU5trE0=";
       };
     in
-    prev.wayprompt.overrideAttrs {
+    final.stdenv.mkDerivation {
+      pname = "wayprompt";
       inherit version src;
 
       nativeBuildInputs = with final; [
@@ -35,11 +36,29 @@ final: prev:
         scdoc
       ];
 
-      zigBuildFlags = [ ];
+      buildInputs = with final; [
+        fcft
+        libxkbcommon
+        pixman
+        wayland-protocols
+      ];
 
       preBuild = ''
         ln -sf "${deps}" "$ZIG_GLOBAL_CACHE_DIR/p"
       '';
+
+      postFixup = ''
+        substituteInPlace $out/bin/wayprompt-ssh-askpass \
+          --replace-fail wayprompt $out/bin/wayprompt
+      '';
+
+      meta = {
+        homepage = "https://git.mzte.de/LordMZTE/wayprompt";
+        description = "Multi-purpose (password-)prompt tool for Wayland";
+        license = final.lib.licenses.gpl3;
+        mainProgram = "pinentry-wayprompt";
+        platforms = final.lib.platforms.linux;
+      };
     };
   python3Packages = prev.python3Packages.overrideScope (
     pySelf: pySuper: {
