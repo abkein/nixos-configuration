@@ -60,6 +60,15 @@ final: prev:
   #   }
   # );
 
+  # Backport the Triton 3.9 compatibility fix until nixpkgs includes PR #589629.
+  rocmPackages = prev.rocmPackages.overrideScope (
+    _rocmFinal: rocmPrev: {
+      aotriton = rocmPrev.aotriton.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./aotriton/triton-3.9-composed-tensors.patch ];
+      });
+    }
+  );
+
   vscode-extensions = prev.vscode-extensions // {
     vscode-clang-tidy = import ./vscode-clang-tidy/vscode-clang-tidy.nix final;
     ms-vscode.cpptools = prev.vscode-extensions.ms-vscode.cpptools.overrideAttrs (old: {
