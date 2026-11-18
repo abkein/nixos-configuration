@@ -92,6 +92,12 @@
     };
   };
 
+  environment.variables = {
+    NH_OS_FLAKE = "${config.programs.nh.flake}#${config.networking.hostName}";
+    NH_PRESERVE_ENV = 1;
+    NH_SHOW_ACTIVATION_LOGS = 1;
+  };
+
   services = {
     locate = {
       enable = true;
