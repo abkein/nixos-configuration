@@ -214,7 +214,7 @@ mylib.flattenAttrsDot' (
       composerEnterBehavior = "cmdIfMultiline";
       followUpQueueMode = "steer";
       reviewDelivery = "detached";
-      cliExecutable = "${ipkgs.codex}/bin/codex";
+      cliExecutable = "${config.programs.codex.package}/bin/codex";
     };
     claudeCode = {
       disableLoginPrompt = true;
