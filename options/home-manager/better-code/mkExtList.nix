@@ -4,6 +4,9 @@ let
   inherit (lib) isDerivation isString;
   flat_extensions = lib.flatten needed_extensions;
 
+  # nix4vscode's matcher requires a patch component, but VS Code can use X.Y.
+  forVscode = pkgs.nix4vscode.forVscodeVersion (lib.versions.pad 3 pkgs.vscode.version);
+
   string_extensions = builtins.filter isString flat_extensions;
   raw_extensions = builtins.filter isDerivation flat_extensions;
 
@@ -36,10 +39,10 @@ let
   nix4vscode_extensions = map unparse_extension not_presentExtensions;
 in
 if nix4vscodeAlways then
-  ((pkgs.nix4vscode.forVscode string_extensions) ++ raw_extensions)
+  ((forVscode string_extensions) ++ raw_extensions)
 else
   (
     market_extensions
-    ++ (if nix4vscode_extensions == [ ] then [ ] else (pkgs.nix4vscode.forVscode nix4vscode_extensions))
+    ++ (if nix4vscode_extensions == [ ] then [ ] else (forVscode nix4vscode_extensions))
     ++ raw_extensions
   )
