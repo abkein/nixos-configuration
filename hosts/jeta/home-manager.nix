@@ -36,9 +36,12 @@ let
   #   '';
   #   inherit (ipkgs.chatgpt) meta passthru;
   # };
+  codex = ipkgs.codex.overrideAttrs (old: {
+    buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.libressl.dev ];
+  });
   wrappedCodex = pkgs.symlinkJoin {
-    name = "codex-${ipkgs.codex.version}";
-    paths = [ ipkgs.codex ];
+    name = "codex-${codex.version}";
+    paths = [ codex ];
     nativeBuildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/codex \
@@ -52,7 +55,7 @@ let
           ]
         }
     '';
-    inherit (ipkgs.codex) meta passthru;
+    inherit (codex) meta passthru;
   };
 in
 {
