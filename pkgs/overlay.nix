@@ -65,6 +65,10 @@ final: prev:
     _rocmFinal: rocmPrev: {
       aotriton = rocmPrev.aotriton.overrideAttrs (old: {
         patches = (old.patches or [ ]) ++ [ ./aotriton/triton-3.9-composed-tensors.patch ];
+        # Preserve Triton 3.9's default and avoid a warning for every kernel.
+        env = (old.env or { }) // {
+          TRITON_DEFAULT_FP_FUSION = "1";
+        };
       });
     }
   );
