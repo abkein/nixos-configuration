@@ -7,7 +7,6 @@
     ./proxychains.nix
     ./printing.nix
     ./fixes.nix
-    ./rocm.nix
     ./immich.nix
     # ./openssh.nix
     # ./syncthing.nix

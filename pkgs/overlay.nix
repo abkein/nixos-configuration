@@ -1,24 +1,46 @@
 final: prev:
-# let
-#   solo1-cli = prev.fetchFromGitHub {
-#     owner = "abkein";
-#     repo = "solo1-cli";
-#     rev = "ea8dc795729356eb421db5918b4392316ab90f77";
-#     hash = "sha256-nJ+2NWpRGyVz2mRNohOBR9DHYoTFjtD+rTTrr2WsY0w=";
-#   };
-# in
+let
+  #   solo1-cli = prev.fetchFromGitHub {
+  #     owner = "abkein";
+  #     repo = "solo1-cli";
+  #     rev = "ea8dc795729356eb421db5918b4392316ab90f77";
+  #     hash = "sha256-nJ+2NWpRGyVz2mRNohOBR9DHYoTFjtD+rTTrr2WsY0w=";
+  #   };
+  lib = final.lib;
+in
 {
   python3Packages = prev.python3Packages.overrideScope (
-    pySelf: pySuper: {
+    pyFinal: pyPrev:
+    let
+      migraphxProvider =
+        final.runCommand "migraphx-provider" { nativeBuildInputs = [ final.patchelf ]; }
+          ''
+            mkdir -p $out/lib
+            cp ${lib.getLib final.onnxruntime}/lib/libonnxruntime_providers_migraphx.so $out/lib/
+            chmod u+w $out/lib/libonnxruntime_providers_migraphx.so
+            patchelf --replace-needed libmigraphx_c.so.3 ${final.rocmPackages.migraphx}/lib/libmigraphx_c.so.3 \
+              $out/lib/libonnxruntime_providers_migraphx.so
+          '';
+    in
+    {
       # solo1-cli = pySelf.callPackage "${solo1-cli}/solo.nix" { };
 
-      keepassxc-proxy-client = pySelf.callPackage ./keepassxc-proxy-client.nix { };
-      jsonc-parser = pySelf.callPackage ./jsonc-parser.nix { };
-      crossrefapi = pySelf.callPackage ./crossrefapi.nix { };
-      lammps-logfile = pySelf.callPackage ./lammps-logfile.nix { };
-      pyalex = pySelf.callPackage ./pyalex.nix { };
+      keepassxc-proxy-client = pyFinal.callPackage ./keepassxc-proxy-client.nix { };
+      jsonc-parser = pyFinal.callPackage ./jsonc-parser.nix { };
+      crossrefapi = pyFinal.callPackage ./crossrefapi.nix { };
+      lammps-logfile = pyFinal.callPackage ./lammps-logfile.nix { };
+      pyalex = pyFinal.callPackage ./pyalex.nix { };
 
       # pyemf3 = pySelf.callPackage ./pyemf3.nix { };
+
+      onnxruntime = pyPrev.onnxruntime.overrideAttrs (oldOrt: {
+        # The Python wheel omits MIGraphX's provider. Both Immich and ONNX
+        # Runtime load it from capi/, so reuse the matching native library.
+        postInstall = (oldOrt.postInstall or "") + ''
+          ln -s ${migraphxProvider}/lib/libonnxruntime_providers_migraphx.so \
+            $out/${pyFinal.python.sitePackages}/onnxruntime/capi/libonnxruntime_providers_migraphx.so
+        '';
+      });
     }
   );
 
@@ -52,23 +74,27 @@ final: prev:
   #   typing-booster-unwrapped = final.callPackage ./ibus-typing-booster { };
   # };
 
-  # rocmPackages = prev.rocmPackages.overrideScope (
-  #   _rocmFinal: rocmPrev: {
-  #     clr = rocmPrev.clr.override { localGpuTargets = [ "gfx1103" ]; };
-  #     # Composable Kernel builds without a gfx9 target are marked broken.
-  #     miopen = rocmPrev.miopen.override { withComposableKernel = false; };
-  #   }
-  # );
-
-  # Backport the Triton 3.9 compatibility fix until nixpkgs includes PR #589629.
   rocmPackages = prev.rocmPackages.overrideScope (
     _rocmFinal: rocmPrev: {
+      clr = rocmPrev.clr.override { localGpuTargets = [ "gfx1103" ]; };
+      # Composable Kernel builds without a gfx9 target are marked broken.
+      miopen = rocmPrev.miopen.override { withComposableKernel = false; };
+      migraphx = rocmPrev.migraphx.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./migraphx/migraphx-protobuf.patch ];
+      });
       aotriton = rocmPrev.aotriton.overrideAttrs (old: {
+        # Backport the Triton 3.9 compatibility fix until nixpkgs includes PR #589629.
         patches = (old.patches or [ ]) ++ [ ./aotriton/triton-3.9-composed-tensors.patch ];
         # Preserve Triton 3.9's default and avoid a warning for every kernel.
         env = (old.env or { }) // {
           TRITON_DEFAULT_FP_FUSION = "1";
         };
+        # AOTriton 0.12b supports gfx1103, but the pinned nixpkgs gpuTargets
+        # filter omits it. Setting gpuTargets alone would select shim-only
+        # mode, so set the CMake target while retaining kernel image builds.
+        cmakeFlags =
+          builtins.filter (flag: !(lib.hasPrefix "-DAOTRITON_TARGET_ARCH:" flag)) old.cmakeFlags
+          ++ [ (lib.cmakeFeature "AOTRITON_TARGET_ARCH" "gfx1103") ];
       });
     }
   );
