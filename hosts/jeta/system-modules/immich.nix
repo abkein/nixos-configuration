@@ -30,7 +30,7 @@ let
 in
 {
   services.immich = {
-    enable = true;
+    enable = false;
     package = pkgs.immich.overrideAttrs (old: {
       passthru = old.passthru // {
         machine-learning =
