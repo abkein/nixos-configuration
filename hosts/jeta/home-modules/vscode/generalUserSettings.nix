@@ -38,7 +38,7 @@ mylib.flattenAttrsDot' (
         localAgent.enabled = true;
         preferCopilotHarness = false;
       };
-      # disableAIFeatures = true;
+      disableAIFeatures = true;
       # fontFamily = seriffont;
       # fontSize = fontsize;
       # editor = {
