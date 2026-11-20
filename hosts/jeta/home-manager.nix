@@ -36,27 +36,28 @@ let
   #   '';
   #   inherit (ipkgs.chatgpt) meta passthru;
   # };
-  codex = ipkgs.codex.overrideAttrs (old: {
-    buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.libressl.dev ];
-  });
-  wrappedCodex = pkgs.symlinkJoin {
-    name = "codex-${codex.version}";
-    paths = [ codex ];
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      wrapProgram $out/bin/codex \
-        --set all_proxy socks5h://127.0.0.1:1080 \
-        --set CODEX_MCP_NODE_PATH ${pkgs.nodejs}/bin/node \
-        --set RUST_LOG DEBUG \
-        --prefix PATH:${
-          lib.makeBinPath [
-            pkgs.nodejs
-            pkgs.bubblewrap
-          ]
-        }
-    '';
-    inherit (codex) meta passthru;
-  };
+  wrappedCodex =
+    let
+      codex = ipkgs.codex;
+    in
+    pkgs.symlinkJoin {
+      name = "codex-${codex.version}";
+      paths = [ codex ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/codex \
+          --set all_proxy socks5h://127.0.0.1:1080 \
+          --set CODEX_MCP_NODE_PATH ${pkgs.nodejs}/bin/node \
+          --set RUST_LOG DEBUG \
+          --prefix PATH:${
+            lib.makeBinPath [
+              pkgs.nodejs
+              pkgs.bubblewrap
+            ]
+          }
+      '';
+      inherit (codex) meta passthru;
+    };
 in
 {
   imports = [
