@@ -14,15 +14,21 @@ let
     shift
     shift
 
+    declare -i counter=0
+
     until ${config.programs.ssh.package}/bin/ssh-add -l &> /dev/null
     do
+      if [[ $counter -ge 10 ]]; then
+        break
+      fi
+      counter=$counter+1
       echo "Waiting for agent. Please unlock the database."
       ${pkgs.libnotify}/bin/notify-send --app-name="KeepassXC_SSH_prompt" "SSH: No keys were found" "Waiting for KeePassXC database unlock"
       ${config.programs.keepassxc.package}/bin/keepassxc &> /dev/null
-      sleep 1
+      sleep 5
     done
 
-    ${pkgs.netcat}/bin/nc "$@" "$host" "$port"
+    exec ${pkgs.netcat}/bin/nc "$@" "$host" "$port"
   '';
   mkProxyCommand =
     args:
