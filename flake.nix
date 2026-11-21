@@ -29,8 +29,10 @@
 
     nix4vscode = {
       url = "github:nix-community/nix4vscode";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.systems.follows = "systems";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
     };
 
     agenix = {
@@ -181,6 +183,14 @@
         pre-commit.follows = "pre-commit";
       };
     };
+
+    wayptompt = {
+      url = "git+https://git.mzte.de/LordMZTE/wayprompt.git";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "flake-utils";
+      };
+    };
   };
 
   outputs =
@@ -201,6 +211,7 @@
           litefind = litefind.packages.${system}.default;
           disko = disko.packages.${system}.disko;
           waybar = waybar.packages.${system}.waybar;
+          wayptompt = wayptompt.packages.${system}.default;
         }
         // (lib.optionalAttrs useAgenixRekey { agenix-rekey = agenix-rekey.packages.${system}.default; });
     in
@@ -254,6 +265,7 @@
                       (with inputs; [
                         nix4vscode.overlays.forVscode
                         nur.overlays.default
+                        wayptompt.overlays.default
                       ])
                       ++ [ self.overlays.default ];
                   };

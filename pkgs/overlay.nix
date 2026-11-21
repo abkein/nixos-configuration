@@ -8,58 +8,6 @@ final: prev:
 #   };
 # in
 {
-  wayprompt =
-    let
-      version = "0.1.2-mzte.2";
-      src = final.fetchFromGitea {
-        domain = "git.mzte.de";
-        owner = "LordMZTE";
-        repo = "wayprompt";
-        tag = "v${version}";
-        hash = "sha256-uVkeLJgvdc6c7xmNUdWlUS1f3fx8cCIV/raw2prP4O4=";
-      };
-      deps = final.zig_0_16.fetchDeps {
-        inherit version src;
-        pname = "wayprompt";
-        hash = "sha256-j1SrpUFgrtcv2pf43ZxRo3poYtMDQnWS3vmKkU5trE0=";
-      };
-    in
-    final.stdenv.mkDerivation {
-      pname = "wayprompt";
-      inherit version src;
-
-      nativeBuildInputs = with final; [
-        zig_0_16
-        pkg-config
-        wayland
-        wayland-scanner
-        scdoc
-      ];
-
-      buildInputs = with final; [
-        fcft
-        libxkbcommon
-        pixman
-        wayland-protocols
-      ];
-
-      preBuild = ''
-        ln -sf "${deps}" "$ZIG_GLOBAL_CACHE_DIR/p"
-      '';
-
-      postFixup = ''
-        substituteInPlace $out/bin/wayprompt-ssh-askpass \
-          --replace-fail wayprompt $out/bin/wayprompt
-      '';
-
-      meta = {
-        homepage = "https://git.mzte.de/LordMZTE/wayprompt";
-        description = "Multi-purpose (password-)prompt tool for Wayland";
-        license = final.lib.licenses.gpl3;
-        mainProgram = "pinentry-wayprompt";
-        platforms = final.lib.platforms.linux;
-      };
-    };
   python3Packages = prev.python3Packages.overrideScope (
     pySelf: pySuper: {
       # solo1-cli = pySelf.callPackage "${solo1-cli}/solo.nix" { };
