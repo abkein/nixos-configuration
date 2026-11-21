@@ -38,7 +38,7 @@ mylib.flattenAttrsDot' (
         localAgent.enabled = true;
         preferCopilotHarness = false;
       };
-      # disableAIFeatures = true;
+      disableAIFeatures = true;
       # fontFamily = seriffont;
       # fontSize = fontsize;
       # editor = {
@@ -210,18 +210,19 @@ mylib.flattenAttrsDot' (
       codeLensFontFamily = monofont;
     };
 
-    chatgpt = {
-      composerEnterBehavior = "cmdIfMultiline";
-      followUpQueueMode = "steer";
-      reviewDelivery = "detached";
-      cliExecutable = "${config.programs.codex.package}/bin/codex";
-    };
-    claudeCode = {
-      disableLoginPrompt = true;
-      preferredLocation = "sidebar";
-      claudeProcessWrapper = "claude";
-      useCtrlEnterToSend = true;
-    };
+    # chatgpt = {
+    #   composerEnterBehavior = "cmdIfMultiline";
+    #   followUpQueueMode = "steer";
+    #   reviewDelivery = "detached";
+    #   cliExecutable = "${config.programs.codex.package}/bin/codex";
+    # };
+
+    # claudeCode = {
+    #   disableLoginPrompt = true;
+    #   preferredLocation = "sidebar";
+    #   claudeProcessWrapper = "claude";
+    #   useCtrlEnterToSend = true;
+    # };
     # geminicodeassist = {
     #   inlineSuggestions.enableAuto = false;
     #   project = "someimportantproject";
