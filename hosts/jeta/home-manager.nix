@@ -140,6 +140,7 @@ in
       file-roller
       xdot
       graphviz
+      rom
 
       qpwgraph
 
